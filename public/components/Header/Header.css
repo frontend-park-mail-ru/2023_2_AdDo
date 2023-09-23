@@ -1,0 +1,84 @@
+
+.menu{
+    margin-left: 15%;
+    /* margin-right: 20vw; */
+    white-space: nowrap;
+}
+
+.menu__item{
+    display: inline-flex;
+    margin: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    word-wrap: break-word;
+    padding: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.logoText {
+    color: white;
+    font-size: 36px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+    display: inline;
+}
+
+/* .menuText{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word
+} */
+
+.search {
+    background-color: #0B1118;
+    display: flex;
+    width: 341px;
+    height: 48px;
+    padding: 0px 16px;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    border: 1px solid #FFF;
+    color: rgba(255, 255, 255, 0.40);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+.loginButton {
+    border: none; 
+    outline: none;
+    display: flex;
+    width: 103px;
+    height: 37px;
+    padding: 6px 27px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
+    color: #EAF1FB;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 30px;
+}
