@@ -4,7 +4,6 @@
     "cookie-parser": "^1.4.6",
     "debug": "^4.3.4",
     "express": "^4.18.2",
-    "express-handlebars": "^7.1.2",
     "handlebars": "^4.7.8",
     "morgan": "^1.10.0",
     "uuid": "^9.0.0"
@@ -15,7 +14,7 @@
   "scripts": {
     "prestart": "npm run compile:templates",
     "start": "node server/index.js",
-    "compile:templates": "handlebars public/components/Header/Header.hbs -f public/components/Header/Header.precompiled.js",
+    "compile:templates": "handlebars public/components/Header/Header.hbs -f public/components/Header/Header.precompiled.js; handlebars public/components/Feed/Feed.hbs -f public/components/Feed/Feed.precompiled.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

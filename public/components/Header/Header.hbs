@@ -1,21 +1,22 @@
 <ul class="menu">
+    <li class="menu__item">
+        <a href=""><img class="imgLogo" src="Logo.svg" alt=""></a>
+        <div class="logoText">MusicOn</div>    
+    </li>
     {{#each items}}
         <li class="{{this.className}}">
-            <a href="{{this.href}}" data-section="{{this.key}}">
-                {{#if this.flag}}
-                <img src="{{this.image}}" alt="" class="logo"> 
-                <span class="logoText">{{this.name}}</span>    
-                {{else}}
+            <a class="headera" href="{{this.href}}" data-section="{{this.key}}">
                 {{this.name}}
-                {{/if}}
             </a>
         </li>
     {{/each}}
+    <li class="menu__item"><img src="Loupe.svg" alt=""></li>
     <li class="menu__item">
         <form class="input_search"> 
             <input type="text" name="text" class="search" placeholder ="Введите название песни или альбома">
         </form>
     </li>
+    {{!-- проверка на авторизацию --}}
     <li class="menu__item">
         <button class="loginButton">Войти</button>
     </li>

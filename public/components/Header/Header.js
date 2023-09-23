@@ -1,4 +1,4 @@
-//import Handlebars from "handlebars";
+
 
 export class Header {
     #parent
@@ -15,12 +15,10 @@ export class Header {
 
     // Адаптер для удобства
     get items() {
-        return Object.entries(this.config).map(([key, { href, name, flag, image }]) => ({
+        return Object.entries(this.config).map(([key, { href, name}]) => ({
             key,
             href,
             name, 
-            flag,
-            image
         }));
     }
 
@@ -34,21 +32,5 @@ export class Header {
         })
 
         this.#parent.innerHTML = template({items});
-    }
-
-    renderDOM() {
-        this.items.map(({key, href, name}, index) => {
-            const menuElement = document.createElement('a');
-            menuElement.href = href;
-            menuElement.textContent = name;
-            menuElement.dataset.section = key;
-            menuElement.classList.add('menu__item');
-
-            this.state.menuElements[key] = menuElement;
-
-            return menuElement;
-        }).forEach(element => {
-            this.#parent.appendChild(element);
-        })
     }
 }

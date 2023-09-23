@@ -1,0 +1,86 @@
+
+main{
+    margin-top: 80px;
+    margin-left: 20%;
+    margin-right: 10%;
+    padding: 0;
+}
+
+.feed{
+    white-space: nowrap;
+    padding: 0px;
+}
+
+.feeda:hover {
+    color: #C15DF3;
+}
+
+.content{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+}
+
+.content__item{
+    list-style-type: none;
+    width: 200px;
+    margin-right: 50px;
+}
+.content__item:hover {
+    color: #C15DF3;
+}
+
+.contentPhoto {
+    width: 200px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.feed__item{
+    display: inline-flex;
+    margin: 10px;
+}
+
+.songName {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    margin: 0;
+}
+.songName:hover {
+    color:#C15DF3;
+}
+
+.artistName {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: left;
+    margin: 0;
+}
+
+.artistName:hover {
+    color:#C15DF3;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    word-wrap: break-word;
+    padding: 10px;
+}
+
+.feedText {
+    padding-left: 15px;
+    color: white;
+    font-size: 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}

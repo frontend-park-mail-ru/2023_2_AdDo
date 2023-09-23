@@ -8,20 +8,13 @@ const uuid = require('uuid').v4;
 const path = require('path');
 const app = express();
 const port = 3000;
-//const handlebars = require('express-handlebars');
 
-//app.set('views engine', 'handlebars');
-
-// app.engine('handlebars', handlebars({
-//     layoutDir: `${__dirname}/views/layouts`
-// }))
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(express.static(path.resolve(__dirname, 'images')));
 app.use(express.static(path.resolve(__dirname, '..', 'node_modules')));
 app.use(body.json());
 app.use(cookie());
-
 const users = {
     'd.dorofeev@corp.mail.ru': {
         email: 'd.dorofeev@corp.mail.ru',
