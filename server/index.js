@@ -101,7 +101,7 @@ app.get('/me', (req, res) => {
     res.json(users[email]);
 });
 
-app.get('/feed', (req, res) => {
+app.get('/asd', (req, res) => {
     const id = req.cookies['podvorot'];
     const emailSession = ids[id];
     if (!emailSession || !users[emailSession]) {
@@ -117,6 +117,24 @@ app.get('/feed', (req, res) => {
 
     res.json(result.flat());
 });
+
+app.get('/feed', (req, res) => {
+    const id = req.cookies['podvorot'];
+    const emailSession = ids[id];
+    if (!emailSession || !users[emailSession]) {
+        return res.status(401).end();
+    }
+    
+    const result = Object
+        .values(users)
+        .filter(({email}) => email !== emailSession)
+        .map(user => user.images)
+        .filter(Boolean)
+    ;
+
+    res.json(result.flat());
+});
+
 
 
 app.listen(port, function () {

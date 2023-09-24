@@ -1,7 +1,7 @@
 
 .menu{
     margin-left: 20%;
-    margin-right: 10%;
+    margin-right: 20%;
     list-style: none;
     padding: 0px;
     display: flex;
@@ -20,6 +20,11 @@
     color:#C15DF3;
 }
 
+.active {
+    font-weight: bold;
+    color:#C15DF3;
+}
+
 .imgLogo {
     width: 85px;
     height: 85px;
@@ -27,6 +32,9 @@
 }
 
 .logoText {
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
     color: white;
     font-size: 36px;
     font-family: 'Lato', sans-serif;
@@ -58,7 +66,7 @@
     display: flex;
     width: 103px;
     height: 37px;
-    padding: 6px 27px;
+    padding: 6px 24px;
     gap: 10px;
     border-radius: 10px;
     background: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
@@ -71,4 +79,36 @@
 
 .loginButton:hover {
     background: linear-gradient(90deg, #372F5F 0%, #AE54DB 100%);
+}
+
+.loginButton:active {
+    background: linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
+    box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
+    transform: translateY(2px);
+}
+
+
+.signupButton {
+    border: none; 
+    outline: none;
+    display: flex;
+    width: 200px;
+    height: 37px;
+    padding: 6px 24px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #2B76DA 0%, #C15DF3 100%);
+    color: #EAF1FB;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.signupButton:hover {
+    background: linear-gradient(90deg, #1A4783 0%, #AE54DB 100%);
+}
+
+.signupButton:active {
+    background: linear-gradient(90deg, #133562 0%, #9A4AC2 100%);
+    box-shadow: 0 5px linear-gradient(90deg, #133562 0%, #9A4AC2 100%);;
+    transform: translateY(2px);
 }

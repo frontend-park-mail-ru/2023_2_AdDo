@@ -1,10 +1,8 @@
-
-
-export class Header {
+export class Login {
     #parent
     #config
 
-    constructor(parent, config, loginBtn) {
+    constructor(parent, config) {
         this.#parent = parent;
         this.#config = config;
     }
@@ -14,23 +12,21 @@ export class Header {
     }
 
     get items() {
-        return Object.entries(this.config).map(([key, { href, name}]) => ({
+        return Object.entries(this.config).map(([key, { type, name}]) => ({
             key,
-            href,
-            name,
+            type,
+            name, 
         }));
     }
 
-
     render() {
-        const template = Handlebars.templates['Header.hbs'];
+        const template = Handlebars.templates['Login.hbs'];
 
         const items = this.items.map((element, index) => {
-            let className = 'menu__item';
+            let className = 'login__input';
             return {...element, className};
         })
 
         this.#parent.innerHTML = template({items});
-
     }
 }

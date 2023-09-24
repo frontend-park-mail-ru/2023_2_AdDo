@@ -1,5 +1,7 @@
 @import './components/Header/Header.css';
 @import './components/Feed/Feed.css';
+@import './components/Login/Login.css';
+@import './components/SignUp/SignUp.css';
 @import url('https://fonts.cdnfonts.com/css/source-sans-pro');
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
 
@@ -21,6 +23,8 @@ body {
     grid-area: header;
 }
 
+
+
 h1 {
     color: white;
     font-family: 'Lato', sans-serif;
@@ -41,6 +45,19 @@ h2 {
 
 main {
     grid-area: content;
+}
+
+input:focus {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #FFF; 
+    color: #ECCDFB;
+
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 }
 
 .headerText {

@@ -1,26 +1,30 @@
-<ul class="menu">
-    <li class="menu__item">
-        <a href=""><img class="imgLogo" src="Logo.svg" alt=""></a>
-        <div class="logoText">MusicOn</div>    
-    </li>
-    {{#each items}}
-        <li class="{{this.className}}">
-            <a class="headera" href="{{this.href}}" data-section="{{this.key}}">
-                {{this.name}}
-            </a>
+
+
+<div class="asd">
+    <ul class="menu">
+        <li class="menu__item">
+            <a href=""><img class="imgLogo" src="Logo.svg" alt=""></a>
+            <div class="logoText">MusicOn</div>    
         </li>
-    {{/each}}
-    <li class="menu__item"><img src="Loupe.svg" alt=""></li>
-    <li class="menu__item">
-        <form class="input_search"> 
-            <input type="text" name="text" class="search" placeholder ="Введите название песни или альбома">
-        </form>
-    </li>
-    {{!-- проверка на авторизацию --}}
-    <li class="menu__item">
-        <button class="loginButton">Войти</button>
-    </li>
-</ul>
+        {{#each items}}
+            <li class="{{this.className}}">
+                <a class="headera" href="{{this.href}}" name="{{this.href}}" data-section="{{this.key}}">
+                    {{this.name}}
+                </a>
+            </li>
+        {{/each}}
+        <li class="menu__item"><img src="Loupe.svg" alt=""></li>
+        <li class="menu__item">
+            <form class="input_search"> 
+                <input type="text" name="text" class="search" placeholder ="Введите название песни или альбома">
+            </form>
+        </li>
+        {{!-- проверка на авторизацию --}}
+        <li class="menu__item">
+            <a href="login" name="/login" ><button name="/login" class="loginButton">Войти</button></a>
+        </li>
+    </ul>
+</div>
 
 
 
