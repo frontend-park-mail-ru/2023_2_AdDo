@@ -46,6 +46,8 @@ const signup = new Signup(pageElement, SignUpConfig);
 renderFeed();
 
 
+
+
 function renderFeed() {
     header.render();
     feed.render();
@@ -53,11 +55,30 @@ function renderFeed() {
 
 function renderSignUp() {
     signup.render();
+    const signupForm = document.querySelector('form');
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+    const username = loginForm.username.value;
+    const password = loginForm.password.value;
+
+    // тут должен быть асинхронный пост запрос на бек сделаю позже)
+ 
+    });     
 }
 
 
 function renderLogin() {
     login.render();
+    const loginForm = document.querySelector('form');
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+    const username = loginForm.username.value;
+    const password = loginForm.password.value;
+
+    // тут должен быть асинхронный пост запрос на бек сделаю позже)
+ 
+    });      
 }
 
 function renderPodcasts() {

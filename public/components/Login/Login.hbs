@@ -10,7 +10,7 @@
         <form method="post">
             {{#each items}}
             <li class="login__item">
-                <input class="{{this.className}}" type="{{this.type}}" placeholder="{{this.name}}" required >
+                <input class="{{this.className}}" name="{{this.name}}" type="{{this.type}}" placeholder="{{this.name}}" required >
             </li> 
             {{/each}}
             <li class="login__item">
