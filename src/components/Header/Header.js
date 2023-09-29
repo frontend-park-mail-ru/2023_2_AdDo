@@ -1,4 +1,5 @@
-
+import Handlebars from 'handlebars';
+import template from './Header.hbs';
 
 export class Header {
     #parent
@@ -21,16 +22,12 @@ export class Header {
         }));
     }
 
-
-    render() {
-        const template = Handlebars.templates['Header.hbs'];
-
+    render(isAuth) {
         const items = this.items.map((element, index) => {
             let className = 'menu__item';
             return {...element, className};
         })
 
-        this.#parent.innerHTML = template({items});
-
+        this.#parent.innerHTML = template({items, isAuth});
     }
 }

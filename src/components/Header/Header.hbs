@@ -1,9 +1,7 @@
-
-
 <div class="asd">
     <ul class="menu">
         <li class="menu__item">
-            <a href=""><img class="imgLogo" src="Logo.svg" alt=""></a>
+            <a href=""><img class="imgLogo" src="./static/img/Logo.svg" alt=""></a>
             <div class="logoText">MusicOn</div>    
         </li>
         {{#each items}}
@@ -19,14 +17,19 @@
                 <input type="text" name="text" class="search" placeholder ="Введите название песни или альбома">
             </form>
         </li>
-        {{!-- проверка на авторизацию --}}
+        {{#if isAuth}}
+        <li class="menu__item">
+            <div class="profile">
+                <a href="/profile"><img class="imgAvatar" src="worm.jpg" alt=""></a>
+                <a class="signout" href="/signout" name="/signout">
+                    Выйти
+                </a>
+            </div>
+        </li>
+        {{else}}
         <li class="menu__item">
             <a href="login" name="/login" ><button name="/login" class="loginButton">Войти</button></a>
         </li>
+        {{/if}}
     </ul>
 </div>
-
-
-
-
-

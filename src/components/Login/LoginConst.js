@@ -1,10 +1,12 @@
 export const LoginConfig = {
     EmailInput: {
         type: 'email',
-        name: 'Имя пользователя',
+        text: 'Имя пользователя',
+        name: 'email',
     },
     PasswordInput: {
         type: 'password',
-        name: 'Пароль',
+        text: 'Пароль',
+        name: 'password',
     },
 }

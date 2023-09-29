@@ -1,7 +1,7 @@
 
-main {
-    background-image: url("loginBackground.png");
-}
+/* main {
+    background-image: url('../../static/img/loginBackground.png');
+} */
 
 .container {
     display: flex;

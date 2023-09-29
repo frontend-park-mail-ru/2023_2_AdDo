@@ -3,24 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>MusicOn</title>
-    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
     <div id="root">
     </div>
-    <script src="handlebars.runtime.js"></script>
-    <!-- Без импорта handlebars.runtime.js не сработает. Файл появляется после компиляции -->
-    <script type="module" src="./components/Header/Header.js"></script>
-    <script type="module" src="./components/Feed/Feed.js"></script>
-    <script type="module" src="./components/Login/Login.js"></script>
-    <script type="module" src="./components/SignUp/SignUp.js"></script>
-    <script src="./modules/ajax.js"></script>
-    <script src="./components/Header/Header.precompiled.js"></script>
-    <script src="./components/Feed/Feed.precompiled.js"></script>
-    <script src="./components/Login/Login.precompiled.js"></script>
-    <script src="./components/SignUp/SignUp.precompiled.js"></script>
-    <!-- Без type="module" нельзя будет использовать import/export внутри -->
-    <script type="module" src="./index.js"></script>
-    <!-- <script type="module" src="../dist/index_bundle.js"></script> -->
+
+    <script src="./bundle.js"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+import Handlebars from 'handlebars'
+import template from './Feed.hbs';
 
 export class Feed {
     #parent
@@ -38,8 +40,6 @@ export class Feed {
     }
 
     render() {
-        const template = Handlebars.templates['Feed.hbs'];
-
         const items = this.items.map((element, index) => {
             let className = 'feed__item';
             return {...element, className};

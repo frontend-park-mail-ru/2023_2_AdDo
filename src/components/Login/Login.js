@@ -1,4 +1,7 @@
-export class Signup {
+import Handlebars from 'handlebars'
+import template from './Login.hbs';
+
+export class Login {
     #parent
     #config
 
@@ -12,18 +15,17 @@ export class Signup {
     }
 
     get items() {
-        return Object.entries(this.config).map(([key, { type, name}]) => ({
+        return Object.entries(this.config).map(([key, {type, text, name}]) => ({
             key,
             type,
+            text,
             name, 
         }));
     }
 
     render() {
-        const template = Handlebars.templates['SignUp.hbs'];
-
         const items = this.items.map((element, index) => {
-            let className = 'Signup__input';
+            let className = 'login__input';
             return {...element, className};
         })
 

@@ -23,56 +23,56 @@ export const FeedConfig = {
             artistHref: '/feed/Mayot',
             name: 'Оба',
             artist: 'Mayot',
-            image: 'both.jpg'
+            image: './static/img/both.jpg'
         },
         second: {
             albumHref: '/feed/Fantasy_mixtape_vol.1',
             artistHref: '/feed/Skryptonite',
             name: 'Fantasy mixtape, vol.1',
             artist: 'Скриптонит',
-            image: 'skryp.jpg',
+            image: './static/img/skryp.jpg',
         },
         third: {
             albumHref: '/feed/LONG_LIVE_812',
             artistHref: '/feed/ALBLAK_52',
             name: 'LONG LIVE 812',
             artist: 'ALBLAK 52',
-            image: 'long live.jpg'
+            image: './static/img/long live.jpg'
         },
         fourth: {
             albumHref: '/feed/PUSSY_BOY',
             artistHref: '/feed/ЕГОР_КРИД',
             name: 'PUSSY BOY',
             artist: 'ЕГОР КРИД',
-            image: 'Pussy_Boy.png'
+            image: './static/img/Pussy_Boy.png'
         },
         fifth: {
             albumHref: '/feed/JAZZ_DO_IT',
             artistHref: '/feed/Toxi$',
             name: 'JAZZ DO IT',
             artist: 'Toxi$',
-            image: 'Jazz do it.png'
+            image: './static/img/Jazz do it.png'
         },
         sixth: {
             albumHref: '/feed/Sense_Of_Human',
             artistHref: '/feed/Markul',
             name: 'Sense Of Human',
             artist: 'Markul',
-            image: 'sense of human.png'
+            image: './static/img/sense of human.png'
         },
         seventh: {
             albumHref: '/feed/california_rocket_fuel_pt_1',
             artistHref: '/feed/Bumble_Beezy',
             name: 'california rocket fuel: pt. 1',
             artist: 'Bumble Beezy',
-            image: 'california.jpg'
+            image: './static/img/california.jpg'
         },
         eighth: {
             albumHref: '/feed/PHILARMONIA',
             artistHref: '/feed/PHARAOH',
             name: 'PHILARMONIA',
             artist: 'PHARAOH',
-            image: 'PHILARMONIA.png'
+            image: './static/img/PHILARMONIA.png'
         },
     },
 }

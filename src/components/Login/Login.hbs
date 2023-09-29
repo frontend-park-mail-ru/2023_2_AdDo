@@ -3,14 +3,14 @@
     <ul class="login">
          <div class="container">
             <li class="login__item">
-            <a name="/feed" href=""><img class="imgLogo" src="Logo.svg" alt=""></a>
+            <a name="/feed" href=""><img class="imgLogo" src="./static/img/Logo.svg" alt=""></a>
             <div class="logoText">MusicOn</div>    
             </li>
          </div>
         <form method="post">
             {{#each items}}
             <li class="login__item">
-                <input class="{{this.className}}" name="{{this.name}}" type="{{this.type}}" placeholder="{{this.name}}" required >
+                <input class="{{this.className}}" name="{{this.name}}" type="{{this.type}}" placeholder="{{this.text}}" required >
             </li> 
             {{/each}}
             <li class="login__item">

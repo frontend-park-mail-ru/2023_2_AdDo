@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
 
 body {
-    background-image: url("background.png");
+    background-image: url("../../static/img/background.png");
 }
 
 #root {
@@ -15,7 +15,6 @@ body {
     grid-template-areas:
         "header"
         "content";
-
     grid-template-rows: 90px 1fr;
 }
 

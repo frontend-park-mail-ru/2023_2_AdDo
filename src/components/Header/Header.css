@@ -31,6 +31,13 @@
     background-color: linear-gradient(180deg, #C15DF3 0%, #572A6D 100%);
 }
 
+.imgAvatar {
+    border-radius: 50px;
+    width: 70px;
+    height: 70px;
+    background-color: linear-gradient(180deg, #C15DF3 0%, #572A6D 100%);
+}
+
 .logoText {
     padding-bottom: 10px;
     padding-right: 10px;
@@ -111,4 +118,18 @@
     background: linear-gradient(90deg, #133562 0%, #9A4AC2 100%);
     box-shadow: 0 5px linear-gradient(90deg, #133562 0%, #9A4AC2 100%);;
     transform: translateY(2px);
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    width: 108px;
+}
+
+.signout {
+    width: 108px;
+}
+
+.signout:hover {
+    color:#C15DF3;
 }

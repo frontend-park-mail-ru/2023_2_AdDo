@@ -35,6 +35,7 @@ main{
     width: 200px;
     margin-bottom: 10px;
     float: left;
+    border-radius: 10px;
 }
 
 .feed__item{
