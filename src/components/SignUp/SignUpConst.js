@@ -1,7 +1,12 @@
 export const SignUpConfig = {
+    UsernameInput: {
+        type: 'username',
+        text: 'Имя пользователя',
+        name: 'username',
+    },
     EmailInput: {
         type: 'email',
-        text: 'Имя пользователя',
+        text: 'Email',
         name: 'email',
     },
     PasswordInput: {
@@ -13,5 +18,10 @@ export const SignUpConfig = {
         type: 'password',
         text: 'Повторите пароль',
         name: 'passwordCheck',
+    },
+    DateInput: {
+        type: 'date',
+        text: 'asd',
+        name: 'date',
     },
 }

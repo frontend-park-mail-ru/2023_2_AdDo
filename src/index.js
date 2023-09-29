@@ -80,6 +80,8 @@ function renderSignUp() {
         const email = signupForm.elements.email.value;
         const password = signupForm.elements.password.value;
         const passwordCheck = signupForm.elements.passwordCheck.value;
+        const birthDate = signupForm.elements.date.value;
+        const username = signupForm.elements.username.value;
         if (password == passwordCheck) {
             document.querySelector('[name="passcheck"]').style = 'visibility: hidden';
             signupForm.elements.password.style = 'border-color: #FFFFFF';
@@ -87,7 +89,7 @@ function renderSignUp() {
 
             Ajax.post({
                 url: host + port + '/sign_up',
-                body: { username: email, password },
+                body: { email, username, password, birthDate },
             })
                 .then(({ status, parsedJson }) => {
                     if (status === 200) {
