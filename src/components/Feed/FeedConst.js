@@ -41,7 +41,7 @@ export const FeedConfig = {
 			artistHref: '/feed/ALBLAK_52',
 			name: 'LONG LIVE 812',
 			artist: 'ALBLAK 52',
-			image: './static/img/long live.jpg'
+			image: './static/img/long_live.jpg'
 		},
 		fourth: {
 			albumHref: '/feed/PUSSY_BOY',
@@ -55,14 +55,14 @@ export const FeedConfig = {
 			artistHref: '/feed/Toxi$',
 			name: 'JAZZ DO IT',
 			artist: 'Toxi$',
-			image: './static/img/Jazz do it.png'
+			image: './static/img/Jazz_do_it.png'
 		},
 		sixth: {
 			albumHref: '/feed/Sense_Of_Human',
 			artistHref: '/feed/Markul',
 			name: 'Sense Of Human',
 			artist: 'Markul',
-			image: './static/img/sense of human.png'
+			image: './static/img/sense_of_human.png'
 		},
 		seventh: {
 			albumHref: '/feed/california_rocket_fuel_pt_1',
