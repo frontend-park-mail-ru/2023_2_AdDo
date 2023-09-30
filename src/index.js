@@ -13,7 +13,7 @@ import './index.css';
  * @constant
     @type {string}
 */
-const HOST = 'http://82.146.45.164';
+const HOST = 'https://82.146.45.164';
 
 /** 
  * @constant
