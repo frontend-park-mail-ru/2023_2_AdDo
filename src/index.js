@@ -77,7 +77,7 @@ function renderFeed() {
 	})
 		.then(({ status, parsedJson }) => {
 			if (status === 200) {
-				if (parsedJson.id) {
+				if (parsedJson.Id) {
 					isAuth = true;
 				}
 				return;
@@ -116,7 +116,7 @@ function renderSignUp() {
 				.then(({ status, parsedJson }) => {
 					if (status === 200) {
 						isAuth = true;
-						localStorage.setItem('id', parsedJson.id);
+						localStorage.setItem('id', parsedJson.Id);
 						goToPage(document.getElementsByName('/feed')[0]);
 						return;
 					} else if (status >= 400) {
@@ -154,7 +154,7 @@ function renderLogin() {
 		})
 			.then(({ status, parsedJson }) => {
 				if (status === 200) {
-					localStorage.setItem('id', parsedJson.id);
+					localStorage.setItem('id', parsedJson.Id);
 					isAuth = true;
 					goToPage(document.getElementsByName('/feed')[0]);
 					return;
