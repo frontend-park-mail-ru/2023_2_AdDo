@@ -13,7 +13,7 @@ import './index.css';
  * @constant
     @type {string}
 */
-const HOST = 'https://82.146.45.164';
+const HOST = 'http://82.146.45.164';
 
 /** 
  * @constant
@@ -80,12 +80,26 @@ function renderFeed() {
 				if (parsedJson.Id) {
 					isAuth = true;
 				}
+				window.Ajax.get({
+					url: HOST + PORT + '/api/v1/music?id=' + localStorage.getItem('id'),
+				})
+					.then(({ status, parsedJson }) => {
+						if (status === 200) {
+							if (parsedJson.Id) {
+								isAuth = true;
+							}
+							header.render(isAuth);
+							feed.render();
+							return;
+						}
+					});
+				header.render(isAuth);
+				feed.render();
 				return;
 			}
-			alert('Ошибка при регистрации!');
 		});
-	header.render(isAuth);
-	feed.render();
+
+	
 }
 
 /**
