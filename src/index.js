@@ -117,10 +117,10 @@ function renderSignUp() {
 					if (status === 200) {
 						isAuth = true;
 						localStorage.setItem('id', parsedJson.Id);
-						goToPage(document.getElementsByName('/feed')[0]);
+						goToPage(document.querySelector('[data-section="/feed"]'));
 						return;
 					} else if (status >= 400) {
-						goToPage(document.getElementsByName('/feed')[0]);
+						goToPage(document.querySelector('[data-section="/feed"]'));
 						return;
 					}
 					alert('Ошибка при регистрации!');
@@ -156,7 +156,7 @@ function renderLogin() {
 				if (status === 200) {
 					localStorage.setItem('id', parsedJson.Id);
 					isAuth = true;
-					goToPage(document.getElementsByName('/feed')[0]);
+					goToPage(document.querySelector('[data-section="/feed"]'));
 					return;
 				}
 				alert('Неверное имя пользователя или пароль!');
@@ -190,7 +190,7 @@ function renderSignout() {
 			if (status === 200) {
 				isAuth = false;
 				localStorage.setItem('id', null);
-				goToPage(document.getElementsByName('/feed')[0]);
+				goToPage(document.querySelector('[data-section="/feed"]'));
 				return;
 			}
 			console.log(parsedJson.err);
