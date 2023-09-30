@@ -83,6 +83,9 @@ function renderFeed() {
 				header.render(isAuth);
 				feed.render();
 				return;
+			} else {
+				header.render(isAuth);
+				feed.render();
 			}
 		});
 
