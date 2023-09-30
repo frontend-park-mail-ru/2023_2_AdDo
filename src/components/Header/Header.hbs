@@ -6,29 +6,29 @@
         </li>
         {{#each items}}
             <li class="{{this.className}}">
-                <a class="headera" href="{{this.href}}" name="{{this.href}}" data-section="{{this.key}}">
+                <a class="headera" href="{{this.href}}" data-section="{{this.href}}">
                     {{this.name}}
                 </a>
             </li>
         {{/each}}
-        <li class="menu__item"><img src="Loupe.svg" alt=""></li>
+        <li class="menu__item"><img src="./static/img/Loupe.svg" alt=""></li>
         <li class="menu__item">
             <form class="input_search"> 
-                <input type="text" name="text" class="search" placeholder ="Введите название песни или альбома">
+                <input type="text" data-section="text" class="search" placeholder ="Введите название песни или альбома">
             </form>
         </li>
         {{#if isAuth}}
         <li class="menu__item">
             <div class="profile">
                 <a href="/profile"><img class="imgAvatar" src="worm.jpg" alt=""></a>
-                <a class="signout" href="/signout" name="/signout">
+                <a class="signout" href="/signout" data-section="/signout">
                     Выйти
                 </a>
             </div>
         </li>
         {{else}}
         <li class="menu__item">
-            <a href="login" name="/login" ><button name="/login" class="loginButton">Войти</button></a>
+            <a href="login" data-section="/login" ><button class="loginButton" data-section="/login">Войти</button></a>
         </li>
         {{/if}}
     </ul>

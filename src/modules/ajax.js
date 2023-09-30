@@ -1,50 +1,69 @@
 // Демонстрация модулей на IIFE. Это устаревшая концепция, но прекрасно работает до сих пор
 (function () {
-    const AJAX_METHODS = {
-        GET: "GET",
-        POST: "POST",
-    };
+	
+	/**
+	*  @constant
+	*  @type {Object}
+	*/
+	const AJAX_METHODS = {
+		GET: 'GET',
+		POST: 'POST',
+	};
 
-    const noop = () => { };
+	/** Class representing Ajax module. */
+	class Ajax {
 
-    class Ajax {
-        async get(params = {}) {
-            const response = await fetch(params.url, {
-                method: AJAX_METHODS.GET,
-                mode: "cors",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                },
-            });
+		/**
+		 * Makes get request.
+		 * @async
+		 * @function get
+		 * @param {Object} params
+		 * @return {Object} status and parsedJson
+		 */
+		async get(params = {}) {
+			const response = await fetch(params.url, {
+				method: AJAX_METHODS.GET,
+				mode: 'cors',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json; charset=utf-8',
+				},
+			});
 
-            const parsedBody = await response.json();
+			const parsedBody = await response.json();
 
-            return {
-                status: response.status,
-                parsedJson: parsedBody,
-            };
-        }
+			return {
+				status: response.status,
+				parsedJson: parsedBody,
+			};
+		}
 
-        async post(params = {}) {
-            const response = await fetch(params.url, {
-                method: AJAX_METHODS.POST,
-                credentials: "include",
-                mode: 'cors',
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                },
-                body: JSON.stringify(params.body),
-            });
+		/**
+		 * Makes post request.
+		 * @async
+		 * @function post
+		 * @param {Object} params
+		 * @return {Object} status and parsedJson
+		 */
+		async post(params = {}) {
+			const response = await fetch(params.url, {
+				method: AJAX_METHODS.POST,
+				credentials: 'include',
+				mode: 'cors',
+				headers: {
+					'Content-Type': 'application/json; charset=utf-8',
+				},
+				body: JSON.stringify(params.body),
+			});
  
-            const parsedBody = await response.json();
+			const parsedBody = await response.json();
 
-            return {
-                status: response.status,
-                parsedJson: parsedBody,
-            };
-        }
-    }
+			return {
+				status: response.status,
+				parsedJson: parsedBody,
+			};
+		}
+	}
 
-    window.Ajax = new Ajax();
+	window.Ajax = new Ajax();
 })();

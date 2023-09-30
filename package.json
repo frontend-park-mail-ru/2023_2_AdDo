@@ -3,6 +3,7 @@
     "body-parser": "^1.20.0",
     "cookie-parser": "^1.4.6",
     "debug": "^4.3.4",
+    "eslint-config-airbnb": "^19.0.4",
     "express": "^4.18.2",
     "fs.promises": "^0.1.2",
     "handlebars": "^4.7.8",
@@ -18,7 +19,8 @@
     "startServer": "node Testserver/index.js",
     "build": "webpack --config webpack/webpack.dev.js",
     "start": "webpack-dev-server --open --config webpack/webpack.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:fix": "eslint --fix src "
   },
   "keywords": [],
   "author": "wmai",
@@ -37,6 +39,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
+    "eslint": "^8.50.0",
     "file-loader": "^6.2.0",
     "handlebars-loader": "^1.7.3",
     "html-loader": "^4.2.0",

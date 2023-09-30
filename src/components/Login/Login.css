@@ -5,8 +5,7 @@
 
 .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content:center;
 }
 .login {
     display: flexbox;
@@ -40,7 +39,7 @@
 }
 
 .SubmitLoginButton {
-    margin-top: 50px;
+    margin-top: 25px;
     margin-bottom: 25px;
     border: none; 
     outline: none;
