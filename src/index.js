@@ -13,7 +13,7 @@ import './index.css';
  * @constant
     @type {string}
 */
-const HOST = 'http://82.146.45.164';
+const HOST = 'https://musicon.space';
 
 /** 
  * @constant
@@ -75,21 +75,16 @@ function renderFeed() {
 	window.Ajax.get({
 		url: HOST + PORT + '/api/v1/auth?id=' + localStorage.getItem('id'),
 	})
-		.then(({ status, parsedJson }) => {
+		.then(({ status }) => {
 			if (status === 200) {
-				if (parsedJson.Id) {
-					isAuth = true;
-				}
-				header.render(isAuth);
-				feed.render();
-				return;
-			} else {
-				header.render(isAuth);
-				feed.render();
-			}
+				isAuth = true;
+			}	
+		})
+		.catch((error) => {
+			throw error;
 		});
-
-	
+	header.render(isAuth);
+	feed.render();
 }
 
 /**
@@ -128,6 +123,9 @@ function renderSignUp() {
 						return;
 					}
 					alert('Ошибка при регистрации!');
+				})
+				.catch((error) => {
+					throw error;
 				});
 		} else {
 			document.querySelector('[name="passcheck"]').style = 'visibility: visible';
@@ -164,6 +162,9 @@ function renderLogin() {
 					return;
 				}
 				alert('Неверное имя пользователя или пароль!');
+			})
+			.catch((error) => {
+				throw error;
 			});
 	});
 }
@@ -199,6 +200,9 @@ function renderSignout() {
 			}
 			console.log(parsedJson.err);
 			alert('Неверное имя пользователя или пароль!');
+		})
+		.catch((error) => {
+			throw error;
 		});
 }
 
