@@ -130,9 +130,11 @@ function renderSignUp() {
 						localStorage.setItem('id', parsedJson.Id);
 						goToPage(document.querySelector('[data-section="/feed"]'));
 						return;
-					} else if (status >= 400) {
-						goToPage(document.querySelector('[data-section="/feed"]'));
+					} else if (status === 400) {
+						alert('Неверно введены данные: \n имя пользователя(от 2 до 30 символов) \n пароль(от 6 до 30 символов)');
 						return;
+					} else if (status === 409) {
+						alert('Пользователь с такой почтой уже существует');
 					}
 					alert('Ошибка при регистрации!');
 				})
@@ -232,10 +234,11 @@ function goToPage(Link) {
 	}
 }
 
-menuElement.addEventListener('click', (e) => {
+rootElement.addEventListener('click', (e) => {
 	const { target } = e;
 
 	if (target.getAttribute('data-section') === '/signout') {
+		e.preventDefault();
 		renderSignout();
 		return;
 	}
