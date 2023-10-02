@@ -12,10 +12,9 @@ export class Feed {
      * @param {Object} configFeed 
 	 * @param {Object} configContent 
      */
-	constructor(parent, configFeed, configContent) {
+	constructor(parent, configFeed) {
 		this.#parent = parent;
 		this.#configFeed = configFeed;
-		this.#configContent = configContent;
 	}
 
 	/**
@@ -55,11 +54,6 @@ export class Feed {
      * @return {Object} content.
      */
 	get content() {
-		// let a = Object.entries(this.configContent);
-		// console.log(a);
-		// a.map(([key, {name, }]) => ({
-
-		// }));
 		return Object.entries(this.configContent).map(([key, { Name, Artist, Album, Preview, Content}]) => ({
 			key,
 			Name,

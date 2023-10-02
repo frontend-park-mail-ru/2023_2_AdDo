@@ -60,7 +60,7 @@ rootElement.appendChild(menuElement);
 rootElement.appendChild(pageElement);
 
 const header = new Header(menuElement, HeaderConfig);
-let feed = new Feed(pageElement, FeedConfig.feed, FeedConfig.content);
+let feed = new Feed(pageElement, FeedConfig.feed);
 const login = new Login(pageElement, LoginConfig);
 const signup = new Signup(pageElement, SignUpConfig);
 let isAuth = false;
@@ -88,15 +88,15 @@ function renderFeed() {
 	})
 		.then(({ status, parsedJson }) => {
 			if (status === 200) {
-				console.log(parsedJson);
-				feed.configContent(parsedJson);
+				feed.configContent = parsedJson;
+				header.render(isAuth);
+				feed.render();
+				return;
 			}
 		})
 		.catch((error) => {
 			throw error;
 		});
-	header.render(isAuth);
-	feed.render();
 }
 
 /**
