@@ -201,13 +201,13 @@ function renderCollection() {
 function renderSignout() {
 	window.Ajax.post({
 		url: HOST + PORT + '/api/v1/logout',
-		body: {id: localStorage.getItem('id')}
+		body: {Id: parseInt(localStorage.getItem('id'))} 
 	})
 		.then(({ status, parsedJson }) => {
 			if (status === 200) {
 				isAuth = false;
 				localStorage.setItem('id', null);
-				goToPage(document.querySelector('[data-section="/feed"]'));
+				goToPage(document.querySelector('[data-section="/feed"]'));	
 				return;
 			}
 			console.log(parsedJson.err);

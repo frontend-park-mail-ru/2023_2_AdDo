@@ -30,7 +30,11 @@
 				},
 			});
 
-			const parsedBody = await response.json();
+			const parsedBody = null;
+
+			if(response.body !== null) {
+				parsedBody = await response.json();
+			}
 
 			return {
 				status: response.status,
@@ -55,14 +59,19 @@
 				},
 				body: JSON.stringify(params.body),
 			});
- 
-			const parsedBody = await response.json();
+			
+			const parsedBody = null;
 
+			if(response.body !== null) {
+				parsedBody = await response.json();
+			}
+			
 			return {
 				status: response.status,
 				parsedJson: parsedBody,
 			};
 		}
+
 	}
 
 	window.Ajax = new Ajax();
