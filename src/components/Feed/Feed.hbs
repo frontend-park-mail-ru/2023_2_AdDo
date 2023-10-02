@@ -15,11 +15,11 @@
 <ul class="content">
     {{#each content}}
         <li class="{{this.className}}">
-            <a href="{{this.albumHref}}" >
-                <img class="contentPhoto" src="{{this.image}}" alt="1">
-                <p class="songName">{{this.name}}</p>
+            <a href="" >
+                <img class="contentPhoto" src="{{this.Preview}}" alt="1">
+                <p class="songName">{{this.Name}}</p>
             </a>
-            <a href="{{this.artistHref}}" ><p class="artistName">{{this.artist}}</p></a>
+            <a href="" ><p class="artistName">{{this.Artist.Name}}</p></a>
         </li>
     {{/each}}   
 </ul>

@@ -60,7 +60,7 @@ rootElement.appendChild(menuElement);
 rootElement.appendChild(pageElement);
 
 const header = new Header(menuElement, HeaderConfig);
-const feed = new Feed(pageElement, FeedConfig.feed, FeedConfig.content);
+let feed = new Feed(pageElement, FeedConfig.feed, FeedConfig.content);
 const login = new Login(pageElement, LoginConfig);
 const signup = new Signup(pageElement, SignUpConfig);
 let isAuth = false;
@@ -79,6 +79,18 @@ function renderFeed() {
 			if (status === 200) {
 				isAuth = true;
 			}	
+		})
+		.catch((error) => {
+			throw error;
+		});
+	window.Ajax.get({
+		url: HOST + PORT + '/api/v1/music'
+	})
+		.then(({ status, parsedJson }) => {
+			if (status === 200) {
+				console.log(parsedJson);
+				feed.setConfigContent(parsedJson);
+			}
 		})
 		.catch((error) => {
 			throw error;

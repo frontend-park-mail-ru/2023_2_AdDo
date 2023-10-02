@@ -34,6 +34,10 @@ export class Feed {
 		return this.#configContent;
 	}
 
+	set setConfigContent(config) {
+		this.#configContent = config;
+	}
+
 	/**
      * Get the items.
      * @return {Object} items.
@@ -51,13 +55,18 @@ export class Feed {
      * @return {Object} content.
      */
 	get content() {
-		return Object.entries(this.configContent).map(([key, { albumHref, artistHref, name, artist, image}]) => ({
+		// let a = Object.entries(this.configContent);
+		// console.log(a);
+		// a.map(([key, {name, }]) => ({
+
+		// }));
+		return Object.entries(this.configContent).map(([key, { Name, Artist, Album, Preview, Content}]) => ({
 			key,
-			albumHref,
-			artistHref,
-			name,
-			artist,
-			image,
+			Name,
+			Artist,
+			Album,
+			Preview,
+			Content
 		}));
 	}
 
