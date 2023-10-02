@@ -13,13 +13,13 @@ import './index.css';
  * @constant
     @type {string}
 */
-const HOST = 'https://musicon.space';
+const HOST = 'http://82.146.45.164';
 
 /** 
  * @constant
     @type {string}
 */
-const PORT = '';
+const PORT = ':8080';
 
 /** 
 * @constant
