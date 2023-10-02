@@ -203,15 +203,14 @@ function renderSignout() {
 		url: HOST + PORT + '/api/v1/logout',
 		body: {Id: parseInt(localStorage.getItem('id'))} 
 	})
-		.then(({ status, parsedJson }) => {
+		.then(({ status }) => {
 			if (status === 200) {
 				isAuth = false;
 				localStorage.setItem('id', null);
-				goToPage(document.querySelector('[data-section="/feed"]'));	
+				menuElement.innerHTML = '';
+				header.render(isAuth);
 				return;
 			}
-			console.log(parsedJson.err);
-			alert('Неверное имя пользователя или пароль!');
 		})
 		.catch((error) => {
 			throw error;
@@ -233,11 +232,17 @@ function goToPage(Link) {
 	}
 }
 
-rootElement.addEventListener('click', (e) => {
+menuElement.addEventListener('click', (e) => {
 	const { target } = e;
+
+	if (target.getAttribute('data-section') === '/signout') {
+		renderSignout();
+		return;
+	}
 
 	if (target instanceof HTMLAnchorElement || (target instanceof HTMLButtonElement && target.getAttribute('data-section') === '/login')) {
 		e.preventDefault();
 		goToPage(e.target);
+		return;
 	}
 });
