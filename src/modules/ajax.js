@@ -30,10 +30,11 @@
 				},
 			});
 
-			const parsedBody = null;
-
-			if(response.body !== null) {
+			let parsedBody = null;
+			try {
 				parsedBody = await response.json();
+			} catch (e) {
+				console.log("response.body is empty!")
 			}
 
 			return {
@@ -60,10 +61,11 @@
 				body: JSON.stringify(params.body),
 			});
 			
-			const parsedBody = null;
-
-			if(response.body !== null) {
+			let parsedBody = null;
+			try {
 				parsedBody = await response.json();
+			} catch (e) {
+				console.log("response.body is empty!")
 			}
 			
 			return {
