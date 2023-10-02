@@ -19,7 +19,7 @@ const HOST = 'https://musicon.space';
  * @constant
     @type {string}
 */
-const PORT = ':8080';
+const PORT = '';
 
 /** 
 * @constant
@@ -89,7 +89,7 @@ function renderFeed() {
 		.then(({ status, parsedJson }) => {
 			if (status === 200) {
 				console.log(parsedJson);
-				feed.setConfigContent(parsedJson);
+				feed.configContent(parsedJson);
 			}
 		})
 		.catch((error) => {

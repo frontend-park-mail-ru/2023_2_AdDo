@@ -34,7 +34,7 @@ export class Feed {
 		return this.#configContent;
 	}
 
-	set setConfigContent(config) {
+	set configContent(config) {
 		this.#configContent = config;
 	}
 
