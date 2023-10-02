@@ -1,4 +1,3 @@
-// Демонстрация модулей на IIFE. Это устаревшая концепция, но прекрасно работает до сих пор
 (function () {
 	
 	/**
@@ -34,7 +33,7 @@
 			try {
 				parsedBody = await response.json();
 			} catch (e) {
-				console.log("response.body is empty!")
+				console.log('response.body is empty!');
 			}
 
 			return {
@@ -65,7 +64,7 @@
 			try {
 				parsedBody = await response.json();
 			} catch (e) {
-				console.log("response.body is empty!")
+				console.log('response.body is empty!');
 			}
 			
 			return {
