@@ -8,7 +8,7 @@ http
 
     var filePath = "." + request.url;
     if (filePath == "./") {
-      filePath = "./dist/index.html";
+      filePath = "./index.html";
     }
 
     var extname = String(path.extname(filePath)).toLowerCase();

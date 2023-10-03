@@ -13,7 +13,7 @@ export class Feed extends Component{
      */
 	constructor(parent, configFeed) {
 		super(parent, configFeed);
-		this.#port = ':9000';
+		this.#port = 'http://82.146.45.164:9000';
 	}
 
 	/**
@@ -48,7 +48,7 @@ export class Feed extends Component{
 	}
 
 	/**
-    * Render header.
+    * Render Feed.
     */
 	render() {
 		const items = this.items.map((element) => {
@@ -58,11 +58,12 @@ export class Feed extends Component{
 
 		const content = this.content.map((element) => {
 			let className = 'contentItem';
-			return {...element, className};
+			let port = this.#port;
+			return {...element, className, port};
 		});
 
-		const port = this.#port;
 
-		this.$parent.innerHTML = template({items, content, port});
+
+		this.$parent.innerHTML = template({items, content});
 	}
 }
