@@ -1,25 +1,25 @@
 <div class="container">
     <ul class="signup">
          <div class="container">
-            <li class="login__item">
+            <li class="loginItem">
             <a data-section="/feed" href=""><img class="imgLogo" src="./static/img/Logo.svg" alt=""></a>
             <div class="logoText">MusicOn</div>    
             </li>
          </div>
         <form method="post">
             {{#each items}}
-            <li class="login__item">
+            <li class="loginItem">
                 <input class="{{this.className}}" type="{{this.type}}" name="{{this.name}}" placeholder="{{this.text}}" required >
             </li> 
             {{/each}}
-            <li class="login__item">
+            <li class="loginItem">
                 <div class="passcheck" name="passcheck" >Пароли не совпадают!</div>
             </li>
-            <li class="login__item">
+            <li class="loginItem">
                 <button class="SubmitLoginButton" data-section="/feed" type="submit">Зарегистрироваться</button>
             </li>
         </form>
-        <li class="login__item">
+        <li class="loginItem">
             <div class="yet">
             Уже есть учетная запись?
             <a data-section="/login" class="yeta" href="/login">Войдите</a>

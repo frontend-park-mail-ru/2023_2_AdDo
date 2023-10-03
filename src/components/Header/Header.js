@@ -1,49 +1,17 @@
 import template from './Header.hbs';
+import { Component } from '../Component';
 
 /** Class representing a Header. */
-export class Header {
-	#parent;
-	#config;
-
-	/**
-     * Sets parent and config.
-     * @param {HTMLElement} parent
-     * @param {Object} config 
-     */
-	constructor(parent, config) {
-		this.#parent = parent;
-		this.#config = config;
-	}
-
-	/**
-     * Get the config.
-     * @return {Object} config.
-     */
-	get config() {
-		return this.#config;
-	}
-
-	/**
-     * Get the items.
-     * @return {Object} items.
-     */
-	get items() {
-		return Object.entries(this.config).map(([key, { href, name}]) => ({
-			key,
-			href,
-			name,
-		}));
-	}
-
+export class Header extends Component{
 	/**
     * Render header.
     */
 	render(isAuth) {
 		const items = this.items.map((element) => {
-			let className = 'menu__item';
+			let className = 'menuItem';
 			return {...element, className};
 		});
 
-		this.#parent.innerHTML = template({items, isAuth});
+		this.$parent.innerHTML = template({items, isAuth});
 	}
 }

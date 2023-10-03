@@ -7,7 +7,7 @@
     display: flex;
 }
 
-.menu__item{
+.menuItem{
     font-size: 24px;
     display: flex;
     text-decoration: none;

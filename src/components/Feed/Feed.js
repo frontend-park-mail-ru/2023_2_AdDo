@@ -1,11 +1,10 @@
 import template from './Feed.hbs';
+import { Component } from '../Component';
 
 /** Class representing a Feed. */
-export class Feed {
-	#parent;
-	#configFeed;
+export class Feed extends Component{
 	#configContent;
-
+	#port;
 	/**
      * Sets parent and config.
      * @param {HTMLElement} parent
@@ -13,16 +12,8 @@ export class Feed {
 	 * @param {Object} configContent 
      */
 	constructor(parent, configFeed) {
-		this.#parent = parent;
-		this.#configFeed = configFeed;
-	}
-
-	/**
-     * Get the configFeed.
-     * @return {Object} configFeed.
-     */
-	get configFeed() {
-		return this.#configFeed;
+		super(parent, configFeed);
+		this.#port = ':9000';
 	}
 
 	/**
@@ -33,20 +24,12 @@ export class Feed {
 		return this.#configContent;
 	}
 
+	/**
+     * Set the configContent.
+     * @param {Object} configContent.
+     */
 	set configContent(config) {
 		this.#configContent = config;
-	}
-
-	/**
-     * Get the items.
-     * @return {Object} items.
-     */
-	get items() {
-		return Object.entries(this.configFeed).map(([key, { href, name}]) => ({
-			key,
-			href,
-			name, 
-		}));
 	}
 
 	/**
@@ -69,15 +52,17 @@ export class Feed {
     */
 	render() {
 		const items = this.items.map((element) => {
-			let className = 'feed__item';
+			let className = 'feedItem';
 			return {...element, className};
 		});
 
 		const content = this.content.map((element) => {
-			let className = 'content__item';
+			let className = 'contentItem';
 			return {...element, className};
 		});
 
-		this.#parent.innerHTML = template({items, content});
+		const port = this.#port;
+
+		this.$parent.innerHTML = template({items, content, port});
 	}
 }

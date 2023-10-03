@@ -14,7 +14,7 @@
     margin: 0;
 }
 
-.login__input {
+.loginInput {
     background-color: #0F0F0F;
     display: flex;
     width: 368px;
@@ -31,7 +31,7 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.login__item {
+.loginItem {
     vertical-align: middle;
     margin: 15px;
     align-items: center;

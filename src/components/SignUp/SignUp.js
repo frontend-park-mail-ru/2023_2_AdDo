@@ -1,34 +1,14 @@
 import template from './SignUp.hbs';
+import { Component } from '../Component';
 
 /** Class representing a SignUp. */
-export class Signup {
-	#parent;
-	#config;
-
-	/**
-     * Sets parent and config.
-     * @param {HTMLElement} parent
-     * @param {Object} config 
-     */
-	constructor(parent, config) {
-		this.#parent = parent;
-		this.#config = config;
-	}
-
-	/**
-     * Get the config.
-     * @return {Object} config.
-     */
-	get config() {
-		return this.#config;
-	}
-
+export class Signup extends Component{
 	/**
      * Get the items.
      * @return {Object} items.
      */
 	get items() {
-		return Object.entries(this.config).map(([key, {type, text, name}]) => ({
+		return Object.entries(this.$config).map(([key, {type, text, name}]) => ({
 			key,
 			type,
 			text,
@@ -41,10 +21,10 @@ export class Signup {
      */
 	render() {
 		const items = this.items.map((element) => {
-			let className = 'Signup__input';
+			let className = 'signupInput';
 			return {...element, className};
 		});
 
-		this.#parent.innerHTML = template({items});
+		this.$parent.innerHTML = template({items});
 	}
 }

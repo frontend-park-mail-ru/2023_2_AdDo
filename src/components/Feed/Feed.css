@@ -22,12 +22,12 @@ main{
     padding: 0px;
 }
 
-.content__item{
+.contentItem{
     list-style-type: none;
     width: 200px;
     margin-right: 50px;
 }
-.content__item:hover {
+.contentItem:hover {
     color: #C15DF3;
 }
 
@@ -38,7 +38,7 @@ main{
     border-radius: 10px;
 }
 
-.feed__item{
+.feedItem{
     display: inline-flex;
     margin: 10px;
 }
