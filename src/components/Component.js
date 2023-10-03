@@ -7,8 +7,9 @@ export class Component {
      * @param {HTMLElement} parent
      * @param {Object} config 
      */
-	constructor(parent) {
+	constructor(parent, config) {
 		this.$parent = parent;
+        this.$config = config;
 	}
 
 	/**

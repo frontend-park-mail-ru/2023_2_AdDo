@@ -1,13 +1,10 @@
 {
   "dependencies": {
     "eslint-config-airbnb": "^19.0.4",
-    "express": "^4.18.2",
     "fs.promises": "^0.1.2",
     "handlebars": "^4.7.8",
-    "morgan": "^1.10.0",
     "postcss-js": "^4.0.1",
-    "postcss-preset-env": "^9.1.4",
-    "uuid": "^9.0.0"
+    "postcss-preset-env": "^9.1.4"
   },
   "name": "addo",
   "version": "1.0.0",
