@@ -51,6 +51,7 @@
 }
 
 .search {
+    visibility: hidden;
     background-color: #0F0F0F;
     display: flex;
     width: 341px;
@@ -132,4 +133,8 @@
 
 .signout:hover {
     color:#C15DF3;
+}
+
+.magnifyingGlass{
+    visibility: hidden;
 }

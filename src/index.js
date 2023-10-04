@@ -119,7 +119,7 @@ function renderSignUp() {
 			document.querySelector('[name="passcheck"]').style = 'visibility: hidden';
 			signupForm.elements.password.style = 'border-color: #FFFFFF';
 			signupForm.elements.passwordCheck.style = 'border-color: #FFFFFF';
-
+			signupForm.elements.username.style = 'border-color: #FFFFFF';
 			window.Ajax.post({
 				url: HOST + PORT + '/api/v1/sign_up',
 				body: { email, username, password, birthDate },
@@ -131,6 +131,11 @@ function renderSignUp() {
 						goToPage(document.querySelector('[data-section="/feed"]'));
 						return;
 					} else if (status === 400) {
+						document.querySelector('[name="passcheck"]').style = 'visibility: visible';
+						document.querySelector('[name="passcheck"]').text = 'Неверно введены данные: \n Имя пользователя(от 2 до 30 символов) \n Пароль(от 6 до 30 символов)';
+						signupForm.elements.username.style = 'border-color: #EF5858';
+						signupForm.elements.password.style = 'border-color: #EF5858';
+						signupForm.elements.passwordCheck.style = 'border-color: #EF5858';
 						alert('Неверно введены данные: \n имя пользователя(от 2 до 30 символов) \n пароль(от 6 до 30 символов)');
 						return;
 					} else if (status === 409) {
@@ -143,6 +148,7 @@ function renderSignUp() {
 				});
 		} else {
 			document.querySelector('[name="passcheck"]').style = 'visibility: visible';
+			document.querySelector('[name="passcheck"]').text = 'Пароли не совпадают';
 			signupForm.elements.password.style = 'border-color: #EF5858';
 			signupForm.elements.passwordCheck.style = 'border-color: #EF5858';
 		}

@@ -6,14 +6,14 @@
         </li>
         {{#each items}}
             <li class="{{this.className}}">
-                <a class="headera" href="{{this.href}}" data-section="{{this.href}}">
+                <div class="headera" data-section="{{this.href}}">
                     {{this.name}}
-                </a>
+                </div>
             </li>
         {{/each}}
-        <li class="menuItem"><img src="./static/img/Loupe.svg" alt=""></li>
+        <li class="menuItem"><img class="magnifyingGlass" src="./static/img/Loupe.svg" alt=""></li>
         <li class="menuItem">
-            <form class="input_search"> 
+            <form class="inputSearch"> 
                 <input type="text" data-section="text" class="search" placeholder ="Введите название песни или альбома">
             </form>
         </li>

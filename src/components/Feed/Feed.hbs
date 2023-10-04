@@ -3,9 +3,9 @@
 <ul class="feed">
     {{#each items}}
         <li class="{{this.className}}">
-            <a class="feeda" href="{{this.href}}" data-section="{{this.key}}">
+            <div class="feeda" data-section="{{this.key}}">
                 {{this.name}}
-            </a>
+            </div>
         </li>
     {{/each}}
 </ul>
@@ -15,11 +15,13 @@
 <ul class="content">
     {{#each content}}
         <li class="{{this.className}}">
-            <a href="" >
+            <div>
                 <img class="contentPhoto" src="{{this.port}}{{this.Preview}}" alt="1">
                 <p class="songName">{{this.Name}}</p>
-            </a>
-            <a href="" ><p class="artistName">{{this.Artist.0.Name}}</p></a>
+            </div>
+            <div>
+                <p class="artistName">{{this.Artist.0.Name}}</p>
+            </div>
         </li>   
     {{/each}}   
 </ul>
