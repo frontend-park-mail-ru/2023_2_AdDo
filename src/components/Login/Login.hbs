@@ -1,0 +1,31 @@
+
+<div class="container">
+    <ul class="login">
+         <div class="container">
+            <li class="loginItem">
+            <a data-section="/feed" href=""><img class="imgLogo" src="./static/img/Logo.svg" alt=""></a>
+            <div class="logoText">MusicOn</div>    
+            </li>
+         </div>
+        <form method="post">
+            {{#each items}}
+            <li class="loginItem">
+                <input class="{{this.className}}" name="{{this.name}}" type="{{this.type}}" placeholder="{{this.text}}" required >
+            </li> 
+            {{/each}}
+            <li class="loginItem">
+                <button class="SubmitLoginButton"  data-section="/feed" type="submit">Войти</button>
+            </li>
+        
+        </form>
+        <li class="loginItem">
+            <div class="yet">
+            Ещё нет учётной записи?
+            <a data-section="/signup" class="yeta" href="/login">Зарегистрируйтесь</a>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+    

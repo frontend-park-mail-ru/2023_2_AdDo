@@ -1,0 +1,54 @@
+{
+  "dependencies": {
+    "eslint-config-airbnb": "^19.0.4",
+    "fs.promises": "^0.1.2",
+    "handlebars": "^4.7.8",
+    "postcss-js": "^4.0.1",
+    "postcss-preset-env": "^9.1.4"
+  },
+  "name": "addo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "startServer": "node Testserver/index.js",
+    "build": "webpack --config webpack/webpack.dev.js",
+    "start": "webpack-dev-server --open --config webpack/webpack.prod.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:fix": "eslint --fix src "
+  },
+  "keywords": [],
+  "author": "wmai",
+  "license": "ISC",
+  "description": "Фронт проекта Spotify команды AdDo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontend-park-mail-ru/2023_2_AdDo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frontend-park-mail-ru/2023_2_AdDo/issues"
+  },
+  "homepage": "https://github.com/frontend-park-mail-ru/2023_2_AdDo#readme",
+  "devDependencies": {
+    "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "eslint": "^8.50.0",
+    "file-loader": "^6.2.0",
+    "handlebars-loader": "^1.7.3",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "json-minimizer-webpack-plugin": "^4.0.0",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss": "^8.4.31",
+    "postcss-loader": "^7.3.3",
+    "style-loader": "^3.3.3",
+    "svg-inline-loader": "^0.8.2",
+    "terser-webpack-plugin": "^5.3.9",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.9.0"
+  }
+}

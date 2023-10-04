@@ -1,0 +1,26 @@
+
+<div class="feedText">Главное</div>
+<ul class="feed">
+    {{#each items}}
+        <li class="{{this.className}}">
+            <a class="feeda" href="{{this.href}}" data-section="{{this.key}}">
+                {{this.name}}
+            </a>
+        </li>
+    {{/each}}
+</ul>
+
+<h1>Новые треки, альбомы и сборники</h1>
+
+<ul class="content">
+    {{#each content}}
+        <li class="{{this.className}}">
+            <a href="" >
+                <img class="contentPhoto" src="{{this.port}}{{this.Preview}}" alt="1">
+                <p class="songName">{{this.Name}}</p>
+            </a>
+            <a href="" ><p class="artistName">{{this.Artist.0.Name}}</p></a>
+        </li>   
+    {{/each}}   
+</ul>
+    

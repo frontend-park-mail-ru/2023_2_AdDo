@@ -1,0 +1,84 @@
+@import './components/Header/Header.css';
+@import './components/Feed/Feed.css';
+@import './components/Login/Login.css';
+@import './components/SignUp/SignUp.css';
+@import url('https://fonts.cdnfonts.com/css/source-sans-pro');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
+
+body {
+    background-image: url("../../static/img/background.png");
+}
+
+#root {
+    display: grid;
+    grid-template-areas:
+        "header"
+        "content";
+    grid-template-rows: 90px 1fr;
+}
+
+.menu {
+    grid-area: header;
+}
+
+h1 {
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+h2 {
+    color: #2C2D2E;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+main {
+    grid-area: content;
+}
+
+input:focus {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #FFF; 
+    color: #ECCDFB;
+
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.headerText {
+    color: white;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+.inputText {
+    color: #F9EFFE;
+    font-size: 24px;
+    font-weight: 300;
+    font-family: 'Lato', sans-serif;
+}
+
+.buttonText {
+    color: #EAF1FB;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+body {
+    font-family: 'Source Sans Pro', 'Montserrat', sans-serif;
+}
