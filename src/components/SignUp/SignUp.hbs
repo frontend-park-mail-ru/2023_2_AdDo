@@ -12,9 +12,11 @@
                 <input class="{{this.className}}" type="{{this.type}}" name="{{this.name}}" placeholder="{{this.text}}" required >
             </li> 
             {{/each}}
-            <li class="loginItem">
-                <div class="passcheck" name="passcheck" >Пароли не совпадают!</div>
-                <div class="passcheck" name="lengthPassword" >Пароль (от 6 до 30 символов)</div>
+            <li class="loginItem">\
+                <div style="display: block;">
+                    <div class="passcheck" name="passcheck" >Пароли не совпадают!</div>
+                    <div class="passcheck" name="lengthPassword" >Пароль (от 6 до 30 символов)</div>
+                </div>
             </li>
             <li class="loginItem">
                 <button class="SubmitLoginButton" data-section="/feed" type="submit">Зарегистрироваться</button>
