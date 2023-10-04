@@ -136,7 +136,7 @@ function renderSignUp() {
 						signupForm.elements.username.style = 'border-color: #EF5858';
 						signupForm.elements.password.style = 'border-color: #EF5858';
 						signupForm.elements.passwordCheck.style = 'border-color: #EF5858';
-						alert('Неверно введены данные: \n имя пользователя(от 2 до 30 символов) \n пароль(от 6 до 30 символов)');
+						//alert('Неверно введены данные: \n имя пользователя(от 2 до 30 символов) \n пароль(от 6 до 30 символов)');
 						return;
 					} else if (status === 409) {
 						alert('Пользователь с такой почтой уже существует');
