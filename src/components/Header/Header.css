@@ -51,7 +51,7 @@
 }
 
 .search {
-    visibility: hidden;
+    visibility: collapse;
     background-color: #0F0F0F;
     display: flex;
     width: 341px;

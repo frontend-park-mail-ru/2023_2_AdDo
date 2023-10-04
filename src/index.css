@@ -76,7 +76,8 @@ input:focus {
     font-size: 12px;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    word-wrap: break-word
+    word-wrap: break-word;
+    text-decoration: none;
 }
 
 body {
