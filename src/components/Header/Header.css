@@ -138,3 +138,7 @@
 .magnifyingGlass{
     visibility: hidden;
 }
+
+.inputSearch{
+    visibility: collapse;
+}

@@ -18,4 +18,5 @@
 .passcheck{
     color: #EF5858;
     visibility: hidden;
+    display: block;
 }
