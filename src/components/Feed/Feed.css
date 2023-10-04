@@ -49,7 +49,8 @@ main{
     font-size: 16px;
     font-weight: 400;
     text-align: left;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .songName:hover {
     color:#C15DF3;
@@ -61,7 +62,8 @@ main{
     font-size: 14px;
     font-weight: 300;
     text-align: left;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .artistName:hover {
