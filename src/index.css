@@ -40,11 +40,12 @@
 .SubmitBigButton:hover {
     background: linear-gradient(90deg, #372F5F 0%, #AE54DB 100%);
 }
+
 .SubmitBigButton:active {
     background: linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
     box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
     transform: translateY(2px);
-  }
+}
 
 .inputText {
     color: #F9EFFE;

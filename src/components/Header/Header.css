@@ -2,8 +2,9 @@
     justify-content: center;
     display: grid;
     grid-template-areas:
-        "links" "rest";
-    grid-template-rows: 65% 35%;
+        "links rest";
+    grid-template-rows: 75% 25%;
+    gap: 20px
 }
 
 .links{
@@ -14,7 +15,7 @@
     padding: 0px;
     display: flex;
     grid-area: links;
-    gap: 15px;
+    gap: 25px;
 }
 
 .rest{
@@ -69,8 +70,8 @@
 
 .search {
     background-color: #0F0F0F;
-    display: none;
     height: 48px;
+    width: 20vw;
     padding: 0px 16px;
     gap: 10px;
     border-radius: 12px;
@@ -81,6 +82,7 @@
     font-weight: 400;
     line-height: 20px;
     font-family: 'Montserrat', sans-serif;
+    visibility: hidden;
 }
 
 .defaultButton {
