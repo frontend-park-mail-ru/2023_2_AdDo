@@ -5,6 +5,7 @@
         "links rest";
     grid-template-rows: 75% 25%;
     gap: 20px;
+    margin-top: 1vh;
 }
 
 .links{

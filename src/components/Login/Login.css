@@ -1,6 +1,12 @@
 .loginContainer {
     display: flex;
     justify-content:center;
+    margin-top: 10vh;
+}
+
+.container {
+    display: flex;
+    justify-content:center;
 }
 
 .login {

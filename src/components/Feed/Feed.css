@@ -1,18 +1,12 @@
 
 .feedContainer {
     justify-content: center;
-    grid-template-areas:
-    "feedText"
-    "feed"
-    "text"
-    "content" ;
-    justify-content: center;
+    margin-top: 12vh;
 }
 
 .feed{
     white-space: nowrap;
     padding: 0px;
-    grid-area: feed;
 }
 
 .feeda:hover {
@@ -20,19 +14,15 @@
 }
 
 .contentContainer {
-    grid-area: content;
     justify-content: center;
 }
 
-.zagolovok {
-    grid-area: text;
-}
 .content{
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     padding: 0px;
-    gap: 35px;
+    gap: 50px;
 }
 
 .contentItem{
@@ -96,5 +86,4 @@
     font-size: 36px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    grid-area: feedText;
 }
