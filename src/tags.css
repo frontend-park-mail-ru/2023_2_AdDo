@@ -1,0 +1,61 @@
+body {
+    background-image: url("../../static/img/background.png");
+    font-family: 'Source Sans Pro', 'Montserrat', sans-serif;
+}
+
+main {
+    grid-area: content;
+    min-width: 810px;
+    max-width: 60%;
+}
+
+h1 {
+    color: #FFF;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+h2 {
+    color: #FFF;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+input:focus {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid #FFF; 
+    color: #ECCDFB;
+
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ECCDFB;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #0F0F0F;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    word-wrap: break-word;
+    padding: 10px;
+}

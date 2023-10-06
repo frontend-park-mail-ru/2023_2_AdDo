@@ -15,17 +15,21 @@ main{
     color: #C15DF3;
 }
 
+.contentContainer {
+    justify-content: center;
+}
+
 .content{
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     padding: 0px;
+    gap: 25px;
 }
 
 .contentItem{
     list-style-type: none;
     width: 200px;
-    margin-right: 50px;
 }
 .contentItem:hover {
     color: #C15DF3;
@@ -70,16 +74,6 @@ main{
     color:#C15DF3;
 }
 
-a {
-    text-decoration: none;
-    color: white;
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    word-wrap: break-word;
-    padding: 10px;
-}
-
 .feeda {
     text-decoration: none;
     color: white;
@@ -91,7 +85,6 @@ a {
 }
 
 .feedText {
-    padding-left: 15px;
     color: white;
     font-size: 36px;
     font-family: 'Montserrat', sans-serif;

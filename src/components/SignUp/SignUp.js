@@ -21,7 +21,7 @@ export class Signup extends Component{
      */
 	render() {
 		const items = this.items.map((element) => {
-			let className = 'signupInput';
+			let className = 'authInput';
 			return {...element, className};
 		});
 

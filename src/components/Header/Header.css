@@ -1,10 +1,39 @@
+.menucontainer {
+    justify-content: center;
+    display: grid;
+    grid-template-areas:
+        "links" "rest";
+    grid-template-rows: 65% 35%;
+}
 
-.menu{
-    margin-left: 20%;
-    margin-right: 20%;
+.links{
+    grid-area: header;
+    text-decoration: none;
+    justify-content: center;
     list-style: none;
     padding: 0px;
     display: flex;
+    grid-area: links;
+    gap: 15px;
+}
+
+.rest{
+    grid-area: header;
+    text-decoration: none;
+    justify-content: center;
+    list-style: none;
+    padding: 0px;
+    display: flex;
+    grid-area: rest;
+    gap: 15px;
+}
+
+.headerText {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
 }
 
 .menuItem{
@@ -20,17 +49,6 @@
     color:#C15DF3;
 }
 
-.active {
-    font-weight: bold;
-    color:#C15DF3;
-}
-
-.imgLogo {
-    width: 85px;
-    height: 85px;
-    background-color: linear-gradient(180deg, #C15DF3 0%, #572A6D 100%);
-}
-
 .imgAvatar {
     border-radius: 50px;
     width: 70px;
@@ -42,7 +60,7 @@
     padding-bottom: 10px;
     padding-right: 10px;
     padding-left: 10px;
-    color: white;
+    color: #FFF;
     font-size: 36px;
     font-family: 'Lato', sans-serif;
     font-weight: 700;
@@ -51,10 +69,8 @@
 }
 
 .search {
-    visibility: collapse;
     background-color: #0F0F0F;
-    display: flex;
-    width: 250px;
+    display: none;
     height: 48px;
     padding: 0px 16px;
     gap: 10px;
@@ -68,7 +84,7 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.loginButton {
+.defaultButton {
     border: none; 
     outline: none;
     display: flex;
@@ -85,51 +101,25 @@
     margin-left: 30px;
 }
 
-.loginButton:hover {
+.defaultButton:hover {
     background: linear-gradient(90deg, #372F5F 0%, #AE54DB 100%);
 }
 
-.loginButton:active {
+.defaultButton:active {
     background: linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
     box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
-    transform: translateY(2px);
-}
-
-
-.signupButton {
-    border: none; 
-    outline: none;
-    display: flex;
-    width: 200px;
-    height: 37px;
-    padding: 6px 24px;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #2B76DA 0%, #C15DF3 100%);
-    color: #EAF1FB;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-}
-
-.signupButton:hover {
-    background: linear-gradient(90deg, #1A4783 0%, #AE54DB 100%);
-}
-
-.signupButton:active {
-    background: linear-gradient(90deg, #133562 0%, #9A4AC2 100%);
-    box-shadow: 0 5px linear-gradient(90deg, #133562 0%, #9A4AC2 100%);;
     transform: translateY(2px);
 }
 
 .profile {
     display: flex;
     align-items: center;
-    width: 108px;
+    /* width: 108px; */
 }
 
-.signout {
+/* .signout {
     width: 108px;
-}
+} */
 
 .signout:hover {
     color:#C15DF3;
@@ -137,8 +127,4 @@
 
 .magnifyingGlass{
     visibility: hidden;
-}
-
-.inputSearch{
-    visibility: collapse;
 }

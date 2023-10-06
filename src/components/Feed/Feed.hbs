@@ -11,18 +11,20 @@
 </ul>
 
 <h1>Новые треки, альбомы и сборники</h1>
+<div class="contentContainer">
+    <ul class="content">
+        {{#each content}}
+            <li class="{{this.className}}">
+                <div>
+                    <img class="contentPhoto" src="{{this.port}}{{this.Preview}}" alt="1">
+                    <p class="songName">{{this.Name}}</p>
+                </div>
+                <div>
+                    <p class="artistName">{{this.Artist.0.Name}}</p>
+                </div>
+            </li>   
+        {{/each}}   
+    </ul>
+</div>
 
-<ul class="content">
-    {{#each content}}
-        <li class="{{this.className}}">
-            <div>
-                <img class="contentPhoto" src="{{this.port}}{{this.Preview}}" alt="1">
-                <p class="songName">{{this.Name}}</p>
-            </div>
-            <div>
-                <p class="artistName">{{this.Artist.0.Name}}</p>
-            </div>
-        </li>   
-    {{/each}}   
-</ul>
     
