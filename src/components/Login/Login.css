@@ -1,34 +1,19 @@
-
-/* main {
-    background-image: url('../../static/img/loginBackground.png');
-} */
+.loginContainer {
+    display: flex;
+    justify-content:center;
+    margin-top: 10vh;
+}
 
 .container {
     display: flex;
     justify-content:center;
 }
+
 .login {
     display: flexbox;
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.loginInput {
-    background-color: #0F0F0F;
-    display: flex;
-    width: 368px;
-    height: 48px;
-    padding: 0px 16px;
-    gap: 10px;
-    border-radius: 12px;
-    border: 1px solid #FFF;
-    color: rgba(255, 255, 255, 0.40);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .loginItem {
@@ -38,53 +23,6 @@
     display: flex;
 }
 
-.SubmitLoginButton {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    border: none; 
-    outline: none;
-    display: flex;
-    width: 400px;
-    height: 55px;
-    padding: 6px 27px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
-    color: #EAF1FB;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-.SubmitLoginButton:hover {
-    background: linear-gradient(90deg, #372F5F 0%, #AE54DB 100%);
-}
-.SubmitLoginButton:active {
-    background: linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
-    box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
-    transform: translateY(2px);
-  }
 
-.yet {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
 
-.yeta {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-decoration-line: underline;
-}
 
-.yeta:hover {
-    color:#C15DF3;
-}

@@ -1,9 +1,7 @@
 
-main{
-    margin-top: 80px;
-    margin-left: 20%;
-    margin-right: 20%;
-    padding: 0;
+.feedContainer {
+    justify-content: center;
+    margin-top: 12vh;
 }
 
 .feed{
@@ -15,17 +13,21 @@ main{
     color: #C15DF3;
 }
 
+.contentContainer {
+    justify-content: center;
+}
+
 .content{
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     padding: 0px;
+    gap: 50px;
 }
 
 .contentItem{
     list-style-type: none;
     width: 200px;
-    margin-right: 50px;
 }
 .contentItem:hover {
     color: #C15DF3;
@@ -49,7 +51,8 @@ main{
     font-size: 16px;
     font-weight: 400;
     text-align: left;
-    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .songName:hover {
     color:#C15DF3;
@@ -61,26 +64,25 @@ main{
     font-size: 14px;
     font-weight: 300;
     text-align: left;
-    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .artistName:hover {
     color:#C15DF3;
 }
 
-a {
+.feeda {
     text-decoration: none;
-    color: white;
+    color: #FFF;
     font-family: 'Lato', sans-serif;
     font-size: 18px;
     font-weight: 400;
     word-wrap: break-word;
-    padding: 10px;
 }
 
 .feedText {
-    padding-left: 15px;
-    color: white;
+    color: #FFF;
     font-size: 36px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;

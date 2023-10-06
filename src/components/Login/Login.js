@@ -22,7 +22,7 @@ export class Login extends Component{
     */
 	render() {
 		const items = this.items.map((element) => {
-			let className = 'loginInput';
+			let className = 'authInput';
 			return {...element, className};
 		});
 

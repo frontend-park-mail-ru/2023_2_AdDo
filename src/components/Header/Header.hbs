@@ -1,34 +1,36 @@
-<div class="asd">
-    <ul class="menu">
+<div class="menucontainer">
+    <ul class="links">
         <li class="menuItem">
             <a href=""><img class="imgLogo" src="./static/img/Logo.svg" alt=""></a>
             <div class="logoText">MusicOn</div>    
         </li>
         {{#each items}}
             <li class="{{this.className}}">
-                <a class="headera" href="{{this.href}}" data-section="{{this.href}}">
+                <h2 class="headera" data-section="{{this.href}}">
                     {{this.name}}
-                </a>
+                </h2>
             </li>
         {{/each}}
-        <li class="menuItem"><img src="./static/img/Loupe.svg" alt=""></li>
+    </ul>
+    <ul class="rest">
         <li class="menuItem">
-            <form class="input_search"> 
-                <input type="text" data-section="text" class="search" placeholder ="Введите название песни или альбома">
-            </form>
+            <img class="magnifyingGlass" src="./static/img/Loupe.svg" alt="">
+                <form class="inputSearch"> 
+                    <input type="text" data-section="text" class="search" placeholder ="Введите название песни или альбома">
+                </form>
         </li>
         {{#if isAuth}}
         <li class="menuItem">
             <div class="profile">
-                <a href="/profile"><img class="imgAvatar" src="./static/img/worm.jpg" alt=""></a>
-                <a class="signout" href="/signout" data-section="/signout">
-                    Выйти
-                </a>
+            <img class="imgAvatar" src="./static/img/worm.jpg" alt="">
+            <a class="signout" href="/signout" data-section="/signout">
+                Выйти
+            </a>
             </div>
         </li>
         {{else}}
         <li class="menuItem">
-            <a href="login" data-section="/login" ><button class="loginButton" data-section="/login">Войти</button></a>
+            <a href="login" data-section="/login" ><button class="defaultButton" data-section="/login">Войти</button></a>
         </li>
         {{/if}}
     </ul>
