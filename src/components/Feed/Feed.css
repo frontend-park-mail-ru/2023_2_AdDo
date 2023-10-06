@@ -1,11 +1,18 @@
 
 .feedContainer {
     justify-content: center;
+    grid-template-areas:
+    "feedText"
+    "feed"
+    "text"
+    "content" ;
+    justify-content: center;
 }
 
 .feed{
     white-space: nowrap;
     padding: 0px;
+    grid-area: feed;
 }
 
 .feeda:hover {
@@ -13,9 +20,13 @@
 }
 
 .contentContainer {
+    grid-area: content;
     justify-content: center;
 }
 
+.zagolovok {
+    grid-area: text;
+}
 .content{
     margin-top: 20px;
     display: flex;
@@ -78,7 +89,6 @@
     font-size: 18px;
     font-weight: 400;
     word-wrap: break-word;
-    padding: 10px;
 }
 
 .feedText {
@@ -86,4 +96,5 @@
     font-size: 36px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
+    grid-area: feedText;
 }
