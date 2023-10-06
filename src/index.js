@@ -19,7 +19,7 @@ const HOST = 'http://82.146.45.164';
  * @constant
     @type {string}
 */
-const PORT = '8080';
+const PORT = ':8080';
 
 /** 
 * @constant

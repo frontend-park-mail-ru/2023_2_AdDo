@@ -6,6 +6,10 @@ main{
     padding: 0;
 }
 
+.feedContainer {
+    justify-content: center;
+}
+
 .feed{
     white-space: nowrap;
     padding: 0px;
