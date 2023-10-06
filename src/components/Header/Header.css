@@ -4,7 +4,7 @@
     grid-template-areas:
         "links rest";
     grid-template-rows: 75% 25%;
-    gap: 20px
+    gap: 20px;
 }
 
 .links{
@@ -99,7 +99,6 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     font-weight: 400;
-    margin-left: 30px;
 }
 
 .defaultButton:hover {
