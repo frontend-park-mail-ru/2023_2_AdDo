@@ -20,16 +20,14 @@
                 </form>
         </li>
         {{#if isAuth}}
-        <div class="profile">
         <li class="menuItem">
+            <div class="profile">
             <a href="/profile"><img class="imgAvatar" src="./static/img/worm.jpg" alt=""></a>
-        </li>
-        <li class="menuItem">
             <a class="signout" href="/signout" data-section="/signout">
                 Выйти
             </a>
+            </div>
         </li>
-        </div>
         {{else}}
         <li class="menuItem">
             <a href="login" data-section="/login" ><button class="defaultButton" data-section="/login">Войти</button></a>
