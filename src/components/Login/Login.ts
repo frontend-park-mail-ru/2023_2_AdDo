@@ -25,8 +25,7 @@ export class Login extends Component {
     */
 	public render(): void {
 		const items = this.items.map((element) => {
-			let className = 'authInput';
-			return {...element, className};
+			return {...element, className: 'authInput'};
 		});
 
 		const template = Handlebars.compile('./Login.hbs');

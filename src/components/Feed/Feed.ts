@@ -12,7 +12,7 @@ export class Feed extends Component{
 	/**
      * Sets parent, config and port for images.
      * @param {HTMLElement} parent
-     * @param {Object} configFeed 
+     * @param {FeedConfigType} configFeed 
      */
 	constructor(parent: HTMLElement, configFeed: FeedConfigType) {
 		super(parent, configFeed);
@@ -59,14 +59,11 @@ export class Feed extends Component{
     */
 	public render(): void {
 		const items = this.items.map((element) => {
-			let className = 'feedItem';
-			return {...element, className};
+			return {...element, className: 'feedItem'};
 		});
 
 		const content = this.content.map((element) => {
-			let className = 'contentItem';
-			let port = this.port;
-			return {...element, className, port};
+			return {...element, className: 'contentItem', port: this.port};
 		});
 
 		const template = Handlebars.compile('./Feed.hbs');

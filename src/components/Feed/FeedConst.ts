@@ -2,7 +2,7 @@ import type { FeedConfigType } from './FeedTypes';
 
 /** 
  * 	@constant
-    @type {Object}
+    @type {FeedConfigType}
 */
 export const FeedConfig: FeedConfigType = {
 	all: {

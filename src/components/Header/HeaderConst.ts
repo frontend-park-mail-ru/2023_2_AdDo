@@ -2,7 +2,7 @@ import type { HeaderConfigType } from './HeaderTypes';
 
 /** 
  * 	@constant
-    @type {Object}
+    @type {HeaderConfigType}
 */
 export const HeaderConfig: HeaderConfigType = {
 	main: {

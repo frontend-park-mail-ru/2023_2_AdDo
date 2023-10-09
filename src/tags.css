@@ -60,3 +60,14 @@ a {
     font-weight: 400;
     word-wrap: break-word;
 }
+
+footer {
+    display: flex;
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height: 50px;
+    width:100%;
+    align-items: center;
+    justify-content: center;
+ }

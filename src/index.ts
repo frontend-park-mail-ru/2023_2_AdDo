@@ -1,11 +1,13 @@
 import { routeConfigType } from './types';
 import { Header } from './components/Header/Header';
-import { Feed } from './components/Feed/Feed';
-import { Login } from './components/Login/Login';
-import { Signup } from './components/SignUp/SignUp';
-import { FeedConfig } from './components/Feed/FeedConst';
 import { HeaderConfig } from './components/Header/HeaderConst';
+import { Feed } from './components/Feed/Feed';
+import { FeedConfig } from './components/Feed/FeedConst';
+import { Login } from './components/Login/Login';
 import { LoginConfig } from './components/Login/LoginConst';
+import { Player } from './components/Player/Player';
+import { PlayerConfig } from './components/Player/PlayerConfig';
+import { Signup } from './components/SignUp/SignUp';
 import { SignUpConfig } from './components/SignUp/SignUpConst';
 import './index.css';
 import Ajax from './modules/Ajax';
@@ -57,16 +59,19 @@ const routeConfig: routeConfigType = {
 const rootElement = document.querySelector('#root');
 const menuElement = document.createElement('div');
 const pageElement = document.createElement('main');
+const footerElement = document.createElement('footer');
 rootElement?.appendChild(menuElement);
 rootElement?.appendChild(pageElement);
+rootElement?.appendChild(footerElement);
 
 const header = new Header(menuElement, HeaderConfig);
 let feed = new Feed(pageElement, FeedConfig);
 const login = new Login(pageElement, LoginConfig);
 const signup = new Signup(pageElement, SignUpConfig);
+const player = new Player(footerElement, PlayerConfig);
 let isAuth = false;
 
-renderFeed();
+//renderFeed();
 
 
 /**
@@ -88,6 +93,7 @@ function renderFeed(): void {
 				feed.Content = responseBody;
 				header.render(isAuth);
 				feed.render();
+				player.render();
 				return;
 			}
 		})
@@ -256,3 +262,6 @@ rootElement?.addEventListener('click', (e) => {
 		return;
 	}
 });
+
+
+

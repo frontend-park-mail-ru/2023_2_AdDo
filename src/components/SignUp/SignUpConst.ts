@@ -2,7 +2,7 @@ import type { SignupConfigType } from './SignUpTypes';
 
 /** 
  * 	@constant
-    @type {Object}
+    @type {SignupConfigType}
 */
 export const SignUpConfig: SignupConfigType = {
 	UsernameInput: {

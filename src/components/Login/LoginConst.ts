@@ -2,7 +2,7 @@ import type { LoginConfigType } from './LoginTypes';
 
 /**
  *  @constant
-*  @type {Object}
+*  @type {LoginConfigType}
 */
 export const LoginConfig: LoginConfigType  = {
 	EmailInput: {

@@ -23,8 +23,7 @@ export class Header extends Component {
     */
 	public render(isAuth: boolean): void {
 		const items = this.items.map((element) => {
-			let className = 'menuItem';
-			return {...element, className};
+			return {...element, className: 'menuItem'};
 		});
 
 		const template = Handlebars.compile('./Header.hbs');
