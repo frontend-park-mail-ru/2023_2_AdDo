@@ -14,7 +14,7 @@ import Ajax from './modules/Ajax';
  * @constant
     @type {string}
 */
-const HOST: string = 'http://82.146.45.164';
+const HOST: string = 'http://musicon.space';
 
 /** 
  * @constant
