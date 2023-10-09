@@ -9,13 +9,13 @@
         <form method="post">
             {{#each items}}
             <li class="loginItem">
-                <input class="{{this.className}}" type="{{this.type}}" name="{{this.name}}" placeholder="{{this.text}}" required >
+                <input class="{{this.className}}" type="{{this.type}}" data-section="{{this.name}}" placeholder="{{this.text}}" required >
             </li> 
             {{/each}}
             <li class="loginItem">\
                 <div style="display: block;">
-                    <div class="passcheck" name="passcheck" >Пароли не совпадают!</div>
-                    <div class="passcheck" name="lengthPassword" >Пароль (от 6 до 30 символов)</div>
+                    <div class="passCheckDisabled" data-section="passcheck" >Пароли не совпадают!</div>
+                    <div class="passCheckDisabled" data-section="lengthPassword" >Пароль (от 6 до 30 символов)</div>
                 </div>
             </li>
             <li class="loginItem">

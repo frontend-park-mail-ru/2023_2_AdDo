@@ -1,8 +1,10 @@
+import type { HeaderConfigType } from './HeaderTypes';
+
 /** 
  * 	@constant
     @type {Object}
 */
-export const HeaderConfig = {
+export const HeaderConfig: HeaderConfigType = {
 	main: {
 		href: '/feed',
 		name: 'Главное',

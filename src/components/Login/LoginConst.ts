@@ -1,8 +1,10 @@
+import type { LoginConfigType } from './LoginTypes';
+
 /**
  *  @constant
 *  @type {Object}
 */
-export const LoginConfig = {
+export const LoginConfig: LoginConfigType  = {
 	EmailInput: {
 		type: 'email',
 		text: 'Email',
@@ -14,3 +16,4 @@ export const LoginConfig = {
 		name: 'password',
 	},
 };
+

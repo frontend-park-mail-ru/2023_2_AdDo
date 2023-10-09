@@ -9,9 +9,14 @@
         <form method="post">
             {{#each items}}
             <li class="loginItem">
-                <input class="{{this.className}}" name="{{this.name}}" type="{{this.type}}" placeholder="{{this.text}}" required >
+                <input class="{{this.className}}" data-section="{{this.name}}" type="{{this.type}}" placeholder="{{this.text}}" required >
             </li> 
             {{/each}}
+            <li class="loginItem">
+                <div style="display: block;">
+                    <div class="passCheckDisabled" data-section="passcheck" >Неверное имя пользователя или пароль!</div>
+                </div>
+            </li>
             <li class="loginItem">
                 <button class="SubmitBigButton"  data-section="/feed" type="submit">Войти</button>
             </li>

@@ -1,2 +1,14 @@
 
 
+.passCheckActive{
+    color: #EF5858;
+    visibility: visible;
+    display: block;
+}
+
+.passCheckDisabled{
+    color: #EF5858;
+    visibility: hidden;
+    display: block;
+}
+
