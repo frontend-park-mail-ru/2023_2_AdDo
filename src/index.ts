@@ -71,7 +71,7 @@ const signup = new Signup(pageElement, SignUpConfig);
 const player = new Player(footerElement, PlayerConfig);
 let isAuth = false;
 
-//renderFeed();
+renderFeed();
 
 
 /**

@@ -1,7 +1,8 @@
 import type { FeedConfigType } from './FeedTypes';
-import { Component, loadTemplate } from '../Component';
+import { Component } from '../Component';
 import { Song, Item } from '../../types';
 import * as Handlebars from 'handlebars';
+import {source} from './FeedTemplate'
 
 /** Class representing a Feed. */
 export class Feed extends Component{
@@ -65,9 +66,7 @@ export class Feed extends Component{
 			return {...element, className: 'contentItem', port: this.port};
 		});
 
-		loadTemplate('./Feed.hbs').then((source) => {
-			const template = Handlebars.compile(source);
-			this.parent.innerHTML = template({items, content});
-		});
+		const template = Handlebars.compile(source);
+		this.parent.innerHTML = template({items, content});
 	}
 }
