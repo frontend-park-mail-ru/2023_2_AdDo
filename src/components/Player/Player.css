@@ -1,26 +1,27 @@
 
 .player {
-    max-width: 800px;
-    min-width: 800px;
     background-color: #1E1E1E;
+    position: absolute;
+    width: 75%;
+    min-width: fit-content;
 }
 
 
 .contentContainer {
-    display: flex;
+    display: inline-flex;
     gap: 20px;
     padding: 10px;
 }
 
 .progressBar {
-    background-color: #727272;
+    background-color: #666F7A;
     width: 100%;
     height: 10px;
     display: flex;
     align-items: center;
     cursor: pointer;
     .progress {
-        background: #2059A4;
+        background: #453B77;
         height: 6px;
         width: 150px;
     }
@@ -47,6 +48,11 @@
 
 .playerBtns {
     margin-top: 10px;
+}
+
+.rightPlayerBtns {
+    position: absolute;
+    right: 0;
 }
 
 .title {

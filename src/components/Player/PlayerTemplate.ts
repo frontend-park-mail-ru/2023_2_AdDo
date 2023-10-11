@@ -16,7 +16,7 @@ export const source = `<div class="player">
             <div class="title">{{this.Name}}</div>
             <div class="artist">{{this.Artist.0.Name}}</div>
         </div>
-        <div class="likeBtn"><img class="playerBtns" src="./static/img/likeBtn.svg" alt=""></div>
-        <div class="volumeBtn"><img class="playerBtns" src="./static/img/volumeBtn.svg" alt=""></div>
+        <div class="likeBtn"><img class="rightPlayerBtns" src="./static/img/likeBtn.svg" alt=""></div>
+        <div class="volumeBtn"><img class="rightPlayerBtns" src="./static/img/volumeBtn.svg" alt=""></div>
     </div>
 </div>`;

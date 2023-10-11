@@ -33,6 +33,10 @@
     color: #C15DF3;
 }
 
+.imageContainer {
+   position: relative;  
+}
+
 .imageContainer img{
     width: 200px;
     margin-bottom: 10px;
