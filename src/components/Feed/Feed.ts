@@ -58,11 +58,11 @@ export class Feed extends Component{
     * Render Feed.
     */
 	public render(): void {
-		const items = this.items.map((element) => {
+		const items = this.Items.map((element) => {
 			return {...element, className: 'feedItem'};
 		});
 
-		const content = this.content.map((element) => {
+		const content = this.Content.map((element) => {
 			return {...element, className: 'contentItem', port: this.port};
 		});
 

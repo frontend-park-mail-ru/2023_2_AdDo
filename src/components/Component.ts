@@ -29,13 +29,3 @@ export class Component {
 	}
 }
 
-
-export function loadTemplate(url: string): Promise<string> {
-     return fetch(url)
-       .then(response => {
-         if (!response.ok) {
-           throw new Error(`Failed to load template: ${url}`);
-         }
-         return response.text();
-       });
-   }

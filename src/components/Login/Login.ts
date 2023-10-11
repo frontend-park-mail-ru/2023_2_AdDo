@@ -1,6 +1,6 @@
 import { Component } from '../Component';
 import type { Input } from '../../types';
-import './Login.hbs';
+import { source } from './LoginTemplate'
 import * as Handlebars from 'handlebars';
 
 /** Class representing a Login. */
@@ -28,7 +28,7 @@ export class Login extends Component {
 			return {...element, className: 'authInput'};
 		});
 
-		const template = Handlebars.compile('./Login.hbs');
+		const template = Handlebars.compile(source);
 		this.parent.innerHTML = template({items});
 	}
 }

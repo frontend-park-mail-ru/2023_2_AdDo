@@ -2,7 +2,7 @@
 
 
 
-<div class="player">
+export const source = `<div class="player">
     <audio src="{{this.Content}}"></audio>
     <div class="progressBar">
         <div class="progress"></div>
@@ -19,4 +19,4 @@
         <div class="likeBtn"><img class="playerBtns" src="./static/img/likeBtn.svg" alt=""></div>
         <div class="volumeBtn"><img class="playerBtns" src="./static/img/volumeBtn.svg" alt=""></div>
     </div>
-</div>
+</div>`;

@@ -1,6 +1,6 @@
 import { Component } from '../Component';
 import type { Item } from '../../types'
-import './Header.hbs';
+import { source } from './HeaderTemplate'
 import * as Handlebars from 'handlebars';
 
 /** Class representing a Header. */
@@ -22,11 +22,11 @@ export class Header extends Component {
     * Render header.
     */
 	public render(isAuth: boolean): void {
-		const items = this.items.map((element) => {
+		const items = this.Items.map((element) => {
 			return {...element, className: 'menuItem'};
 		});
 
-		const template = Handlebars.compile('./Header.hbs');
+		const template = Handlebars.compile(source);
 		this.parent.innerHTML = template({items, isAuth});
 	}
 }

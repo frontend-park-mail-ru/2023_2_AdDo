@@ -1,5 +1,5 @@
 import { Component } from '../Component';
-import './Player.hbs';
+import {source} from './PlayerTemplate';
 import * as Handlebars from 'handlebars';
 import { Song, Item, Artist, Album } from '../../types';
 import { PlayerConfigType } from './PlayerTypes';
@@ -37,7 +37,7 @@ export class Player extends Component {
 			return {...element};
 		});
         
-		const template = Handlebars.compile('./Player.hbs');
+		const template = Handlebars.compile(source);
 		this.parent.innerHTML = template({items, song, port: this.port});
 	}
 }

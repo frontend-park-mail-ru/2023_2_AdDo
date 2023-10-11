@@ -1,4 +1,4 @@
-<div class="loginContainer">
+export const source = `<div class="loginContainer">
     <ul class="login">
          <div class="container">
             <li class="loginItem">
@@ -28,5 +28,5 @@
             </div>
         </li>
     </ul>
-</div>
+</div>`;
     
