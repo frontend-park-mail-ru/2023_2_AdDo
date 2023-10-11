@@ -253,7 +253,7 @@ rootElement?.addEventListener('click', (e) => {
 	if(target.className  === 'playButton') {
 		e.preventDefault();
 		const songName: string = target.getAttribute('data-section')!;
-		playSong(feed.Content[songName]);
+		playSong(feed.Content.find((song) => song.Name === songName)!);
 		return;
 	}
 
@@ -272,7 +272,7 @@ rootElement?.addEventListener('click', (e) => {
 
 footerElement?.addEventListener('click', (e) => {
 	const target: HTMLElement = e.target as HTMLElement;
-	
+
 });
 
 function playSong(song: Song): void {
