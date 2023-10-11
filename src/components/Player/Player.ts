@@ -3,7 +3,6 @@ import {source} from './PlayerTemplate';
 import * as Handlebars from 'handlebars';
 import { Song, Item, Artist, Album } from '../../types';
 import { PlayerConfigType } from './PlayerTypes';
-const s3HOST: string = 'http://82.146.45.164:9000';
 /** Class representing a Header. */
 export class Player extends Component {
     protected items: Array<Item> = [];
@@ -32,7 +31,7 @@ export class Player extends Component {
 	/*
     * Render Player.
     */
-	public render(song: Song = {Id: 0, Name: '', Artist: {Id: 0, Name: '', Avatar: '',}, Album: {Id: 0, Name: '', Preview: '',}, Preview: './static/img/noImage.png', Content: ''}, Playing: boolean = false): void {
+	public render(song: Song = {Id: 0, Name: '', Artist: {Id: 0, Name: '', Avatar: '',}, Album: {Id: 0, Name: '', Preview: '',}, Preview: '/images/grey.jpg', Content: ''}, Playing: boolean = false): void {
         const items = this.Items.map((element) => {
 			return {...element};
 		});
