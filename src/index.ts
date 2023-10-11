@@ -70,13 +70,14 @@ let feed = new Feed(pageElement, FeedConfig);
 const login = new Login(pageElement, LoginConfig);
 const signup = new Signup(pageElement, SignUpConfig);
 const player = new Player(footerElement, PlayerConfig);
-let audio = document.querySelector('audio')!;
+
 let isAuth: boolean = false;
 let songId: number;
+let Playing: boolean = false;
 
 renderFeed();
 
-
+let audio = document.querySelector('audio')!;
 /**
 * Renders home page.
 */
@@ -95,7 +96,7 @@ function renderFeed(): void {
 			if (status === 200) {
 				feed.Content = responseBody;
 				header.render(isAuth);
-				feed.render();
+				feed.render();	
 				player.render();
 				return;
 			}
@@ -103,6 +104,7 @@ function renderFeed(): void {
 		.catch((error) => {
 			throw error;
 		});
+
 }
 
 /**
@@ -278,7 +280,6 @@ rootElement?.addEventListener('click', (e) => {
 
 footerElement?.addEventListener('click', (e) => {
 	const target: HTMLElement = e.target as HTMLElement;
-	let Playing: boolean = false;
 	switch (target.getAttribute('data-section')!) {
 		case 'prevBtn':
 			e.preventDefault();
@@ -291,13 +292,7 @@ footerElement?.addEventListener('click', (e) => {
 			return;
 		case 'playBtn':
 			e.preventDefault();
-			if (document.querySelector('audio')!.paused) {
-				document.querySelector('audio')!.play();
-				Playing = true;
-			} else {
-				document.querySelector('audio')!.pause();
-				Playing = false;
-			}
+			document.querySelector('audio')!.paused ? document.querySelector('audio')!.play() : pauseSong();
 			player.render(feed.Content.find((song) => song.Id === songId)!, Playing);
 			return;
 		case 'nextBtn':
@@ -315,16 +310,19 @@ footerElement?.addEventListener('click', (e) => {
 function playSong(song: Song): void {
 	audio = document.querySelector('audio')!
 	audio.src = s3HOST + song.Content;
+	Playing = true;
 	audio.play();
 }
 
 function pauseSong(): void {
 	audio = document.querySelector('audio')!
+	Playing = false;
 	audio.pause();
 }
 
 function updateProgress(e: Event): void {
 	const {duration, currentTime} = e.target as HTMLAudioElement;
+
 	const progressPercent = (currentTime / duration) * 100;
 	const progress: HTMLElement = document.querySelector('.progress')!;
 	progress.style.width = `${progressPercent}%`;
