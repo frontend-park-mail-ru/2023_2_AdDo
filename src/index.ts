@@ -279,11 +279,12 @@ rootElement?.addEventListener('click', (e) => {
 
 footerElement?.addEventListener('click', (e) => {
 	const target: HTMLElement = e.target as HTMLElement;
+	let song: Song;
 	switch (target.getAttribute('data-section')!) {
 		case 'prevBtn':
 			e.preventDefault();
 			songId < 0 ? songId = 0 : songId--;
-			let song: Song = feed.Content.find((song) => song.Id === songId)!
+			song = feed.Content.find((song) => song.Id === songId)!
 			footerElement.innerHTML = '';
 			Playing = true;
 			player.render(song, Playing);
