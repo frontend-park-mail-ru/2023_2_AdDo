@@ -70,7 +70,8 @@ let feed = new Feed(pageElement, FeedConfig);
 const login = new Login(pageElement, LoginConfig);
 const signup = new Signup(pageElement, SignUpConfig);
 const player = new Player(footerElement, PlayerConfig);
-let isAuth = false;
+let isAuth: boolean = false;
+let songId: number;
 
 renderFeed();
 
@@ -253,8 +254,10 @@ rootElement?.addEventListener('click', (e) => {
 
 	if(target.className  === 'playButton') {
 		e.preventDefault();
-		const songName: string = target.getAttribute('data-section')!;
-		playSong(feed.Content.find((song) => song.Name === songName)!);
+		songId = parseInt(target.getAttribute('data-section')!);
+		const song = feed.Content.find((song) => song.Id === songId)!
+		playSong(song);
+		player.render(song);
 		return;
 	}
 
@@ -273,7 +276,26 @@ rootElement?.addEventListener('click', (e) => {
 
 footerElement?.addEventListener('click', (e) => {
 	const target: HTMLElement = e.target as HTMLElement;
-
+	switch (target.className) {
+		case 'prevBtn':
+			e.preventDefault();
+			songId < 0 ? songId = 0 : songId--;
+			let song: Song = feed.Content.find((song) => song.Id === songId)!
+			playSong(song);
+			player.render(song);
+			return;
+		case 'playBtn':
+			e.preventDefault();
+			document.querySelector('audio')!.paused ? document.querySelector('audio')!.play() : pauseSong()
+			return;
+		case 'nextBtn':
+			e.preventDefault();
+			songId++;
+			song = feed.Content.find((song) => song.Id === songId % feed.Content.length)!
+			playSong(song);
+			player.render(song);
+			return;
+	}
 });
 
 function playSong(song: Song): void {

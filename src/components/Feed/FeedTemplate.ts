@@ -17,7 +17,7 @@ export const source = `<div class="feedContainer">
                                         <div class="songContainer">
                                             <div class="imageContainer">
                                                 <img class="contentPhoto" src="{{this.port}}{{this.Preview}}" alt="1">
-                                                <div class="playButton" data-section="{{this.Name}}"></div>
+                                                <div class="playButton" data-section="{{this.Id}}"></div>
                                             </div>
                                             <div class="songName">
                                                 {{this.Name}}
