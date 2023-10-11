@@ -10,7 +10,7 @@ export const source = `<div class="feedContainer">
                             {{/each}}
                         </ul>
                         <h1 class="zagolovok">Новые треки, альбомы и сборники</h1>
-                        <div class="contentContainer">
+                        <div class="mainContainer">
                             <ul class="content">
                                 {{#each content}}
                                     <li class="{{this.className}}">

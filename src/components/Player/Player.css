@@ -3,14 +3,15 @@
     background-color: #1E1E1E;
     position: absolute;
     width: 75%;
-    min-width: fit-content;
+    min-width: 700px;
 }
 
 
 .contentContainer {
     display: inline-flex;
-    gap: 25px;
+    gap: 30px;
     padding: 10px;
+    padding-left: 30px;
 }
 
 .progressBar {
@@ -23,7 +24,6 @@
     .progress {
         background: #453B77;
         height: 6px;
-        width: 150px;
     }
 }
 
@@ -36,17 +36,20 @@
     height: 50px;
     border-radius: 5px;
     margin-bottom: 20px;
+    color: #1E1E1E;
 }
 
 .playerBtns {
     margin-top: 10px;
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
 .volumeBtn {
     position: absolute;
     right: 0;
+    margin-right: 15px;
 }
 
 

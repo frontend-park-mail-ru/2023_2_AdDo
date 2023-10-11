@@ -5,10 +5,6 @@ import type { PlayerConfigType } from './PlayerTypes';
     @type {PlayerConfigType}
 */
 export const PlayerConfig: PlayerConfigType = {
-    pauseBtn: {
-        href: './static/img/Pause.svg',
-        name: 'Пауза',
-    },
     nextBtn: {
         href: './static/img/SwitchForward.svg',
         name: 'Следующий',

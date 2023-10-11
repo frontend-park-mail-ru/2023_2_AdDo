@@ -6,7 +6,6 @@ export type aType = {
 }
 
 export type PlayerConfigType = {
-    pauseBtn: aType,
     nextBtn: aType,
     shuffleBtn: aType,
     loopBtn: aType,

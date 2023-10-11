@@ -16,7 +16,7 @@ import Ajax from './modules/Ajax';
  * @constant
     @type {string}
 */
-const HOST: string = 'http://musicon.space';
+const HOST: string = 'http://localhost';
 
 const s3HOST: string = 'http://82.146.45.164:9000';
 /** 
@@ -96,13 +96,14 @@ function renderFeed(): void {
 				feed.Content = responseBody;
 				header.render(isAuth);
 				feed.render();	
-				player.render();
+				
 				return;
 			}
 		})
 		.catch((error) => {
 			throw error;
 		});
+	player.render();
 
 }
 
@@ -237,6 +238,17 @@ function renderSignout(): void {
 }
 
 /**
+ * Renders Player.
+ */
+function renderPlayer(song: Song, Playing: boolean): void {
+	player.render(song, Playing);
+	const audio: HTMLAudioElement = document.querySelector('audio')!;
+	audio.addEventListener('timeupdate', updateProgress);
+	footerElement.querySelector('.progressBar')?.addEventListener('click', setProgress);
+	audio.addEventListener('ended', nextSong);
+}
+
+/**
  * Goes to another page
  * @param {HTMLAnchorElement} Link 
  */
@@ -251,15 +263,16 @@ function goToPage(Link: HTMLAnchorElement | HTMLButtonElement): void {
 	}
 }
 
+
 rootElement?.addEventListener('click', (e) => {
 	const target: HTMLElement = e.target as HTMLElement;
 
 	if(target.className  === 'playButton') {
-		e.preventDefault();
 		songId = parseInt(target.getAttribute('data-section')!);
 		const song = feed.Content.find((song) => song.Id === songId)!
-		footerElement.innerHTML = '';
-		player.render(song, true);
+		footerElement.querySelector('.contentContainer')!.innerHTML = '';
+		Playing = true;
+		renderPlayer(song, Playing);
 		playSong(song);
 		return;
 	}
@@ -270,7 +283,7 @@ rootElement?.addEventListener('click', (e) => {
 		return;
 	}
 
-	if (target instanceof HTMLAnchorElement || (target instanceof HTMLButtonElement && target.getAttribute('data-section') === '/login')) {
+	if (target instanceof HTMLAnchorElement || (target instanceof HTMLButtonElement) && (target.getAttribute('data-section') === '/feed' || target.getAttribute('data-section') === '/login')) {
 		e.preventDefault();
 		goToPage(target);
 		return;
@@ -279,30 +292,24 @@ rootElement?.addEventListener('click', (e) => {
 
 footerElement?.addEventListener('click', (e) => {
 	const target: HTMLElement = e.target as HTMLElement;
-	let song: Song;
 	switch (target.getAttribute('data-section')!) {
 		case 'prevBtn':
-			e.preventDefault();
-			songId < 0 ? songId = 0 : songId--;
-			song = feed.Content.find((song) => song.Id === songId)!
-			footerElement.innerHTML = '';
-			Playing = true;
-			player.render(song, Playing);
-			playSong(song);
+			prevSong();
 			return;
 		case 'playBtn':
-			e.preventDefault();
-			document.querySelector('audio')!.paused ? document.querySelector('audio')!.play() : pauseSong();
-			player.render(feed.Content.find((song) => song.Id === songId)!, Playing);
+			let img: HTMLImageElement = document.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+			if(Playing) {
+				Playing = false;
+				img.src = './static/img/Play.svg';
+				pauseSong();
+			} else {
+				img.src = './static/img/Pause.svg';
+				Playing = true;
+				resumeSong();
+			}
 			return;
 		case 'nextBtn':
-			e.preventDefault();
-			songId++;
-			song = feed.Content.find((song) => song.Id === songId % feed.Content.length)!
-			footerElement.innerHTML = '';
-			Playing = true;
-			player.render(song, Playing);
-			playSong(song);
+			nextSong();
 			return;
 	}
 });
@@ -310,25 +317,54 @@ footerElement?.addEventListener('click', (e) => {
 function playSong(song: Song): void {
 	const audio = document.querySelector('audio')!
 	audio.src = s3HOST + song.Content;
-	Playing = true;
 	audio.play();
 }
 
+function resumeSong(): void {
+	const audio = document.querySelector('audio')!
+	audio.play();
+}
 function pauseSong(): void {
 	const audio = document.querySelector('audio')!
-	Playing = false;
 	audio.pause();
 }
 
 function updateProgress(e: Event): void {
-	const audio: HTMLAudioElement = document.querySelector('audio')!
-	const {duration, currentTime} = audio;
+	const {duration, currentTime} = e.target as HTMLAudioElement;
 	const progressPercent = (currentTime / duration) * 100;
+	console.log(currentTime);
 	const progress: HTMLElement = document.querySelector('.progress')!;
 	progress.style.width = `${progressPercent}%`;
 }
 
-footerElement.addEventListener('timeupdate', updateProgress);
+function setProgress(e: Event): void {
+	const width: number = footerElement.querySelector('.progressBar')!.clientWidth;
+	const target = e as MouseEvent;
+	const x: number = target.offsetX;
+	const audio = document.querySelector('audio')!;
+	const duration = audio.duration;
+	audio.currentTime = (x / width) * duration;
+}
+
+function nextSong() {
+	songId >= feed.Content.length ? songId = 1 : songId++;
+	let song: Song = feed.Content.find((song) => song.Id === songId)!
+	footerElement.querySelector('.contentContainer')!.innerHTML = '';
+	Playing = true;
+	renderPlayer(song, Playing);
+	playSong(song);
+}
+
+function prevSong() {
+	songId <= 1 ? songId = 1 : songId--;
+	let song: Song = feed.Content.find((song) => song.Id === songId)!
+	footerElement.querySelector('.contentContainer')!.innerHTML = '';
+	Playing = true;
+	renderPlayer(song, Playing);
+	playSong(song);
+}
+
+
 
 
 
