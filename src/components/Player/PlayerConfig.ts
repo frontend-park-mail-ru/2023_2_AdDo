@@ -5,24 +5,20 @@ import type { PlayerConfigType } from './PlayerTypes';
     @type {PlayerConfigType}
 */
 export const PlayerConfig: PlayerConfigType = {
-    prevBtn: {
-        href: './static/img/prevBtn.svg',
-        name: 'Предыдущий',
-    },
-    playBtn: {
-        href: './static/img/playBtn.svg',
-        name: 'Воспроизвести',
+    pauseBtn: {
+        href: './static/img/Pause.svg',
+        name: 'Пауза',
     },
     nextBtn: {
-        href: './static/img/nextBtn.svg',
+        href: './static/img/SwitchForward.svg',
         name: 'Следующий',
     },
     shuffleBtn: {
-        href: './static/img/shuffleBtn.svg',
+        href: './static/img/Random.svg',
         name: 'Перемешать',
     },
     loopBtn: {
-        href: './static/img/loopBtn.svg',
+        href: './static/img/Repeat.svg',
         name: 'Зациклить',
     }
 };

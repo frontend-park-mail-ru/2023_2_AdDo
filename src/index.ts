@@ -70,6 +70,7 @@ let feed = new Feed(pageElement, FeedConfig);
 const login = new Login(pageElement, LoginConfig);
 const signup = new Signup(pageElement, SignUpConfig);
 const player = new Player(footerElement, PlayerConfig);
+const audio = document.querySelector('audio')!;
 let isAuth: boolean = false;
 let songId: number;
 
@@ -259,7 +260,6 @@ rootElement?.addEventListener('click', (e) => {
 		footerElement.innerHTML = '';
 		player.render(song);
 		playSong(song);
-
 		return;
 	}
 
@@ -278,7 +278,7 @@ rootElement?.addEventListener('click', (e) => {
 
 footerElement?.addEventListener('click', (e) => {
 	const target: HTMLElement = e.target as HTMLElement;
-	switch (target.className) {
+	switch (target.getAttribute('data-section')!) {
 		case 'prevBtn':
 			e.preventDefault();
 			songId < 0 ? songId = 0 : songId--;
@@ -303,15 +303,22 @@ footerElement?.addEventListener('click', (e) => {
 });
 
 function playSong(song: Song): void {
-	const audio = document.querySelector('audio')!;
 	audio.src = s3HOST + song.Content;
 	audio.play();
 }
 
 function pauseSong(): void {
-	const audio = document.querySelector('audio')!;
 	audio.pause();
 }
+
+function updateProgress(e: Event): void {
+	const {duration, currentTime} = e.target as HTMLAudioElement;
+	const progressPercent = (currentTime / duration) * 100;
+	const progress: HTMLElement = document.querySelector('.progress')!;
+	progress.style.width = `${progressPercent}%`;
+}
+
+audio.addEventListener('timeupdate', updateProgress);
 
 
 
