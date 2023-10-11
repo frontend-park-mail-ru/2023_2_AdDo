@@ -70,7 +70,7 @@ let feed = new Feed(pageElement, FeedConfig);
 const login = new Login(pageElement, LoginConfig);
 const signup = new Signup(pageElement, SignUpConfig);
 const player = new Player(footerElement, PlayerConfig);
-const audio = document.querySelector('audio')!;
+let audio = document.querySelector('audio')!;
 let isAuth: boolean = false;
 let songId: number;
 
@@ -303,11 +303,13 @@ footerElement?.addEventListener('click', (e) => {
 });
 
 function playSong(song: Song): void {
+	audio = document.querySelector('audio')!
 	audio.src = s3HOST + song.Content;
 	audio.play();
 }
 
 function pauseSong(): void {
+	audio = document.querySelector('audio')!
 	audio.pause();
 }
 

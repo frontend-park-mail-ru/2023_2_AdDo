@@ -32,13 +32,13 @@ export class Player extends Component {
 	/*
     * Render Player.
     */
-	public render(song: Song = {Id: 0, Name: '', Artist: {Id: 0, Name: '', Avatar: '',}, Album: {Id: 0, Name: '', Preview: '',}, Preview: '', Content: ''}): void {
+	public render(song: Song = {Id: 0, Name: '', Artist: {Id: 0, Name: '', Avatar: '',}, Album: {Id: 0, Name: '', Preview: '',}, Preview: '', Content: ''}, Playing: boolean = false): void {
         const items = this.Items.map((element) => {
 			return {...element};
 		});
         
 		const template = Handlebars.compile(source);
-		this.parent.innerHTML = template({items, song, port: this.port});
+		this.parent.innerHTML = template({items, song, port: this.port, Playing});
 	}
 }
 
