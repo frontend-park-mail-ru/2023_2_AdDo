@@ -18,6 +18,7 @@ import Ajax from './modules/Ajax';
 */
 const HOST: string = 'http://musicon.space';
 
+const s3HOST: string = 'http://82.146.45.164:9000';
 /** 
  * @constant
     @type {string}
@@ -277,7 +278,7 @@ footerElement?.addEventListener('click', (e) => {
 
 function playSong(song: Song): void {
 	const audio = document.querySelector('audio')!;
-	audio.src = song.Content;
+	audio.src = s3HOST + song.Content;
 	audio.play();
 }
 
