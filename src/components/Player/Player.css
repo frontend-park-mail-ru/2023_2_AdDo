@@ -9,7 +9,7 @@
 
 .contentContainer {
     display: inline-flex;
-    gap: 20px;
+    gap: 25px;
     padding: 10px;
 }
 
@@ -40,8 +40,8 @@
 
 .playerBtns {
     margin-top: 10px;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 
 .volumeBtn {
@@ -56,7 +56,6 @@
     font-size: 16px;
     font-weight: 400;
     text-align: left;
-    margin-top: 10px;
     margin-bottom: 10px;
 }
 

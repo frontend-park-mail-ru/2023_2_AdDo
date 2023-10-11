@@ -39,6 +39,7 @@
 
 .imageContainer img{
     width: 200px;
+    height: 200px;
     margin-bottom: 10px;
     float: left;
     border-radius: 10px;
