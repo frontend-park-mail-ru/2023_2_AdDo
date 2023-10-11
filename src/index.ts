@@ -16,8 +16,8 @@ import Ajax from './modules/Ajax';
  * @constant
     @type {string}
 */
-const HOST: string = 'http://localhost';
-
+//const HOST: string = 'http://localhost';
+const HOST: string = 'http://82.146.45.164';
 const s3HOST: string = 'http://82.146.45.164:9000';
 /** 
  * @constant
