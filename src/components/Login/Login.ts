@@ -24,7 +24,7 @@ export class Login extends Component {
     * Render login page.
     */
 	public render(): void {
-		const items = this.items.map((element) => {
+		const items = this.Items.map((element) => {
 			return {...element, className: 'authInput'};
 		});
 

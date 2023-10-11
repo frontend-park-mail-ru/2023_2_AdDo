@@ -33,7 +33,7 @@ export class Player extends Component {
     * Render Player.
     */
 	public render(song: Song = {Id: 0, Name: '', Artist: {Id: 0, Name: '', Avatar: '',}, Album: {Id: 0, Name: '', Preview: '',}, Preview: '', Content: ''}): void {
-        const items = this.items.map((element) => {
+        const items = this.Items.map((element) => {
 			return {...element};
 		});
         

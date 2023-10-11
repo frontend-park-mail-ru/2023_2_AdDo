@@ -23,7 +23,7 @@ export class Signup extends Component {
      * Render signup page.
      */
 	public render(): void {
-		const items = this.items.map((element) => {
+		const items = this.Items.map((element) => {
 			let className = 'authInput';
 			return {...element, className};
 		});
