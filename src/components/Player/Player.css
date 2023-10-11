@@ -42,17 +42,14 @@
     margin-top: 10px;
 }
 
-.likeBtn {
-    margin-right: 200px;
-}
-
-.playerBtns {
-    margin-top: 10px;
+.volumeBtn {
+    position: absolute;
+    right: 0;
 }
 
 .rightPlayerBtns {
-    position: absolute;
-    right: 0;
+    /* position: absolute;
+    right: 0; */
 }
 
 .title {
