@@ -256,6 +256,7 @@ rootElement?.addEventListener('click', (e) => {
 		e.preventDefault();
 		songId = parseInt(target.getAttribute('data-section')!);
 		const song = feed.Content.find((song) => song.Id === songId)!
+		footerElement.innerHTML = '';
 		player.render(song);
 		playSong(song);
 
@@ -282,6 +283,7 @@ footerElement?.addEventListener('click', (e) => {
 			e.preventDefault();
 			songId < 0 ? songId = 0 : songId--;
 			let song: Song = feed.Content.find((song) => song.Id === songId)!
+			footerElement.innerHTML = '';
 			player.render(song);
 			playSong(song);
 			return;
@@ -293,6 +295,7 @@ footerElement?.addEventListener('click', (e) => {
 			e.preventDefault();
 			songId++;
 			song = feed.Content.find((song) => song.Id === songId % feed.Content.length)!
+			footerElement.innerHTML = '';
 			player.render(song);
 			playSong(song);
 			return;
