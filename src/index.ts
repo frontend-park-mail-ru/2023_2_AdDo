@@ -77,7 +77,6 @@ let Playing: boolean = false;
 
 renderFeed();
 
-let audio = document.querySelector('audio')!;
 /**
 * Renders home page.
 */
@@ -308,27 +307,27 @@ footerElement?.addEventListener('click', (e) => {
 });
 
 function playSong(song: Song): void {
-	audio = document.querySelector('audio')!
+	const audio = document.querySelector('audio')!
 	audio.src = s3HOST + song.Content;
 	Playing = true;
 	audio.play();
 }
 
 function pauseSong(): void {
-	audio = document.querySelector('audio')!
+	const audio = document.querySelector('audio')!
 	Playing = false;
 	audio.pause();
 }
 
 function updateProgress(e: Event): void {
-	const {duration, currentTime} = e.target as HTMLAudioElement;
-
+	const audio: HTMLAudioElement = document.querySelector('audio')!
+	const {duration, currentTime} = audio;
 	const progressPercent = (currentTime / duration) * 100;
 	const progress: HTMLElement = document.querySelector('.progress')!;
 	progress.style.width = `${progressPercent}%`;
 }
 
-audio.addEventListener('timeupdate', updateProgress);
+footerElement.addEventListener('timeupdate', updateProgress);
 
 
 
