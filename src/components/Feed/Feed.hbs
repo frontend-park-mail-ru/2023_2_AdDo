@@ -15,13 +15,18 @@
         <ul class="content">
             {{#each content}}
                 <li class="{{this.className}}">
-                    <div>
-                        <img class="contentPhoto" src="{{this.port}}{{this.Preview}}" alt="1">
-                        <p class="songName">{{this.Name}}</p>
-                    </div>
-                    <div>
-                        <p class="artistName">{{this.Artist.0.Name}}</p>
-                    </div>
+                    <div class="songContainer">
+                        <div class="imageContainer">
+                            <img class="contentPhoto" src="{{this.port}}{{this.Preview}}" alt="1">
+                            <div class="playButton" data-section="{{this.key}}"></div>
+                        </div>
+                        <div class="songName">
+                            {{this.Name}}
+                        </div>
+                        <div class="artistName">
+                            {{this.Artist.0.Name}}
+                        </div>
+                    </div>  
                 </li>   
             {{/each}}   
         </ul>

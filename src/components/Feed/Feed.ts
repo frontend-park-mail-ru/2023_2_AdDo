@@ -3,6 +3,7 @@ import { Component } from '../Component';
 import { Song, Item } from '../../types';
 import * as Handlebars from 'handlebars';
 import './Feed.hbs';
+const fs = require('fs')
 
 /** Class representing a Feed. */
 export class Feed extends Component{
@@ -65,8 +66,8 @@ export class Feed extends Component{
 		const content = this.content.map((element) => {
 			return {...element, className: 'contentItem', port: this.port};
 		});
-
-		const template = Handlebars.compile('./Feed.hbs');
+		const source = fs.readFileSync('./Feed.hbs', 'utf8');
+		const template = Handlebars.compile(source);
 		this.parent.innerHTML = template({items, content});
 	}
 }

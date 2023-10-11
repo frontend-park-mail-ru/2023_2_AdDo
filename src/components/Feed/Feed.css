@@ -33,11 +33,33 @@
     color: #C15DF3;
 }
 
-.contentPhoto {
+.imageContainer img{
     width: 200px;
     margin-bottom: 10px;
     float: left;
     border-radius: 10px;
+    transition: opacity 0.3s;
+}
+
+.imageContainer:hover img {
+    opacity: 0.7;
+}
+
+.imageContainer:hover .playButton {
+    opacity: 1;
+  }
+
+.playButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background-image: url("../../static/img/playButton.png");
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .feedItem{

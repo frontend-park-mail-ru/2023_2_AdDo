@@ -41,3 +41,4 @@ export class Player extends Component {
 		this.parent.innerHTML = template({items, song, port: this.port});
 	}
 }
+

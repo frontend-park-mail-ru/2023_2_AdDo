@@ -1,4 +1,4 @@
-import { routeConfigType } from './types';
+import { routeConfigType, Song } from './types';
 import { Header } from './components/Header/Header';
 import { HeaderConfig } from './components/Header/HeaderConst';
 import { Feed } from './components/Feed/Feed';
@@ -248,7 +248,14 @@ function goToPage(Link: HTMLAnchorElement | HTMLButtonElement): void {
 }
 
 rootElement?.addEventListener('click', (e) => {
-	const target: HTMLAnchorElement | HTMLButtonElement = e.target as HTMLAnchorElement | HTMLButtonElement;
+	const target: HTMLElement = e.target as HTMLElement;
+
+	if(target.className  === 'playButton') {
+		e.preventDefault();
+		const songName: string = target.getAttribute('data-section')!;
+		playSong(feed.Content[songName]);
+		return;
+	}
 
 	if (target.getAttribute('data-section') === '/signout') {
 		e.preventDefault();
@@ -262,6 +269,22 @@ rootElement?.addEventListener('click', (e) => {
 		return;
 	}
 });
+
+footerElement?.addEventListener('click', (e) => {
+	const target: HTMLElement = e.target as HTMLElement;
+	
+});
+
+function playSong(song: Song): void {
+	const audio = document.querySelector('audio')!;
+	audio.src = song.Content;
+	audio.play();
+}
+
+function pauseSong(): void {
+	const audio = document.querySelector('audio')!;
+	audio.pause();
+}
 
 
 
