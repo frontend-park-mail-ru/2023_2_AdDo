@@ -1,370 +1,114 @@
-import { routeConfigType, Song } from './types';
-import { Header } from './components/Header/Header';
-import { HeaderConfig } from './components/Header/HeaderConst';
-import { Feed } from './components/Feed/Feed';
-import { FeedConfig } from './components/Feed/FeedConst';
-import { Login } from './components/Login/Login';
-import { LoginConfig } from './components/Login/LoginConst';
-import { Player } from './components/Player/Player';
-import { PlayerConfig } from './components/Player/PlayerConfig';
-import { Signup } from './components/SignUp/SignUp';
-import { SignUpConfig } from './components/SignUp/SignUpConst';
+import LoginView from './Views/LoginView/LoginView';
+import MainView from './Views/MainView/MainView';
+import SignUpView from './Views/SignUpView/SignUpView';
 import './index.css';
-import Ajax from './modules/Ajax';
-
-/** 
- * @constant
-    @type {string}
-*/
-//const HOST: string = 'http://localhost';
-const HOST: string = 'http://82.146.45.164';
-const s3HOST: string = 'http://82.146.45.164:9000';
-/** 
- * @constant
-    @type {string}
-*/
-const PORT: string = ':8080';
-
-/** 
-* @constant
-* @type {Object}
-*/
-const routeConfig: routeConfigType = {
-	'/feed': {
-		name: 'Главное',
-		render: renderFeed,
-	},
-	'/podcasts': {
-		name: 'Подкасты',
-		render: renderPodcasts,
-	},
-	'/collection': {
-		name: 'Коллекция',
-		render: renderCollection,
-	},
-	'/login': {
-		name: 'Логин',
-		render: renderLogin,
-	},
-	'/signup': {
-		name: 'Регистрация',
-		render: renderSignUp,
-	},
-	'/signout': {
-		name: 'Выйти',
-		render: renderSignout,
-	},
-};
+import Ajax from './Modules/Ajax/Ajax';
+import EventDispatcher from './Modules/EventDispatcher/EventDispatcher';
+import router from './Modules/Router/Router';
+import MainController from './Controllers/MainController/MainController';
+import FeedModel from './Models/FeedModel/FeedModel';
+import UserModel from './Models/UserModel/UserModel';
+import paths from './Modules/Router/RouterPaths';
 
 
-const rootElement = document.querySelector('#root');
-const menuElement = document.createElement('div');
-const pageElement = document.createElement('main');
-const footerElement = document.createElement('footer');
-rootElement?.appendChild(menuElement);
-rootElement?.appendChild(pageElement);
-rootElement?.appendChild(footerElement);
+class App {
+	public mainview: MainView;
+	public loginview: LoginView;
+	public signupview: SignUpView;
 
-const header = new Header(menuElement, HeaderConfig);
-let feed = new Feed(pageElement, FeedConfig);
-const login = new Login(pageElement, LoginConfig);
-const signup = new Signup(pageElement, SignUpConfig);
-const player = new Player(footerElement, PlayerConfig);
+	public maincontroller: MainController;
 
-let isAuth: boolean = false;
-let songId: number;
-let Playing: boolean = false;
+	public feedmodel: FeedModel;
+	public usermodel: UserModel;
 
-renderFeed();
+	constructor() {
 
-/**
-* Renders home page.
-*/
-function renderFeed(): void {
-	Ajax.get( HOST + PORT + '/api/v1/auth', false)
-		.then(({ status }) => {
-			if (status === 200) {
-				isAuth = true;
-			}	
-		})
-		.catch((error) => {
-			throw error;
-		});
-	Ajax.get(HOST + PORT + '/api/v1/music', true)
-		.then(({ ok, status, responseBody }) => {
-			if (status === 200) {
-				feed.Content = responseBody;
-				header.render(isAuth);
-				feed.render();	
-				
-				return;
-			}
-		})
-		.catch((error) => {
-			throw error;
-		});
-	player.render();
-
-}
-
-/**
- * Renders Signup page.
- */
-function renderSignUp(): void {
-	signup.render();
-	const signupForm = document.querySelector('form');
-
-	signupForm?.addEventListener('submit', (e) => {
-		e.preventDefault();
-        const email = document.querySelector('[data-section="email"]');
-        const password = document.querySelector('[data-section="password"]');
-        const passwordCheck = document.querySelector('[data-section="passwordCheck"]');
-        const birthDate = document.querySelector('[data-section="date"]');
-        const username = document.querySelector('[data-section="username"]');
-
-		if (password == passwordCheck) {
-			document.querySelector('[data-section="passcheck"]')!.className = 'passCheckDisabled';
-			document.querySelector('[data-section="lengthPassword"]')!.className = 'passCheckDisabled';
-			password!.className = 'authInput';                                                          // TODO: вынести в отдельные функцию
-			passwordCheck!.className = 'authInput';
-			username!.className = 'authInput';
-
-			Ajax.post(
-				HOST + PORT + '/api/v1/sign_up',
-				{ email: email!.textContent, username: username!.textContent, password: password!.textContent, birthDate: birthDate!.textContent },
-                true,
-			)
-				.then(({ ok, status, responseBody }) => {
-					if (status === 200) {
-						isAuth = true;
-						localStorage.setItem('id', responseBody.Id);
-						goToPage(document.querySelector('[data-section="/feed"]')!);
-						return;
-					} else if (status === 400) {
-						document.querySelector('[data-section="passcheck"]')!.className = 'passCheckActive';
-						document.querySelector('[data-section="lengthPassword"]')!.className = 'passCheckActive';
-						document!.querySelector('[data-section="passcheck"]')!.textContent = 'Имя пользователя (от 2 до 30 символов)';
-						username!.className = 'authWrongInput';
-                        password!.className = 'authWrongInput';
-						passwordCheck!.className = 'authWrongInput';
-						return;
-					} else if (status === 409) {
-                        document.querySelector('[data-section="passcheck"]')!.textContent = 'Пользователь с такой почтой уже существует';
-                        document.querySelector('[data-section="passcheck"]')!.className = 'passCheckActive';
-					}
-					alert('Ошибка при регистрации!');
-				})
-				.catch((error) => {
-					throw error;
-				});
-		} else {
-			document.querySelector('[data-section="passcheck"]')!.className = 'passCheckActive';
-			document.querySelector('[data-section="passcheck"]')!.textContent = 'Пароли не совпадают';
-			password!.className = 'authWrongInput';
-			passwordCheck!.className = 'authWrongInput';
-		}
-	});
-}
-
-
-/**
- * Renders Login page.
- */
-function renderLogin(): void {
-	login.render();
-
-	const loginForm = document.querySelector('form');
-
-	loginForm?.addEventListener('submit', (e) => {
-		e.preventDefault();
-
-		const email = document.querySelector('[data-section="email"]');
-		const password = document.querySelector('[data-section="password"]');
-
-		Ajax.post(
-			HOST + PORT + '/api/v1/login',
-			{ email: email!.textContent, password: password!.textContent },
-            true
-	    )
-			.then(({ ok, status, responseBody }) => {
-				if (status === 200) {
-					localStorage.setItem('id', responseBody.Id);
-					isAuth = true;
-					goToPage(document.querySelector('[data-section="/feed"]')!);
-					return;
-				}
-                document.querySelector('[data-section="passcheck"]')!.className = 'passCheckActive';
-			})
-			.catch((error) => {
-				throw error;
-			});
-	});
-}
-
-/**
- * Renders Podcasts page.
- */
-function renderPodcasts(): void {
-
-}
-
-/**
- * Renders Collection page.
- */
-function renderCollection(): void {
-
-}
-
-/**
- * Renders Signout page.
- */
-function renderSignout(): void {
-	Ajax.post(
-		HOST + PORT + '/api/v1/logout',
-		{Id: parseInt(localStorage.getItem('id')!)} 
-	)
-		.then(({ status }) => {
-			if (status === 200) {
-				isAuth = false;
-				localStorage.removeItem('id');
-				menuElement.innerHTML = '';
-				header.render(isAuth);
-				return;
-			}
-		})
-		.catch((error) => {
-			throw error;
-		});
-}
-
-/**
- * Renders Player.
- */
-function renderPlayer(song: Song, Playing: boolean): void {
-	player.render(song, Playing);
-	const audio: HTMLAudioElement = document.querySelector('audio')!;
-	audio.addEventListener('timeupdate', updateProgress);
-	footerElement.querySelector('.progressBar')?.addEventListener('click', setProgress);
-	audio.addEventListener('ended', nextSong);
-}
-
-/**
- * Goes to another page
- * @param {HTMLAnchorElement} Link 
- */
-function goToPage(Link: HTMLAnchorElement | HTMLButtonElement): void {
-	menuElement.innerHTML = '';
-	pageElement.innerHTML = '';
-
-	for (let href in routeConfig) {
-		if (Link.getAttribute('data-section') === href) {
-			routeConfig[href as keyof routeConfigType].render(isAuth);
-		}
-	}
-}
-
-
-rootElement?.addEventListener('click', (e) => {
-	const target: HTMLElement = e.target as HTMLElement;
-
-	if(target.className  === 'playButton') {
-		songId = parseInt(target.getAttribute('data-section')!);
-		const song = feed.Content.find((song) => song.Id === songId)!
-		footerElement.querySelector('.contentContainer')!.innerHTML = '';
-		Playing = true;
-		renderPlayer(song, Playing);
-		playSong(song);
-		return;
+		const root: HTMLElement = document.querySelector('#root')!;
+		this.mainview = new MainView(root);
+		this.loginview = new LoginView(root);
+		this.feedmodel = new FeedModel(this.mainview.fillContent.bind(this.mainview));
+		this.usermodel = new UserModel();
+		this.signupview = new SignUpView(root);
+		this.maincontroller = new MainController(this.mainview, {FeedModel: this.feedmodel, UserModel: this.usermodel});
+		this.initRoutes();
 	}
 
-	if (target.getAttribute('data-section') === '/signout') {
-		e.preventDefault();
-		renderSignout();
-		return;
+	/**
+	 * runs the application
+	 */
+	public run(url: string) {
+		router.start(url);
+		this.maincontroller.updateContent();
+		this.maincontroller.mountComponent();
+		// this.usermodel.authUserByCookie(); мб не тут надо 
 	}
 
-	if (target instanceof HTMLAnchorElement || (target instanceof HTMLButtonElement) && (target.getAttribute('data-section') === '/feed' || target.getAttribute('data-section') === '/login')) {
-		e.preventDefault();
-		goToPage(target);
-		return;
+	public initRoutes() {
+		// router.setUnknownPageHandler(this.handleRedirectToNotFound.bind(this));  разберись что это
+
+        const routes = [
+            { path: paths.login, handler: this.renderLogin },
+            { path: paths.signup, handler: this.renderSignUp },
+            { path: paths.feedAll, handler: this.renderFeedAll },
+            { path: paths.feedChart, handler: this.renderFeedChart },
+            { path: paths.feedPlaylists, handler: this.renderFeedPlaylists },
+            { path: paths.feedNew, handler: this.renderFeedNew },
+            { path: paths.album, handler: this.renderAlbum },
+            { path: paths.artist, handler: this.renderArtist },
+            { path: paths.collection, handler: this.renderCollection },
+            { path: paths.podcasts, handler: this.renderPodcasts },
+        ];
+
+        routes.forEach(({ path, handler }) => {
+            router.addRule(path, handler.bind(this));
+        });
 	}
-});
-
-footerElement?.addEventListener('click', (e) => {
-	const target: HTMLElement = e.target as HTMLElement;
-	switch (target.getAttribute('data-section')!) {
-		case 'prevBtn':
-			prevSong();
-			return;
-		case 'playBtn':
-			let img: HTMLImageElement = document.querySelector('[data-section="playBtn"]') as HTMLImageElement;
-			if(Playing) {
-				Playing = false;
-				img.src = './static/img/Play.svg';
-				pauseSong();
-			} else {
-				img.src = './static/img/Pause.svg';
-				Playing = true;
-				resumeSong();
-			}
-			return;
-		case 'nextBtn':
-			nextSong();
-			return;
+ 
+	public renderLogin(): void {
+		EventDispatcher.emit('unmount-all');
+		this.loginview.show();
 	}
-});
 
-function playSong(song: Song): void {
-	const audio = document.querySelector('audio')!
-	audio.src = s3HOST + song.Content;
-	audio.play();
-}
+	public renderSignUp(): void {
+		EventDispatcher.emit('unmount-all');
+		this.signupview.show();
+	}
 
-function resumeSong(): void {
-	const audio = document.querySelector('audio')!
-	audio.play();
-}
-function pauseSong(): void {
-	const audio = document.querySelector('audio')!
-	audio.pause();
-}
+	public renderFeedAll(): void {
+		EventDispatcher.emit('unmount-all');
+		this.mainview.show();
+	}
 
-function updateProgress(e: Event): void {
-	const {duration, currentTime} = e.target as HTMLAudioElement;
-	const progressPercent = (currentTime / duration) * 100;
-	console.log(currentTime);
-	const progress: HTMLElement = document.querySelector('.progress')!;
-	progress.style.width = `${progressPercent}%`;
-}
+	public renderFeedChart(): void {
+		EventDispatcher.emit('unmount-all');
+	}
 
-function setProgress(e: Event): void {
-	const width: number = footerElement.querySelector('.progressBar')!.clientWidth;
-	const target = e as MouseEvent;
-	const x: number = target.offsetX;
-	const audio = document.querySelector('audio')!;
-	const duration = audio.duration;
-	audio.currentTime = (x / width) * duration;
-}
+	public renderFeedPlaylists(): void {
+		EventDispatcher.emit('unmount-all');
+	}
 
-function nextSong() {
-	songId >= feed.Content.length ? songId = 1 : songId++;
-	let song: Song = feed.Content.find((song) => song.Id === songId)!
-	footerElement.querySelector('.contentContainer')!.innerHTML = '';
-	Playing = true;
-	renderPlayer(song, Playing);
-	playSong(song);
-}
+	public renderFeedNew(): void {
+		EventDispatcher.emit('unmount-all');
+	}
 
-function prevSong() {
-	songId <= 1 ? songId = 1 : songId--;
-	let song: Song = feed.Content.find((song) => song.Id === songId)!
-	footerElement.querySelector('.contentContainer')!.innerHTML = '';
-	Playing = true;
-	renderPlayer(song, Playing);
-	playSong(song);
+	public renderAlbum(): void {
+		EventDispatcher.emit('unmount-all');
+	}
+
+	public renderArtist(): void {
+		EventDispatcher.emit('unmount-all');
+	}
+
+	public renderCollection(): void {
+		EventDispatcher.emit('unmount-all');
+	}
+
+	public renderPodcasts(): void {
+		EventDispatcher.emit('unmount-all');
+	}
+
 }
 
 
-
-
-
+const app = new App();
+app.run(paths.feedAll);

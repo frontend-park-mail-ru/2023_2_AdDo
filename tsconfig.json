@@ -108,5 +108,12 @@
   },
   "files": [
     "tsconfig.json"
+  ],
+  "include": [
+    "src/global.d.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.hbs"
   ]
 }

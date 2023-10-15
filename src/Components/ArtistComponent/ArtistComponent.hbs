@@ -1,0 +1,54 @@
+<div class="artistContainer">\
+    <div class="artist">
+        <img src="{{port}}{{Artist.Avatar}}" alt="">
+        <div>
+            <div>Исполнитель</div>
+            <div>Artist.Name</div>
+        </div>
+    </div>
+    <h1 class="zagolovok">Альбомы</h1>
+    <div class="albumsContainer">
+        <ul class="content">
+            {{#each Artist.Albums}}
+                <li class="contentItem">
+                    <div class="albumContainer">
+                        <div class="imageContainer">
+                            <img class="contentPhoto" src="{{port}}{{this.Preview}}" alt="1">
+                            <div class="playButton" data-section="{{this.Id}}"></div>
+                        </div>
+                        <div class="albumName">
+                            {{this.Name}}
+                        </div>
+                        <div class="artistName">
+                            {{this.ArtistName}}
+                        </div>
+                    </div>  
+                </li>   
+            {{/each}}   
+        </ul>
+    </div>
+    <h1 class="zagolovok">Песни</h1>
+    <div class="songsContainer">
+        <ul class="content">
+            {{#each Artist.Tracks}}
+                <li class="contentItem">
+                    <div class="songContainer">
+                        <div class="imageContainer">
+                            <img class="contentPhoto" src="{{port}}{{this.Preview}}" alt="1">
+                            <div class="playButton" data-section="{{this.Id}}"></div>
+                        </div>
+                        <div class="albumName">
+                            {{this.Name}}
+                        </div>
+                        <div class="artistName">
+                            {{this.ArtistName}}
+                        </div>
+                    </div>  
+                </li>   
+            {{/each}}   
+        </ul>
+    </div>
+</div>
+
+
+    

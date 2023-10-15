@@ -1,0 +1,98 @@
+import paths from './RouterPaths';
+import { IRoute, RouteHandler, AnyHandler } from './RouterTypes';
+
+class Router {
+    private routes: IRoute[];
+    private page404Handler: AnyHandler;
+    private nearestUrl: string;
+
+    public constructor() {
+        this.routes = [];
+        this.page404Handler = (): void => console.error('No unknown page handler!');
+        this.nearestUrl = paths.feedAll;
+    }
+
+    public start(entryPath: string): void {
+        history.replaceState({ path: entryPath }, '', entryPath);
+
+        window.addEventListener('popstate', e => {
+            e.preventDefault();
+            this.route();
+        });
+
+        this.route();
+    }
+
+    public goToPage(path: string): void {
+        history.pushState({ path: path }, '', path);
+        this.route();
+    }
+
+    private route(): void {
+        const rawPath = history.state?.path;
+
+        if (!rawPath) {
+            return;
+        }
+
+        const path = this.sanitizeUrl(rawPath);
+
+        const foundedPath = this.routes.find(({ rule, handler }) => {
+            const match = path.match(rule);
+
+            if (match) {
+                handler(match.slice(1));
+            }
+            return match;
+        });
+
+        if (!foundedPath) {
+            this.page404Handler();
+            return;
+        }
+    }
+
+    public show404Page(): void {
+        this.page404Handler();
+    }
+
+    public setpage404Handler(handler: AnyHandler): void {
+        this.page404Handler = handler;
+    }
+
+    public addRule(rule: string, handler: RouteHandler): IRoute {
+        const newRoute = {
+            rule: this.parseRule(rule),
+            handler: handler,
+        };
+        this.routes.push(newRoute);
+        return newRoute;
+    }
+
+    public removeRule(rule: string): void {
+        const index = this.routes.findIndex(
+            route => route.rule.source === this.parseRule(rule).source
+        );
+        if (index > -1) {
+            this.routes.splice(index, 1);
+        }
+    }
+
+    public getNearestUrl(): string {
+        return this.nearestUrl;
+    }
+
+    private parseRule(rule: string): RegExp {
+        const uri = this.sanitizeUrl(rule)
+            .replace(/{:id}/g, '(\\d+)')
+            .replace(/{:\w+}/, '([A-Za-zА-Яа-яЁё]+)');
+        return new RegExp(`^${uri}$`, 'i');
+    }
+
+    private sanitizeUrl(rule: string): string {
+        return rule.replace(/\/$/, '').replace(/^\//, '');
+    }
+}
+
+const router = new Router();
+export default router;

@@ -8,37 +8,33 @@ export type Input = {
     text: string,
     name: string,
 }
+export type Album = {
+    Id: number,
+    Name: string,
+    Preview: string,
+    ArtistId: number,
+    ArtistName: string,
+    Tracks: Array<Song>,
+}
 
 export type Artist = {
     Id: number,
     Name: string,
     Avatar: string,
-}
-
-export type Album = {
-    Id: number,
-    Name: string,
-    Preview: string,
+    Albums: Array<Album>,
+    Tracks: Array<Song>,
 }
 
 export type Song = {
     Id: number,
     Name: string,
-    Artist: Artist,
-    Album: Album,
     Preview: string,
     Content: string,
 }
 
-export type route = {
-    name: string,
-    render: Function,
-}
-export type routeConfigType = {
-    '/feed': route,
-    '/podcasts': route,
-    '/collection': route,
-    '/login': route,
-    '/signup': route,
-    '/signout': route,
+
+export type User = {
+    email: string,
+    avatar: string,
+    username: string,
 }

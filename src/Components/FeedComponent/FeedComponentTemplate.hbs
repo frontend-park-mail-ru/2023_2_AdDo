@@ -1,0 +1,36 @@
+<div class="feedContainer">
+    <div class="feedText">Главное</div>
+    <ul class="feed">
+        {{#each FeedComponentConfig}}
+            <li class="feedItem">
+                <div class="feeda" data-section="{{this.key}}">
+                    {{this.name}}
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+    <h1 class="zagolovok">Новые треки, альбомы и сборники</h1>
+    <div class="mainContainer">
+        <ul class="content">
+            {{#each content}}
+                <li class="contentItem">
+                    <div class="albumContainer">
+                        <div class="imageContainer">
+                            <img class="contentPhoto" src="{{port}}{{this.Preview}}" alt="1">
+                            <div class="playButton" data-section="{{this.Id}}"></div>
+                        </div>
+                        <div class="albumName">
+                            {{this.Name}}
+                        </div>
+                        <div class="artistName">
+                            {{this.ArtistName}}
+                        </div>
+                    </div>  
+                </li>   
+            {{/each}}   
+        </ul>
+    </div>
+</div>
+
+
+    

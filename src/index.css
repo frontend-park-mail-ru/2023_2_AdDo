@@ -1,10 +1,10 @@
 @import './normalize.css';
 @import './tags.css';
-@import './components/Header/Header.css';
-@import './components/Player/Player.css';
-@import './components/Feed/Feed.css';
-@import './components/Login/Login.css';
-@import './components/SignUp/SignUp.css';
+@import './Components/HeaderComponent/HeaderComponent.css';
+@import './Components/PlayerComponent/PlayerComponent.css';
+@import './Components/FeedComponent/FeedComponent.css';
+@import './Components/LoginComponent/LoginComponent.css';
+@import './Components/SignUpComponent/SignUpComponent.css';
 @import url('https://fonts.cdnfonts.com/css/source-sans-pro');
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
 
@@ -95,8 +95,6 @@
 .yeta:hover {
     color:#C15DF3;
 }
-
-
 
 .authInput {
     background-color: #0F0F0F;
