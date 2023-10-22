@@ -30,6 +30,7 @@ export type Song = {
     Name: string,
     Preview: string,
     Content: string,
+    ArtistName: string,
 }
 
 

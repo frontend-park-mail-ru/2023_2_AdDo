@@ -9,10 +9,15 @@ const AJAX_METHODS = {
 };
 
 export default class Ajax {
+    private static csrfToken?: string;
     private static async fetch(params: requestParamsType, isJson: boolean = true): Promise<responseType> {
         const response = await fetch(params.url, {
             ...params.options
         });
+
+        if(params.url === 'http://localhost:8000/api/v1/auth') {
+            this.csrfToken = response.headers.get('X-Csrf-Token')!;
+        }
 
         if (!response.ok) {
             return {
@@ -47,7 +52,6 @@ export default class Ajax {
                 mode: 'cors', 
                 credentials: 'include', 
                 method: AJAX_METHODS.GET, 
-                headers: {'Content-Type': 'application/json; charset=utf-8',} 
             },
         }, isJson);
     }
@@ -69,8 +73,8 @@ export default class Ajax {
             options: {
                 mode: 'cors', 
                 credentials: 'include', 
-                method: AJAX_METHODS.GET, 
-                headers: {'Content-Type': 'application/json; charset=utf-8'}, 
+                method: AJAX_METHODS.POST, 
+                headers: {'Content-Type': 'application/json; charset=utf-8', 'X-Csrf-Token': this.csrfToken!}, 
                 body: isFormData ? body : JSON.stringify(body),
             },
         });

@@ -1,4 +1,5 @@
 class IComponent {
+    protected isMounted: boolean = false; 
     /**
      * Родительский элемент для данного вида
      * @member
@@ -31,20 +32,23 @@ class IComponent {
         return <HTMLElement>this.parent.querySelector(element);
     }
 
-    public show(): void {
-        this.parent.appendChild(this.element);
-    }
+    // public show(): void {
+    //     this.parent.appendChild(this.element);
+    // }
 
     public prepend(): void {
         this.parent.prepend(this.element);
     }
 
     public append(): void {
-        this.parent.append(this.element);
+        this.parent.append?.(this.element);
+        this.isMounted = true;
     }
 
     public hide(): void {
-        this.parent.removeChild(this.element);
+        if(this.isMounted) {
+            this.parent.removeChild?.(this.element);
+        }
     }
 }
 

@@ -3,7 +3,7 @@
     <ul class="feed">
         {{#each FeedComponentConfig}}
             <li class="feedItem">
-                <div class="feeda" data-section="{{this.key}}">
+                <div class="feeda" data-section="link" data-url="{{this.key}}">
                     {{this.name}}
                 </div>
             </li>
@@ -16,13 +16,13 @@
                 <li class="contentItem">
                     <div class="albumContainer">
                         <div class="imageContainer">
-                            <img class="contentPhoto" src="{{port}}{{this.Preview}}" alt="1">
-                            <div class="playButton" data-section="{{this.Id}}"></div>
+                            <img class="contentPhoto" data-section="link" data-url="album/{{this.Id}}" data-Id="{{this.Id}}" src="{{port}}{{this.Preview}}" alt="1">
+                            <div class="playButton" data-section="playButton" data-url="{{this.Id}}"></div>
                         </div>
-                        <div class="albumName">
+                        <div class="albumName" data-section="link" data-url="album/{{this.Id}}">
                             {{this.Name}}
                         </div>
-                        <div class="artistName">
+                        <div class="artistName" data-section="link" data-url="artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
                             {{this.ArtistName}}
                         </div>
                     </div>  

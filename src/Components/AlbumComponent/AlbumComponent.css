@@ -1,0 +1,34 @@
+
+.songContainer {
+    display: inline;
+}
+
+.songs {
+    display: block;
+}
+
+.miniPlayButton {
+    position: absolute;
+    left: 5%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-image: url(../../static/img/playButton.png);
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.imageContainer:hover .miniPlayButton {
+    opacity: 1;
+  }
+
+.songName {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

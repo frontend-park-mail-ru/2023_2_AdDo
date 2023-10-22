@@ -1,12 +1,12 @@
 <div class="menucontainer">
     <ul class="links">
         <li class="menuItem">
-            <a href=""><img class="imgLogo" src="./static/img/Logo.svg" alt=""></a>
+            <img class="imgLogo" data-url="/feed/all" data-section="link" src="./static/img/Logo.svg" alt="">
             <div class="logoText">MusicOn</div>    
         </li>
         {{#each HeaderConfig}}
             <li class="menuItem">
-                <h2 class="headera" data-section="{{this.href}}">
+                <h2 class="headera" data-url="{{this.href}}" data-section="link">
                     {{this.name}}
                 </h2>
             </li>
@@ -19,18 +19,18 @@
                     <input type="text" data-section="text" class="search" placeholder ="Введите название песни или альбома">
                 </form>
         </li>
-        {{#if isAuth}}
+        {{#if user}}
         <li class="menuItem">
             <div class="profile">
-            <img class="imgAvatar" src="./static/img/worm.jpg" alt="">
-            <a class="signout" href="/signout" data-section="/signout">
+            <img class="imgAvatar" src="{{port}}{{user.Avatar}}" alt="">
+            <div class="signout" data-section="signout">
                 Выйти
-            </a>
+            </div>
             </div>
         </li>
         {{else}}
         <li class="menuItem">
-            <a href="login" data-section="/login" ><button class="defaultButton" data-section="/login">Войти</button></a>
+            <a href="login" data-section="/login" ><button class="defaultButton" data-url="login" data-section="link">Войти</button></a>
         </li>
         {{/if}}
     </ul>

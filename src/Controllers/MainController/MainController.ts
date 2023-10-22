@@ -1,9 +1,9 @@
-import FeedModel from "../../Models/FeedModel/FeedModel";
+import ContentModel from "../../Models/ContentModel/ContentModel";
+import UserModel from "../../Models/UserModel/UserModel";
 import MainView from "../../Views/MainView/MainView";
 import IController from "../IController/IController";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
-import { Song } from "../../types";
-import UserModel from "../../Models/UserModel/UserModel";
+import { Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
 
 /**
@@ -13,19 +13,50 @@ import router from "../../Modules/Router/Router";
  * @param  {HeaderView} view Объект вида компонента хэдер
  */
 
-class MainController extends IController<MainView, {FeedModel: FeedModel, UserModel: UserModel}> {
+class MainController extends IController<MainView, {ContentModel: ContentModel, UserModel: UserModel}> {
     private albumId: number = 0;
     private songId: number = 0;
     private Playing: boolean = false;
-    public constructor(view: MainView, model: {FeedModel: FeedModel, UserModel: UserModel}) {
+    private redirectId: number = 0;
+    public constructor(view: MainView, model: {ContentModel: ContentModel, UserModel: UserModel}) {
         super(view, model);
         this.view.bindClickEvent(this.handleClick.bind(this));
+        this.view.bindEndedEvent(this.nextSong.bind(this));
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
+        EventDispatcher.subscribe('user-changed', (user: User) => {
+            if (user) {
+                this.view.fillHeader(this.model.UserModel.getCurrentUser()!);
+            }
+        })
     }
 
-    public updateContent(): void {
-        this.view.fillContent(this.model.FeedModel.getAlbums());
+    public updateFeed(): void {
+        this.view.renderFeed();
+        this.model.ContentModel.requestAlbums(this.view.fillContent.bind(this.view));
     }
+
+    public updateAlbum(): void {
+        this.view.renderAlbum();
+        this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), this.redirectId);
+    }
+
+    public updateArtist(): void {
+        this.view.renderArtist();
+        this.model.ContentModel.requestArtist(this.view.fillArtist.bind(this.view), this.redirectId);
+    }
+
+    public updateChart(): void {
+        this.model.ContentModel.requestChart(this.view.fillContent.bind(this.view));
+    }
+
+    public updateNew(): void {
+        this.model.ContentModel.requestNew(this.view.fillContent.bind(this.view));
+    }
+
+    public updatePlaylists(): void {
+        this.model.ContentModel.requestPlaylists(this.view.fillContent.bind(this.view));
+    }
+
 
     /**
      * Функция обработки нажатия на хедер
@@ -35,30 +66,28 @@ class MainController extends IController<MainView, {FeedModel: FeedModel, UserMo
      */
     private handleClick(e: Event): void {
         const target: HTMLElement = e.target as HTMLElement;
-        if(target.className  === 'playButton') {
-            e.preventDefault();
-            this.albumId = parseInt(target.getAttribute('data-section')!);
-            const songs: Array<Song> = this.model.FeedModel.getSongs(this.albumId);
-            this.songId = 0;
-            this.Playing = true;
-            this.view.play(...songs);
-            return;
-        }
 
-        if (target instanceof HTMLAnchorElement || (target instanceof HTMLButtonElement) && (target.getAttribute('data-section') === '/feed' || target.getAttribute('data-section') === '/login')) {
-            e.preventDefault();
-            router.goToPage(target.getAttribute('data-section')!);
-            return;
-        }
-
+        console.log(target.getAttribute('data-section')!);
         switch (target.getAttribute('data-section')!) {
-            case '/signout':
+            case 'playButton':
+                e.preventDefault();
+                this.albumId = parseInt(target.getAttribute('data-section')!);
+                const songs: Array<Song> = this.model.ContentModel.getSongs(this.albumId);
+                this.songId = 0;
+                this.Playing = true;
+                this.view.play(songs[this.songId]);
+                return;
+            case 'link':
+                e.preventDefault();
+                this.redirectId = parseInt(target.getAttribute('data-id')!);
+                router.goToPage(target.getAttribute('data-url')!);
+                return;
+            case 'signout':
                 e.preventDefault();
                 this.model.UserModel.logoutUser();
                 return;
             case 'prevBtn':
-                this.songId <= 0 ? this.songId = 0 : this.songId--;
-                this.view.play(this.model.FeedModel.getSongById(this.songId));
+                this.prevSong();
                 return;
             case 'playBtn':
                 if(this.Playing) {
@@ -70,10 +99,19 @@ class MainController extends IController<MainView, {FeedModel: FeedModel, UserMo
                 }
                 return;
             case 'nextBtn':
-                this.songId >= this.model.FeedModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
-                this.view.play(this.model.FeedModel.getSongById(this.songId));
+                this.nextSong();
                 return;
         }
+    }
+
+    public nextSong(): void {
+        this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
+        this.view.play(this.model.ContentModel.getSongById(this.songId));
+    }
+
+    public prevSong(): void {
+        this.songId <= 0 ? this.songId = 0 : this.songId--;
+        this.view.play(this.model.ContentModel.getSongById(this.songId));
     }
 }
 

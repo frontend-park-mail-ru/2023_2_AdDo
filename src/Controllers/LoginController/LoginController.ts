@@ -1,4 +1,4 @@
-import FeedModel from "../../Models/FeedModel/FeedModel";
+import FeedModel from "../../Models/ContentModel/ContentModel";
 import IController from "../IController/IController";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 import UserModel from "../../Models/UserModel/UserModel";
@@ -16,11 +16,12 @@ class LoginController extends IController<LoginView, UserModel> {
 
     private handleClick(e: Event): void {
         const target: HTMLElement = e.target as HTMLElement;
-
+        
     }
 
     private handleSubmit(e: Event): void {
-        
+        const {email, password} = this.view.getDataFromForm();
+        this.model.signInUser(email, password);
     }
 }
 

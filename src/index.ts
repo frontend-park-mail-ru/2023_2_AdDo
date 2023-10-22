@@ -1,14 +1,23 @@
 import LoginView from './Views/LoginView/LoginView';
 import MainView from './Views/MainView/MainView';
 import SignUpView from './Views/SignUpView/SignUpView';
+
+import MainController from './Controllers/MainController/MainController';
+
+
+import ContentModel from './Models/ContentModel/ContentModel';
+import UserModel from './Models/UserModel/UserModel';
+
 import './index.css';
 import Ajax from './Modules/Ajax/Ajax';
 import EventDispatcher from './Modules/EventDispatcher/EventDispatcher';
 import router from './Modules/Router/Router';
-import MainController from './Controllers/MainController/MainController';
-import FeedModel from './Models/FeedModel/FeedModel';
-import UserModel from './Models/UserModel/UserModel';
 import paths from './Modules/Router/RouterPaths';
+
+
+
+
+
 
 
 class App {
@@ -18,18 +27,21 @@ class App {
 
 	public maincontroller: MainController;
 
-	public feedmodel: FeedModel;
+	public contentmodel: ContentModel;
 	public usermodel: UserModel;
 
 	constructor() {
 
 		const root: HTMLElement = document.querySelector('#root')!;
+
+		this.contentmodel = new ContentModel();
+		this.usermodel = new UserModel();
+
 		this.mainview = new MainView(root);
 		this.loginview = new LoginView(root);
-		this.feedmodel = new FeedModel(this.mainview.fillContent.bind(this.mainview));
-		this.usermodel = new UserModel();
 		this.signupview = new SignUpView(root);
-		this.maincontroller = new MainController(this.mainview, {FeedModel: this.feedmodel, UserModel: this.usermodel});
+
+		this.maincontroller = new MainController(this.mainview, {ContentModel: this.contentmodel, UserModel: this.usermodel});
 		this.initRoutes();
 	}
 
@@ -37,10 +49,8 @@ class App {
 	 * runs the application
 	 */
 	public run(url: string) {
+		this.usermodel.authUserByCookie(); 
 		router.start(url);
-		this.maincontroller.updateContent();
-		this.maincontroller.mountComponent();
-		// this.usermodel.authUserByCookie(); мб не тут надо 
 	}
 
 	public initRoutes() {
@@ -66,7 +76,6 @@ class App {
  
 	public renderLogin(): void {
 		EventDispatcher.emit('unmount-all');
-		this.loginview.show();
 	}
 
 	public renderSignUp(): void {
@@ -76,27 +85,38 @@ class App {
 
 	public renderFeedAll(): void {
 		EventDispatcher.emit('unmount-all');
-		this.mainview.show();
+		this.maincontroller.updateFeed();
+		this.maincontroller.mountComponent();
 	}
 
 	public renderFeedChart(): void {
 		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateChart();
+		this.maincontroller.mountComponent();
 	}
 
 	public renderFeedPlaylists(): void {
 		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatePlaylists();
+		this.maincontroller.mountComponent();
 	}
 
 	public renderFeedNew(): void {
 		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateNew();
+		this.maincontroller.mountComponent();
 	}
 
 	public renderAlbum(): void {
 		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateAlbum();	
+		this.maincontroller.mountComponent();
 	}
 
 	public renderArtist(): void {
 		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateArtist();
+		this.maincontroller.mountComponent();
 	}
 
 	public renderCollection(): void {
@@ -108,7 +128,6 @@ class App {
 	}
 
 }
-
 
 const app = new App();
 app.run(paths.feedAll);

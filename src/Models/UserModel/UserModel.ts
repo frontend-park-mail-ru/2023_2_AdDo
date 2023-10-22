@@ -12,13 +12,6 @@ class UserModel extends IModel {
         this.currentUser = null;
     }
 
-    // private parseUser(json: any): IUser {
-    //     return {
-    //         email:             json.email,
-    //         avatar:            json.avatar_url,
-    //     };
-    // }
-
     public getCurrentUser(): User | null {
         return this.currentUser;
     }
@@ -32,44 +25,45 @@ class UserModel extends IModel {
 	    )
 			.then(({ ok, status, responseBody }) => {
 				if (status === 200) {
+                    this.getUser();
 					return;
 				} 
 			})
 			.catch((error) => {
 				throw error;
 			});
-
-        // EventDispatcher.emit('user-changed', this.currentUser);  тут должно стригириться событие аутентификации которые либо отрисует ошибку либо зарегает пользователя с редиректом
     }
 
-    public  signUpUser(email: string, username: string, password: string, birthDate: string) {
+    public signUpUser(email: string, username: string, password: string, birthDate: string) {
         Ajax.post(
-            HOST + PORT + '/api/v1/sign_up',
-            { email, username, password, birthDate },
-            true,
+        HOST + PORT + '/api/v1/sign_up',
+        { email, username, password, birthDate },
+        true,
         )
-            .then(({ ok, status, responseBody }) => {
-                if (status === 200) {
-                    return;
-                } else if (status === 400) {
-                    return;
-                } else if (status === 409) {
-                    return;
-                }
-                alert('Ошибка при регистрации!');
-            })
-            .catch((error) => {
-                throw error;
-            });
+        .then(({ ok, status, responseBody }) => {
+            if (status === 200) {
+                this.getUser();
+                return;
+            } else if (status === 400) {
+                return;
+            } else if (status === 409) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+
     } 
 
     public logoutUser() {
         Ajax.post(
 		HOST + PORT + '/api/v1/logout',
         {},
-	)
+	    )
 		.then(({ status }) => {
 			if (status === 200) {
+                EventDispatcher.emit('user-changed', this.currentUser); 
 				return;
 			}
 		})
@@ -79,9 +73,28 @@ class UserModel extends IModel {
     }
 
     public authUserByCookie() {
-        Ajax.get( HOST + PORT + '/api/v1/auth', false)
-		.then(({ status }) => {
+        Ajax.get( HOST + PORT + '/api/v1/auth', true)
+		.then(({ status, responseBody }) => {
 			if (status === 200) {
+                this.getUser();
+                return;
+			}	
+		})
+		.catch((error) => {
+			throw error;
+		});
+    }
+
+    private getUser() {
+        Ajax.get( HOST + PORT + '/api/v1/me', true)
+		.then(({ ok, status, responseBody }) => {
+			if (status === 200) {
+                this.currentUser = {
+                    email: responseBody.email,
+                    username: responseBody.username,
+                    avatar: responseBody.avatar
+                }
+                EventDispatcher.emit('user-changed', this.currentUser);
 			}	
 		})
 		.catch((error) => {

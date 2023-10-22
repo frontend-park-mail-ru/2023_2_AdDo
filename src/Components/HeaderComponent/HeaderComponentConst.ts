@@ -8,7 +8,7 @@ import type { HeaderConfigType } from './HeaderComponentTypes';
 export const HeaderConfig: HeaderConfigType = [
 	{
 		key: 'main',
-		href: '/feed',
+		href: '/feed/all',
 		name: 'Главное',
 	},
 	{

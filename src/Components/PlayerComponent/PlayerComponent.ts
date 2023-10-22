@@ -6,7 +6,6 @@ import { s3HOST } from '../../HostConsts';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
-	private songId: number = 0;
 	/**
      * Sets parent, config and port for images.
      * @param {HTMLElement} parent
@@ -16,7 +15,7 @@ export class PlayerComponent extends IComponent {
      */
 	constructor(parent: HTMLElement, 
 				port: string, 
-				song: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: ''}, 
+				song: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '',}, 
 				Playing: boolean = false) {
 		super(parent, template({PlayerComponentConfig, song, port, Playing}));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
@@ -25,6 +24,10 @@ export class PlayerComponent extends IComponent {
 	
 	public playSong(song: Song): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		const img = this.querySelector('.avatar')! as HTMLImageElement;
+		img.src = song.Preview;
+		this.querySelector('.title')!.textContent = song.Name;
+		this.querySelector('.artist')!.textContent = song.ArtistName;
 		audio.src = s3HOST + song.Content;
 		audio.play();
 	}

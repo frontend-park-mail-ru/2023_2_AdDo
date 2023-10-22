@@ -1,13 +1,13 @@
 import { Album } from '../../types';
-import * as Handlebars from 'handlebars';
 import template from './FeedComponentTemplate.hbs';
 import { FeedComponentConfig } from './FeedComponentConst';
 import  IComponent  from '../IComponent/IComponent';
+import { s3HOST } from '../../HostConsts';
 
 /** Class representing a FeedComponent. */
 export class FeedComponent extends IComponent{
 	private content: Array<Album> = [];
-	private port: string;
+	private port: string = s3HOST;
 	/**
      * Sets parent, config and port for images.
      * @param {HTMLElement} parent
@@ -16,8 +16,7 @@ export class FeedComponent extends IComponent{
      */
 	constructor(parent: HTMLElement, port: string, content: Array<Album> = []) {
 		super(parent, template({FeedComponentConfig, content, port}));
-		this.port = port;
-		this.Content = content;
+		this.content = content;
 	}
 
 	/**
@@ -48,8 +47,5 @@ export class FeedComponent extends IComponent{
 		this.parent.innerHTML = '';
 		this.parent.innerHTML = template({FeedComponentConfig, content: this.Content, port: this.port});
 
-        // const main = document.querySelector('main')!;
-		// main.innerHTML = '';
-        // main.innerHTML = template({FeedComponentConfig, content: this.Content, port: this.port});
 	}
 }

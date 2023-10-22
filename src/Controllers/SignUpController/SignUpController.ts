@@ -1,4 +1,4 @@
-import FeedModel from "../../Models/FeedModel/FeedModel";
+import FeedModel from "../../Models/ContentModel/ContentModel";
 import IController from "../IController/IController";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 import UserModel from "../../Models/UserModel/UserModel";

@@ -1,0 +1,31 @@
+<div class="feedContainer">
+    <div class="album">
+        <img src="{{port}}{{Artist.Avatar}}" alt="">
+        <div>
+            <div class="logoText">{{album.Name}}</div>
+            <h1>{{album.ArtistName}}</h1>
+            <h2>{{album.ReleaseDate}}</h2>
+        </div>
+    </div>
+    <div class="mainContainer">
+        <ul class="songs">
+            {{#each album.Tracks}}
+                <li class="contentItem">
+                    <div class="imageContainer" style="display: inline-block;">
+                        <div class="songName">{{@index}}</div>
+                        <div class="miniPlayButton" data-section="playButton" data-url="{{this.Id}}"></div>
+                    </div>
+                    <div class="songName" style="display: inline-block;">
+                        {{this.Name}}
+                    </div>
+                    <div class="duration" style="display: inline-block;">
+                        {{this.Duration}}
+                    </div>
+                </li>   
+            {{/each}}   
+        </ul>
+    </div>
+</div>
+
+
+    
