@@ -3,7 +3,7 @@ import  IComponent  from '../IComponent/IComponent';
 import { HeaderConfig } from './HeaderComponentConst';
 import  template from './HeaderComponentTemplate.hbs'
 import { User } from '../../types';
-import { s3HOST } from '../../HostConsts';
+import hosts from '../../HostConsts';
 
 /** Class representing a Header. */
 export class HeaderComponent extends IComponent {
@@ -13,7 +13,7 @@ export class HeaderComponent extends IComponent {
      * @param {HTMLElement} parent
      */
 	constructor(parent: HTMLElement) {
-		super(parent, template({HeaderConfig, s3HOST}));
+		super(parent, template({HeaderConfig, port: hosts.s3HOST}));
 	}
 
      public get User() : User {
@@ -28,7 +28,7 @@ export class HeaderComponent extends IComponent {
 
      public renderHeader(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template(template({HeaderConfig, s3HOST, user: this.user}));
+		this.parent.innerHTML = template(template({HeaderConfig, port : hosts.s3HOST, user: this.user}));
 	}
 
 }

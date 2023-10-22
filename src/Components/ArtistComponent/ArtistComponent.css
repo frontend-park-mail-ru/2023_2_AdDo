@@ -1,0 +1,49 @@
+.artistPhoto{
+    width: 190px;
+    height: 190px;
+    border-radius: 100px;
+}
+
+.songPhoto {
+    width: 40px;
+    height: 40px;
+}
+
+.index {
+    width: 25px;
+    content: counter(name);
+}
+
+.index::before {
+    counter-increment: index;
+    content: counter(index);
+}
+
+.songs {
+    display: inline-block;
+    margin-top: 20px;
+    display: grid;
+    flex-wrap: wrap;
+    padding: 0px;
+    margin-bottom: 50px;
+    gap: 30px;
+}
+
+.ArtistName {
+    color: #FFF;
+    font-family: 'Lato', sans-serif;
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.ArtistSongs {
+    gap: 20px;
+    display: grid;
+}
+
+.artist {
+    display: flex;
+    gap: 20px;
+}

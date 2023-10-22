@@ -3,7 +3,6 @@ import template from './MainView.hbs';
 import { HeaderComponent } from '../../Components/HeaderComponent/HeaderComponent';
 import { PlayerComponent } from '../../Components/PlayerComponent/PlayerComponent';
 import { FeedComponent } from '../../Components/FeedComponent/FeedComponent';
-import { s3HOST } from '../../HostConsts';
 import FeedModel from '../../Models/ContentModel/ContentModel';
 import type { Album, Song, User, Artist } from '../../types';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
@@ -24,10 +23,10 @@ class MainView extends IView {
         super(parent, template({}));
 
         this.header = new HeaderComponent(this.element.querySelector('header')!);
-        this.feed = new FeedComponent(this.element.querySelector('main')!, s3HOST);
-        this.album = new AlbumComponent(this.element.querySelector('main')!, s3HOST, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
-        this.artist = new ArtistComponent(this.element.querySelector('main')!, s3HOST, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
-        this.footer = new PlayerComponent(this.element.querySelector('footer')!, s3HOST);
+        this.feed = new FeedComponent(this.element.querySelector('main')!);
+        this.album = new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
+        this.artist = new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
+        this.footer = new PlayerComponent(this.element.querySelector('footer')!);
         this.header.append();
         this.footer.append();
 
@@ -37,14 +36,17 @@ class MainView extends IView {
     }
 
     public renderFeed(): void {
+        this.element.querySelector('main')!.innerHTML = '';
         this.feed.append();
     }
 
     public renderAlbum(): void {
+        this.element.querySelector('main')!.innerHTML = '';
         this.album.append();
     }
 
     public renderArtist(): void {
+        this.element.querySelector('main')!.innerHTML = '';
         this.artist.append();
     }
 

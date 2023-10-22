@@ -1,10 +1,33 @@
-<div class="artistContainer">\
+
+<div class="feedContainer">
     <div class="artist">
-        <img src="{{port}}{{Artist.Avatar}}" alt="">
-        <div>
-            <div>Исполнитель</div>
-            <div>Artist.Name</div>
+        <img class="artistPhoto" src="{{port}}{{Artist.Avatar}}" alt="">
+        <div style="display: inline-block;">
+            <div class="songName">Исполнитель</div>
+            <div class="ArtistName">{{Artist.Name}}</div>
         </div>
+    </div>
+    <h1 class="zagolovok">Песни</h1>
+    <div class="mainContainer">
+        <ul class="ArtistSongs">
+            {{#each Artist.Tracks}}
+                <li class="songItem">
+                    <div class="imageContainer" style="display: inline-block;">
+                        <div class="songName index"></div>
+                        <div class="miniPlayButton" data-section="miniPlayButton" data-url="{{@index}}"></div>
+                    </div>
+                    <div style="display:inline-block">
+                        <img class="songPhoto" src="{{../port}}{{this.Preview}}" alt="1">
+                    </div>
+                    <div class="songName" style="display: inline-block;">
+                        {{this.Name}}
+                    </div>
+                    <div class="duration" style="display: inline-block;">
+                        {{this.Duration}}
+                    </div>
+                </li>   
+            {{/each}}   
+        </ul>
     </div>
     <h1 class="zagolovok">Альбомы</h1>
     <div class="albumsContainer">
@@ -13,28 +36,7 @@
                 <li class="contentItem">
                     <div class="albumContainer">
                         <div class="imageContainer">
-                            <img class="contentPhoto" src="{{port}}{{this.Preview}}" alt="1">
-                            <div class="playButton" data-section="{{this.Id}}"></div>
-                        </div>
-                        <div class="albumName">
-                            {{this.Name}}
-                        </div>
-                        <div class="artistName">
-                            {{this.ArtistName}}
-                        </div>
-                    </div>  
-                </li>   
-            {{/each}}   
-        </ul>
-    </div>
-    <h1 class="zagolovok">Песни</h1>
-    <div class="songsContainer">
-        <ul class="content">
-            {{#each Artist.Tracks}}
-                <li class="contentItem">
-                    <div class="songContainer">
-                        <div class="imageContainer">
-                            <img class="contentPhoto" src="{{port}}{{this.Preview}}" alt="1">
+                            <img class="contentPhoto" src="{{../port}}{{this.Preview}}" alt="1">
                             <div class="playButton" data-section="{{this.Id}}"></div>
                         </div>
                         <div class="albumName">
@@ -51,4 +53,4 @@
 </div>
 
 
-    
+

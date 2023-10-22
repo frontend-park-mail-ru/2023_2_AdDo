@@ -2,7 +2,9 @@
     <ul class="login">
          <div class="container">
             <li class="loginItem">
-            <a data-section="/feed" href=""><img class="imgLogo" src="./static/img/Logo.svg" alt=""></a>
+            <div>
+                <img class="imgLogo" data-section="link" data-url="/feed/all" src="/static/img/Logo.svg" alt="">
+            </div>
             <div class="logoText">MusicOn</div>    
             </li>
          </div>
@@ -12,7 +14,7 @@
                 <input class="authInput" type="{{this.type}}" data-section="{{this.name}}" placeholder="{{this.text}}" required >
             </li> 
             {{/each}}
-            <li class="loginItem">\
+            <li class="loginItem">
                 <div style="display: block;">
                     <div class="passCheckDisabled" data-section="passcheck" >Пароли не совпадают!</div>
                     <div class="passCheckDisabled" data-section="lengthPassword" >Пароль (от 6 до 30 символов)</div>
@@ -25,7 +27,7 @@
         <li class="loginItem">
             <div class="yet">
             Уже есть учетная запись?
-            <a data-section="/login" class="yeta" href="/login">Войдите</a>
+           <div data-section="link" data-url="/login" class="yeta"> Войдите</div>
             </div>
         </li>
     </ul>

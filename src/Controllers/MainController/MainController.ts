@@ -34,12 +34,12 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.view.renderFeed();
         this.model.ContentModel.requestAlbums(this.view.fillContent.bind(this.view));
     }
-
+    
     public updateAlbum(): void {
         this.view.renderAlbum();
         this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), this.redirectId);
     }
-
+    
     public updateArtist(): void {
         this.view.renderArtist();
         this.model.ContentModel.requestArtist(this.view.fillArtist.bind(this.view), this.redirectId);
@@ -71,11 +71,15 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         switch (target.getAttribute('data-section')!) {
             case 'playButton':
                 e.preventDefault();
-                this.albumId = parseInt(target.getAttribute('data-section')!);
-                const songs: Array<Song> = this.model.ContentModel.getSongs(this.albumId);
-                this.songId = 0;
+                this.albumId = parseInt(target.getAttribute('data-url')!);
+                this.model.ContentModel.getSongs(this.view.play,this.albumId);
                 this.Playing = true;
-                this.view.play(songs[this.songId]);
+                return;
+            case 'miniplayButton':
+                e.preventDefault();
+                this.songId = parseInt(target.getAttribute('data-url')!);
+                this.view.play(this.model.ContentModel.getSongById(this.songId));
+                this.Playing = true;
                 return;
             case 'link':
                 e.preventDefault();

@@ -1,11 +1,10 @@
 .menucontainer {
-    justify-content: center;
     display: grid;
     grid-template-areas:
         "links rest";
     grid-template-rows: 75% 25%;
     gap: 20px;
-    margin-top: 1vh;
+    margin-top: 3vh;
 }
 
 .links{
@@ -46,6 +45,10 @@
     align-items: center;
 }
 
+.headera {
+    cursor: pointer;
+}
+
 .headera:hover {
     color:#C15DF3;
 }
@@ -55,6 +58,7 @@
     width: 70px;
     height: 70px;
     background-color: linear-gradient(180deg, #C15DF3 0%, #572A6D 100%);
+    cursor: pointer;
 }
 
 .logoText {
@@ -100,6 +104,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     font-weight: 400;
+    cursor: pointer;
 }
 
 .defaultButton:hover {

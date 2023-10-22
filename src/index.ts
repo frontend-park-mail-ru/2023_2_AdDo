@@ -3,7 +3,8 @@ import MainView from './Views/MainView/MainView';
 import SignUpView from './Views/SignUpView/SignUpView';
 
 import MainController from './Controllers/MainController/MainController';
-
+import LoginController from './Controllers/LoginController/LoginController';
+import SignUpController from './Controllers/SignUpController/SignUpController';
 
 import ContentModel from './Models/ContentModel/ContentModel';
 import UserModel from './Models/UserModel/UserModel';
@@ -20,12 +21,16 @@ import paths from './Modules/Router/RouterPaths';
 
 
 
+
+
 class App {
 	public mainview: MainView;
 	public loginview: LoginView;
 	public signupview: SignUpView;
 
 	public maincontroller: MainController;
+	public logincontroller: LoginController;
+	public signupcontroller: SignUpController;
 
 	public contentmodel: ContentModel;
 	public usermodel: UserModel;
@@ -42,6 +47,9 @@ class App {
 		this.signupview = new SignUpView(root);
 
 		this.maincontroller = new MainController(this.mainview, {ContentModel: this.contentmodel, UserModel: this.usermodel});
+		this.logincontroller = new LoginController(this.loginview,  this.usermodel);
+		this.signupcontroller = new SignUpController(this.signupview, this.usermodel);
+
 		this.initRoutes();
 	}
 
@@ -76,11 +84,12 @@ class App {
  
 	public renderLogin(): void {
 		EventDispatcher.emit('unmount-all');
+		this.logincontroller.mountComponent();
 	}
 
 	public renderSignUp(): void {
 		EventDispatcher.emit('unmount-all');
-		this.signupview.show();
+		this.signupcontroller.mountComponent();
 	}
 
 	public renderFeedAll(): void {
@@ -131,3 +140,5 @@ class App {
 
 const app = new App();
 app.run(paths.feedAll);
+
+

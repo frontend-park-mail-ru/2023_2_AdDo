@@ -6,6 +6,7 @@
 @import './Components/LoginComponent/LoginComponent.css';
 @import './Components/SignUpComponent/SignUpComponent.css';
 @import './Components/AlbumComponent/AlbumComponent.css';
+@import './Components/ArtistComponent/ArtistComponent.css';
 @import url('https://fonts.cdnfonts.com/css/source-sans-pro');
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
 
@@ -37,6 +38,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
 
 .SubmitBigButton:hover {
@@ -74,6 +76,7 @@
     width: 85px;
     height: 85px;
     background-color: linear-gradient(180deg, #C15DF3 0%, #572A6D 100%);
+    cursor: pointer;
 }
 
 .yet {
@@ -91,6 +94,8 @@
     font-weight: 400;
     line-height: normal;
     text-decoration-line: underline;
+    display: inline-block;
+    cursor: pointer;
 }
 
 .yeta:hover {

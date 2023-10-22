@@ -1,6 +1,7 @@
 body {
     background-image: url("../../static/img/background.png");
     font-family: 'Source Sans Pro', 'Montserrat', sans-serif;
+    counter-reset: index;
 }
 
 main {

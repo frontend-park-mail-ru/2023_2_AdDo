@@ -1,20 +1,23 @@
 import { Artist } from '../../types';
 import template from './ArtistComponent.hbs';
 import  IComponent  from '../IComponent/IComponent';
+import hosts from '../../HostConsts';
 
+import * as Handlebars from 'handlebars';
+Handlebars.registerHelper('addOne', function(index) {
+	return index + 1;
+});
 /** Class representing a FeedComponent. */
 export class ArtistComponent extends IComponent{
 	private artist: Artist;
-	private port: string;
 	/**
      * Sets parent, config and port for images.
      * @param {HTMLElement} parent
      * @param {Array<Album>} content
 	 * @param {string} port  
      */
-	constructor(parent: HTMLElement, port: string, artist: Artist) {
-		super(parent, template({artist, port}));
-		this.port = port;
+	constructor(parent: HTMLElement, artist: Artist) {
+		super(parent, template({artist, port: hosts.s3HOST}));
 		this.artist = artist;
 	}
 
@@ -37,6 +40,6 @@ export class ArtistComponent extends IComponent{
 
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({artist: this.artist, port: this.port});
+		this.parent.innerHTML = template({Artist: this.artist, port: hosts.s3HOST});
 	}
 }

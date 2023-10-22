@@ -2,20 +2,20 @@ import { Album } from '../../types';
 import template from './FeedComponentTemplate.hbs';
 import { FeedComponentConfig } from './FeedComponentConst';
 import  IComponent  from '../IComponent/IComponent';
-import { s3HOST } from '../../HostConsts';
+import  s3HOST  from '../../HostConsts';
+import hosts from '../../HostConsts';
 
 /** Class representing a FeedComponent. */
 export class FeedComponent extends IComponent{
 	private content: Array<Album> = [];
-	private port: string = s3HOST;
 	/**
      * Sets parent, config and port for images.
      * @param {HTMLElement} parent
      * @param {Array<Album>} content
-	 * @param {string} port  
+	 * @param {string} host  
      */
-	constructor(parent: HTMLElement, port: string, content: Array<Album> = []) {
-		super(parent, template({FeedComponentConfig, content, port}));
+	constructor(parent: HTMLElement, content: Array<Album> = []) {
+		super(parent, template({FeedComponentConfig, content}));
 		this.content = content;
 	}
 
@@ -45,7 +45,7 @@ export class FeedComponent extends IComponent{
 
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({FeedComponentConfig, content: this.Content, port: this.port});
+		this.parent.innerHTML = template({FeedComponentConfig, host: hosts.s3HOST, content: this.Content });
 
 	}
 }

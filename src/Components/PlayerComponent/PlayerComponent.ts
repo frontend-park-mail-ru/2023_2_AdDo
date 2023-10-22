@@ -2,7 +2,7 @@ import IComponent from '../IComponent/IComponent';
 import template from './PlayerComponentTemplate.hbs';
 import { Song } from '../../types';
 import { PlayerComponentConfig } from './PlayerComponentConfig';
-import { s3HOST } from '../../HostConsts';
+import hosts from '../../HostConsts';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
@@ -14,10 +14,9 @@ export class PlayerComponent extends IComponent {
 	 * @param {boolean} Playing  
      */
 	constructor(parent: HTMLElement, 
-				port: string, 
 				song: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '',}, 
 				Playing: boolean = false) {
-		super(parent, template({PlayerComponentConfig, song, port, Playing}));
+		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing}));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindClickEvent(this.setProgress.bind(this));
 	}
@@ -28,7 +27,7 @@ export class PlayerComponent extends IComponent {
 		img.src = song.Preview;
 		this.querySelector('.title')!.textContent = song.Name;
 		this.querySelector('.artist')!.textContent = song.ArtistName;
-		audio.src = s3HOST + song.Content;
+		audio.src = hosts.s3HOST + song.Content;
 		audio.play();
 	}
 

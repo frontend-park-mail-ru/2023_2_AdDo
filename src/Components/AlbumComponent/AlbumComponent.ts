@@ -1,20 +1,19 @@
 import { Album } from '../../types';
 import template from './AlbumComponent.hbs';
 import  IComponent  from '../IComponent/IComponent';
+import hosts from '../../HostConsts';
 
 /** Class representing a FeedComponent. */
 export class AlbumComponent extends IComponent{
 	private album: Album;
-	private port: string;
 	/**
      * Sets parent, config and port for images.
      * @param {HTMLElement} parent
      * @param {Array<Album>} content
 	 * @param {string} port  
      */
-	constructor(parent: HTMLElement, port: string, album: Album) {
-		super(parent, template({album, port}));
-		this.port = port;
+	constructor(parent: HTMLElement, album: Album) {
+		super(parent, template({album, port: hosts.s3HOST}));
 		this.album = album;
 	}
 
@@ -37,6 +36,6 @@ export class AlbumComponent extends IComponent{
 
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({album: this.album, port: this.port});
+		this.parent.innerHTML = template({album: this.album, port: hosts.s3HOST});
 	}
 }

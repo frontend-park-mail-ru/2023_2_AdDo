@@ -16,12 +16,12 @@
                 <li class="contentItem">
                     <div class="albumContainer">
                         <div class="imageContainer">
-                            <img class="contentPhoto" data-section="link" data-url="album/{{this.Id}}" data-Id="{{this.Id}}" src="{{port}}{{this.Preview}}" alt="1">
+                            <img class="contentPhoto" data-section="link" data-url="album/{{this.Id}}" data-id="{{this.Id}}" src="{{../host}}{{this.Preview}}" alt="1">
                             <div class="playButton" data-section="playButton" data-url="{{this.Id}}"></div>
                         </div>
-                        <div class="albumName" data-section="link" data-url="album/{{this.Id}}">
+                        <div class="albumName" data-section="link" data-id="{{this.Id}}" data-url="album/{{this.Id}}">
                             {{this.Name}}
-                        </div>
+                        </div>  
                         <div class="artistName" data-section="link" data-url="artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
                             {{this.ArtistName}}
                         </div>

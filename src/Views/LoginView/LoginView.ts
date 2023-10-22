@@ -1,7 +1,6 @@
 import IView from '../IView/IView';
 import template from './LoginView.hbs';
 import {LoginComponent} from '../../Components/LoginComponent/LoginComponent';
-import { s3HOST } from '../../HostConsts';
 import Feed from '../../Models/ContentModel/ContentModel';
 
 
@@ -26,9 +25,9 @@ class LoginView extends IView {
     }
 
     public getDataFromForm(): {email: string, password: string} {
-        const email = this.login.querySelector('[data-section="email"]').textContent!;
-		const password = this.login.querySelector('[data-section="password"]').textContent!;
-        return {email, password}
+        const emailInput = this.login.querySelector('[data-section="email"]') as HTMLInputElement;
+		const passwordInput = this.login.querySelector('[data-section="password"]') as HTMLInputElement;
+        return {email: emailInput.value!, password: passwordInput.value!}
     }
 }
 

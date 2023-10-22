@@ -1,8 +1,9 @@
 import IModel from '../IModel/IModel';
 import Ajax from '../../Modules/Ajax/Ajax';
 import { User } from '../../types';
-import {HOST, PORT} from '../../HostConsts';
+import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
+import paths from '../../Modules/Router/RouterPaths';
 
 class UserModel extends IModel {
     private currentUser: User | null;
@@ -16,16 +17,16 @@ class UserModel extends IModel {
         return this.currentUser;
     }
 
-    public signInUser(email: string, password: string) {
-        
+    public signInUser(email: string, password: string, callback: any): void {
         Ajax.post(
-			HOST + PORT + '/api/v1/login',
+			hosts.HOST + hosts.PORT + '/api/v1/login',
 			{ email, password },
             true
 	    )
 			.then(({ ok, status, responseBody }) => {
 				if (status === 200) {
                     this.getUser();
+                    callback(paths.feedAll);
 					return;
 				} 
 			})
@@ -34,15 +35,16 @@ class UserModel extends IModel {
 			});
     }
 
-    public signUpUser(email: string, username: string, password: string, birthDate: string) {
+    public signUpUser(email: string, username: string, password: string, birthDate: string, callback: any): void {
         Ajax.post(
-        HOST + PORT + '/api/v1/sign_up',
+        hosts.HOST + hosts.PORT + '/api/v1/sign_up',
         { email, username, password, birthDate },
         true,
         )
         .then(({ ok, status, responseBody }) => {
             if (status === 200) {
                 this.getUser();
+                callback(paths.feedAll);
                 return;
             } else if (status === 400) {
                 return;
@@ -58,7 +60,7 @@ class UserModel extends IModel {
 
     public logoutUser() {
         Ajax.post(
-		HOST + PORT + '/api/v1/logout',
+        hosts.HOST + hosts.PORT + '/api/v1/logout',
         {},
 	    )
 		.then(({ status }) => {
@@ -73,7 +75,7 @@ class UserModel extends IModel {
     }
 
     public authUserByCookie() {
-        Ajax.get( HOST + PORT + '/api/v1/auth', true)
+        Ajax.get( hosts.HOST + hosts.PORT + '/api/v1/auth', true)
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.getUser();
@@ -86,7 +88,7 @@ class UserModel extends IModel {
     }
 
     private getUser() {
-        Ajax.get( HOST + PORT + '/api/v1/me', true)
+        Ajax.get( hosts.HOST + hosts.PORT + '/api/v1/me', true)
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
                 this.currentUser = {

@@ -4,12 +4,19 @@
 }
 
 .songs {
-    display: block;
+    display: inline-block;
+    margin-top: 20px;
+    display: grid;
+    flex-wrap: wrap;
+    padding: 0px;
+    margin-bottom: 130px;
+    gap: 30px;
 }
 
 .miniPlayButton {
     position: absolute;
-    left: 5%;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
     width: 30px;
     height: 30px;
@@ -17,6 +24,7 @@
     background-size: cover;
     opacity: 0;
     transition: opacity 0.3s;
+    cursor: pointer;
 }
 
 .imageContainer:hover .miniPlayButton {
@@ -31,4 +39,29 @@
     text-align: left;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.albumPhoto {
+    border-radius: 10px;
+    width: 190px;
+    height: 190px;
+}
+
+.album {
+    display: flex;
+    gap: 30px;
+}
+
+.songItem {
+    display: flex;
+    gap: 30px;
+}
+
+.albumInfo {
+    color: #FFF;
+    font-size: 36px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+    display: inline;
 }
