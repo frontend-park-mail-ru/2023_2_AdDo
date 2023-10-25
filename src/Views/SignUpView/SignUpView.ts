@@ -26,7 +26,7 @@ class SignUpView extends IView {
 		const passwordInput = this.signup.querySelector('[data-section="password"]') as HTMLInputElement;
         const birthdateInput = this.signup.querySelector('[data-section="date"]') as HTMLInputElement;
         const passwordcheckInput = this.signup.querySelector('[data-section="passwordCheck"]') as HTMLInputElement;
-        const usernameInput= this.signup.querySelector('[data-section="username"]') as HTMLInputElement;
+        const usernameInput = this.signup.querySelector('[data-section="username"]') as HTMLInputElement;
         return {email: emailInput.value!, password: passwordInput.value!, passwordcheck: passwordcheckInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!};
     }
 

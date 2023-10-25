@@ -28,7 +28,7 @@ class SignUpController extends IController<SignUpView, UserModel> {
     private handleSubmit(e: Event): void {
         e.preventDefault();
         const {email, password, passwordcheck, username, birthdate} = this.view.getDataFromForm();
-        this.model.signUpUser(email, password, username, birthdate, router.goToPage);
+        this.model.signUpUser(email, username, password, birthdate, router.goToPage);
     }
 }
 
