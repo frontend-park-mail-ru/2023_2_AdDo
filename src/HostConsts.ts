@@ -9,7 +9,7 @@
 // }
 
 const hosts = {
-    HOST: 'http://musicon.space',
+    HOST: 'https://musicon.space',
     s3HOST: 'http://static.musicon.space',
     PORT: '',
 }
