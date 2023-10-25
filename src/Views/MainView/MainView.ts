@@ -9,6 +9,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { AlbumComponent } from '../../Components/AlbumComponent/AlbumComponent';
 import { ArtistComponent } from '../../Components/ArtistComponent/ArtistComponent';
 import UserModel from '../../Models/UserModel/UserModel';
+import hosts from '../../HostConsts';
 
 
 class MainView extends IView {
@@ -67,18 +68,20 @@ class MainView extends IView {
     }
 
     public play(song: Song): void {
+        let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Pause.svg';
         this.footer.playSong(song);
     }
 
     public resume(): void {
         let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
-        img.src = './static/img/Pause.svg';
+        img.src = '/static/img/Pause.svg';
         this.footer.resumeSong();
     }
 
     public pause(): void {
         let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
-        img.src = './static/img/Play.svg';
+        img.src = '/static/img/Play.svg';
         this.footer.pauseSong();
     }
 

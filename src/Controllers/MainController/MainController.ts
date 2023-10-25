@@ -72,10 +72,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'playButton':
                 e.preventDefault();
                 this.albumId = parseInt(target.getAttribute('data-url')!);
-                this.model.ContentModel.getSongs(this.view.play,this.albumId);
+                this.model.ContentModel.getSongs(this.view.play.bind(this.view), this.albumId);
                 this.Playing = true;
                 return;
-            case 'miniplayButton':
+            case 'miniPlayButton':
                 e.preventDefault();
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.view.play(this.model.ContentModel.getSongById(this.songId));

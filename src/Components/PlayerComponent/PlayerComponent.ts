@@ -24,7 +24,7 @@ export class PlayerComponent extends IComponent {
 	public playSong(song: Song): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
-		img.src = song.Preview;
+		img.src = hosts.s3HOST + song.Preview;
 		this.querySelector('.title')!.textContent = song.Name;
 		this.querySelector('.artist')!.textContent = song.ArtistName;
 		audio.src = hosts.s3HOST + song.Content;
