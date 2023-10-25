@@ -7,6 +7,7 @@ export default class ContentModel extends IModel {
     private albums: Array<Album> = [];
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
+    private currentArtistSongs: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
     constructor () {
@@ -51,6 +52,7 @@ export default class ContentModel extends IModel {
             console.log(responseBody, status);
 			if (status === 200) {
                 this.artist = responseBody;
+                this.currentArtistSongs = this.artist.Tracks.slice(0);
                 callback(this.artist);
                 return;
 			}
@@ -136,6 +138,10 @@ export default class ContentModel extends IModel {
      */
     public getSongById(songId: number): Song {
         return this.currentsongs[songId];
+    }
+
+    public getArtistSongById(songId: number): Song {
+        return this.currentArtistSongs[songId];
     }
 
     /**

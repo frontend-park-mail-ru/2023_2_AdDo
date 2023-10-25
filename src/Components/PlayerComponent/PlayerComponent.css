@@ -27,6 +27,32 @@
     }
 }
 
+
+
+.volumeBar {
+    background-color: #666F7A;
+    width: 85px;
+    height: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    margin-top: 15px;
+    margin-right: 15px;
+    border-radius: 5px;
+    .volumee {
+        background: #453B77;
+        height: 6px;
+        width: 0px;
+    }
+}
+
+.volumeBtn {
+    position: absolute;
+    right: 110px;
+}
+
 .title {
     margin-bottom: 10px;
 }
@@ -46,11 +72,7 @@
     cursor: pointer;
 }
 
-.volumeBtn {
-    position: absolute;
-    right: 0;
-    margin-right: 15px;
-}
+
 
 
 .title {

@@ -14,7 +14,7 @@
                 <li class="songItem">
                     <div class="imageContainer" style="display: inline-block;">
                         <div class="songName index"></div>
-                        <div class="miniPlayButton" data-section="miniPlayButton" data-url="{{@index}}"></div>
+                        <div class="miniPlayButton" data-section="miniArtistPlayButton" data-url="{{@index}}"></div>
                     </div>
                     <div style="display:inline-block">
                         <img class="songPhoto" src="{{../port}}{{this.Preview}}" alt="1">
@@ -37,7 +37,7 @@
                     <div class="albumContainer">
                         <div class="imageContainer">
                             <img class="contentPhoto" data-section="link" data-url="album/{{this.Id}}" data-id="{{this.Id}}" src="{{../port}}{{this.Preview}}" alt="1">
-                            <div class="playButton" data-section="{{this.Id}}"></div>
+                            <div class="playButton" data-section="playButton" data-url="{{this.Id}}"></div>
                         </div>
                         <div class="albumName" data-section="link" data-id="{{this.Id}}" data-url="album/{{this.Id}}">
                             {{this.Name}}

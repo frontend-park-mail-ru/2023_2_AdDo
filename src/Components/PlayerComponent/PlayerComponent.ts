@@ -18,7 +18,8 @@ export class PlayerComponent extends IComponent {
 				Playing: boolean = false) {
 		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing}));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
-		this.bindClickEvent(this.setProgress.bind(this));
+		this.bindSetProgressEvent(this.setProgress.bind(this));
+		this.bindSetVolumeEvent(this.setVolume.bind(this));
 	}
 	
 	public playSong(song: Song): void {
@@ -28,6 +29,15 @@ export class PlayerComponent extends IComponent {
 		this.querySelector('.title')!.textContent = song.Name;
 		this.querySelector('.artist')!.textContent = song.ArtistName;
 		audio.src = hosts.s3HOST + song.Content;
+		const width: number = this.querySelector('.volumeBar')!.clientWidth;
+		const volumee: HTMLElement = this.querySelector('.volumee')!;
+		const volumeeWidth: number = volumee.clientWidth;
+		if(volumeeWidth === 0) {
+			volumee.style.width = '50%';
+			audio.volume = 0.5;
+		} else {
+			audio.volume = (volumeeWidth / width);
+		}
 		audio.play();
 	}
 
@@ -43,7 +53,6 @@ export class PlayerComponent extends IComponent {
 	private updateProgress(e: Event): void {
 		const {duration, currentTime} = e.target as HTMLAudioElement;
 		const progressPercent = (currentTime / duration) * 100;
-		console.log(currentTime);
 		const progress: HTMLElement = this.querySelector('.progress')!;
 		progress.style.width = `${progressPercent}%`;
 	}
@@ -57,12 +66,25 @@ export class PlayerComponent extends IComponent {
 		audio.currentTime = (x / width) * duration;
 	}
 
-	private bindClickEvent(listener: any): void {
+	private setVolume(e: Event): void {
+		const width: number = this.querySelector('.volumeBar')!.clientWidth;
+		const target = e as MouseEvent;
+		const x: number = target.offsetX;
+		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		audio.volume = (x / width);
+		const volumee: HTMLElement = this.querySelector('.volumee')!;
+		const volumeePercent = (audio.volume * 100).toFixed(0);
+		volumee.style.width = `${volumeePercent}%`;
+	}
+
+	private bindSetProgressEvent(listener: any): void {
         this.element.querySelector('.progressBar')!.addEventListener('click', listener);
     }
 
+	private bindSetVolumeEvent(listener: any): void {
+		this.element.querySelector('.volumeBar')!.addEventListener('click', listener);
+	}
 	private bindTimeUpdateEvent(listener: any): void {
-		const a = this.element.querySelector('audio')!;
         this.element.querySelector('audio')!.addEventListener('timeupdate', listener);
     }
 }

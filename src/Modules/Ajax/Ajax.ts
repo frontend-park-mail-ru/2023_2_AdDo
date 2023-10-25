@@ -15,7 +15,7 @@ export default class Ajax {
             ...params.options
         });
 
-        if(params.url === 'http://localhost:8000/api/v1/auth') {
+        if(params.url === 'https://musicon.space/api/v1/auth') {
             this.csrfToken = response.headers.get('X-Csrf-Token')!;
         }
 
