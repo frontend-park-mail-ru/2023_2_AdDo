@@ -12,6 +12,7 @@ const AJAX_METHODS = {
 export default class Ajax {
     private static csrfToken?: string;
     private static async fetch(params: requestParamsType, isJson: boolean = true): Promise<responseType> {
+        console.log(params.options);
         const response = await fetch(params.url, {
             ...params.options
         });
@@ -77,7 +78,7 @@ export default class Ajax {
                 credentials: 'include', 
                 method: AJAX_METHODS.POST, 
                 headers: {'Content-Type': 'application/json; charset=utf-8', 'X-Csrf-Token': this.csrfToken!}, 
-                body: isFormData ? body : JSON.stringify(body),
+                body: JSON.stringify(body),
             },
         });
     }
