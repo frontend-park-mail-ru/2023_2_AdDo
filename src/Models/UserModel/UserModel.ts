@@ -21,7 +21,7 @@ class UserModel extends IModel {
         Ajax.post(
 			hosts.HOST + hosts.PORT + '/api/v1/login',
 			{ email, password },
-            true
+            false
 	    )
 			.then(({ ok, status, responseBody }) => {
 				if (status === 200) {
@@ -39,7 +39,7 @@ class UserModel extends IModel {
         Ajax.post(
         hosts.HOST + hosts.PORT + '/api/v1/sign_up',
         { email, username, password, birthDate },
-        true,
+        false,
         )
         .then(({ ok, status, responseBody }) => {
             if (status === 200) {
