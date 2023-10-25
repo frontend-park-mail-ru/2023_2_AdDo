@@ -1,12 +1,11 @@
 /**
- * Базовый класс для модели.
- * Выполняет бизнес логику и работает с данными и сетью.
+ * Base class for all models
  * @class
  * @virtual
  */
 abstract class IModel {
     protected constructor() {
-        // Намеренно пустой
+
     }
 }
 

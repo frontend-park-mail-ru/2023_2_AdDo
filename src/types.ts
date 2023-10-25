@@ -39,3 +39,11 @@ export type User = {
     avatar: string,
     username: string,
 }
+
+export type Callback = (arg: any) => void;
+
+export type HostConstsType = {
+    HOST: string,
+    s3HOST: string,
+    PORT: string,
+}

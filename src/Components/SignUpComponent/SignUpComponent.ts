@@ -7,7 +7,12 @@ import { SignUpConfig } from './SignUpComponentConst';
 /** Class representing a SignUp. */
 export class SignUpComponent extends IComponent {
 	protected items: Array<Input> = [];
-
+	
+	/**
+	 * Constructor for the class.
+	 *
+	 * @param {HTMLElement} parent - The parent element.
+	 */
 	constructor(parent: HTMLElement) {
 		super(parent, template({ SignUpConfig }));
 	}

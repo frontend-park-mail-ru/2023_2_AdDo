@@ -1,18 +1,19 @@
 import IComponent from '../IComponent/IComponent';
 import template from './PlayerComponentTemplate.hbs';
-import { Song } from '../../types';
+import { Callback, Song } from '../../types';
 import { PlayerComponentConfig } from './PlayerComponentConfig';
 import hosts from '../../HostConsts';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
+
 	/**
-     * Sets parent, config and port for images.
-     * @param {HTMLElement} parent
-	 * @param {string} port  
-	 * @param {Song} song  
-	 * @param {boolean} Playing  
-     */
+	 * Constructs a new instance of the class.
+	 *
+	 * @param {HTMLElement} parent - The parent element for the new instance.
+	 * @param {Song} song - The song object with default values.
+	 * @param {boolean} Playing - The initial playing state.
+	 */	
 	constructor(parent: HTMLElement, 
 				song: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '',}, 
 				Playing: boolean = false) {
@@ -21,7 +22,13 @@ export class PlayerComponent extends IComponent {
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindSetVolumeEvent(this.setVolume.bind(this));
 	}
-	
+
+	/**
+	 * Plays a song.
+	 *
+	 * @param {Song} song - The song to be played.
+	 * @return {void} 
+	 */	
 	public playSong(song: Song): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
@@ -41,15 +48,31 @@ export class PlayerComponent extends IComponent {
 		audio.play();
 	}
 
+	/**
+	 * Resumes the currently paused song.
+	 *
+	 * @return {void} 
+	 */
 	public resumeSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
 	}
+	/**
+	 * Pauses the currently playing song.
+	 *
+	 * @return {void}
+	 */
 	public pauseSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.pause();
 	}
 
+	/**
+	 * Updates the progress of the audio player based on the current time and duration.
+	 *
+	 * @param {Event} e - The event object.
+	 * @return {void} This function does not return anything.
+	 */
 	private updateProgress(e: Event): void {
 		const {duration, currentTime} = e.target as HTMLAudioElement;
 		const progressPercent = (currentTime / duration) * 100;
@@ -57,6 +80,12 @@ export class PlayerComponent extends IComponent {
 		progress.style.width = `${progressPercent}%`;
 	}
 
+	/**
+	 * Sets the progress of the audio playback based on the position of the mouse click.
+	 *
+	 * @param {Event} e - The event object representing the mouse click.
+	 * @return {void} 
+	 */
 	private setProgress(e: Event): void {
 		const width: number = this.querySelector('.progressBar')!.clientWidth;
 		const target = e as MouseEvent;
@@ -65,7 +94,13 @@ export class PlayerComponent extends IComponent {
 		const duration = audio.duration;
 		audio.currentTime = (x / width) * duration;
 	}
-
+	
+	/**
+	 * Sets the volume of the audio player based on the position of the mouse click.
+	 *
+	 * @param {Event} e - The event object representing the mouse click.
+	 * @return {void} 
+	 */
 	private setVolume(e: Event): void {
 		const width: number = this.querySelector('.volumeBar')!.clientWidth;
 		const target = e as MouseEvent;
@@ -77,14 +112,33 @@ export class PlayerComponent extends IComponent {
 		volumee.style.width = `${volumeePercent}%`;
 	}
 
-	private bindSetProgressEvent(listener: any): void {
+	/**
+	 * Binds a 'click' event listener to the '.progressBar' element.
+	 *
+	 * @param {Callback} listener - The callback function to be executed when the 'click' event is triggered.
+	 * @return {void} 
+	 */
+	private bindSetProgressEvent(listener: Callback): void {
         this.element.querySelector('.progressBar')!.addEventListener('click', listener);
     }
 
-	private bindSetVolumeEvent(listener: any): void {
+	/**
+	 * Binds the 'click' event on the volumeBar element to the provided listener callback function.
+	 *
+	 * @param {Callback} listener - The callback function to be executed when the 'click' event is triggered.
+	 * @return {void} 
+	 */
+	private bindSetVolumeEvent(listener: Callback): void {
 		this.element.querySelector('.volumeBar')!.addEventListener('click', listener);
 	}
-	private bindTimeUpdateEvent(listener: any): void {
+
+	/**
+	 * Binds a time update event listener to the audio element.
+	 *
+	 * @param {Callback} listener - The callback function to be executed when the time updates.
+	 * @return {void}
+	 */
+	private bindTimeUpdateEvent(listener: Callback): void {
         this.element.querySelector('audio')!.addEventListener('timeupdate', listener);
     }
 }

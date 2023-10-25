@@ -1,9 +1,9 @@
 import type { SignupConfigType } from './SignUpComponentTypes';
 
-/** 
- * 	@constant
-    @type {SignupConfigType}
-*/
+/**
+ * @type {SignupConfigType}
+ * @const
+ */
 export const SignUpConfig: SignupConfigType = [
 	{
 		key: 'UsernameInput',

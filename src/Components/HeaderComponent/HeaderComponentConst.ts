@@ -1,10 +1,9 @@
 import type { HeaderConfigType } from './HeaderComponentTypes';
 
-/** 
- * 	@constant
-    @type {HeaderConfigType}
-*/
-
+/**
+ * @type {HeaderConfigType}
+ * @const
+ */
 export const HeaderConfig: HeaderConfigType = [
 	{
 		key: 'main',

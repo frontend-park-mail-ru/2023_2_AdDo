@@ -1,25 +1,18 @@
 /**
- * Базовый класс для отображения компонента приложения
+ * Base class for all views
  * @class
- * @param {HTMLElement} parent - родительский элемент для отображения
  */
 class IView {
-    /**
-     * Родительский элемент для данного вида
-     * @member
-     * @protected
-     * @type {HTMLElement}
-     */
-    protected parent: HTMLElement;
 
-    /**
-     * Корневой элемент для данного вида
-     * @member
-     * @protected
-     * @type {HTMLElement}
-     */
+    protected parent: HTMLElement;
     protected element: HTMLElement;
 
+    /**
+     * Constructs a new instance of the class.
+     *
+     * @param {HTMLElement} parent - The parent element.
+     * @param {string} template - The template string.
+     */
     public constructor(parent: HTMLElement, template: string) {
         this.parent = parent;
 
@@ -34,18 +27,18 @@ class IView {
     }
 
     /**
-     * Функция для отрисовки вида
-     * @method
-     * @returns {void}
+     * Executes the show operation.
+     *
+     * @return {void}
      */
     public show(): void {
         this.parent.appendChild(this.element);
     }
 
     /**
-     * Функция для скрытия вида
-     * @method
-     * @returns {void}
+     * Hides the element by removing it from its parent.
+     *
+     * @return {void} 
      */
     public hide(): void {
         this.parent.removeChild(this.element);

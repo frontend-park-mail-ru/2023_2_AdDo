@@ -1,4 +1,4 @@
-type Callback = (arg: any) => void;
+import { Callback } from '../../types';
 
 /**
  * Класс работы с событиями приложения (cинглтон)
@@ -6,21 +6,25 @@ type Callback = (arg: any) => void;
  * @category EventDispatcher
  */
 class EventDispatcher {
+
     /**
-     * Хранилище эвентов
-     * (Приватное поле класса)
+     * Event storage
      * @type {Map<string, Array<Function>>}
      */
     private events: Map<string, Array<Callback>>;
 
+
+    /**
+     * Create an EventDispatcher
+     */
     public constructor() {
         this.events = new Map();
     }
 
     /**
-     * Функция подписки на событие
-     * @param  {string} eventName - Имя события
-     * @param  {Function} callback - Действие, которое нужно выполнить при срабатывании события
+     * Subscribe to an event
+     * @param  {string} eventName 
+     * @param  {Callback} callback 
      * @return {void}
      */
     public subscribe(eventName: string, callback: Callback): void {
@@ -33,9 +37,9 @@ class EventDispatcher {
     }
 
     /**
-     * Функция отписки от события
-     * @param  {string} eventName - Имя события
-     * @param  {Function} callback - Действие, которое нужно было выполнить при срабатывании события
+     * Unsubscribe from an event
+     * @param  {string} eventName 
+     * @param  {Callback} callback 
      * @return {void}
      */
     public unsubscribe(eventName: string, callback: Callback): void {
@@ -53,12 +57,12 @@ class EventDispatcher {
     }
 
     /**
-     * Функция вызова события
-     * @param  {string} eventName - Имя события
-     * @param  {?any} data - Данные, которые нужно передать в функцию-обработчик
+     * Emit an event
+     * @param  {string} eventName 
+     * @param  {?unknown} data 
      * @return {void}
      */
-    public emit(eventName: string, data?: any): void {
+    public emit(eventName: string, data?: unknown): void {
         this.events.get(eventName)?.forEach(callback => {
             callback(data);
         });

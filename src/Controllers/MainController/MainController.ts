@@ -6,18 +6,19 @@ import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 import { Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
 
-/**
- * Котроллер для хэдера
- * @category Header
- * @extends {IController}
- * @param  {HeaderView} view Объект вида компонента хэдер
- */
-
+/** Class representing an MainController. */
 class MainController extends IController<MainView, {ContentModel: ContentModel, UserModel: UserModel}> {
     private albumId: number = 0;
     private songId: number = 0;
     private Playing: boolean = false;
     private redirectId: number = 0;
+
+    /**
+     * Constructs a new instance of the class.
+     *
+     * @param {MainView} view - The main view object.
+     * @param {{ContentModel: ContentModel, UserModel: UserModel}} model - The content model and user model.
+     */   
     public constructor(view: MainView, model: {ContentModel: ContentModel, UserModel: UserModel}) {
         super(view, model);
         this.view.bindClickEvent(this.handleClick.bind(this));
@@ -30,44 +31,74 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         })
     }
 
+    /**
+     * Updates the Feed.
+     *
+     * @return {void} 
+     */
     public updateFeed(): void {
         this.view.renderFeed();
         this.model.ContentModel.requestAlbums(this.view.fillContent.bind(this.view));
     }
-    
+
+    /**
+     * Updates the Album.
+     *
+     * @return {void} 
+     */    
     public updateAlbum(): void {
         this.view.renderAlbum();
         this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), this.redirectId);
     }
     
+    /**
+     * Updates the Artist.
+     *
+     * @return {void} 
+     */    
     public updateArtist(): void {
         this.view.renderArtist();
         this.model.ContentModel.requestArtist(this.view.fillArtist.bind(this.view), this.redirectId);
     }
 
+    /**
+     * Updates the Chart.
+     *
+     * @return {void} 
+     */
     public updateChart(): void {
         this.model.ContentModel.requestChart(this.view.fillContent.bind(this.view));
     }
 
+    /**
+     * Updates the New.
+     *
+     * @return {void} 
+     */
     public updateNew(): void {
         this.model.ContentModel.requestNew(this.view.fillContent.bind(this.view));
     }
 
+    /**
+     * Updates the Playlists.
+     *
+     * @return {void} 
+     */
     public updatePlaylists(): void {
         this.model.ContentModel.requestPlaylists(this.view.fillContent.bind(this.view));
     }
 
 
+
     /**
-     * Функция обработки нажатия на хедер
-     * (приватное поле класса)
-     * @param  {Event} e
-     * @returns {void}
-     */
+     * Handles the click event and performs different actions based on the target element.
+     *
+     * @param {Event} e - The click event object.
+     * @return {void}
+     */    
     private handleClick(e: Event): void {
         const target: HTMLElement = e.target as HTMLElement;
 
-        console.log(target.getAttribute('data-section')!);
         switch (target.getAttribute('data-section')!) {
             case 'playButton':
                 e.preventDefault();
@@ -114,11 +145,21 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         }
     }
 
+    /**
+     * Advances to the next song in the playlist and plays it.
+     *
+     * @return {void} 
+     */
     public nextSong(): void {
         this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
         this.view.play(this.model.ContentModel.getSongById(this.songId));
     }
-
+    
+    /**
+     * Decrements the songId and plays the previous song.
+     *
+     * @return {void}
+     */
     public prevSong(): void {
         this.songId <= 0 ? this.songId = 0 : this.songId--;
         this.view.play(this.model.ContentModel.getSongById(this.songId));

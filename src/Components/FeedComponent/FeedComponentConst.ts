@@ -1,9 +1,9 @@
 import type { FeedComponentConfigType } from './FeedComponentTypes';
 
-/** 
- * 	@constant
-    @type {FeedConfigType}
-*/
+/**
+ * @type {FeedComponentConfigType}
+ * @const
+ */
 export const FeedComponentConfig: FeedComponentConfigType = [
 	{
 		key: 'all',

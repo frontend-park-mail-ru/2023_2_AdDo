@@ -1,9 +1,9 @@
 import type { LoginComponentConfigType } from './LoginComponentTypes';
 
 /**
- *  @constant
-*  @type {LoginConfigType}
-*/
+ * @type {LoginComponentConfigType}
+ * @const
+ */
 export const LoginComponentConfig: LoginComponentConfigType  = [
 	{
 		key: 'EmailInput',

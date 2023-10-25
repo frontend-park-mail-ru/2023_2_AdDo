@@ -1,17 +1,27 @@
-import { log } from 'handlebars';
 import { requestParamsType, responseType } from './AjaxTypes';
 
 /**
- * @module Ajax async module to make requests
+ * @type {Object}
+ * @const
  */
 const AJAX_METHODS = {
     GET: 'GET',
     POST: 'POST',
 };
 
+/**
+ * @module Ajax async module to make requests
+ */
+
+/** Class representing an Ajax. */
 export default class Ajax {
     private static csrfToken?: string;
-    private static async fetch(params: requestParamsType, isJson: boolean = true): Promise<responseType> {
+
+    /**makes request
+     * @param {requestParamsType} params - request parameters
+     * @return {Promise<responseType>} 
+     */
+    private static async fetch(params: requestParamsType): Promise<responseType> {
         console.log(params.options);
         const response = await fetch(params.url, {
             ...params.options
@@ -29,8 +39,8 @@ export default class Ajax {
                 responseBody: 'Error', //TODO : error handling
             };
         }
-        console.log(response);
-        let data = isJson ? (response.status !== 204 ? await response.json() : '') : await response.text();
+
+        let data = response.status !== 204 ? await response.json() : '';
 
         return {
             ok: true,
@@ -42,12 +52,10 @@ export default class Ajax {
     /**makes GET request
      *
      * @param {string} url
-     * @param {boolean} json - figure out is response is json
-     * @returns {Promise<{status: number, body: Object, ok: boolean}>}
+     * @returns {Promise<responseType>}
      */
     static async get (
         url: string,
-        isJson: boolean,
     ): Promise<responseType> {
         return this.fetch({
             url: url,
@@ -56,20 +64,18 @@ export default class Ajax {
                 credentials: 'include', 
                 method: AJAX_METHODS.GET, 
             },
-        }, isJson);
+        });
     }
 
-    /** Выполняет POST запрос
+    /** makes POST request
      *
      * @param {string} url
      * @param {Object} body
-     * @param {boolean} isFormData
-     * @returns {Promise<{status: number, body: Object, ok: boolean}>}
+     * @returns {Promise<responseType>}
      */
     static async post(
         url: string,
         body: Object,
-        isFormData = false,
     ): Promise<responseType> {
         return this.fetch({
             url: url,

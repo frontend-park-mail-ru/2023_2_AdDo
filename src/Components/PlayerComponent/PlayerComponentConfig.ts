@@ -1,9 +1,9 @@
 import type { PlayerComponentConfigType } from './PlayerComponentTypes';
 
-/** 
- * 	@constant
-    @type {PlayerComponentType}
-*/
+/**
+ * @type {PlayerComponentConfigType}
+ * @const
+ */
 export const PlayerComponentConfig: PlayerComponentConfigType = [
     {
         key: 'nextBtn',
