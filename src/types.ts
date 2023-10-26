@@ -38,6 +38,7 @@ export type User = {
     email: string,
     avatar: string,
     username: string,
+    birthdate: string,
 }
 
 export type Callback = (arg: any) => void;

@@ -39,8 +39,9 @@ export default class Ajax {
                 responseBody: 'Error', //TODO : error handling
             };
         }
-
-        let data = response.status !== 204 ? await response.json() : '';
+        
+        
+        let data = response.body !== null && response.body !== undefined ? await response.json() : '';
 
         return {
             ok: true,

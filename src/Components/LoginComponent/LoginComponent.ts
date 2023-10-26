@@ -1,15 +1,14 @@
 import IComponent from '../IComponent/IComponent';
 import template  from './LoginComponentTemplate.hbs';
-import * as Handlebars from 'handlebars';
 import { LoginComponentConfig } from './LoginComponentConst';
 
 /** Class representing a Login. */
 export class LoginComponent extends IComponent {
 	
 	/**
-	 * Constructs a new instance of the constructor.
+	 * Creates a new instance of the constructor.
 	 *
-	 * @param {HTMLElement} parent - The parent element.
+	 * @param {HTMLElement} parent - The parent element for the new instance.
 	 */
 	constructor(parent: HTMLElement) {
 		super(parent, template({ LoginComponentConfig }));

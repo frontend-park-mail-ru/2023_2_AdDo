@@ -38,7 +38,7 @@ class SignUpView extends IView {
     public bindSubmitEvent(listener: any): void {
         this.signup.querySelector('form')!.addEventListener('submit', listener);
     }
-    
+
     /**
      * Retrieves data from the form.
      *
@@ -53,6 +53,22 @@ class SignUpView extends IView {
         return {email: emailInput.value!, password: passwordInput.value!, passwordcheck: passwordcheckInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!};
     }
 
+
+    public renderError(err: string): void {
+        switch (err) {
+            case 'password mismatch':
+                this.signup.querySelector('[data-section="passcheck"]').className = 'passCheckActive';
+                this.signup.querySelector('[data-section="passcheck"]').textContent = 'Пароли не совпадают!';
+                return;
+            case 'user already exists':
+                this.signup.querySelector('[data-section="passcheck"]').className = 'passCheckActive';
+                this.signup.querySelector('[data-section="passcheck"]').textContent = 'Пользователь с таким именем уже существует!';
+                return;
+            case 'password too short':
+                this.signup.querySelector('[data-section="lengthPassword"]').className = 'passCheckActive';
+                return;
+        }
+    }
 }
 
 export default SignUpView;

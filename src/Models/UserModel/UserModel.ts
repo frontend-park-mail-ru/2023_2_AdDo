@@ -27,62 +27,74 @@ class UserModel extends IModel {
         return this.currentUser;
     }
 
-     /**
-     * Signs in a user.
-     *
-     * @param {string} email - The user's email.
-     * @param {string} password - The user's password.
-     * @param {Callback} callback - The callback function.
-     * @return {void}
-     */
-    public signInUser(email: string, password: string, callback: Callback): void {
-        Ajax.post(
-			hosts.HOST + hosts.PORT + '/api/v1/login',
-			{ email, password },
-	    )
-			.then(({ ok, status, responseBody }) => {
-				if (status === 200) {
-                    this.getUser();
-                    callback(paths.feedAll);
-					return;
-				} 
-			})
-			.catch((error) => {
-				throw error;
-			});
+    public setCurrentUser(user: User): void {
+        this.currentUser = user;
     }
 
-     /**
-     * Sign up a user.
-     *
-     * @param {string} email - The user's email.
-     * @param {string} username - The user's username.
-     * @param {string} password - The user's password.
-     * @param {string} birthDate - The user's birth date.
-     * @param {Callback} callback - A callback function.
-     * @return {void}
-     */
-    public signUpUser(email: string, username: string, password: string, birthDate: string, callback: Callback): void {
+    /**
+    * Signs in a user.
+    *
+    * @param {string} email - The user's email.
+    * @param {string} password - The user's password.
+    * @param {Callback} callback - The callback function.
+    * @return {void}
+    */
+    public signInUser(email: string, password: string, callback: Callback): void {
         Ajax.post(
-        hosts.HOST + hosts.PORT + '/api/v1/sign_up',
-        { email, username, password, birthDate },
+            hosts.HOST + hosts.PORT + '/api/v1/login',
+            { email, password },
         )
-        .then(({ ok, status, responseBody }) => {
-            if (status === 200) {
-                this.getUser();
-                callback(paths.feedAll);
-                return;
-            } else if (status === 400) {
-                return;
-            } else if (status === 409) {
-                return;
-            }
-        })
-        .catch((error) => {
-            throw error;
-        });
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    this.getUser();
+                    callback(paths.feedAll);
+                    return;
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
+    }
 
-    } 
+    /**
+    * Sign up a user.
+    *
+    * @param {string} email - The user's email.
+    * @param {string} username - The user's username.
+    * @param {string} password - The user's password.
+    * @param {string} birthDate - The user's birth date.
+    * @param {Callback} callback - A callback function.
+    * @return {void}
+    */
+    public signUpUser(email: string,
+        username: string,
+        password: string,
+        birthDate: string,
+        routerCallback: Callback,
+        errorCallback: Callback): void {
+        Ajax.post(
+            hosts.HOST + hosts.PORT + '/api/v1/sign_up',
+            { email, username, password, birthDate },
+        )
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    this.getUser();
+                    routerCallback(paths.feedAll);
+                    errorCallback('ok');
+                    return;
+                } else if (status === 400) {
+                    errorCallback('password too short');
+                    return;
+                } else if (status === 409) {
+                    errorCallback('user already exists');
+                    return;
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
+
+    }
 
 
     /**
@@ -92,18 +104,18 @@ class UserModel extends IModel {
      */
     public logoutUser(): void {
         Ajax.post(
-        hosts.HOST + hosts.PORT + '/api/v1/logout',
-        {},
-	    )
-		.then(({ status }) => {
-			if (status === 200) {
-                EventDispatcher.emit('user-changed', this.currentUser); 
-				return;
-			}
-		})
-		.catch((error) => {
-			throw error;
-		});
+            hosts.HOST + hosts.PORT + '/api/v1/logout',
+            {},
+        )
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    EventDispatcher.emit('user-changed', this.currentUser);
+                    return;
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
     }
 
     /**
@@ -112,16 +124,16 @@ class UserModel extends IModel {
      * @return {void} No return value.
      */
     public authUserByCookie(): void {
-        Ajax.get( hosts.HOST + hosts.PORT + '/api/v1/auth')
-		.then(({ status, responseBody }) => {
-			if (status === 200) {
-                this.getUser();
-                return;
-			}	
-		})
-		.catch((error) => {
-			throw error;
-		});
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/auth')
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    this.getUser();
+                    return;
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
     }
 
     /**
@@ -131,20 +143,35 @@ class UserModel extends IModel {
      * @return {void}
      */
     private getUser(): void {
-        Ajax.get( hosts.HOST + hosts.PORT + '/api/v1/me')
-		.then(({ ok, status, responseBody }) => {
-			if (status === 200) {
-                this.currentUser = {
-                    email: responseBody.email,
-                    username: responseBody.username,
-                    avatar: responseBody.avatar
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/me')
+            .then(({ ok, status, responseBody }) => {
+                if (status >= 200 && status < 300) {
+                    this.currentUser = {
+                        email: responseBody.email,
+                        username: responseBody.username,
+                        avatar: responseBody.avatar,
+                        birthdate: responseBody.birthdate,
+                    }
+                    EventDispatcher.emit('user-changed', this.currentUser);
                 }
-                EventDispatcher.emit('user-changed', this.currentUser);
-			}	
-		})
-		.catch((error) => {
-			throw error;
-		});
+            })
+            .catch((error) => {
+                throw error;
+            });
+    }
+
+    public updateUser(user: User) {
+        this.setCurrentUser(user);
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/edit', user)
+            .then(({ ok, status, responseBody }) => {
+                if (status >= 200 && status < 300) {
+                    EventDispatcher.emit('user-changed', this.currentUser);
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
+        EventDispatcher.emit('user-changed', this.currentUser);
     }
 }
 

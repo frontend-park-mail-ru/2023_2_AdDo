@@ -6,7 +6,7 @@ import hosts from '../../HostConsts';
 
 /** Class representing a HeaderComponent. */
 export class HeaderComponent extends IComponent {
-     private user: User = {avatar: '', email: '', username: ''};
+     private user: User = {avatar: '', email: '', username: '', birthdate: ''};
 
 	/**
 	 * Constructs a new instance of the constructor.
