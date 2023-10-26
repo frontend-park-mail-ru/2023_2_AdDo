@@ -1,5 +1,5 @@
 import IView from '../IView/IView';
-import template from './MainView.hbs';
+import template from './ProfileView.hbs';
 import { HeaderComponent } from '../../Components/HeaderComponent/HeaderComponent';
 import type { User, Callback } from '../../types';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
