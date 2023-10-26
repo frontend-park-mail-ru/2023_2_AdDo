@@ -14,6 +14,7 @@ const paths = {
     artist: 'artist/{:id}',
     login: 'login',
     signup: 'signup',
+    profile: 'profile',
 };
 
 export default paths;

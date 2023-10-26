@@ -1,10 +1,12 @@
 import LoginView from './Views/LoginView/LoginView';
 import MainView from './Views/MainView/MainView';
 import SignUpView from './Views/SignUpView/SignUpView';
+import ProfileView from './Views/ProfileView/ProfileView';
 
 import MainController from './Controllers/MainController/MainController';
 import LoginController from './Controllers/LoginController/LoginController';
 import SignUpController from './Controllers/SignUpController/SignUpController';
+import ProfileController from './Controllers/ProfileController/ProfileController';
 
 import ContentModel from './Models/ContentModel/ContentModel';
 import UserModel from './Models/UserModel/UserModel';
@@ -16,15 +18,19 @@ import paths from './Modules/Router/RouterPaths';
 import './index.css';
 
 
+
+
 /** Class representing an App. */
 class App {
 	public mainview: MainView;
 	public loginview: LoginView;
 	public signupview: SignUpView;
+	public profileview: ProfileView;
 
 	public maincontroller: MainController;
 	public logincontroller: LoginController;
 	public signupcontroller: SignUpController;
+	public profilecontroller: ProfileController;
 
 	public contentmodel: ContentModel;
 	public usermodel: UserModel;
@@ -45,10 +51,12 @@ class App {
 		this.mainview = new MainView(root);
 		this.loginview = new LoginView(root);
 		this.signupview = new SignUpView(root);
+		this.profileview = new ProfileView(root);
 
 		this.maincontroller = new MainController(this.mainview, { ContentModel: this.contentmodel, UserModel: this.usermodel });
 		this.logincontroller = new LoginController(this.loginview, this.usermodel);
 		this.signupcontroller = new SignUpController(this.signupview, this.usermodel);
+		this.profilecontroller = new ProfileController(this.profileview, this.usermodel);
 
 		this.initRoutes();
 	}
@@ -146,6 +154,17 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateNew();
 		this.maincontroller.mountComponent();
+	}
+
+	/**
+	 * Render the new feed.
+	 *
+	 * @return {void}
+	 */
+	public renderProfile(): void {
+		EventDispatcher.emit('unmount-all');
+		this.profilecontroller.updateProfile();
+		this.profilecontroller.mountComponent();
 	}
 
 	/**

@@ -48,6 +48,9 @@ class ProfileController extends IController<ProfileView, UserModel> {
         const {username, email, birthdate, avatar} = this.view.getDataFromForm();
         this.model.updateUser({username, email, birthdate, avatar});
     }
-}
 
+    public updateProfile(): void {
+        this.view.fillContent(this.model.getCurrentUser()!);
+    }
+}
 export default ProfileController;

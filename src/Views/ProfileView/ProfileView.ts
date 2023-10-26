@@ -17,11 +17,11 @@ class ProfileView extends IView {
      *
      * @param {HTMLElement} parent - The parent element to attach the class to.
      */
-    public constructor(parent: HTMLElement, user: User) {
+    public constructor(parent: HTMLElement) {
         super(parent, template({}));
 
         this.header = new HeaderComponent(this.element.querySelector('header')!);
-        this.profile = new ProfileComponent(this.element.querySelector('main')!,user);
+        this.profile = new ProfileComponent(this.element.querySelector('main')!);
 
         this.header.append();
         this.profile.append();

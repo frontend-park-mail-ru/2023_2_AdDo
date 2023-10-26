@@ -10,9 +10,8 @@ export class ProfileComponent extends IComponent {
 	 *
 	 * @param {HTMLElement} parent - The parent element.
 	 */
-	constructor(parent: HTMLElement, User: User) {
-		super(parent, template({ User }));
-        this.user = User;
+	constructor(parent: HTMLElement) {
+		super(parent, template({}));
 	}
 
     /**
