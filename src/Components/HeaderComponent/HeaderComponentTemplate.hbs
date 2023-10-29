@@ -22,8 +22,12 @@
         {{#if user}}
         <li class="menuItem">
             <div class="profile">
+            {{#if user.Avatar}}
             <img class="imgAvatar" src="{{port}}{{user.Avatar}}" alt="">
-            <div class="signout" data-section="signout">
+            {{else}}
+            <img class="imgAvatar" src="{{port}}/static/img/worm.svg" alt="">
+            {{/if}}
+            <div class="headera" data-section="signout">
                 Выйти
             </div>
             </div>

@@ -100,7 +100,7 @@ class UserModel extends IModel {
     /**
      * Logs out the user by making a POST request to the logout endpoint.
      *
-     * @return {void} No return value.
+     * @return {void} 
      */
     public logoutUser(): void {
         Ajax.post(
@@ -109,6 +109,7 @@ class UserModel extends IModel {
         )
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
+                    this.currentUser = null;
                     EventDispatcher.emit('user-changed', this.currentUser);
                     return;
                 }
