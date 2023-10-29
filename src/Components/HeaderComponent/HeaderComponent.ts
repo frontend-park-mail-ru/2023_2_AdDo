@@ -6,7 +6,7 @@ import hosts from '../../HostConsts';
 
 /** Class representing a HeaderComponent. */
 export class HeaderComponent extends IComponent {
-     private user: User = {avatar: '', email: '', username: '', birthdate: ''};
+     private user: User | null = {avatar: '', email: '', username: '', birthdate: ''};
 
 	/**
 	 * Constructs a new instance of the constructor.
@@ -22,7 +22,7 @@ export class HeaderComponent extends IComponent {
 	 *
 	 * @return {User} The User property.
 	 */
-    public get User(): User {
+    public get User(): User | null {
 		return this.user;
 	}
 
@@ -32,7 +32,7 @@ export class HeaderComponent extends IComponent {
 	 * @param {User} user - The User object to set.
 	 * @return {void} 
 	 */
-	public set User(user: User) {
+	public set User(user: User | null) {
 		this.user = user;
 		this.renderHeader();
 	}

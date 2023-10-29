@@ -34,10 +34,8 @@ class MainView extends IView {
         this.header.append();
         this.footer.append();
 
-        EventDispatcher.subscribe('user-changed', (user: User) => {
-            if (user) {
-                this.header.User = user;
-            }
+        EventDispatcher.subscribe('user-changed', (user: User | null = null) => {
+            this.header.User = user;
         });
     }
 
