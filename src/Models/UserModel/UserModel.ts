@@ -147,10 +147,10 @@ class UserModel extends IModel {
             .then(({ ok, status, responseBody }) => {
                 if (status >= 200 && status < 300) {
                     this.currentUser = {
-                        email: responseBody.email,
-                        username: responseBody.username,
-                        avatar: responseBody.avatar,
-                        birthdate: responseBody.birthdate,
+                        email: responseBody.Email,
+                        username: responseBody.Username,
+                        avatar: responseBody.Avatar,
+                        birthdate: responseBody.Birthdate,
                     }
                     EventDispatcher.emit('user-changed', this.currentUser);
                 }

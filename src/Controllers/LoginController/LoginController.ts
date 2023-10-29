@@ -45,7 +45,7 @@ class LoginController extends IController<LoginView, UserModel> {
     private handleSubmit(e: Event): void {
         e.preventDefault();
         const {email, password} = this.view.getDataFromForm();
-        this.model.signInUser(email, password, router.goToPage);
+        this.model.signInUser(email, password, router.goToPage.bind(router));
     }
 }
 

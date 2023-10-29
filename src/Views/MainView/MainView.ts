@@ -164,6 +164,14 @@ class MainView extends IView {
     public bindEndedEvent(listener: Callback): void {
         this.footer.querySelector('audio')!.addEventListener('ended', listener);
     }
+
+
+    public makeActive(element: HTMLElement): void {
+        this.element.querySelectorAll('.active').forEach(el => {
+            el.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
 }
 
 export default MainView;

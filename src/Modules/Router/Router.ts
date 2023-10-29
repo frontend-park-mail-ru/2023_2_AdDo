@@ -3,12 +3,10 @@ import { IRoute, RouteHandler, AnyHandler } from './RouterTypes';
 
 class Router {
     private routes: IRoute[];
-    private page404Handler: AnyHandler;
     private nearestUrl: string;
 
     public constructor() {
         this.routes = [];
-        this.page404Handler = (): void => console.error('No unknown page handler!');
         this.nearestUrl = paths.feedAll;
     }
 
@@ -47,17 +45,8 @@ class Router {
         });
 
         if (!foundedPath) {
-            this.page404Handler();
             return;
         }
-    }
-
-    public show404Page(): void {
-        this.page404Handler();
-    }
-
-    public setpage404Handler(handler: AnyHandler): void {
-        this.page404Handler = handler;
     }
 
     public addRule(rule: string, handler: RouteHandler): IRoute {

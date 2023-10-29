@@ -77,7 +77,6 @@ class App {
 	 * @return {void} 
 	 */
 	public initRoutes() {
-		// router.setUnknownPageHandler(this.handleRedirectToNotFound.bind(this));  разберись что это
 
 		const routes = [
 			{ path: paths.login, handler: this.renderLogin },

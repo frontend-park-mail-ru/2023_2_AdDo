@@ -49,7 +49,7 @@ class SignUpController extends IController<SignUpView, UserModel> {
         if (password !== passwordcheck) {
             this.view.renderError('password mismatch');
         }
-        this.model.signUpUser(email, username, password, birthdate, router.goToPage, this.view.renderError.bind(this.view));
+        this.model.signUpUser(email, username, password, birthdate, router.goToPage.bind(router), this.view.renderError.bind(this.view));
     }
 }
 

@@ -120,6 +120,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'link':
                 e.preventDefault();
+                this.view.makeActive(e.target as HTMLElement);
                 this.redirectId = parseInt(target.getAttribute('data-id')!);
                 router.goToPage(target.getAttribute('data-url')!);
                 return;

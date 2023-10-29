@@ -6,7 +6,7 @@ import { HostConstsType } from "./types";
 //  */
 // const hosts: HostConstsType = {
 //     HOST: 'http://localhost',
-//     s3HOST: 'http://82.146.45.164:9000',
+//     s3HOST: 'http://localhost:9000',
 //     PORT: ':8080',
 // }
 
