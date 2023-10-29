@@ -48,6 +48,7 @@ class SignUpController extends IController<SignUpView, UserModel> {
         const {email, password, passwordcheck, username, birthdate} = this.view.getDataFromForm();
         if (password !== passwordcheck) {
             this.view.renderError('password mismatch');
+            return;
         }
         this.model.signUpUser(email, username, password, birthdate, router.goToPage.bind(router), this.view.renderError.bind(this.view));
     }

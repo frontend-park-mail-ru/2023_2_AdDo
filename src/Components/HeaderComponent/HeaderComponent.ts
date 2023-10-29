@@ -44,6 +44,6 @@ export class HeaderComponent extends IComponent {
       */
      public renderHeader(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template(template({HeaderConfig, port : hosts.s3HOST, user: this.user}));
+		this.parent.innerHTML = template({HeaderConfig, port : hosts.s3HOST, user: this.user});
 	}
 }
