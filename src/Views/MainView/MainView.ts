@@ -35,7 +35,9 @@ class MainView extends IView {
         this.footer.append();
 
         EventDispatcher.subscribe('user-changed', (user: User) => {
-            // todo
+            if (user) {
+                this.header.User = user;
+            }
         });
     }
 
