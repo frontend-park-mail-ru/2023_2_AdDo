@@ -89,6 +89,7 @@ class App {
 			{ path: paths.artist, handler: this.renderArtist },
 			{ path: paths.collection, handler: this.renderCollection },
 			{ path: paths.podcasts, handler: this.renderPodcasts },
+			{ path: paths.profile, handler: this.renderPodcasts },
 		];
 
 		routes.forEach(({ path, handler }) => {
