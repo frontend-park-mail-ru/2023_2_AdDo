@@ -1,3 +1,4 @@
+import hosts from '../../HostConsts';
 import { User } from '../../types';
 import IComponent from '../IComponent/IComponent';
 import template  from './ProfileComponentTemplate.hbs';
@@ -11,7 +12,7 @@ export class ProfileComponent extends IComponent {
 	 * @param {HTMLElement} parent - The parent element.
 	 */
 	constructor(parent: HTMLElement) {
-		super(parent, template({}));
+		super(parent, template({port: hosts.s3HOST}));
 	}
 
     /**
@@ -41,6 +42,6 @@ export class ProfileComponent extends IComponent {
      */    
     public renderProfile(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template(template({user: this.user}));
+		this.parent.innerHTML = template({ User: this.user, port: hosts.s3HOST });
 	}
 }

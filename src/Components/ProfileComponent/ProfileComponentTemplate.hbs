@@ -2,32 +2,29 @@
     <div class="artist">
         <img class="artistPhoto" src="{{port}}{{User.Avatar}}" alt="">
         <div style="display: inline-block;">
-            <div class="songName">User.Username</div>
-            <div class="ArtistName">User.Email</div>
+            <div class="songName">{{User.Username}}</div>
+            <div class="ArtistName">{{User.Email}}</div>
         </div>
     </div>
     <form action="post">
         <ul>
-            <li class="loginItem">
-                <div> Имя пользователя </div>
+            <li class="profileItem">
+                <div class="albumName"> Имя пользователя </div>
                 <input class="authInput" data-section="username" type="text" placeholder="{{User.Username}}" required>
             </li>
-            <li class="loginItem">
-                <div> Email </div>
+            <li class="profileItem">
+                <div class="albumName"> Email </div>
                 <input class="authInput" data-section="email" type="email" placeholder="{{User.Email}}" required>
             </li>
-            <li class="loginItem">
-                <div> Дата рождения </div>
+            <li class="profileItem">
+                <div class="albumName"> Дата рождения </div>
                 <input class="authInput" data-section="birthDate" type="date" placeholder="{{User.BirthDate}}" required>
             </li>
-            <li class="loginItem">
-                <div> Фото профиля </div>
-                <div>
-                    <input class="authInput" data-section="avatar" type="text" placeholder="{{User.Avatar}}" required>
-                    <input type="file" class="defaultButton" style="display: inline-block;">Загрузить</button>
-                </div>
+            <li class="profileItem">
+                <div class="albumName"> Фото профиля </div>
+                <input type="file" class="defaultButton" style="display: inline-block;"></button>
             </li>
-              <li class="loginItem">
+            <li class="profileItem">
                 <button class="defaultButton" style="display: inline-block;" type="submit">Готово</button>
             </li>   
         </ul>
