@@ -1,7 +1,7 @@
 
 .feedContainer {
     margin-top: 8vh;
-    display: inline-grid;
+    display: grid;
     gap: 10px;
 }
 

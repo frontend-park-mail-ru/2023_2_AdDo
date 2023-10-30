@@ -167,10 +167,12 @@ class MainView extends IView {
 
 
     public makeActive(element: HTMLElement): void {
-        this.element.querySelectorAll('.active').forEach(el => {
-            el.classList.remove('active');
-        });
-        element.classList.add('active');
+        if (!(element instanceof HTMLButtonElement)) {
+            this.element.querySelectorAll('.active').forEach(el => {
+                el.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
     }
 }
 
