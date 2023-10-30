@@ -10,6 +10,7 @@ export default class ContentModel extends IModel {
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
     private currentArtistSongs: Array<Song> = [];
+    private currentAlbumSongs : Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
 
@@ -28,7 +29,7 @@ export default class ContentModel extends IModel {
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
-                callback(this.albums); 
+                callback(this.albums);
                 return;
 			}
 		})
@@ -50,7 +51,7 @@ export default class ContentModel extends IModel {
 			if (status === 200) {
                 this.album = responseBody;
                 this.songs = this.album.Tracks.slice(0);
-                this.currentsongs = this.songs.slice(0);
+                this.currentAlbumSongs = this.songs.slice(0);
                 callback(this.album);
                 return;
 			}
@@ -85,7 +86,7 @@ export default class ContentModel extends IModel {
     /**
      * Retrieves a chart from the API and invokes the provided callback function with the chart data.
      *
-     * @param {Callback} callback - The callback function to be invoked with the chart data.
+     * @param {Callback} callback - The callback function to be invoked with the chart data. 
      * @return {void}
      */
     public requestChart(callback: Callback): void {
@@ -163,7 +164,7 @@ export default class ContentModel extends IModel {
 			if (status === 200) {
                 this.songs = responseBody.Tracks.slice(0);
                 callback(this.songs[0]);
-                this.currentsongs = this.songs.slice(0); // надо чтоб копировалось и чтобы responsebody был массивом album
+                this.currentsongs = this.songs.slice(0); 
                 return;
 			}
 		})

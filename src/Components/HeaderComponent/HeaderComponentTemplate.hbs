@@ -23,9 +23,9 @@
         <li class="menuItem">
             <div class="profile">
             {{#if user.Avatar}}
-            <img class="imgAvatar" src="{{port}}{{user.Avatar}}" alt="">
+            <img class="imgAvatar" data-url="/profile" data-section="link" src="{{port}}{{user.Avatar}}" alt="">
             {{else}}
-            <img class="imgAvatar" src="{{port}}/static/img/worm.svg" alt="">
+            <img class="imgAvatar" data-url="/profile" data-section="link" src="{{port}}/static/img/worm.svg" alt="">
             {{/if}}
             <h2 class="headera" data-section="signout">
                 Выйти

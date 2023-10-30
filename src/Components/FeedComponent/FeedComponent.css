@@ -3,6 +3,7 @@
     margin-top: 8vh;
     display: grid;
     gap: 10px;
+    position: relative;
 }
 
 .feed{
