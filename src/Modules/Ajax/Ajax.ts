@@ -28,7 +28,6 @@ export default class Ajax {
         });
 
         if(params.url === 'https://musicon.space/api/v1/auth') {
-            console.log(response.headers.get('X-Csrf-Token')!);
             this.csrfToken = response.headers.get('X-Csrf-Token')!;
         }
 

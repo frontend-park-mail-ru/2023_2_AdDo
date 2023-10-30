@@ -26,7 +26,6 @@ export default class ContentModel extends IModel {
     public requestAlbums(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/feed')
 		.then(({ ok, status, responseBody }) => {
-            console.log(responseBody, status);
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
                 callback(this.albums); 
@@ -48,7 +47,6 @@ export default class ContentModel extends IModel {
     public requestAlbum(callback: Callback, albumId: number): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + albumId)
 		.then(({ ok, status, responseBody }) => {
-            console.log(responseBody, status);
 			if (status === 200) {
                 this.album = responseBody;
                 this.songs = this.album.Tracks.slice(0);
@@ -72,7 +70,6 @@ export default class ContentModel extends IModel {
     public requestArtist(callback: Callback, artistId: number): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artist/' + artistId)
 		.then(({ status, responseBody }) => {
-            console.log(responseBody, status);
 			if (status === 200) {
                 this.artist = responseBody;
                 this.currentArtistSongs = this.artist.Tracks.slice(0);
@@ -94,7 +91,6 @@ export default class ContentModel extends IModel {
     public requestChart(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/chart')
 		.then(({ status, responseBody }) => {
-            console.log(responseBody, status);
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
                 callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
@@ -115,7 +111,6 @@ export default class ContentModel extends IModel {
     public requestPlaylists(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlists')
 		.then(({ status, responseBody }) => {
-            console.log(responseBody, status);
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
                 callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
@@ -136,7 +131,6 @@ export default class ContentModel extends IModel {
     public requestNew(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/new')
 		.then(({ status, responseBody }) => {
-            console.log(responseBody, status);
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
                 callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
