@@ -31,6 +31,7 @@ export type Song = {
     Preview: string,
     Content: string,
     ArtistName: string,
+    isLiked: boolean,
 }
 
 
@@ -41,7 +42,7 @@ export type User = {
     birthdate: string,
 }
 
-export type Callback = (arg: any) => void;
+export type Callback = (arg?: any) => void;
 
 export type HostConstsType = {
     HOST: string,

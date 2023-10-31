@@ -174,6 +174,16 @@ class MainView extends IView {
             element.classList.add('active');
         }
     }
+
+    public like() {
+        let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+    }
+
+    public dislike() {
+        let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
+    }
 }
 
 export default MainView;

@@ -79,3 +79,7 @@
     font-family: 'Montserrat', sans-serif;
     border-color: #FFF;
 }
+
+.playerBtns:hover {
+    background: #3E3E3E;
+}

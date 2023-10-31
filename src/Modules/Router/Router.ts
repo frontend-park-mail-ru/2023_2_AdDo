@@ -48,7 +48,7 @@ class Router {
             return;
         }
     }
-
+    
     public addRule(rule: string, handler: RouteHandler): IRoute {
         const newRoute = {
             rule: this.parseRule(rule),

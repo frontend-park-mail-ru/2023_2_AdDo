@@ -10,9 +10,10 @@ export default class ContentModel extends IModel {
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
     private currentArtistSongs: Array<Song> = [];
-    private currentAlbumSongs: Array<Song> = [];
+    private currentBuffer: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
+    private IsShuffled: boolean = false;
 
     constructor () {
         super();
@@ -202,8 +203,49 @@ export default class ContentModel extends IModel {
         return this.currentsongs.length;
     }
 
-    public nowPlaying() {
+    public nowPlaying(): void {
         this.currentsongs = this.songs.slice(0);
     }
 
+    public shuffle(): void {
+        if(!this.IsShuffled) {
+            this.currentBuffer = this.currentsongs.slice(0);
+            this.currentsongs.sort(() => Math.random() - 0.5);
+            this.IsShuffled = true;
+        } else {
+            this.IsShuffled = false;
+        }
+    }
+
+    public loop(songId: number): void {
+        this.currentBuffer = this.currentsongs.filter((song: Song) => song.Name === this.currentsongs[songId].Name);
+    }
+
+    public like(songId: number, callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/like_track', {'Content-Type': 'application/json',}, { songId })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.currentsongs[songId].isLiked = true;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public dislike(songId: number, callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/like_track', {'Content-Type': 'application/json',}, { songId })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.currentsongs[songId].isLiked = true;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
 }

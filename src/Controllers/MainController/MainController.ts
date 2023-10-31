@@ -11,6 +11,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     private albumId: number = 0;
     private songId: number = 0;
     private Playing: boolean = false;
+    private Liked: boolean = false;
     private redirectId: number = 0;
 
     /**
@@ -145,6 +146,16 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'nextBtn':
                 this.nextSong();
                 return;
+            case 'shuffleBtn':
+                this.shuffle();
+                this.model.ContentModel.shuffle();
+                return;
+            case 'loopBtn':
+                this.loop();
+                return;
+            case 'likeBtn':
+                this.model.ContentModel.getSongById(this.songId).isLiked ? this.dislike() : this.like();
+                return;
         }
     }
 
@@ -166,6 +177,27 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     public prevSong(): void {
         this.songId <= 0 ? this.songId = 0 : this.songId--;
         this.view.play(this.model.ContentModel.getSongById(this.songId));
+        return;
+    }
+
+    public shuffle(): void {
+        this.model.ContentModel.shuffle();
+        return;
+    }
+
+    public loop(): void {
+        this.model.ContentModel.loop(this.songId);
+        return;
+    }
+
+    public like(): void {
+        this.model.ContentModel.like(this.songId, this.view.like);
+        return;
+    }
+
+    public dislike(): void {
+        this.model.ContentModel.dislike(this.songId, this.view.dislike);
+        return;
     }
 }
 

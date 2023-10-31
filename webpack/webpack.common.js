@@ -12,6 +12,7 @@ module.exports = {
   },
   output: {
     path: defines.dist,
+    publicPath: '/',
     filename: `${defines.assets}js/[name].js`
   },
   // optimization (chunks)
