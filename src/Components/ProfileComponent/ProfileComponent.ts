@@ -13,7 +13,7 @@ export class ProfileComponent extends IComponent {
 	 */
 	constructor(parent: HTMLElement) {
 		super(parent, template({port: hosts.s3HOST}));
-		this.element.querySelector('.inputFile')?.addEventListener('change', (event: Event) => {
+		this.element.querySelector('input[type=file]')?.addEventListener('change', (event: Event) => {
 			let target = event.target as HTMLInputElement;
 			let fileName = target.files![0].name;
 			document.querySelector('.fileInput')!.textContent = fileName;

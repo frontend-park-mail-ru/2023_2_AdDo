@@ -156,7 +156,7 @@ class UserModel extends IModel {
                         email: responseBody.Email,
                         username: responseBody.Username,
                         avatar: responseBody.Avatar,
-                        birthdate: responseBody.Birthdate,
+                        birthdate: responseBody.BirthDate,
                     }
                     EventDispatcher.emit('user-changed', this.currentUser);
                 }
@@ -182,8 +182,8 @@ class UserModel extends IModel {
     }
 
     public uploadAvatar(file: File) {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload', {'Content-Type': 'image/jpeg',}, file)
-        .then(({ ok, status, responseBody }) => {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload_avatar', {'Content-Type': 'image/jpeg',}, file)
+        .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 EventDispatcher.emit('user-changed', this.currentUser);
             }
