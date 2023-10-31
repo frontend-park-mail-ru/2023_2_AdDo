@@ -51,7 +51,6 @@ export default class ContentModel extends IModel {
 			if (status === 200) {
                 this.album = responseBody;
                 this.songs = this.album.Tracks.slice(0);
-                this.currentAlbumSongs = this.songs.slice(0);
                 callback(this.album);
                 return;
 			}
@@ -73,7 +72,7 @@ export default class ContentModel extends IModel {
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.artist = responseBody;
-                this.currentArtistSongs = this.artist.Tracks.slice(0);
+                this.songs = this.artist.Tracks.slice(0);
                 callback(this.artist);
                 return;
 			}
@@ -180,9 +179,9 @@ export default class ContentModel extends IModel {
      * @return {Song} The song object corresponding to the given ID.
      */
     public getSongById(songId: number): Song {
-        this.currentsongs = this.currentAlbumSongs.slice(0);
         return this.currentsongs[songId];
     }
+
 
     /**
      * Retrieves a song from the current artist's songs collection based on the provided song ID.
@@ -191,7 +190,6 @@ export default class ContentModel extends IModel {
      * @return {Song} The song object corresponding to the provided ID.
      */
     public getArtistSongById(songId: number): Song {
-        this.currentsongs = this.currentAlbumSongs.slice(0);
         return this.currentArtistSongs[songId];
     }
 
@@ -202,6 +200,10 @@ export default class ContentModel extends IModel {
      */
     public getSongsLength(): number {
         return this.currentsongs.length;
+    }
+
+    public nowPlaying() {
+        this.currentsongs = this.songs.slice(0);
     }
 
 }
