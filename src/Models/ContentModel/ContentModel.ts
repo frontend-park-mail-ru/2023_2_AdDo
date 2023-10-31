@@ -10,7 +10,7 @@ export default class ContentModel extends IModel {
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
     private currentArtistSongs: Array<Song> = [];
-    private currentAlbumSongs : Array<Song> = [];
+    private currentAlbumSongs: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
 
@@ -180,6 +180,7 @@ export default class ContentModel extends IModel {
      * @return {Song} The song object corresponding to the given ID.
      */
     public getSongById(songId: number): Song {
+        this.currentsongs = this.currentAlbumSongs.slice(0);
         return this.currentsongs[songId];
     }
 
@@ -190,6 +191,7 @@ export default class ContentModel extends IModel {
      * @return {Song} The song object corresponding to the provided ID.
      */
     public getArtistSongById(songId: number): Song {
+        this.currentsongs = this.currentAlbumSongs.slice(0);
         return this.currentArtistSongs[songId];
     }
 
