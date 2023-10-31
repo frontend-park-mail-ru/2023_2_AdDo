@@ -148,7 +148,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'shuffleBtn':
                 this.shuffle();
-                this.model.ContentModel.shuffle();
                 return;
             case 'loopBtn':
                 this.loop();

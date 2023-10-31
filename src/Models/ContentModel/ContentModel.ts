@@ -218,7 +218,8 @@ export default class ContentModel extends IModel {
     }
 
     public loop(songId: number): void {
-        this.currentBuffer = this.currentsongs.filter((song: Song) => song.Name === this.currentsongs[songId].Name);
+        this.currentBuffer = this.currentsongs.slice(0);
+        this.currentsongs = this.currentsongs.filter((song: Song) => song.Name === this.currentsongs[songId].Name);
     }
 
     public like(songId: number, callback: Callback): void {
