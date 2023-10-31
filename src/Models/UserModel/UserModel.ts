@@ -169,7 +169,7 @@ class UserModel extends IModel {
     public updateUser(user: User) {
         this.setCurrentUser(user);
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/edit', {'Content-Type': 'application/json',},
-        {email: user.email, username: user.username, birthdate:user.birthdate})
+        {email: user.email, username: user.username, birthdate: user.birthdate})
             .then(({ ok, status, responseBody }) => {
                 if (status >= 200 && status < 300) {
                     EventDispatcher.emit('user-changed', this.currentUser);
