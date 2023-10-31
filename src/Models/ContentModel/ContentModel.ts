@@ -25,7 +25,7 @@ export default class ContentModel extends IModel {
      * @return {void} 
      */   
     public requestAlbums(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/feed')
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/feed', {})
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
@@ -46,7 +46,7 @@ export default class ContentModel extends IModel {
      * @return {void} This function does not return anything.
      */
     public requestAlbum(callback: Callback, albumId: number): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + albumId)
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + albumId, {})
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
                 this.album = responseBody;
@@ -69,7 +69,7 @@ export default class ContentModel extends IModel {
      * @return {void}
      */
     public requestArtist(callback: Callback, artistId: number): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artist/' + artistId)
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artist/' + artistId, {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.artist = responseBody;
@@ -90,7 +90,7 @@ export default class ContentModel extends IModel {
      * @return {void}
      */
     public requestChart(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/chart')
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/chart', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
@@ -110,7 +110,7 @@ export default class ContentModel extends IModel {
      * @return {void} 
      */
     public requestPlaylists(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlists')
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlists', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
@@ -130,7 +130,7 @@ export default class ContentModel extends IModel {
      * @return {void} This function does not return a value.
      */
     public requestNew(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/new')
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/new', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
@@ -159,7 +159,7 @@ export default class ContentModel extends IModel {
      * @param {number} AlbumId - The ID of the album to retrieve songs from.
      */
     public getSongs(callback: Callback, AlbumId: number) {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + AlbumId)
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + AlbumId, {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.songs = responseBody.Tracks.slice(0);

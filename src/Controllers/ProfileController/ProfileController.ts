@@ -45,8 +45,10 @@ class ProfileController extends IController<ProfileView, UserModel> {
      */
     private handleSubmit(e: Event): void {
         e.preventDefault();
-        const {username, email, birthdate, avatar} = this.view.getDataFromForm();
-        this.model.updateUser({username, email, birthdate, avatar});
+        const {username, email, birthdate} = this.view.getDataFromForm();
+        const avatar = this.view.getAvatarFromForm();
+        this.model.updateUser({username, email, birthdate, avatar: ''});
+        this.model.uploadAvatar(avatar);
     }
 
     

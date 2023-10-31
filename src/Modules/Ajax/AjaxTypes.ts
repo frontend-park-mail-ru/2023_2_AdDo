@@ -1,6 +1,7 @@
 export type requestParamsType = {
     url: string;
-    options: NonNullable<unknown>;
+    method: string;
+    headers: NonNullable<unknown>;
 }
 
 export type responseType = {

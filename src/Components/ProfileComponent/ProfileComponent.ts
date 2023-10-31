@@ -13,6 +13,11 @@ export class ProfileComponent extends IComponent {
 	 */
 	constructor(parent: HTMLElement) {
 		super(parent, template({port: hosts.s3HOST}));
+		this.element.querySelector('.fileInput')?.addEventListener('change', (event: Event) => {
+			let target = event.target as HTMLInputElement;
+			let fileName = target.files![0].name;
+			document.querySelector('.fileInput')!.textContent = fileName;
+		});
 	}
 
     /**
@@ -44,4 +49,6 @@ export class ProfileComponent extends IComponent {
 		this.parent.innerHTML = '';
 		this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST });
 	}
+
+
 }

@@ -53,16 +53,20 @@ class ProfileView extends IView {
         this.element.addEventListener('click', listener);
     }
 
-    public bindSubmitEvent(listener: any): void {
+    public bindSubmitEvent(listener: Callback): void {
         this.profile.querySelector('form')!.addEventListener('submit', listener);
     }
 
-    public getDataFromForm(): {email: string, username: string, birthdate: string, avatar: string} {
+    public getDataFromForm(): {email: string, username: string, birthdate: string} {
         const emailInput = this.profile.querySelector('[data-section="email"]') as HTMLInputElement;
         const birthdateInput = this.profile.querySelector('[data-section="birthdate"]') as HTMLInputElement;
         const usernameInput = this.profile.querySelector('[data-section="username"]') as HTMLInputElement;
+        return {email: emailInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!};
+    }
+
+    public getAvatarFromForm(): File {
         const avatarInput = this.profile.querySelector('[data-section="avatar"]') as HTMLInputElement;
-        return {email: emailInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!, avatar: avatarInput.value!};
+        return avatarInput.files![0];
     }
 }
 

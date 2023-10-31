@@ -42,6 +42,7 @@ class UserModel extends IModel {
     public signInUser(email: string, password: string, callback: Callback): void {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/login',
+            { 'Content-Type': 'application/json', },
             { email, password },
         )
             .then(({ status }) => {
@@ -74,6 +75,7 @@ class UserModel extends IModel {
         errorCallback: Callback): void {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/sign_up',
+            { 'Content-Type': 'application/json', },
             { email, username, password, birthDate },
         )
             .then(({ status }) => {
@@ -105,6 +107,9 @@ class UserModel extends IModel {
     public logoutUser(): void {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/logout',
+            {
+                'Content-Type': 'application/json',
+            },
             {},
         )
             .then(({ status }) => {
@@ -125,7 +130,7 @@ class UserModel extends IModel {
      * @return {void} No return value.
      */
     public authUserByCookie(): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/auth')
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/auth', {})
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
                     this.getUser();
@@ -144,7 +149,7 @@ class UserModel extends IModel {
      * @return {void}
      */
     private getUser(): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/me')
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/me', {})
             .then(({ ok, status, responseBody }) => {
                 if (status >= 200 && status < 300) {
                     this.currentUser = {
@@ -163,7 +168,8 @@ class UserModel extends IModel {
 
     public updateUser(user: User) {
         this.setCurrentUser(user);
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/edit', user)
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/edit', {'Content-Type': 'application/json',},
+        {email: user.email, username: user.username, birthdate:user.birthdate})
             .then(({ ok, status, responseBody }) => {
                 if (status >= 200 && status < 300) {
                     EventDispatcher.emit('user-changed', this.currentUser);
@@ -173,6 +179,18 @@ class UserModel extends IModel {
                 throw error;
             });
         EventDispatcher.emit('user-changed', this.currentUser);
+    }
+
+    public uploadAvatar(file: File) {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload', {'Content-Type': 'image/jpeg',}, file)
+        .then(({ ok, status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                EventDispatcher.emit('user-changed', this.currentUser);
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
     }
 }
 

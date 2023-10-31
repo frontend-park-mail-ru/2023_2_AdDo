@@ -21,10 +21,17 @@ export default class Ajax {
      * @param {requestParamsType} params - request parameters
      * @return {Promise<responseType>} 
      */
-    private static async fetch(params: requestParamsType): Promise<responseType> {
-        console.log(params.options);
+    private static async fetch(params: requestParamsType, body?: any): Promise<responseType> {
+        const headers = new Headers(params.headers);
+        if (this.csrfToken) {
+            headers.append('X-Csrf-Token', this.csrfToken);
+        }
         const response = await fetch(params.url, {
-            ...params.options
+            method: params.method,
+            headers,
+            body,
+            credentials: 'include',
+            mode: 'cors',
         });
 
         if(params.url === 'https://musicon.space/api/v1/auth') {
@@ -58,14 +65,12 @@ export default class Ajax {
      */
     static async get (
         url: string,
+        headers: Object,
     ): Promise<responseType> {
         return this.fetch({
             url: url,
-            options: {
-                mode: 'cors', 
-                credentials: 'include', 
-                method: AJAX_METHODS.GET, 
-            },
+            method: AJAX_METHODS.GET, 
+            headers,
         });
     }
 
@@ -77,17 +82,14 @@ export default class Ajax {
      */
     static async post(
         url: string,
+        headers: Object,
         body: Object,
     ): Promise<responseType> {
         return this.fetch({
             url: url,
-            options: {
-                mode: 'cors', 
-                credentials: 'include', 
-                method: AJAX_METHODS.POST, 
-                headers: {'Content-Type': 'application/json; charset=utf-8', 'X-Csrf-Token': this.csrfToken!}, 
-                body: JSON.stringify(body),
-            },
-        });
+            method: AJAX_METHODS.POST,
+            headers,
+        },
+        JSON.stringify(body),);
     }
 }
