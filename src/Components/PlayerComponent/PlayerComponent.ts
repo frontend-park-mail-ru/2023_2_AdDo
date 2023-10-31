@@ -15,7 +15,7 @@ export class PlayerComponent extends IComponent {
 	 * @param {boolean} Playing - The initial playing state.
 	 */	
 	constructor(parent: HTMLElement, 
-				song: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '',}, 
+				song: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '', isLiked: false}, 
 				Playing: boolean = false) {
 		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing}));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
