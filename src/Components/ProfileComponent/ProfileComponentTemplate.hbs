@@ -10,25 +10,24 @@
         <ul class="profileList">
             <li class="profileItem">
                 <div class="mediumText"> Имя пользователя </div>
-                <input class="authInput" data-section="username" type="text" placeholder="{{user.username}}" required>
+                <input class="authInput" data-section="username" type="text" value="{{user.username}}" required>
             </li>
             <li class="profileItem">
                 <div class="mediumText"> Email </div>
-                <input class="authInput" data-section="email" type="email" placeholder="{{user.email}}" required>
+                <input class="authInput" data-section="email" type="email" value="{{user.email}}" required>
             </li>
             <li class="profileItem">
                 <div class="mediumText"> Дата рождения </div>
                 <input class="authInput" data-section="birthDate" type="date" min="1997-01-01" max="2030-12-31"
-                    placeholder="{{user.birthDate}}" required>
+                    value="{{user.birthDate}}" required>
             </li>
             <li class="profileItem">
                 <div class="mediumText"> Фото профиля </div>
                 		<label class="inputFile">
-                            <span class="authInput authInputModified" type="text"></span>
+                            <span class="fileInput" type="text"></span>
                             <input type="file" name="file">        
                             <span class="inputFileBtn mediumText">Выберите файл</span>
                         </label>
-                <input type="file" class="defaultButton" style="display: inline-block;"></button>
             </li>
             <li class="profileItem">
                 <button class="defaultButton" style="display: inline-block;" type="submit">Готово</button>
