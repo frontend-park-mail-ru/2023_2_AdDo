@@ -1,6 +1,10 @@
 <div class="feedContainer">
     <div class="artist">
+        {{#if user.avatar}}
         <img class="artistPhoto" src="{{port}}{{user.avatar}}" alt="">
+        {{else}}
+        <img class="artistPhoto" src="/static/img/worm.jpg" alt="">
+        {{/if}}
         <div style="display: inline-block;">
             <div class="largeText">{{user.username}}</div>
             <div class="mediumText">{{user.email}}</div>
