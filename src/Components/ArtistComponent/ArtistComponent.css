@@ -19,16 +19,6 @@
     content: counter(index);
 }
 
-
-.ArtistName {
-    color: #FFF;
-    font-family: 'Lato', sans-serif;
-    font-size: 52px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
 .ArtistSongs {
     gap: 20px;
     display: grid;

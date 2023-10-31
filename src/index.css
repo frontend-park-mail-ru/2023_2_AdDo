@@ -141,3 +141,33 @@
 .active {
     color: #C15DF3;
 }
+
+.smallText {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: left;
+}
+
+.mediumText {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.bigText {
+    color: #FFF;
+    font-size: 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.largeText {
+    color: #FFF;
+    font-size: 52px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}

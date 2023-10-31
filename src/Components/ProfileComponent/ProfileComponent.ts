@@ -42,6 +42,6 @@ export class ProfileComponent extends IComponent {
      */    
     public renderProfile(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ User: this.user, port: hosts.s3HOST });
+		this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST });
 	}
 }

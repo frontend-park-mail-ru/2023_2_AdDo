@@ -1,5 +1,5 @@
 <div class="feedContainer">
-    <div class="feedText">Главное</div>
+    <div class="bigText">Главное</div>
     <ul class="feed">
         {{#each FeedComponentConfig}}
             <li class="feedItem">
@@ -19,10 +19,10 @@
                             <img class="contentPhoto" data-section="link" data-url="album/{{this.Id}}" data-id="{{this.Id}}" src="{{../host}}{{this.Preview}}" alt="1">
                             <div class="playButton" data-section="playButton" data-url="{{this.Id}}"></div>
                         </div>
-                        <div class="albumName" data-section="link" data-id="{{this.Id}}" data-url="album/{{this.Id}}">
+                        <div class="mediumText albumName" data-section="link" data-id="{{this.Id}}" data-url="album/{{this.Id}}">
                             {{this.Name}}
                         </div>  
-                        <div class="artistName" data-section="link" data-url="artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
+                        <div class="smallText artistName" data-section="link" data-url="artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
                             {{this.ArtistName}}
                         </div>
                     </div>  

@@ -3,8 +3,8 @@
     <div class="artist">
         <img class="artistPhoto" src="{{port}}{{Artist.Avatar}}" alt="">
         <div style="display: inline-block;">
-            <div class="songName">Исполнитель</div>
-            <div class="ArtistName">{{Artist.Name}}</div>
+            <div class="mediumText songName">Исполнитель</div>
+            <div class="largeText">{{Artist.Name}}</div>
         </div>
     </div>
     <h1 class="zagolovok">Песни</h1>
@@ -13,16 +13,16 @@
             {{#each Artist.Tracks}}
                 <li class="songItem">
                     <div class="imageContainer" style="display: inline-block;">
-                        <div class="songName index"></div>
+                        <div class="mediumText songName index"></div>
                         <div class="miniPlayButton" data-section="miniArtistPlayButton" data-url="{{@index}}"></div>
                     </div>
                     <div style="display:inline-block">
                         <img class="songPhoto" src="{{../port}}{{this.Preview}}" alt="1">
                     </div>
-                    <div class="songName" style="display: inline-block;">
+                    <div class="mediumText songName" style="display: inline-block;">
                         {{this.Name}}
                     </div>
-                    <div class="duration" style="display: inline-block;">
+                    <div class="mediumText duration" style="display: inline-block;">
                         {{this.Duration}}
                     </div>
                 </li>   
@@ -39,11 +39,8 @@
                             <img class="contentPhoto" data-section="link" data-url="album/{{this.Id}}" data-id="{{this.Id}}" src="{{../port}}{{this.Preview}}" alt="1">
                             <div class="playButton" data-section="playButton" data-url="{{this.Id}}"></div>
                         </div>
-                        <div class="albumName" data-section="link" data-id="{{this.Id}}" data-url="album/{{this.Id}}">
+                        <div class="mediumText albumName" data-section="link" data-id="{{this.Id}}" data-url="album/{{this.Id}}">
                             {{this.Name}}
-                        </div>
-                        <div class="artistName">
-                            {{this.ArtistName}}
                         </div>
                     </div>  
                 </li>   

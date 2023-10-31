@@ -2,7 +2,7 @@
     <div class="album">
         <img class="albumPhoto" style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
         <div style="display: inline-block;">
-            <div class="albumInfo">{{album.Name}}</div>
+            <div class="bigText albumInfo">{{album.Name}}</div>
             <h1>{{album.ArtistName}}</h1>
             <h2>{{album.ReleaseDate}}</h2>
         </div>
@@ -12,13 +12,13 @@
             {{#each album.Tracks}}
                 <li class="songItem">
                     <div class="imageContainer" style="display: inline-block;">
-                        <div class="songName index"></div>
+                        <div class="mediumText songName index"></div>
                         <div class="miniPlayButton" data-section="miniPlayButton" data-url="{{@index}}"></div>
                     </div>
-                    <div class="songName" style="display: inline-block;">
+                    <div class="mediumText songName" style="display: inline-block;">
                         {{this.Name}}
                     </div>
-                    <div class="duration" style="display: inline-block;">
+                    <div class="mediumText duration" style="display: inline-block;">
                         {{this.Duration}}
                     </div>
                 </li>   

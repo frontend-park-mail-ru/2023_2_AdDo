@@ -121,12 +121,8 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    /* width: 108px; */
 }
 
-/* .signout {
-    width: 108px;
-} */
 
 .signout:hover {
     color:#C15DF3;

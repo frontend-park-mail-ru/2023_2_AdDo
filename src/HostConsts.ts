@@ -16,7 +16,7 @@ import { HostConstsType } from "./types";
  */
 const hosts: HostConstsType = {
     HOST: 'https://musicon.space',
-    s3HOST: 'http://static.musicon.space',
+    s3HOST: 'http://api.s3.musicon.space',
     PORT: '',
 }
 

@@ -2,31 +2,37 @@
     <div class="artist">
         <img class="artistPhoto" src="{{port}}{{user.avatar}}" alt="">
         <div style="display: inline-block;">
-            <div class="songName">{{user.username}}</div>
-            <div class="ArtistName">{{user.email}}</div>
+            <div class="mediumText">{{user.username}}</div>
+            <div class="largeText">{{user.email}}</div>
         </div>
     </div>
     <form action="post">
-        <ul class="content">
+        <ul class="profileList">
             <li class="profileItem">
-                <div class="albumName"> Имя пользователя </div>
+                <div class="mediumText"> Имя пользователя </div>
                 <input class="authInput" data-section="username" type="text" placeholder="{{user.username}}" required>
             </li>
             <li class="profileItem">
-                <div class="albumName"> Email </div>
+                <div class="mediumText"> Email </div>
                 <input class="authInput" data-section="email" type="email" placeholder="{{user.email}}" required>
             </li>
             <li class="profileItem">
-                <div class="albumName"> Дата рождения </div>
-                <input class="authInput" data-section="birthDate" type="date" placeholder="{{user.birthDate}}" required>
+                <div class="mediumText"> Дата рождения </div>
+                <input class="authInput" data-section="birthDate" type="date" min="1997-01-01" max="2030-12-31"
+                    placeholder="{{user.birthDate}}" required>
             </li>
             <li class="profileItem">
-                <div class="albumName"> Фото профиля </div>
+                <div class="mediumText"> Фото профиля </div>
+                		<label class="inputFile">
+                            <span class="authInput" type="text"></span>
+                            <input type="file" name="file">        
+                            <span class="inputFileBtn">Выберите файл</span>
+                        </label>
                 <input type="file" class="defaultButton" style="display: inline-block;"></button>
             </li>
             <li class="profileItem">
                 <button class="defaultButton" style="display: inline-block;" type="submit">Готово</button>
-            </li>   
+            </li>
         </ul>
     </form>
 </div>

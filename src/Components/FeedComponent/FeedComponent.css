@@ -82,11 +82,6 @@
 }
 
 .albumName {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    text-align: left;
     margin-top: 10px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -96,11 +91,6 @@
 }
 
 .artistName {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    text-align: left;
     margin-top: 10px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -119,9 +109,3 @@
     word-wrap: break-word;
 }
 
-.feedText {
-    color: #FFF;
-    font-size: 36px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
