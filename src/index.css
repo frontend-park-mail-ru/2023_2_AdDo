@@ -7,6 +7,7 @@
 @import './Components/SignUpComponent/SignUpComponent.css';
 @import './Components/AlbumComponent/AlbumComponent.css';
 @import './Components/ArtistComponent/ArtistComponent.css';
+@import './Components/ProfileComponent/ProfileComponent.css';
 @import url('https://fonts.cdnfonts.com/css/source-sans-pro');
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
 
