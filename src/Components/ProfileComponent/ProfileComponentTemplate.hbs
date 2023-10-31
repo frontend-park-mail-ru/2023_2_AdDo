@@ -2,8 +2,8 @@
     <div class="artist">
         <img class="artistPhoto" src="{{port}}{{user.avatar}}" alt="">
         <div style="display: inline-block;">
-            <div class="mediumText">{{user.username}}</div>
-            <div class="largeText">{{user.email}}</div>
+            <div class="largeText">{{user.username}}</div>
+            <div class="mediumText">{{user.email}}</div>
         </div>
     </div>
     <form action="post">
@@ -24,9 +24,9 @@
             <li class="profileItem">
                 <div class="mediumText"> Фото профиля </div>
                 		<label class="inputFile">
-                            <span class="authInput" type="text"></span>
+                            <span class="authInput authInputModified" type="text"></span>
                             <input type="file" name="file">        
-                            <span class="inputFileBtn">Выберите файл</span>
+                            <span class="inputFileBtn mediumText">Выберите файл</span>
                         </label>
                 <input type="file" class="defaultButton" style="display: inline-block;"></button>
             </li>

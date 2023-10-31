@@ -24,24 +24,21 @@
 	border: 1px solid #ddd;
 } */
 .inputFileBtn {
-	position: relative;
-	display: inline-block;
-	cursor: pointer;
-	outline: none;
-	text-decoration: none;
-	font-size: 14px;
-	vertical-align: middle;
-	color: rgb(255 255 255);
-	text-align: center;
-	border-radius: 0 12px 12px 0;
-	background: linear-gradient(90deg, #5C4F9E 0%, #2B76DA 100%);
-	line-height: 22px;
-	height: 40px;
-	padding: 10px 20px;
-	box-sizing: border-box;
-	border: none;
-	margin: 0;
-	transition: background-color 0.2s;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    vertical-align: middle;
+    border-radius: 0 12px 12px 0;
+    background: linear-gradient(90deg, #5C4F9E 0%, #2B76DA 100%);
+    line-height: 22px;
+    height: 50px;
+    padding: 13px 20px;
+    box-sizing: border-box;
+    border: none;
+    margin: 0;
+    transition: background-color 0.2s;
 }
 .inputFile input[type=file] {
 	position: absolute;
@@ -72,4 +69,8 @@
     padding: 0px;
     margin-bottom: 15vh;
     gap: 30px;
+}
+
+.authInputModified {
+	border-radius: 12px 0 0 12px;
 }
