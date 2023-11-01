@@ -212,6 +212,6 @@ class App {
 }
 
 const app = new App();
-app.run(paths.feedAll);
+app.run(location.pathname);
 
 
