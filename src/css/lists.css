@@ -1,9 +1,13 @@
 .albumlist {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    gap: 50px;
     &__item {
         list-style-type: none;
         width: 200px;
     }
-
     &__image-container {
         img {
             size: 200px;
@@ -17,7 +21,7 @@
 
     &__image-container:hover {
         opacity: 0.7;
-        & .album__playbutton {
+        & .albumlist__playbutton {
             opacity: 1;
         }
     }
@@ -78,7 +82,7 @@
 
     &__image-container:hover {
         opacity: 0.7;
-        & .album__playbutton {
+        & .playlist__playbutton {
             opacity: 1;
         }
     }

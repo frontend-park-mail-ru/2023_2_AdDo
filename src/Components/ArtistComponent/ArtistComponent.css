@@ -6,4 +6,7 @@
     &__title {
         margin: 10px 0 10px 0; 
     }
+    &__list {
+        margin-bottom: 0px;
+    }
 }

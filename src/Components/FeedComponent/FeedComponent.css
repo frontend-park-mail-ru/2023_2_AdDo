@@ -12,7 +12,7 @@
     }
 }
 
-.feed-list-item__name {
+.feed-list-item {
     display: inline-flex;
     margin: 10px;
     &__name {

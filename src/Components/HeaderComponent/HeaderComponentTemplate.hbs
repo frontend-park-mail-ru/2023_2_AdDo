@@ -17,29 +17,25 @@
     <ul class="menu__rest">
         <li class="menu__item">
             <img class="magnifying-glass" src="/static/img/Loupe.svg" alt="">
-                <form class="input-search"> 
-                    <input type="text" data-section="text" class="search" placeholder ="Введите название песни или альбома">
-                </form>
+                <input type="text" data-section="text" class="input-search" placeholder ="Введите название песни или альбома">
         </li>
-        {{#if profileClosed}} 
-            {{#if user}}
-            <li class="menu__item">
-                <div class="mini-profile">
-                    {{#if user.Avatar}}
-                    <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.Avatar}}" alt="">
-                    {{else}}
-                    <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.jpg" alt="">
-                    {{/if}}
-                    <h2 class="menu-item__link" data-section="signout">
-                        Выйти
-                    </h2>
-                </div>
-            </li>
-            {{else}}
-            <li class="menu__item">
-                <button class="default-button" data-url="/login" data-section="link">Войти</button>
-            </li>
-            {{/if}}
+        {{#if user}}
+        <li class="menu__item">
+            <div class="mini-profile">
+                {{#if user.Avatar}}
+                <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.Avatar}}" alt="">
+                {{else}}
+                <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.jpg" alt="">
+                {{/if}}
+                <h2 class="menu-item__link" data-section="signout">
+                    Выйти
+                </h2>
+            </div>
+        </li>
+        {{else}}
+        <li class="menu__item">
+            <button class="default-button" data-url="/login" data-section="link">Войти</button>
+        </li>
         {{/if}}
     </ul>
 </div>
