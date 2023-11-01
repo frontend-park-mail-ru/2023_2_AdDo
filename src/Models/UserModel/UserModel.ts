@@ -39,7 +39,7 @@ class UserModel extends IModel {
     * @param {Callback} callback - The callback function.
     * @return {void}
     */
-    public signInUser(email: string, password: string, callback: Callback): void {
+    public signInUser(email: string, password: string, callback: Callback, errorCallback: Callback): void {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/login',
             { 'Content-Type': 'application/json', },
@@ -49,6 +49,13 @@ class UserModel extends IModel {
                 if (status >= 200 && status < 300) {
                     this.getUser();
                     callback(paths.feedAll);
+                    errorCallback('ok');
+                    return;
+                } else if (status === 403) {
+                    errorCallback('incorrect password');
+                    return;
+                } else if (status === 400) {
+                    errorCallback('password too short');
                     return;
                 }
             })

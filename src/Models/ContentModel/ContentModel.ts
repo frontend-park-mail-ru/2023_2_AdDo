@@ -9,11 +9,11 @@ export default class ContentModel extends IModel {
     private albums: Array<Album> = [];
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
-    private currentArtistSongs: Array<Song> = [];
     private currentBuffer: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
     private IsShuffled: boolean = false;
+    private IsLooped: boolean = false;
 
     constructor () {
         super();
@@ -183,17 +183,6 @@ export default class ContentModel extends IModel {
         return this.currentsongs[songId];
     }
 
-
-    /**
-     * Retrieves a song from the current artist's songs collection based on the provided song ID.
-     *
-     * @param {number} songId - The ID of the song to retrieve.
-     * @return {Song} The song object corresponding to the provided ID.
-     */
-    public getArtistSongById(songId: number): Song {
-        return this.currentArtistSongs[songId];
-    }
-
     /**
      * Returns the length of the current songs array.
      *
@@ -214,12 +203,20 @@ export default class ContentModel extends IModel {
             this.IsShuffled = true;
         } else {
             this.IsShuffled = false;
+            this.currentsongs = this.currentBuffer.slice(0);
         }
     }
 
     public loop(songId: number): void {
-        this.currentBuffer = this.currentsongs.slice(0);
-        this.currentsongs = this.currentsongs.filter((song: Song) => song.Name === this.currentsongs[songId].Name);
+        if(!this.IsLooped) {
+            this.currentBuffer = this.currentsongs.slice(0);
+            this.currentsongs = this.currentsongs.filter((song: Song) => song.Name === this.currentsongs[songId].Name);
+            this.IsLooped = true;
+        } else {
+            this.IsLooped = false;
+            this.currentsongs = this.currentBuffer.slice(0);
+        }
+        
     }
 
     public like(songId: number, callback: Callback): void {

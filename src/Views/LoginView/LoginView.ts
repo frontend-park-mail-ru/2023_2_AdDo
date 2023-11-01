@@ -50,6 +50,19 @@ class LoginView extends IView {
 		const passwordInput = this.login.querySelector('[data-section="password"]') as HTMLInputElement;
         return {email: emailInput.value!, password: passwordInput.value!}
     }
+
+    public renderError(err: string): void {
+        switch (err) {
+            case 'incorrect password':
+                this.login.querySelector('[data-section="passcheck"]').className = 'passCheckActive';
+                this.login.querySelector('[data-section="passcheck"]').textContent = 'Неверный пароль!';
+                return;
+            case 'password too short':
+                this.login.querySelector('[data-section="lengthPassword"]').className = 'passCheckActive';
+                this.login.querySelector('[data-section="lengthPassword"]').textContent = 'Пароль (от 6 до 30 символов)';
+                return;
+        }
+    }
 }
 
 export default LoginView;
