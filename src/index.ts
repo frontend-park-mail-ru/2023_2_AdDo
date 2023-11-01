@@ -217,9 +217,11 @@ class App {
 	}
 
 	public cacheCollection(): void {
-		this.contentmodel.requestCollection((album: Album) => {
-			localStorage.setItem('collection', JSON.stringify(album));
-		});
+		if(this.usermodel.getCurrentUser() !== null) {
+			this.contentmodel.requestCollection((album: Album) => {
+				localStorage.setItem('collection', JSON.stringify(album));
+			});
+		}
 	}
 }
 

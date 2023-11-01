@@ -3,9 +3,11 @@ import template from './PlayerComponentTemplate.hbs';
 import { Callback, Song, User } from '../../types';
 import { PlayerComponentConfig } from './PlayerComponentConfig';
 import hosts from '../../HostConsts';
+import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
+	private currentSong: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '', isLiked: false};
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -20,6 +22,9 @@ export class PlayerComponent extends IComponent {
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindSetVolumeEvent(this.setVolume.bind(this));
+		EventDispatcher.subscribe('user-changed', (user: User) => {
+			template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, user});
+		})
 	}
 
 	/**
@@ -29,6 +34,7 @@ export class PlayerComponent extends IComponent {
 	 * @return {void} 
 	 */	
 	public playSong(song: Song, isLiked: boolean, user: User | null): void {
+		this.currentSong = song;
 		this.parent.innerHTML = '';
 		this.parent.innerHTML = template({PlayerComponentConfig, song, port : hosts.s3HOST, Playing: true, isLiked, user});
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
