@@ -9,6 +9,7 @@
         width: 200px;
     }
     &__image-container {
+        position: relative;
         img {
             size: 200px;
             transition: opacity 0.3s;
@@ -45,6 +46,7 @@
 .albumlist-item {
     &__name {
         margin: 10px 0 10px 0;
+        cursor: pointer;
     }
     &__name:hover {
         color:#C15DF3;
