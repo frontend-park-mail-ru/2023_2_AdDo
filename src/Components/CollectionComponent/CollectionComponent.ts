@@ -1,5 +1,5 @@
 import { Album } from '../../types';
-import template from './AlbumComponent.hbs';
+import template from './CollectionComponentTemplate.hbs';
 import  IComponent  from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 
