@@ -130,10 +130,10 @@ class MainView extends IView {
      * @param {Song} song - The song to be played.
      * @return {void}
      */
-    public play(song: Song, isLiked: boolean, user: User | null): void {
+    public play(song: Song, isLiked: boolean): void {
         let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
-        this.footer.playSong(song, isLiked, user);
+        this.footer.playSong(song, isLiked);
     }
 
     /**

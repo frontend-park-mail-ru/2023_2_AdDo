@@ -18,12 +18,16 @@ export class PlayerComponent extends IComponent {
 	constructor(parent: HTMLElement, 
 				song: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '', isLiked: false}, 
 				Playing: boolean = false) {
-		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing, isLiked: false}));
+		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing, isLiked: false, Auth: false}));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindSetVolumeEvent(this.setVolume.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
-			template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, user});
+			if( user !== null) {
+				template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: true});
+			} else {
+				template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: false});
+			}
 		})
 	}
 
@@ -33,10 +37,12 @@ export class PlayerComponent extends IComponent {
 	 * @param {Song} song - The song to be played.
 	 * @return {void} 
 	 */	
-	public playSong(song: Song, isLiked: boolean, user: User | null): void {
+	public playSong(song: Song, isLiked: boolean): void {
 		this.currentSong = song;
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({PlayerComponentConfig, song, port : hosts.s3HOST, Playing: true, isLiked, user});
+		const img = this.querySelector('.avatar')! as HTMLImageElement;
+		img.src = hosts.s3HOST + song.Preview;
+		this.querySelector('.title')!.textContent = song.Name;
+		this.querySelector('.artist')!.textContent = song.ArtistName;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const width: number = this.querySelector('.volume-bar')!.clientWidth;

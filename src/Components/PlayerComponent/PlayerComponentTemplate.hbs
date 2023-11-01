@@ -19,7 +19,7 @@
             <div class="title medium-text">{{song.Name}}</div>
             <div class="artist small-text">{{song.ArtistName}}</div>
         </div>
-        {{#if user}}
+        {{#if Auth}}
             {{#if song.isLiked}}
             <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/LikePressed.svg" alt=""></div>
             {{else}}
