@@ -24,9 +24,12 @@ export class PlayerComponent extends IComponent {
 		this.bindSetVolumeEvent(this.setVolume.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			if( user !== null) {
-				template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: true});
+				this.parent.innerHTML = '';
+				this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: true});
+				
 			} else {
-				template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: false});
+				this.parent.innerHTML = '';
+				this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: false});
 			}
 		})
 	}
