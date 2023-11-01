@@ -16,7 +16,7 @@ export class ProfileComponent extends IComponent {
 		this.element.querySelector('[data-section="fileInput"]')?.addEventListener('change', (event: Event) => {
 			let target = event.target as HTMLInputElement;
 			let fileName = target.files![0].name;
-			document.querySelector('.fileInput')!.textContent = fileName;
+			document.querySelector('.upload-button__input')!.textContent = fileName;
 		});
 	}
 

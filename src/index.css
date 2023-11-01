@@ -1,5 +1,8 @@
-@import './normalize.css';
-@import './tags.css';
+@import './css/normalize.css';
+@import './css/tags.css';
+@import './css/buttons.css';
+@import './css/inputs.css';
+@import './css/lists.css';
 @import './Components/HeaderComponent/HeaderComponent.css';
 @import './Components/PlayerComponent/PlayerComponent.css';
 @import './Components/FeedComponent/FeedComponent.css';
@@ -8,6 +11,7 @@
 @import './Components/AlbumComponent/AlbumComponent.css';
 @import './Components/ArtistComponent/ArtistComponent.css';
 @import './Components/ProfileComponent/ProfileComponent.css';
+@import './Components/CollectionComponent/CollectionComponent.css';
 @import url('https://fonts.cdnfonts.com/css/source-sans-pro');
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
 
@@ -19,131 +23,11 @@
     grid-template-rows: 90px 1fr;
 }
 
-.SubmitBigButton {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    border: none; 
-    outline: none;
-    display: flex;
-    width: 400px;
-    height: 55px;
-    padding: 6px 27px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
-    color: #EAF1FB;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    cursor: pointer;
-}
-
-.SubmitBigButton:hover {
-    background: linear-gradient(90deg, #372F5F 0%, #AE54DB 100%);
-}
-
-.SubmitBigButton:active {
-    background: linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
-    box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
-    transform: translateY(2px);
-}
-
-.inputText {
-    color: #F9EFFE;
-    font-size: 24px;
-    font-weight: 300;
-    font-family: 'Lato', sans-serif;
-}
-
-.buttonText {
-    color: #EAF1FB;
-    font-size: 12px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    word-wrap: break-word;
-    text-decoration: none;
-}
-
-.active {
-    font-weight: bold;
-    color:#C15DF3;
-}
-
-.imgLogo {
-    width: 85px;
-    height: 85px;
-    background-color: linear-gradient(180deg, #C15DF3 0%, #572A6D 100%);
-    cursor: pointer;
-}
-
-.yet {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.yeta {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-decoration-line: underline;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.yeta:hover {
-    color:#C15DF3;
-}
-
-.authInput {
-    background-color: #0F0F0F;
-    display: flex;
-    width: 368px;
-    height: 48px;
-    padding: 0px 16px;
-    gap: 10px;
-    border-radius: 12px;
-    border: 1px solid #FFF;
-    color: rgba(255, 255, 255, 0.40);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: 'Montserrat', sans-serif;
-    border-color: #FFF;
-}
-
-.authWrongInput {
-    background-color: #0F0F0F;
-    display: flex;
-    width: 368px;
-    height: 48px;
-    padding: 0px 16px;
-    gap: 10px;
-    border-radius: 12px;
-    border: 1px solid #FFF;
-    color: rgba(255, 255, 255, 0.40);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: 'Montserrat', sans-serif;
-    border-color: #EF5858;
-}
-
 .active {
     color: #C15DF3;
 }
 
-.smallText {
+.small-text {
     color: #FFF;
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
@@ -151,7 +35,7 @@
     text-align: left;
 }
 
-.mediumText {
+.medium-text {
     color: #FFF;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
@@ -159,16 +43,32 @@
     text-align: left;
 }
 
-.bigText {
+.big-text {
     color: #FFF;
     font-size: 36px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
 }
 
-.largeText {
+.large-text {
     color: #FFF;
     font-size: 52px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
 }
+
+.info {
+    display: flex;
+    gap: 30px;
+
+    img {
+        border-radius: 10px;
+        size: 190px;
+    }
+
+    &__name {
+        word-wrap: break-word;
+        display: inline;
+    }
+}
+

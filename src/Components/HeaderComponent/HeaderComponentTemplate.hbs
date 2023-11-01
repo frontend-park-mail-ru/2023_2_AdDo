@@ -1,41 +1,45 @@
-<div class="menucontainer">
-    <ul class="links">
-        <li class="menuItem">
-            <img class="imgLogo" data-url="/feed/all" data-section="link" src="/static/img/Logo.svg" alt="">
-            <div class="logoText">MusicOn</div>    
+<div class="menu">
+    <ul class="menu__links">
+        <li class="menu__item">
+            <div class="logo">
+                <img class="logo__photo" data-url="/feed/all" data-section="link" src="/static/img/Logo.svg" alt="">
+                <div class="logo__text">MusicOn</div>  
+            </div>
         </li>
         {{#each HeaderConfig}}
-            <li class="menuItem">
-                <h2 class="headera">
+            <li class="menu__item">
+                <h2 class="menu-item__link">
                     {{this.name}}
                 </h2>
             </li>
         {{/each}}
     </ul>
-    <ul class="rest">
-        <li class="menuItem">
-            <img class="magnifyingGlass" src="/static/img/Loupe.svg" alt="">
-                <form class="inputSearch"> 
+    <ul class="menu__rest">
+        <li class="menu__item">
+            <img class="magnifying-glass" src="/static/img/Loupe.svg" alt="">
+                <form class="input-search"> 
                     <input type="text" data-section="text" class="search" placeholder ="Введите название песни или альбома">
                 </form>
         </li>
-        {{#if user}}
-        <li class="menuItem">
-            <div class="profile">
-            {{#if user.Avatar}}
-            <img class="imgAvatar" data-url="/profile" data-section="link" src="{{port}}{{user.Avatar}}" alt="">
+        {{#if profileClosed}} 
+            {{#if user}}
+            <li class="menu__item">
+                <div class="mini-profile">
+                    {{#if user.Avatar}}
+                    <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.Avatar}}" alt="">
+                    {{else}}
+                    <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.jpg" alt="">
+                    {{/if}}
+                    <h2 class="menu-item__link" data-section="signout">
+                        Выйти
+                    </h2>
+                </div>
+            </li>
             {{else}}
-            <img class="imgAvatar" data-url="/profile" data-section="link" src="/static/img/worm.jpg" alt="">
+            <li class="menu__item">
+                <button class="default-button" data-url="/login" data-section="link">Войти</button>
+            </li>
             {{/if}}
-            <h2 class="headera" data-section="signout">
-                Выйти
-            </h2>
-            </div>
-        </li>
-        {{else}}
-        <li class="menuItem">
-            <button class="defaultButton" data-url="/login" data-section="link">Войти</button>
-        </li>
         {{/if}}
     </ul>
 </div>

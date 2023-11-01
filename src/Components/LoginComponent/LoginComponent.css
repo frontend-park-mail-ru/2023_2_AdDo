@@ -1,28 +1,8 @@
-.loginContainer {
+.login {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     margin-top: 10vh;
 }
-
-.container {
-    display: flex;
-    justify-content:center;
-}
-
-.login {
-    display: flexbox;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.loginItem {
-    vertical-align: middle;
-    margin: 15px;
-    align-items: center;
-    display: flex;
-}
-
 
 
 

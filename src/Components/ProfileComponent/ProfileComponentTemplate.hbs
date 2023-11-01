@@ -1,39 +1,39 @@
-<div class="feedContainer">
-    <div class="artist">
+<div class="profile">
+    <div class="info profile__info">
         {{#if user.avatar}}
-        <img class="artistPhoto" src="{{port}}{{user.avatar}}" alt="">
+        <img class="info__photo" src="{{port}}{{user.avatar}}" alt="">
         {{else}}
-        <img class="artistPhoto" src="/static/img/worm.jpg" alt="">
+        <img class="info__photo" src="/static/img/worm.jpg" alt="">
         {{/if}}
         <div style="display: inline-block;">
-            <div class="largeText">{{user.username}}</div>
-            <div class="mediumText">{{user.email}}</div>
+            <div class="large-text">{{user.username}}</div>
+            <div class="medium-text info__name">{{user.email}}</div>
         </div>
     </div>
     <form method="post">
-        <ul class="profileList">
-            <li class="profileItem">
-                <div class="mediumText"> Имя пользователя </div>
-                <input class="authInput" data-section="username" type="text" value="{{user.username}}" required>
+        <ul class="profile__list">
+            <li class="profile__item">
+                <div class="medium-text"> Имя пользователя </div>
+                <input class="auth-input" data-section="username" type="text" value="{{user.username}}" required>
             </li>
-            <li class="profileItem">
-                <div class="mediumText"> Email </div>
-                <input class="authInput" data-section="email" type="email" value="{{user.email}}" required>
+            <li class="profile__item">
+                <div class="medium-text"> Email </div>
+                <input class="auth-input" data-section="email" type="email" value="{{user.email}}" required>
             </li>
-            <li class="profileItem">
-                <div class="mediumText"> Дата рождения </div>
-                <input class="authInput" data-section="birthDate" type="date" value="{{user.birthdate}}" required>
+            <li class="profile__item">
+                <div class="medium-text"> Дата рождения </div>
+                <input class="auth-input" data-section="birthDate" type="date" value="{{user.birthdate}}" required>
             </li>
-            <li class="profileItem">
-                <div class="mediumText"> Фото профиля </div>
-                <label class="inputFile">
-                    <span class="fileInput" type="text"></span>
+            <li class="profile__item">
+                <div class="medium-text"> Фото профиля </div>
+                <label class="upload-button">
+                    <span class="upload-button__input" type="text"></span>
                     <input type="file" name="file" data-section="fileInput">        
-                    <span class="inputFileBtn mediumText">Выберите файл</span>
+                    <span class="upload-button__text medium-text">Выберите файл</span>
                 </label>
             </li>
-            <li class="profileItem">
-                <button class="defaultButton" style="display: inline-block;" type="submit">Готово</button>
+            <li class="profile__item">
+                <button class="default-button" style="display: inline-block;" type="submit">Готово</button>
             </li>
         </ul>
     </form>

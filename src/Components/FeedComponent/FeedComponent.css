@@ -1,111 +1,31 @@
 
-.feedContainer {
+.feed {
     margin-top: 6vh;
     display: grid;
     gap: 10px;
     position: relative;
+    &__list {
+
+    }
+    &__title {
+        margin: 10px 0 10px 0; 
+    }
 }
 
-.feed{
-    white-space: nowrap;
-    padding: 0px;
-}
-
-.feeda {
-    cursor: pointer;
-}
-
-.feeda:hover {
-    color: #C15DF3;
-}
-
-.mainContainer {
-    justify-content: center;
-}
-
-.content{
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0px;
-    margin-bottom: 15vh;
-    gap: 50px;
-}
-
-.contentItem{
-    list-style-type: none;
-    width: 200px;
-}
-.contentItem:hover {
-    color: #C15DF3;
-}
-
-.imageContainer {
-   position: relative;  
-}
-
-.imageContainer img{
-    width: 200px;
-    height: 200px;
-    margin-bottom: 10px;
-    float: left;
-    border-radius: 10px;
-    transition: opacity 0.3s;
-    cursor: pointer;
-}
-
-.imageContainer:hover img {
-    opacity: 0.7;
-}
-
-.imageContainer:hover .playButton {
-    opacity: 1;
-  }
-
-.playButton {
-    position: absolute;
-    top: 100px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    background-image: url("../../static/img/playButton.png");
-    background-size: cover;
-    opacity: 0;
-    transition: opacity 0.3s;
-    cursor: pointer;
-}
-
-.feedItem{
+.feed-list-item__name {
     display: inline-flex;
     margin: 10px;
+    &__name {
+        text-decoration: none;
+        color: #FFF;
+        font-family: 'Lato', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        word-wrap: break-word;
+    }
+    &__name:hover {
+        color: #C15DF3;
+    }
 }
 
-.albumName {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-.albumName:hover {
-    color:#C15DF3;
-}
-
-.artistName {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.artistName:hover {
-    color:#C15DF3;
-}
-
-.feeda {
-    text-decoration: none;
-    color: #FFF;
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    word-wrap: break-word;
-}
 

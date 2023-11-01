@@ -57,16 +57,16 @@ class SignUpView extends IView {
     public renderError(err: string): void {
         switch (err) {
             case 'password mismatch':
-                this.signup.querySelector('[data-section="passcheck"]').className = 'passCheckActive';
+                this.signup.querySelector('[data-section="passcheck"]').className = 'authlist__error_active';
                 this.signup.querySelector('[data-section="passcheck"]').textContent = 'Пароли не совпадают!';
                 return;
             case 'user already exists':
-                this.signup.querySelector('[data-section="passcheck"]').className = 'passCheckActive';
+                this.signup.querySelector('[data-section="passcheck"]').className = 'authlist__error_active';
                 this.signup.querySelector('[data-section="passcheck"]').textContent = 'Пользователь с таким именем уже существует!';
                 return;
             case 'password too short':
-                this.signup.querySelector('[data-section="lengthPassword"]').className = 'passCheckActive';
-                this.signup.querySelector('[data-section="passcheck"]').className = 'passCheckActive';
+                this.signup.querySelector('[data-section="lengthPassword"]').className = 'authlist__error_active';
+                this.signup.querySelector('[data-section="passcheck"]').className = 'authlist__error_active';
                 this.signup.querySelector('[data-section="passcheck"]').textContent = 'Имя пользователя (от 6 до 30 символов)';
                 return;
         }

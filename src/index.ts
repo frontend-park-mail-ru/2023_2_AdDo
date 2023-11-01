@@ -17,6 +17,8 @@ import router from './Modules/Router/Router';
 import paths from './Modules/Router/RouterPaths';
 import './index.css';
 
+import { Album } from './types';
+
 
 
 
@@ -34,6 +36,8 @@ class App {
 
 	public contentmodel: ContentModel;
 	public usermodel: UserModel;
+
+	private isOnline: boolean = navigator.onLine;
 
 	/**
 	 * Initializes the class by setting up the necessary components and controllers.
@@ -59,6 +63,7 @@ class App {
 		this.profilecontroller = new ProfileController(this.profileview, this.usermodel);
 
 		this.initRoutes();
+		this.cacheCollection();
 	}
 
 	/**
@@ -198,6 +203,8 @@ class App {
 	 */
 	public renderCollection(): void {
 		EventDispatcher.emit('unmount-all');
+		this.isOnline ? this.maincontroller.updateCollection() : this.maincontroller.updateOffline();
+		this.maincontroller.mountComponent();
 	}
 
 	/**
@@ -209,6 +216,11 @@ class App {
 		EventDispatcher.emit('unmount-all');
 	}
 
+	public cacheCollection(): void {
+		this.contentmodel.requestCollection((album: Album) => {
+			localStorage.setItem('collection', JSON.stringify(album));
+		});
+	}
 }
 
 const app = new App();

@@ -89,6 +89,14 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.model.ContentModel.requestPlaylists(this.view.fillContent.bind(this.view));
     }
 
+    public updateCollection(): void {
+        this.model.ContentModel.requestCollection(this.view.fillCollection.bind(this.view));
+    }
+
+    public updateOffline(): void {
+        this.model.ContentModel.requestOffline(this.view.fillCollection.bind(this.view));
+    }
+
 
 
     /**
@@ -104,21 +112,21 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'playButton':
                 e.preventDefault();
                 this.albumId = parseInt(target.getAttribute('data-url')!);
-                this.model.ContentModel.getSongs(this.view.play.bind(this.view), this.albumId);
+                this.model.ContentModel.getSongs(this.view.play.bind(this.view), this.albumId, this.model.UserModel.getCurrentUser());
                 this.Playing = true;
                 return;
             case 'miniPlayButton':
                 e.preventDefault();
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
-                this.view.play(this.model.ContentModel.getSongById(this.songId));
+                this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
                 this.Playing = true;
                 return;
             case 'miniArtistPlayButton':
                 e.preventDefault();
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
-                this.view.play(this.model.ContentModel.getSongById(this.songId));
+                this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
                 this.Playing = true;
                 return;
             case 'link':
@@ -165,7 +173,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */
     public nextSong(): void {
         this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
-        this.view.play(this.model.ContentModel.getSongById(this.songId));
+        this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
     }
     
     /**
@@ -175,7 +183,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */
     public prevSong(): void {
         this.songId <= 0 ? this.songId = 0 : this.songId--;
-        this.view.play(this.model.ContentModel.getSongById(this.songId));
+        this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
         return;
     }
 

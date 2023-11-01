@@ -42,7 +42,7 @@ export type User = {
     birthdate: string,
 }
 
-export type Callback = (arg?: any) => void;
+export type Callback = (arg?: any, ...args: any) => void;
 
 export type HostConstsType = {
     HOST: string,

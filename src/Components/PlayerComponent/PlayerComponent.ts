@@ -1,12 +1,11 @@
 import IComponent from '../IComponent/IComponent';
 import template from './PlayerComponentTemplate.hbs';
-import { Callback, Song } from '../../types';
+import { Callback, Song, User } from '../../types';
 import { PlayerComponentConfig } from './PlayerComponentConfig';
 import hosts from '../../HostConsts';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
-
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -17,7 +16,7 @@ export class PlayerComponent extends IComponent {
 	constructor(parent: HTMLElement, 
 				song: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '', isLiked: false}, 
 				Playing: boolean = false) {
-		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing}));
+		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing, isLiked: false}));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindSetVolumeEvent(this.setVolume.bind(this));
@@ -29,15 +28,13 @@ export class PlayerComponent extends IComponent {
 	 * @param {Song} song - The song to be played.
 	 * @return {void} 
 	 */	
-	public playSong(song: Song): void {
+	public playSong(song: Song, isLiked: boolean, user: User | null): void {
+		this.parent.innerHTML = '';
+		this.parent.innerHTML = template({PlayerComponentConfig, song, port : hosts.s3HOST, Playing: true, isLiked, user});
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
-		const img = this.querySelector('.avatar')! as HTMLImageElement;
-		img.src = hosts.s3HOST + song.Preview;
-		this.querySelector('.title')!.textContent = song.Name;
-		this.querySelector('.artist')!.textContent = song.ArtistName;
 		audio.src = hosts.s3HOST + song.Content;
-		const width: number = this.querySelector('.volumeBar')!.clientWidth;
-		const volumee: HTMLElement = this.querySelector('.volumee')!;
+		const width: number = this.querySelector('.volume-bar')!.clientWidth;
+		const volumee: HTMLElement = this.querySelector('.volume-bar__volume')!;
 		const volumeeWidth: number = volumee.clientWidth;
 		if(volumeeWidth === 0) {
 			volumee.style.width = '50%';
@@ -76,7 +73,7 @@ export class PlayerComponent extends IComponent {
 	private updateProgress(e: Event): void {
 		const {duration, currentTime} = e.target as HTMLAudioElement;
 		const progressPercent = (currentTime / duration) * 100;
-		const progress: HTMLElement = this.querySelector('.progress')!;
+		const progress: HTMLElement = this.querySelector('.progress-bar__progress')!;
 		progress.style.width = `${progressPercent}%`;
 	}
 
@@ -87,7 +84,7 @@ export class PlayerComponent extends IComponent {
 	 * @return {void} 
 	 */
 	private setProgress(e: Event): void {
-		const width: number = this.querySelector('.progressBar')!.clientWidth;
+		const width: number = this.querySelector('.progress-bar')!.clientWidth;
 		const target = e as MouseEvent;
 		const x: number = target.offsetX;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
@@ -102,12 +99,12 @@ export class PlayerComponent extends IComponent {
 	 * @return {void} 
 	 */
 	private setVolume(e: Event): void {
-		const width: number = this.querySelector('.volumeBar')!.clientWidth;
+		const width: number = this.querySelector('.volume-bar')!.clientWidth;
 		const target = e as MouseEvent;
 		const x: number = target.offsetX;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.volume = (x / width);
-		const volumee: HTMLElement = this.querySelector('.volumee')!;
+		const volumee: HTMLElement = this.querySelector('.volume-bar__volume')!;
 		const volumeePercent = (audio.volume * 100).toFixed(0);
 		volumee.style.width = `${volumeePercent}%`;
 	}
@@ -119,7 +116,7 @@ export class PlayerComponent extends IComponent {
 	 * @return {void} 
 	 */
 	private bindSetProgressEvent(listener: Callback): void {
-        this.element.querySelector('.progressBar')!.addEventListener('click', listener);
+        this.element.querySelector('.progress-bar')!.addEventListener('click', listener);
     }
 
 	/**
@@ -129,7 +126,7 @@ export class PlayerComponent extends IComponent {
 	 * @return {void} 
 	 */
 	private bindSetVolumeEvent(listener: Callback): void {
-		this.element.querySelector('.volumeBar')!.addEventListener('click', listener);
+		this.element.querySelector('.volume-bar')!.addEventListener('click', listener);
 	}
 
 	/**

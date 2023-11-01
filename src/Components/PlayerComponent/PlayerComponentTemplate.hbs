@@ -1,33 +1,35 @@
-
 <div class="player">
     <audio preload="meta" src="{{this.Content}}"></audio>
-    <div class="progressBar">
-        <div class="progress"></div>
+    <div class="progress-bar">
+        <div class="progress-bar__progress"></div>
     </div>
-    <div class="contentContainer">
-        <div class="prevBtn"><img class="playerBtns" data-section="prevBtn" src="/static/img/SwitchBack.svg" alt=""></div>
+    <div class="player__container">
+        <div class="prev-btn"><img class="player-btns" data-section="prevBtn" src="/static/img/SwitchBack.svg" alt=""></div>
         {{#if Playing}}
-        <div class="playBtn"><img class="playerBtns"  data-section="playBtn" src="/static/img/Pause.svg" alt=""></div>
+        <div class="play-btn"><img class="player-btns"  data-section="playBtn" src="/static/img/Pause.svg" alt=""></div>
         {{else}}
-        <div class="playBtn"><img class="playerBtns"  data-section="playBtn" src="/static/img/Play.svg" alt=""></div>
+        <div class="play-btn"><img class="player-btns"  data-section="playBtn" src="/static/img/Play.svg" alt=""></div>
         {{/if}}
         {{#each PlayerComponentConfig}}
-             <div class="{{this.key}}"><img class="playerBtns" data-section="{{this.key}}" src="{{this.href}}" alt=""></div>
+             <div class="{{this.key}}"><img class="player-btns" data-section="{{this.key}}" src="{{this.href}}" alt=""></div>
         {{/each}}
 
         <div><img class="avatar" src="{{port}}{{song.Preview}}" alt="asd"></div>
-        <div class="info">
-            <div class="title">{{song.Name}}</div>
-            <div class="artist">{{song.ArtistName}}</div>
+        <div>
+            <div class="title medium-text">{{song.Name}}</div>
+            <div class="artist small-text">{{song.ArtistName}}</div>
         </div>
-        {{#if song.isLiked}}
-        <div class="likeBtn"><img class="playerBtns" data-section="likeBtn" src="/static/img/LikePressed.svg" alt=""></div>
-        {{else}}
-        <div class="likeBtn"><img class="playerBtns" data-section="likeBtn" src="/static/img/Like.svg" alt=""></div>
+        {{#if user}}
+            {{#if song.isLiked}}
+            <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/LikePressed.svg" alt=""></div>
+            {{else}}
+            <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/Like.svg" alt=""></div>
+            {{/if}}
         {{/if}}
-        <div class="volumeBtn"><img class="playerBtns"  data-section="volumeBtn"src="/static/img/SoundOn.svg" alt=""></div>
-        <div class="volumeBar">
-            <div class="volumee"></div>
+        
+        <div class="volume-btn"><img class="player-btns"  data-section="volumeBtn"src="/static/img/SoundOn.svg" alt=""></div>
+        <div class="volume-bar">
+            <div class="volume-bar__volume"></div>
         </div>
     </div>
 </div>

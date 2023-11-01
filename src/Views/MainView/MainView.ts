@@ -7,6 +7,7 @@ import type { Album, Song, User, Artist, Callback } from '../../types';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { AlbumComponent } from '../../Components/AlbumComponent/AlbumComponent';
 import { ArtistComponent } from '../../Components/ArtistComponent/ArtistComponent';
+import { CollectionComponent } from '../../Components/CollectionComponent/CollectionComponent';
 
 
 /** Class representing a MainView. */
@@ -16,7 +17,9 @@ class MainView extends IView {
     private feed: FeedComponent;
     private album: AlbumComponent;
     private artist: ArtistComponent;
+    private collection: CollectionComponent;
     private footer: PlayerComponent;
+
 
     /**
      * Constructor for initializing the class.
@@ -30,6 +33,7 @@ class MainView extends IView {
         this.feed = new FeedComponent(this.element.querySelector('main')!);
         this.album = new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
         this.artist = new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
+        this.collection = new CollectionComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
         this.footer = new PlayerComponent(this.element.querySelector('footer')!);
         this.header.append();
         this.footer.append();
@@ -71,6 +75,10 @@ class MainView extends IView {
         this.artist.append();
     }
 
+    public renderCollection(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.collection.append();
+    }
     /**
      * Sets the user object in the header.
      *
@@ -111,16 +119,21 @@ class MainView extends IView {
         this.artist.Artist = artist;
     }
 
+    
+    public fillCollection(album: Album): void {
+        this.collection.Album = album;
+    }
+
     /**
      * Plays a song.
      *
      * @param {Song} song - The song to be played.
      * @return {void}
      */
-    public play(song: Song): void {
+    public play(song: Song, isLiked: boolean, user: User | null): void {
         let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
-        this.footer.playSong(song);
+        this.footer.playSong(song, isLiked, user);
     }
 
     /**
@@ -184,6 +197,7 @@ class MainView extends IView {
         let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
         img.src = '/static/img/Like.svg';
     }
+
 }
 
 export default MainView;

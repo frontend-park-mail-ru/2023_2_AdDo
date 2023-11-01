@@ -1,5 +1,5 @@
 import IModel from "../IModel/IModel";
-import { Album, Artist, Callback, Song } from "../../types";
+import { Album, Artist, Callback, Song, User } from "../../types";
 import Ajax from '../../Modules/Ajax/Ajax';
 import hosts from "../../HostConsts";
 
@@ -158,12 +158,12 @@ export default class ContentModel extends IModel {
      * @param {Callback} callback - The callback function to be executed after the songs are retrieved.
      * @param {number} AlbumId - The ID of the album to retrieve songs from.
      */
-    public getSongs(callback: Callback, AlbumId: number) {
+    public getSongs(callback: Callback, AlbumId: number, user: User | null = null): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + AlbumId, {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.songs = responseBody.Tracks.slice(0);
-                callback(this.songs[0]);
+                this.isLiked(callback, this.songs[0].Id, user);
                 this.currentsongs = this.songs.slice(0); 
                 return;
 			}
@@ -219,6 +219,18 @@ export default class ContentModel extends IModel {
         
     }
 
+    public isLiked(callback: Callback, songId: number, user: User | null = null): void {
+        Ajax.get(hosts.HOST + hosts.PORT + 'api/v1/track/' + this.currentsongs[songId].Id + '/is_liked', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                this.currentsongs[songId].isLiked = responseBody.isLiked;
+                callback(this.getSongById(songId), responseBody.isLiked, user);
+            } else if (status === 401) {
+                callback(this.getSongById(songId), false, null);
+            }
+        })
+    }
+
     public like(songId: number, callback: Callback): void {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/like_track', {'Content-Type': 'application/json',}, { songId })
         .then(({ status }) => {
@@ -237,8 +249,26 @@ export default class ContentModel extends IModel {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/like_track', {'Content-Type': 'application/json',}, { songId })
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
-                this.currentsongs[songId].isLiked = true;
+                this.currentsongs[songId].isLiked = false;
                 callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestOffline(callback: Callback): void {
+        callback(JSON.parse(localStorage.getItem('collection')!) as Album);
+    }
+
+    public requestCollection(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection', {})
+        .then(({ status, responseBody }) => {
+            if (status === 200) {
+                this.album = responseBody.slice(0);
+                callback(this.album); 
                 return;
             }
         })

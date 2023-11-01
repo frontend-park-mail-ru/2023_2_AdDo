@@ -1,18 +1,14 @@
-<div class="album">
-    <div class="info album__info">
-        <img style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
-        <div style="display: inline-block;">
-            <div class="info__name big-text">{{album.Name}}</div>
-            <h1>{{album.ArtistName}}</h1>
-            <h2>{{album.ReleaseDate}}</h2>
-        </div>
-    </div>
+<h1 class="artist__title">Коллекция</h1>
+<div class="collection">
     <ul class="playlist album__list">
-        {{#each album.Tracks}}
+        {{#each Tracks}}
             <li class="playlist__item">
                 <div class="playlist__image-container" style="display: inline-block;">
                     <div class="medium-text playlist__index playlist__index__position"></div>
                     <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton" data-url="{{@index}}"></div>
+                </div>
+                <div style="display:inline-block">
+                    <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
                 </div>
                 <div class="medium-text playlist-item__name" style="display: inline-block;">
                     {{this.Name}}
@@ -23,4 +19,5 @@
             </li>   
         {{/each}}   
     </ul>
+
 </div>

@@ -1,36 +1,30 @@
-<div class="feedContainer">
-    <div class="bigText">Главное</div>
-    <ul class="feed">
+<div class="feed">
+    <div class="big-text">Главное</div>
+    <ul class="feed__list">
         {{#each FeedComponentConfig}}
-            <li class="feedItem">
-                <div class="feeda" data-section="link" data-url="{{this.key}}">
+            <li class="feed-list__item">
+                <div class="feed-list-item__name" data-section="link" data-url="{{this.key}}">
                     {{this.name}}
                 </div>
             </li>
         {{/each}}
     </ul>
-    <h1 class="zagolovok">Новые треки, альбомы и сборники</h1>
-    <div class="mainContainer">
-        <ul class="content">
-            {{#each content}}
-                <li class="contentItem">
-                    <div class="albumContainer">
-                        <div class="imageContainer">
-                            <img class="contentPhoto" data-section="link" data-url="album/{{this.Id}}" data-id="{{this.Id}}" src="{{../host}}{{this.Preview}}" alt="1">
-                            <div class="playButton" data-section="playButton" data-url="{{this.Id}}"></div>
-                        </div>
-                        <div class="mediumText albumName" data-section="link" data-id="{{this.Id}}" data-url="album/{{this.Id}}">
-                            {{this.Name}}
-                        </div>  
-                        <div class="smallText artistName" data-section="link" data-url="artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
-                            {{this.ArtistName}}
-                        </div>
+    <h1 class="feed__title">Новые треки, альбомы и сборники</h1>
+    <ul class="albumlist feed__list">
+        {{#each content}}
+            <li class="albumlist__item">
+                    <div class="albumlist__image-container">
+                        <img class="albumlist__photo" data-section="link" data-url="album/{{this.Id}}" data-id="{{this.Id}}" src="{{../host}}{{this.Preview}}" alt="1">
+                        <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playButton" data-url="{{this.Id}}"></div>
+                    </div>
+                    <div class="medium-text albumlist__name" data-section="link" data-id="{{this.Id}}" data-url="album/{{this.Id}}">
+                        {{this.Name}}
                     </div>  
-                </li>   
-            {{/each}}   
-        </ul>
-    </div>
+                    <div class="small-text albumlist__name" data-section="link" data-url="artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
+                        {{this.ArtistName}}
+                    </div> 
+            </li>   
+        {{/each}}   
+    </ul>
 </div>
-
-
-    
+ 
