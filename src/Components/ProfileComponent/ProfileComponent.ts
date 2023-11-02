@@ -1,4 +1,5 @@
 import hosts from '../../HostConsts';
+import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { User } from '../../types';
 import IComponent from '../IComponent/IComponent';
 import template  from './ProfileComponentTemplate.hbs';
@@ -18,6 +19,10 @@ export class ProfileComponent extends IComponent {
 			let fileName = target.files![0].name;
 			document.querySelector('.upload-button__input')!.textContent = fileName;
 		});
+
+		EventDispatcher.subscribe('user-changed', (user: User) => {
+			this.User = user;
+		})
 	}
 
     /**
