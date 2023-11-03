@@ -14,7 +14,13 @@
              <div class="{{this.key}}"><img class="player-btns" data-section="{{this.key}}" src="{{this.href}}" alt=""></div>
         {{/each}}
 
-        <div><img class="avatar" src="{{port}}{{song.Preview}}" alt="asd"></div>
+        <div>
+            {{#if song.Preview}}
+            <img class="avatar" src="{{port}}{{song.Preview}}" alt="">
+            {{else}}
+            <img class="avatar" src="/static/img/grey.png" alt="">
+            {{/if}}
+        </div>
         <div>
             <div class="title medium-text">{{song.Name}}</div>
             <div class="artist small-text">{{song.ArtistName}}</div>
@@ -28,7 +34,7 @@
         {{/if}}
         
         <div class="volume-btn"><img class="player-btns"  data-section="volumeBtn"src="/static/img/SoundOn.svg" alt=""></div>
-        <input class="volume-bar" type='range' min="0" max="100" value="0" step="1" oninput="rangevalue.value=value">
+        <input class="volume-bar" type='range' min="0" max="100" value="0" step="1">
 
     </div>
 </div>
