@@ -49,7 +49,7 @@ export class ProfileComponent extends IComponent {
 		const img = this.element.querySelector('.info__photo') as HTMLImageElement;
 		this.user.avatar === '' ? img.src = '/static/img/worm.jpg' : img.src = this.user.avatar;
 		this.element.querySelector('.large-text')!.textContent = this.user.username;
-		this.element.querySelector('info__photo')!.textContent = this.user.email;
+		this.element.querySelector('info__name')!.textContent = this.user.email;
 		this.element.querySelector('[data-section="username"]')!.textContent = this.user.username;
 		this.element.querySelector('[data-section="email"]')!.textContent = this.user.email;
 		this.element.querySelector('[data-section="birthDate"]')!.textContent = this.user.birthdate;
