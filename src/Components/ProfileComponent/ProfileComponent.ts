@@ -48,11 +48,6 @@ export class ProfileComponent extends IComponent {
     public renderProfile(): void {
 		this.parent.innerHTML = '';
 		this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST });
-		this.element.querySelector('[data-section="fileInput"]')?.addEventListener('change', (event: Event) => {
-			let target = event.target as HTMLInputElement;
-			let fileName = target.files![0].name;
-			document.querySelector('.upload-button__input')!.textContent = fileName;
-		});
 	}
 
 

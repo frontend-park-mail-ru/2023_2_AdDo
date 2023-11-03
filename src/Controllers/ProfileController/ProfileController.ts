@@ -18,6 +18,7 @@ class ProfileController extends IController<ProfileView, UserModel> {
         super(view, model);
         this.view.bindClickEvent(this.handleClick.bind(this));
         this.view.bindSubmitEvent(this.handleSubmit.bind(this));
+        this.view.bindUploadEvent(this.handleUpload.bind(this));
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
     }
 
@@ -54,6 +55,12 @@ class ProfileController extends IController<ProfileView, UserModel> {
     
     public updateProfile(): void {
         this.view.fillContent(this.model.getCurrentUser()!);
+    }
+
+    public handleUpload(event: Event): void {
+        let target = event.target as HTMLInputElement;
+        let fileName = target.files![0].name;
+        document.querySelector('.upload-button__input')!.textContent = fileName;
     }
 }
 export default ProfileController;

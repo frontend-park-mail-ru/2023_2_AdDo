@@ -57,6 +57,10 @@ class ProfileView extends IView {
         this.profile.querySelector('form')!.addEventListener('submit', listener);
     }
 
+    public bindUploadEvent(listener: Callback): void {
+        this.profile.querySelector('[data-section="fileInput"]')?.addEventListener('change', listener);
+    }
+
     public getDataFromForm(): {email: string, username: string, birthdate: string} {
         const emailInput = this.profile.querySelector('[data-section="email"]') as HTMLInputElement;
         const birthdateInput = this.profile.querySelector('[data-section="birthdate"]') as HTMLInputElement;
