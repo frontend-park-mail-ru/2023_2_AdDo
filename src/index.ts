@@ -174,6 +174,11 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.profilecontroller.updateProfile();
 		this.profilecontroller.mountComponent();
+		document.querySelector(	'[data-section="fileInput"]')?.addEventListener('change', (e: Event) => {
+			let target = e.target as HTMLInputElement;
+			let fileName = target.files![0].name;
+			document.querySelector('.upload-button__input')!.textContent = fileName;
+		});
 	}
 
 	/**
