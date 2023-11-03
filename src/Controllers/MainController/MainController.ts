@@ -26,11 +26,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.view.bindClickEvent(this.handleClick.bind(this));
         this.view.bindEndedEvent(this.nextSong.bind(this));
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
-        EventDispatcher.subscribe('user-changed', (user: User) => {
-            if (user) {
-                this.view.fillHeader(this.model.UserModel.getCurrentUser()!);
-            }
-        })
     }
 
     /**
