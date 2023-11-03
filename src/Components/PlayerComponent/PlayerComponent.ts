@@ -21,7 +21,6 @@ export class PlayerComponent extends IComponent {
 		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing, isLiked: false, Auth: false}));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
-		// this.bindSetVolumeEvent(this.setVolume.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			if( user !== null) {
@@ -108,30 +107,13 @@ export class PlayerComponent extends IComponent {
 		audio.currentTime = (x / width) * duration;
 	}
 	
-	/**
-	 * Sets the volume of the audio player based on the position of the mouse click.
-	 *
-	 * @param {Event} e - The event object representing the mouse click.
-	 * @return {void} 
-	 */
-	private setVolume(e: Event): void {
-		const width: number = this.querySelector('.volume-bar')!.clientWidth;
-		const target = e as MouseEvent;
-		const x: number = target.offsetX;
-		const audio = this.querySelector('audio')! as HTMLAudioElement;
-		audio.volume = (x / width);
-		const volumee: HTMLElement = this.querySelector('.volume-bar__volume')!;
-		const volumeePercent = (audio.volume * 100).toFixed(0);
-		volumee.style.width = `${volumeePercent}%`;
-	}
+
+
 
 	private setVolumeSlider(e: Event): void {
 		const slider = this.querySelector('.volume-bar__volume-btn') as HTMLInputElement;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.volume = parseInt(slider.value) / 100 as number;
-		const volumeePercent = (audio.volume * 100).toFixed(0);
-		const volumee: HTMLElement = this.querySelector('.volume-bar__volume')!;
-		volumee.style.width = `${volumeePercent}%`;
 	}
 
 	/**
@@ -150,12 +132,9 @@ export class PlayerComponent extends IComponent {
 	 * @param {Callback} listener - The callback function to be executed when the 'click' event is triggered.
 	 * @return {void} 
 	 */
-	private bindSetVolumeEvent(listener: Callback): void {
-		this.element.querySelector('.volume-bar')!.addEventListener('click', listener);
-	}
 
 	private bindVolumeSliderEvent(listener: Callback): void {
-		this.element.querySelector('.volume-bar__volume-btn')!.addEventListener('input', listener);
+		this.element.querySelector('.volume-bar')!.addEventListener('input', listener);
 	}
 
 	/**
