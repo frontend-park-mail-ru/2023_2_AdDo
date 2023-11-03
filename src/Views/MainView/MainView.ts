@@ -142,8 +142,8 @@ class MainView extends IView {
      * @return {void}
      */
     public resume(): void {
-        const audio = this.footer.querySelector('audio')! as HTMLAudioElement;
-        if(audio.src === '') {
+        let avatar: HTMLImageElement = this.footer.querySelector('.avatar') as HTMLImageElement;
+        if(avatar.src === '/static/img/grey.png"') {
             return;
         }
         let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
@@ -156,8 +156,8 @@ class MainView extends IView {
      * @return {void}
      */
     public pause(): void {
-        const audio = this.footer.querySelector('audio')! as HTMLAudioElement;
-        if(audio.src === '') {
+        let avatar: HTMLImageElement = this.footer.querySelector('.avatar') as HTMLImageElement;
+        if(avatar.src === '/static/img/grey.png"') {
             return;
         }
         let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
