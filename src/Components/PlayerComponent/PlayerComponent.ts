@@ -22,6 +22,7 @@ export class PlayerComponent extends IComponent {
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindSetVolumeEvent(this.setVolume.bind(this));
+		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			if( user !== null) {
 				this.parent.innerHTML = '';
@@ -124,6 +125,15 @@ export class PlayerComponent extends IComponent {
 		volumee.style.width = `${volumeePercent}%`;
 	}
 
+	private setVolumeSlider(e: Event): void {
+		const slider = this.querySelector('.volume-bar__volume-btn') as HTMLInputElement;
+		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		audio.volume = parseInt(slider.value) / 100 as number;
+		const volumeePercent = (audio.volume * 100).toFixed(0);
+		const volumee: HTMLElement = this.querySelector('.volume-bar__volume')!;
+		volumee.style.width = `${volumeePercent}%`;
+	}
+
 	/**
 	 * Binds a 'click' event listener to the '.progressBar' element.
 	 *
@@ -142,6 +152,10 @@ export class PlayerComponent extends IComponent {
 	 */
 	private bindSetVolumeEvent(listener: Callback): void {
 		this.element.querySelector('.volume-bar')!.addEventListener('click', listener);
+	}
+
+	private bindVolumeSliderEvent(listener: Callback): void {
+		this.element.querySelector('.volume-bar__volume-btn')!.addEventListener('input', listener);
 	}
 
 	/**
