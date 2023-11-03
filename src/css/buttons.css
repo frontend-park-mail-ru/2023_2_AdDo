@@ -68,8 +68,9 @@
         background-color: #0F0F0F;
         display: flex;
         width: 368px;
-        height: 48px;
-        padding: 0px 16px;
+        height: 33px;
+        padding-top: 15px;
+        padding-left: 15px;
         gap: 10px;
         border-radius: 12px 0 0 12px;
         border: 1px solid #FFF;
