@@ -7,7 +7,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
-	private currentSong: Song = {Id: 0, Name: '', Preview: '/images/grey.jpg', Content: '', ArtistName: '', isLiked: false};
+	private currentSong: Song = {Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false};
 	/**
 	 * Constructs a new instance of the class.
 	 *

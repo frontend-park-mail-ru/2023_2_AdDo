@@ -46,13 +46,16 @@ export class ProfileComponent extends IComponent {
      * @return {void} 
      */    
     public renderProfile(): void {
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST });
-		// this.element.querySelector('[data-section="fileInput"]')?.addEventListener('change', (e: Event) => {
-		// 	let target = e.target as HTMLInputElement;
-		// 	let fileName = target.files![0].name;
-		// 	document.querySelector('.upload-button__input')!.textContent = fileName;
-		// });
+		const img = this.element.querySelector('.info__photo') as HTMLImageElement;
+		this.user.avatar === '' ? img.src = '/static/img/worm.jpg' : img.src = this.user.avatar;
+		this.element.querySelector('.large-text')!.textContent = this.user.username;
+		this.element.querySelector('info__photo')!.textContent = this.user.email;
+		this.element.querySelector('[data-section="username"]')!.textContent = this.user.username;
+		this.element.querySelector('[data-section="email"]')!.textContent = this.user.email;
+		this.element.querySelector('[data-section="birthDate"]')!.textContent = this.user.birthdate;
+		this.element.querySelector('[data-section="fileInput"]')!.textContent = this.user.avatar;
+		// this.parent.innerHTML = '';
+		// this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST });
 	}
 
 
