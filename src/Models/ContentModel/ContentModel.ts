@@ -165,7 +165,6 @@ export default class ContentModel extends IModel {
                 this.songs = responseBody.Tracks.slice(0);
                 this.currentsongs = this.songs.slice(0); 
                 this.isLiked(callback, 0, user);
-
                 return;
 			}
 		})

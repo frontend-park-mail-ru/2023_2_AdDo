@@ -16,7 +16,7 @@ export class HeaderComponent extends IComponent {
 	 */	
 	constructor(parent: HTMLElement) {
 		super(parent, template({HeaderConfig, port: hosts.s3HOST}));
-		
+
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		})
@@ -49,6 +49,19 @@ export class HeaderComponent extends IComponent {
       */
      public renderHeader(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({HeaderConfig, port : hosts.s3HOST, user: this.user});
+		let randomlogo = '';
+		let randomNum = Math.floor(Math.random() * 3);
+		switch (randomNum) {
+			case 1:
+				randomlogo = '/static/img/Logo.svg';
+				break;
+			case 2:
+				randomlogo = '/static/img/Logo2.svg';
+				break;
+			case 3:
+				randomlogo = '/static/img/Logo3.svg';
+				break;
+		}
+		this.parent.innerHTML = template({HeaderConfig, port : hosts.s3HOST, user: this.user, logo: randomlogo});
 	}
 }
