@@ -73,6 +73,9 @@ class App {
 	 */
 	public run(url: string) {
 		this.usermodel.authUserByCookie();
+		if(url === paths.root) {
+			url = paths.feedAll;
+		}
 		router.start(url);
 	}
 
