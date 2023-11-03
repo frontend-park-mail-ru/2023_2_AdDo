@@ -25,7 +25,7 @@ class ProfileView extends IView {
 
         this.header.append();
         this.profile.append();
-
+        
 
         EventDispatcher.subscribe('user-changed', (user: User) => {
             // todo
