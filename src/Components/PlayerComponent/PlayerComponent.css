@@ -24,7 +24,7 @@
     }
 }
 
-.volume-bar {
+/* .volume-bar {
     background-color: #666F7A;
     width: 85px;
     height: 8px;
@@ -41,16 +41,17 @@
         height: 6px;
         width: 0px;
     }
-    &__volume-btn {
-        height: 10px;
-        width: 100px;
-        margin: 0 10px;
-        font-size: 14px;
-        cursor: pointer;
-        display: inline-block;
-        -webkit-appearance: none;
-        background: transparent;
-    }
+} */
+.volume-bar__volume-btn {
+    height: 8px;
+    width: 85px;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    accent-color: #453B77;
 }
 
 .volume-btn {
