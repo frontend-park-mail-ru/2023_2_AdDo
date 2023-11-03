@@ -3,6 +3,7 @@ import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 import UserModel from "../../Models/UserModel/UserModel";
 import router from "../../Modules/Router/Router";
 import ProfileView from "../../Views/ProfileView/ProfileView";
+import paths from "../../Modules/Router/RouterPaths";
 
 
 /** Class representing an LoginController. */
@@ -31,6 +32,11 @@ class ProfileController extends IController<ProfileView, UserModel> {
             case 'link':
                 e.preventDefault();
                 router.goToPage(target.getAttribute('data-url')!);
+                return;
+            case 'signout':
+                e.preventDefault();
+                this.model.logoutUser();
+                router.goToPage(paths.feedAll);
                 return;
         }
     }

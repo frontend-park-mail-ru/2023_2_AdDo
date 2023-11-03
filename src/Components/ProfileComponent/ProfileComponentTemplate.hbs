@@ -27,7 +27,11 @@
             <li class="profile__item">
                 <div class="medium-text"> Фото профиля </div>
                 <label class="upload-button">
+                    {{#if user.avatar}}
                     <span class="upload-button__input" type="text">{{user.avatar}}</span>
+                    {{/else}}
+                    <span class="upload-button__input" type="text"></span>
+                    {{/if}}
                     <input type="file" name="file" data-section="fileInput">        
                     <span class="upload-button__text medium-text">Выберите файл</span>
                 </label>

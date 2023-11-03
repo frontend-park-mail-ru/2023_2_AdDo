@@ -5,6 +5,7 @@ import IController from "../IController/IController";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 import { Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
+import paths from "../../Modules/Router/RouterPaths";
 
 /** Class representing an MainController. */
 class MainController extends IController<MainView, {ContentModel: ContentModel, UserModel: UserModel}> {
@@ -138,6 +139,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'signout':
                 e.preventDefault();
                 this.model.UserModel.logoutUser();
+                router.goToPage(paths.feedAll);
                 return;
             case 'prevBtn':
                 this.prevSong();
