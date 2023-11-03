@@ -6,8 +6,8 @@
         <img class="info__photo" src="/static/img/worm.jpg" alt="">
         {{/if}}
         <div style="display: inline-block;">
-            <div class="large-text">{{user.username}}</div>
-            <div class="medium-text info__name">{{user.email}}</div>
+            <div class="large-text" data-section="bigUsername">{{user.username}}</div>
+            <div class="medium-text info__name" data-section="bigEmail">{{user.email}}</div>
         </div>
     </div>
     <form method="post">
