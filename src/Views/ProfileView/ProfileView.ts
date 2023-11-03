@@ -69,7 +69,7 @@ class ProfileView extends IView {
     }
 
     public getAvatarFromForm(): File {
-        const avatarInput = this.profile.querySelector('[data-section="avatar"]') as HTMLInputElement;
+        const avatarInput = this.profile.querySelector('[data-section="fileInput"]') as HTMLInputElement;
         return avatarInput.files![0];
     }
 }

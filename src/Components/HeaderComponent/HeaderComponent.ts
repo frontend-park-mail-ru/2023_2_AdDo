@@ -3,6 +3,7 @@ import { HeaderConfig } from './HeaderComponentConst';
 import  template from './HeaderComponentTemplate.hbs'
 import { User } from '../../types';
 import hosts from '../../HostConsts';
+import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a HeaderComponent. */
 export class HeaderComponent extends IComponent {
@@ -15,6 +16,10 @@ export class HeaderComponent extends IComponent {
 	 */	
 	constructor(parent: HTMLElement) {
 		super(parent, template({HeaderConfig, port: hosts.s3HOST}));
+		
+		EventDispatcher.subscribe('user-changed', (user: User) => {
+			this.User = user;
+		})
 	}
 
 	/**

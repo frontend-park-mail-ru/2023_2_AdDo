@@ -172,7 +172,7 @@ class App {
 	 */
 	public renderProfile(): void {
 		EventDispatcher.emit('unmount-all');
-		this.profilecontroller.updateProfile();
+		//this.profilecontroller.updateProfile();
 		this.profilecontroller.mountComponent();
 		this.profilecontroller.bindEvents();
 		EventDispatcher.subscribe('user-changed', this.profilecontroller.bindEvents.bind(this.profilecontroller));
