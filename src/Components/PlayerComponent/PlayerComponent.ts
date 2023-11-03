@@ -21,7 +21,7 @@ export class PlayerComponent extends IComponent {
 		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing, isLiked: false, Auth: false}));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
-		this.bindSetVolumeEvent(this.setVolume.bind(this));
+		// this.bindSetVolumeEvent(this.setVolume.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			if( user !== null) {
