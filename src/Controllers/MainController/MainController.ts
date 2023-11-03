@@ -14,6 +14,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     private Playing: boolean = false;
     private Liked: boolean = false;
     private redirectId: number = 0;
+    private isActive: boolean = false;
 
     /**
      * Constructs a new instance of the class.
@@ -45,7 +46,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */    
     public updateAlbum(): void {
         this.view.renderAlbum();
-        this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), this.redirectId);
+        this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), parseInt(localStorage.getItem('redirectId')!));
     }
     
     /**
@@ -55,7 +56,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */    
     public updateArtist(): void {
         this.view.renderArtist();
-        this.model.ContentModel.requestArtist(this.view.fillArtist.bind(this.view), this.redirectId);
+        this.model.ContentModel.requestArtist(this.view.fillArtist.bind(this.view), parseInt(localStorage.getItem('redirectId')!));
     }
 
     /**
@@ -110,6 +111,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.albumId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.getSongs(this.view.play.bind(this.view), this.albumId, this.model.UserModel.getCurrentUser());
                 this.Playing = true;
+                this.isActive = true;
                 return;
             case 'miniPlayButton':
                 e.preventDefault();
@@ -117,6 +119,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.model.ContentModel.nowPlaying();
                 this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
                 this.Playing = true;
+                this.isActive = true;
                 return;
             case 'miniArtistPlayButton':
                 e.preventDefault();
@@ -124,11 +127,13 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.model.ContentModel.nowPlaying();
                 this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
                 this.Playing = true;
+                this.isActive = true;
                 return;
             case 'link':
                 e.preventDefault();
                 this.view.makeActive(e.target as HTMLElement);
                 this.redirectId = parseInt(target.getAttribute('data-id')!);
+                localStorage.setItem('redirectId',  this.redirectId.toString());
                 router.goToPage(target.getAttribute('data-url')!);
                 return;
             case 'signout':
@@ -137,28 +142,40 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 router.goToPage(paths.feedAll);
                 return;
             case 'prevBtn':
-                this.prevSong();
+                if (this.isActive) {
+                    this.prevSong();
+                }
                 return;
             case 'playBtn':
-                if(this.Playing) {
-                    this.Playing = false;
-                    this.view.pause();
-                } else {
-                    this.Playing = true;
-                    this.view.resume();
+                if (this.isActive) {
+                    if(this.Playing) {
+                        this.Playing = false;
+                        this.view.pause();
+                    } else {
+                        this.Playing = true;
+                        this.view.resume();
+                    }
                 }
                 return;
             case 'nextBtn':
-                this.nextSong();
+                if (this.isActive) {
+                    this.nextSong();
+                }
                 return;
             case 'shuffleBtn':
-                this.shuffle();
+                if (this.isActive) {
+                    this.shuffle();
+                }
                 return;
             case 'loopBtn':
-                this.loop();
+                if (this.isActive) {
+                    this.loop();
+                }
                 return;
             case 'likeBtn':
-                this.model.ContentModel.getSongById(this.songId).isLiked ? this.dislike() : this.like();
+                if (this.isActive) {
+                    this.model.ContentModel.getSongById(this.songId).isLiked ? this.dislike() : this.like();
+                }
                 return;
         }
     }
@@ -202,6 +219,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     public dislike(): void {
         this.model.ContentModel.dislike(this.songId, this.view.dislike);
         return;
+    }
+
+    public disablePlayer(): void {
+        this.isActive = false;
     }
 }
 

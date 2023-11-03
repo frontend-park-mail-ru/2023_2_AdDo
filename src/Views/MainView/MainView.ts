@@ -142,10 +142,6 @@ class MainView extends IView {
      * @return {void}
      */
     public resume(): void {
-        let avatar: HTMLImageElement = this.footer.querySelector('.avatar') as HTMLImageElement;
-        if(avatar.src === '/static/img/grey.png"') {
-            return;
-        }
         let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
         this.footer.resumeSong();
@@ -156,10 +152,6 @@ class MainView extends IView {
      * @return {void}
      */
     public pause(): void {
-        let avatar: HTMLImageElement = this.footer.querySelector('.avatar') as HTMLImageElement;
-        if(avatar.src === '/static/img/grey.png"') {
-            return;
-        }
         let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Play.svg';
         this.footer.pauseSong();
