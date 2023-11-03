@@ -175,11 +175,12 @@ class App {
 		this.profilecontroller.updateProfile();
 		this.profilecontroller.mountComponent();
 		this.profilecontroller.bindEvents();
-		document.querySelector(	'[data-section="fileInput"]')?.addEventListener('change', (e: Event) => {
-			let target = e.target as HTMLInputElement;
-			let fileName = target.files![0].name;
-			document.querySelector('.upload-button__input')!.textContent = fileName;
-		});
+		EventDispatcher.subscribe('user-changed', this.profilecontroller.bindEvents.bind(this.profilecontroller));
+		// document.querySelector(	'[data-section="fileInput"]')?.addEventListener('change', (e: Event) => {
+		// 	let target = e.target as HTMLInputElement;
+		// 	let fileName = target.files![0].name;
+		// 	document.querySelector('.upload-button__input')!.textContent = fileName;
+		// });
 	}
 
 	/**

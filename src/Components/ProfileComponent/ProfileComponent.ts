@@ -46,16 +46,8 @@ export class ProfileComponent extends IComponent {
      * @return {void} 
      */    
     public renderProfile(): void {
-		const img = this.element.querySelector('.info__photo') as HTMLImageElement;
-		this.user.avatar === '' ? img.src = '/static/img/worm.jpg' : img.src = this.user.avatar;
-		this.element.querySelector('[data-section="bigUsername"]')!.textContent = this.user.username;
-		this.element.querySelector('[data-section="bigEmail"]')!.textContent = this.user.email;
-		this.element.querySelector('[data-section="username"]')!.textContent = this.user.username;
-		this.element.querySelector('[data-section="email"]')!.textContent = this.user.email;
-		this.element.querySelector('[data-section="birthDate"]')!.textContent = this.user.birthdate;
-		this.element.querySelector('[data-section="fileInput"]')!.textContent = this.user.avatar;
-		// this.parent.innerHTML = '';
-		// this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST });
+		this.parent.innerHTML = '';
+		this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST });
 	}
 
 
