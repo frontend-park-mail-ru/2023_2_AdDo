@@ -4,6 +4,7 @@
  * @constant {Object}
  */
 const paths = {
+    root: '/',
     collection: '/collection',
     podcasts: '/podcasts',
     feedAll: '/feed/all',

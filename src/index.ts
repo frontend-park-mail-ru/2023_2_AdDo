@@ -84,6 +84,7 @@ class App {
 	public initRoutes() {
 
 		const routes = [
+			{ path: paths.root, handler: this.renderFeedAll },
 			{ path: paths.login, handler: this.renderLogin },
 			{ path: paths.signup, handler: this.renderSignUp },
 			{ path: paths.feedAll, handler: this.renderFeedAll },
