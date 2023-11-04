@@ -81,6 +81,9 @@
         line-height: 20px;
         font-family: 'Montserrat', sans-serif;
         border-color: #FFF;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     &__text {
         position: relative;

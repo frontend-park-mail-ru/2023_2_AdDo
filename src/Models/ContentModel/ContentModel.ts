@@ -232,7 +232,7 @@ export default class ContentModel extends IModel {
     }
 
     public like(songId: number, callback: Callback): void {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/track/' + songId + '/like', {'Content-Type': 'application/json',}, { })
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/track/' + this.currentsongs[songId].Id + '/like', {'Content-Type': 'application/json',}, { })
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 this.currentsongs[songId].isLiked = true;
@@ -246,7 +246,7 @@ export default class ContentModel extends IModel {
     }
 
     public dislike(songId: number, callback: Callback): void {
-        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/track/' + songId + '/unlike', {'Content-Type': 'application/json',}, { })
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/track/' + this.currentsongs[songId].Id + '/unlike', {'Content-Type': 'application/json',}, { })
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 this.currentsongs[songId].isLiked = false;
