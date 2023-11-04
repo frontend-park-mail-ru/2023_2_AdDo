@@ -32,8 +32,8 @@ class SignUpController extends IController<SignUpView, UserModel> {
         switch (target.getAttribute('data-section')!) {
             case 'link':
                 e.preventDefault();
-                router.goToPage(target.getAttribute('data-url')!);
                 this.view.renderError('ok');
+                router.goToPage(target.getAttribute('data-url')!);
                 return;
         }
     }
