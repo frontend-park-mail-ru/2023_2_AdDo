@@ -139,14 +139,14 @@
 }
 
 .playlist-item {
-
+    cursor: pointer;
     &__name {
         margin: 10px 0 10px 0;
         cursor: pointer;
     }
 
     &__duration {
-        margin: 10px 0 10px 0;
+        margin: 10px 10px 10px 0;
         position: absolute;
         right: 0;
     }
