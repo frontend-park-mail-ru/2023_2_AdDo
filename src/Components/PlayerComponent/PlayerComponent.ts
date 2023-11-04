@@ -146,8 +146,16 @@ export class PlayerComponent extends IComponent {
 	public userChanged(user: User): void {
 		if(user !== null) {
 			this.element.querySelector('[data-section="likeBtn"]')!.classList.remove('disabled');
+			const img = this.element.querySelector('.avatar') as HTMLImageElement;
+			img.src = '/static/img/grey.png';
+			this.element.querySelector('.artistname')!.textContent = '';
+			this.element.querySelector('.title')!.textContent = '';
 		} else {
 			this.element.querySelector('[data-section="likeBtn"]')!.classList.add('disabled');
+			const img = this.element.querySelector('.avatar') as HTMLImageElement;
+			img.src = '/static/img/grey.png';
+			this.element.querySelector('.artistname')!.textContent = '';
+			this.element.querySelector('.title')!.textContent = '';
 		}
 	}
 }

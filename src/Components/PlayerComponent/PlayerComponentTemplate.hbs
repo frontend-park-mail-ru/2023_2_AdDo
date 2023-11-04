@@ -25,12 +25,10 @@
             <div class="title medium-text">{{song.Name}}</div>
             <div class="artistname small-text">{{song.ArtistName}}</div>
         </div>
-        {{#if Auth}}
-            {{#if song.isLiked}}
-            <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/LikePressed.svg" alt=""></div>
-            {{else}}
-            <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/Like.svg" alt=""></div>
-            {{/if}}
+        {{#if song.isLiked}}
+        <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/LikePressed.svg" alt=""></div>
+        {{else}}
+        <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/Like.svg" alt=""></div>
         {{/if}}
         
         <div class="volume-btn"><img class="player-btns"  data-section="volumeBtn"src="/static/img/SoundOn.svg" alt=""></div>
