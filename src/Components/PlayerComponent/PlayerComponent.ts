@@ -20,7 +20,6 @@ export class PlayerComponent extends IComponent {
 				Playing: boolean = false) {
 		super(parent, template({PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, Auth: false}));
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
-		this.refreshSong();
 	}
 
 	/**
@@ -49,10 +48,6 @@ export class PlayerComponent extends IComponent {
 			audio.volume = (parseInt(volumeSlider.value) / 100);
 		}
 		audio.play();
-	}
-
-	public refreshSong(): void {
-		this.element.querySelector('audio')!.src = hosts.s3HOST + localStorage.getItem('currentSong') ? JSON.parse(localStorage.getItem('currentSong')!).Content : '';
 	}
 
 	/**
