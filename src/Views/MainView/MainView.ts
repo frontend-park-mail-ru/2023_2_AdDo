@@ -231,10 +231,14 @@ class MainView extends IView {
         if (audio.muted) {
             const img =  this.footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
             img.src = '/static/img/SoundOn.svg';
+            const volume = this.footer.querySelector('.volume-bar') as HTMLInputElement;
+            volume.value = (audio.volume * 100).toString();
             audio.muted = false;
         } else {
             const img =  this.footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
             img.src = '/static/img/SoundOff.svg';
+            const volume = this.footer.querySelector('.volume-bar') as HTMLInputElement;
+            volume.value = '0';
             audio.muted = true;
         }
     }
