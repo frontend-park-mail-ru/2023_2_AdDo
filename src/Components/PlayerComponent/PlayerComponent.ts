@@ -43,7 +43,7 @@ export class PlayerComponent extends IComponent {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
-		if(parseInt(volumeSlider.value) === 0) {
+		if(parseInt(volumeSlider.value) === 0 && !audio.muted) {
 			volumeSlider.value = '50';
 			audio.volume = 0.5;
 		} else {
