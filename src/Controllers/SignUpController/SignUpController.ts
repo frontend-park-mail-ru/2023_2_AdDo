@@ -33,6 +33,7 @@ class SignUpController extends IController<SignUpView, UserModel> {
             case 'link':
                 e.preventDefault();
                 router.goToPage(target.getAttribute('data-url')!);
+                this.view.renderError('ok');
                 return;
         }
     }
