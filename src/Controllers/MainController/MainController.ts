@@ -18,6 +18,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     private isActive: boolean = false;
     private isLooped: boolean = false;
     private isShuffled: boolean = false;
+    private nextsongfunction: () => void = () => {};
+    private repeatsongfunction: () => void = () => {};
 
     /**
      * Constructs a new instance of the class.
@@ -28,7 +30,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     public constructor(view: MainView, model: {ContentModel: ContentModel, UserModel: UserModel}) {
         super(view, model);
         this.view.bindClickEvent(this.handleClick.bind(this));
-        this.view.bindEndedEvent(this.nextSong.bind(this));
+        this.nextsongfunction = this.nextSong.bind(this);
+        this.view.bindEndedEvent(this.nextsongfunction);
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
     }
 
@@ -224,12 +227,13 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         if(this.isLooped) {
             this.isLooped = false;
             this.view.unloop();
-            this.view.removeEndedEvent(this.repeatSong.bind(this));
-            this.view.bindEndedEvent(this.nextSong.bind(this));
+            this.view.removeEndedEvent(this.repeatsongfunction);
+            this.view.bindEndedEvent(this.nextsongfunction);
         } else {
             this.isLooped = true;
-            this.view.removeEndedEvent(this.nextSong.bind(this));
-            this.view.bindEndedEvent(this.repeatSong.bind(this));
+            this.view.removeEndedEvent(this.nextsongfunction);
+            this.repeatsongfunction = this.repeatSong.bind(this);
+            this.view.bindEndedEvent(this.repeatsongfunction);
             this.view.loop();
         }
         return;

@@ -179,7 +179,7 @@ class MainView extends IView {
     }
 
     public removeEndedEvent(listener: Callback): void {
-        this.footer.querySelector('audio')!.removeEventListener('ended', listener);
+        this.footer.querySelector('audio')!.removeEventListener('ended', listener)
     }
 
 
