@@ -130,7 +130,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateFeed();
 		this.maincontroller.mountComponent();
-		this.maincontroller.disablePlayer();
+		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -142,6 +142,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateChart();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -153,6 +154,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatePlaylists();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -164,6 +166,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateNew();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -187,6 +190,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateAlbum();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -200,6 +204,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateArtist();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindEvents();
 	}
 
 	/**

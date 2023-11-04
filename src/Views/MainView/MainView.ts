@@ -198,6 +198,9 @@ class MainView extends IView {
         img.src = '/static/img/Like.svg';
     }
 
+    public bindEvents(): void {
+        this.footer.bindEvents();
+    }
 }
 
 export default MainView;

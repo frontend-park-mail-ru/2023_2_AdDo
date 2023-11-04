@@ -24,8 +24,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */   
     public constructor(view: MainView, model: {ContentModel: ContentModel, UserModel: UserModel}) {
         super(view, model);
-        this.view.bindClickEvent(this.handleClick.bind(this));
-        this.view.bindEndedEvent(this.nextSong.bind(this));
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
     }
 
@@ -224,6 +222,12 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public disablePlayer(): void {
         this.isActive = false;
+    }
+
+    public bindEvents(): void {
+        this.view.bindEvents();
+        this.view.bindClickEvent(this.handleClick.bind(this));
+        this.view.bindEndedEvent(this.nextSong.bind(this));
     }
 }
 

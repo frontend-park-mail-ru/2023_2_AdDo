@@ -19,9 +19,6 @@ export class PlayerComponent extends IComponent {
 				song: Song = {Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false}, 
 				Playing: boolean = false) {
 		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing, isLiked: false, Auth: false}));
-		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
-		this.bindSetProgressEvent(this.setProgress.bind(this));
-		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			if( user !== null) {
 				this.parent.innerHTML = '';
@@ -31,9 +28,7 @@ export class PlayerComponent extends IComponent {
 				this.parent.innerHTML = '';
 				this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: false});
 			}
-			this.bindTimeUpdateEvent(this.updateProgress.bind(this));
-			this.bindSetProgressEvent(this.setProgress.bind(this));
-			this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
+			this.bindEvents();
 		})
 	}
 
@@ -47,8 +42,10 @@ export class PlayerComponent extends IComponent {
 		this.currentSong = song;
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
 		img.src = hosts.s3HOST + song.Preview;
+		const like = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
+		isLiked ? like.src = '/static/img/LikePressed.svg' : like.src = '/static/img/Like.svg';
 		this.querySelector('.title')!.textContent = song.Name;
-		this.querySelector('.artist')!.textContent = song.ArtistName;
+		this.querySelector('.artistname')!.textContent = song.ArtistName;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
@@ -147,4 +144,10 @@ export class PlayerComponent extends IComponent {
 	private bindTimeUpdateEvent(listener: Callback): void {
         this.element.querySelector('audio')!.addEventListener('timeupdate', listener);
     }
+
+	public bindEvents(): void {
+		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
+		this.bindSetProgressEvent(this.setProgress.bind(this));
+		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
+	}
 }
