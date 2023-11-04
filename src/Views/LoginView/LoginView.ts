@@ -61,6 +61,10 @@ class LoginView extends IView {
                 this.login.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 this.login.querySelector('[data-section="passcheck"]').textContent = 'Email или пароль(от 6 до 30 символов) неверный!';
                 return;
+            case 'ok':
+                this.login.querySelector('[data-section="lengthPassword"]').className = 'authlist__error__disabled';
+                this.login.querySelector('[data-section="passcheck"]').className = 'authlist__error__disabled';
+                return;
         }
     }
 }

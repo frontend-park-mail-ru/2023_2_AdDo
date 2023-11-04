@@ -79,6 +79,7 @@ class ProfileView extends IView {
                 this.profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
                 this.profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 this.profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                this.profile.querySelector('[data-section="passcheck"]').textContent = 'Некорретное имя пользователя или email!';
                 return;
             case 'ok':
                 this.profile.querySelector('[data-section="username"]').className = 'auth-input';
@@ -89,6 +90,7 @@ class ProfileView extends IView {
                 this.profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
                 this.profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 this.profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                this.profile.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
         }
     }
 }
