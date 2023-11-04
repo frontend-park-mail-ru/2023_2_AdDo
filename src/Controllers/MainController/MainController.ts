@@ -6,6 +6,7 @@ import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 import { Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
 import paths from "../../Modules/Router/RouterPaths";
+import { isThisTypeNode } from "typescript";
 
 /** Class representing an MainController. */
 class MainController extends IController<MainView, {ContentModel: ContentModel, UserModel: UserModel}> {
@@ -15,6 +16,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     private Liked: boolean = false;
     private redirectId: number = 0;
     private isActive: boolean = false;
+    private isLooped: boolean = false;
+    private isShuffled: boolean = false;
 
     /**
      * Constructs a new instance of the class.
@@ -203,12 +206,28 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
     public shuffle(): void {
-        this.model.ContentModel.shuffle();
+        if(this.isShuffled) {
+            this.isShuffled = false;
+            const currentId = this.model.ContentModel.getCurrentSongs()[this.songId].Id;
+            this.model.ContentModel.unshuffle();
+            this.songId = this.model.ContentModel.getCurrentSongs().findIndex(song => song.Id === currentId);
+        } else {
+            this.isShuffled = true;
+            this.model.ContentModel.shuffle();
+        }
         return;
     }
 
     public loop(): void {
-        this.model.ContentModel.loop(this.songId);
+        if(this.isLooped) {
+            this.isLooped = false;
+            const currentId = this.model.ContentModel.getCurrentSongs()[this.songId].Id;
+            this.model.ContentModel.unloop(this.songId);
+            this.songId = this.model.ContentModel.getCurrentSongs().findIndex(song => song.Id === currentId);
+        } else {
+            this.isLooped = true;
+            this.model.ContentModel.loop(this.songId);
+        }
         return;
     }
 

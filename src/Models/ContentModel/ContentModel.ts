@@ -12,8 +12,6 @@ export default class ContentModel extends IModel {
     private currentBuffer: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
-    private IsShuffled: boolean = false;
-    private IsLooped: boolean = false;
 
     constructor () {
         super();
@@ -146,10 +144,14 @@ export default class ContentModel extends IModel {
     /**
      * Retrieves the albums.
      *
-     * @return {Array} The albums.
+     * @return {Array<Album>} The albums.
      */ 
-    public getAlbums() {
+    public getAlbums(): Array<Album> {
         return this.albums;
+    }
+
+    public getCurrentSongs(): Array<Song> {
+        return this.currentsongs;
     }
 
     /**
@@ -197,26 +199,21 @@ export default class ContentModel extends IModel {
     }
 
     public shuffle(): void {
-        if(!this.IsShuffled) {
-            this.currentBuffer = this.currentsongs.slice(0);
-            this.currentsongs.sort(() => Math.random() - 0.5);
-            this.IsShuffled = true;
-        } else {
-            this.IsShuffled = false;
-            this.currentsongs = this.currentBuffer.slice(0);
-        }
+        this.currentBuffer = this.currentsongs.slice(0);
+        this.currentsongs.sort(() => Math.random() - 0.5);
+    }
+
+    public unshuffle(): void {
+        this.currentsongs = this.currentBuffer.slice(0);
     }
 
     public loop(songId: number): void {
-        if(!this.IsLooped) {
-            this.currentBuffer = this.currentsongs.slice(0);
-            this.currentsongs = this.currentsongs.filter((song: Song) => song.Name === this.currentsongs[songId].Name);
-            this.IsLooped = true;
-        } else {
-            this.IsLooped = false;
-            this.currentsongs = this.currentBuffer.slice(0);
-        }
-        
+        this.currentBuffer = this.currentsongs.slice(0);
+        this.currentsongs = this.currentsongs.filter((song: Song) => song.Name === this.currentsongs[songId].Name);
+    }
+
+    public unloop(songId: number): void {
+        this.currentsongs = this.currentBuffer.slice(0);
     }
 
     public isLiked(callback: Callback, songId: number, user: User | null = null): void {

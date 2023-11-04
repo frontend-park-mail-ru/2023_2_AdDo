@@ -58,8 +58,8 @@ class LoginView extends IView {
                 this.login.querySelector('[data-section="passcheck"]').textContent = 'Неверный пароль!';
                 return;
             case 'password too short':
-                this.login.querySelector('[data-section="lengthPassword"]').className = 'authlist__error__active';
-                this.login.querySelector('[data-section="lengthPassword"]').textContent = 'Пароль (от 6 до 30 символов)';
+                this.login.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                this.login.querySelector('[data-section="passcheck"]').textContent = 'Пароль (от 6 до 30 символов)';
                 return;
         }
     }
