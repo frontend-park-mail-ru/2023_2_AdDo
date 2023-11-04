@@ -31,6 +31,9 @@ export class PlayerComponent extends IComponent {
 				this.parent.innerHTML = '';
 				this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: false});
 			}
+			this.bindTimeUpdateEvent(this.updateProgress.bind(this));
+			this.bindSetProgressEvent(this.setProgress.bind(this));
+			this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		})
 	}
 

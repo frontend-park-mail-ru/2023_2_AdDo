@@ -109,6 +109,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'playButton':
                 e.preventDefault();
                 this.albumId = parseInt(target.getAttribute('data-url')!);
+                this.songId = 0;
                 this.model.ContentModel.getSongs(this.view.play.bind(this.view), this.albumId, this.model.UserModel.getCurrentUser());
                 this.Playing = true;
                 this.isActive = true;
@@ -212,12 +213,12 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
     public like(): void {
-        this.model.ContentModel.like(this.songId, this.view.like);
+        this.model.ContentModel.like(this.songId, this.view.like.bind(this.view));
         return;
     }
 
     public dislike(): void {
-        this.model.ContentModel.dislike(this.songId, this.view.dislike);
+        this.model.ContentModel.dislike(this.songId, this.view.dislike.bind(this.view));
         return;
     }
 

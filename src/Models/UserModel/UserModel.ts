@@ -175,7 +175,7 @@ class UserModel extends IModel {
 
     public updateUser(user: User) {
         this.setCurrentUser(user);
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/edit', {'Content-Type': 'application/json',},
+        Ajax.put(hosts.HOST + hosts.PORT + '/api/v1/update_info', {'Content-Type': 'application/json',},
         {email: user.email, username: user.username, birthdate: user.birthdate})
             .then(({ ok, status, responseBody }) => {
                 if (status >= 200 && status < 300) {
@@ -189,7 +189,7 @@ class UserModel extends IModel {
     }
 
     public uploadAvatar(file: File) {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload_avatar', {'Content-Type': 'image/${file.type}',}, file)
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload_avatar', {'Content-Type': 'image/${file.type}',}, {'Avatar' : file}, true)
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 EventDispatcher.emit('user-changed', this.currentUser);

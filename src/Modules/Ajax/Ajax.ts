@@ -7,6 +7,8 @@ import { requestParamsType, responseType } from './AjaxTypes';
 const AJAX_METHODS = {
     GET: 'GET',
     POST: 'POST',
+    PUT: 'PUT',
+    DELETE: 'DELETE',
 };
 
 /**
@@ -83,11 +85,38 @@ export default class Ajax {
     static async post(
         url: string,
         headers: Object,
-        body: Object,
+        body: any,
+        isFormData: boolean = false,
     ): Promise<responseType> {
         return this.fetch({
             url: url,
             method: AJAX_METHODS.POST,
+            headers,
+        },
+        isFormData? new FormData(body) : JSON.stringify(body),);
+    }
+
+    static async put (
+        url: string,
+        headers: Object,
+        body: any,
+    ): Promise<responseType> {
+        return this.fetch({
+            url: url,
+            method: AJAX_METHODS.PUT, 
+            headers,
+        },
+        JSON.stringify(body),);
+    }
+
+    static async delete (
+        url: string,
+        headers: Object,
+        body: any,
+    ): Promise<responseType> {
+        return this.fetch({
+            url: url,
+            method: AJAX_METHODS.DELETE, 
             headers,
         },
         JSON.stringify(body),);
