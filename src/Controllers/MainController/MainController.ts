@@ -224,13 +224,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         if(this.isLooped) {
             this.isLooped = false;
             this.view.unloop();
-            const currentId = this.model.ContentModel.getCurrentSongs()[this.songId].Id;
-            this.model.ContentModel.unloop(this.songId);
-            this.songId = this.model.ContentModel.getCurrentSongs().findIndex(song => song.Id === currentId);
+            this.view.bindEndedEvent(this.nextSong.bind(this));
         } else {
             this.isLooped = true;
+            this.view.bindEndedEvent(this.repeatSong.bind(this));
             this.view.loop();
-            this.model.ContentModel.loop(this.songId);
         }
         return;
     }
@@ -251,6 +249,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public bindEvents(): void {
         this.view.bindEvents();
+    }
+
+    public repeatSong(): void {
+        this.view.play(this.model.ContentModel.getSongById(this.songId), this.model.ContentModel.getSongById(this.songId).isLiked);
     }
 }
 
