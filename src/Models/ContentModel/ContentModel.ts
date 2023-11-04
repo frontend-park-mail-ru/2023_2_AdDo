@@ -198,24 +198,6 @@ export default class ContentModel extends IModel {
         this.currentsongs = this.songs.slice(0);
     }
 
-    public shuffle(): void {
-        this.currentBuffer = this.currentsongs.slice(0);
-        this.currentsongs.sort(() => Math.random() - 0.5);
-    }
-
-    public unshuffle(): void {
-        this.currentsongs = this.currentBuffer.slice(0);
-    }
-
-    public loop(songId: number): void {
-        this.currentBuffer = this.currentsongs.slice(0);
-        this.currentsongs = this.currentsongs.filter((song: Song) => song.Name === this.currentsongs[songId].Name);
-    }
-
-    public unloop(songId: number): void {
-        this.currentsongs = this.currentBuffer.slice(0);
-    }
-
     public isLiked(callback: Callback, songId: number, user: User | null = null): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/track/' + this.currentsongs[songId].Id + '/is_like', {})
         .then(({ status, responseBody }) => {

@@ -117,10 +117,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.albumId = parseInt(target.getAttribute('data-url')!);
                 this.songId = 0;
                 this.model.ContentModel.getSongs(this.view.play.bind(this.view), this.albumId, this.model.UserModel.getCurrentUser());
-                if(this.isShuffled) {
-                    this.isShuffled = false;
-                    this.shuffle();
-                }
                 this.Playing = true;
                 this.isActive = true;
                 return;
@@ -129,10 +125,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
                 this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
-                if(this.isShuffled) {
-                    this.isShuffled = false;
-                    this.shuffle();
-                }
                 this.Playing = true;
                 this.isActive = true;
                 return;
@@ -141,10 +133,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
                 this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
-                if(this.isShuffled) {
-                    this.isShuffled = false;
-                    this.shuffle();
-                }
                 this.Playing = true;
                 this.isActive = true;
                 return;
@@ -205,6 +193,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      * @return {void} 
      */
     public nextSong(): void {
+        this.isShuffled ? this.songId = Math.floor(Math.random() * this.model.ContentModel.getSongsLength()) :
         this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
         this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
     }
@@ -224,13 +213,9 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         if(this.isShuffled) {
             this.isShuffled = false;
             this.view.unshuffle();
-            const currentId = this.model.ContentModel.getCurrentSongs()[this.songId].Id;
-            this.model.ContentModel.unshuffle();
-            this.songId = this.model.ContentModel.getCurrentSongs().findIndex(song => song.Id === currentId);
         } else {
             this.isShuffled = true;
             this.view.shuffle();
-            this.model.ContentModel.shuffle();
         }
         return;
     }
