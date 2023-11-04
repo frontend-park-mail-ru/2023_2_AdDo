@@ -17,12 +17,12 @@
                         <img class="albumlist__photo" data-section="link" data-url="/album/{{this.Id}}" data-id="{{this.Id}}" src="{{../host}}{{this.Preview}}" alt="">
                         <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playButton" data-url="{{this.Id}}"></div>
                     </div>
-                    <div class="medium-text albumlist-item__name" data-section="link" data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
+                    <a class="medium-text albumlist-item__name" data-section="link" data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
                         {{this.Name}}
-                    </div>  
-                    <div class="small-text albumlist-item__name" data-section="link" data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
+                    </a>  
+                    <a class="small-text albumlist-item__name" data-section="link" data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
                         {{this.ArtistName}}
-                    </div> 
+                    </a> 
             </li>   
         {{/each}}   
     </ul>

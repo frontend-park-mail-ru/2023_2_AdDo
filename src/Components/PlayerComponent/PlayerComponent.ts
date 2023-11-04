@@ -145,13 +145,21 @@ export class PlayerComponent extends IComponent {
 
 	public userChanged(user: User): void {
 		if(user !== null) {
-			this.element.querySelector('[data-section="likeBtn"]')!.classList.remove('disabled');
+			const audio = this.element.querySelector('audio') as HTMLAudioElement;
+			audio.src = '';
+			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+			like.src = '/static/img/Like.svg';
+			like.classList.remove('disabled');
 			const img = this.element.querySelector('.avatar') as HTMLImageElement;
 			img.src = '/static/img/grey.png';
 			this.element.querySelector('.artistname')!.textContent = '';
 			this.element.querySelector('.title')!.textContent = '';
 		} else {
-			this.element.querySelector('[data-section="likeBtn"]')!.classList.add('disabled');
+			const audio = this.element.querySelector('audio') as HTMLAudioElement;
+			audio.src = '';
+			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+			like.src = '/static/img/Like.svg';
+			like.classList.remove('disabled');
 			const img = this.element.querySelector('.avatar') as HTMLImageElement;
 			img.src = '/static/img/grey.png';
 			this.element.querySelector('.artistname')!.textContent = '';
