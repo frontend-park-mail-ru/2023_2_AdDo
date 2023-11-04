@@ -224,9 +224,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         if(this.isLooped) {
             this.isLooped = false;
             this.view.unloop();
+            this.view.removeEndedEvent(this.repeatSong.bind(this));
             this.view.bindEndedEvent(this.nextSong.bind(this));
         } else {
             this.isLooped = true;
+            this.view.removeEndedEvent(this.nextSong.bind(this));
             this.view.bindEndedEvent(this.repeatSong.bind(this));
             this.view.loop();
         }

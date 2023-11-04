@@ -178,6 +178,10 @@ class MainView extends IView {
         this.footer.querySelector('audio')!.addEventListener('ended', listener);
     }
 
+    public removeEndedEvent(listener: Callback): void {
+        this.footer.querySelector('audio')!.removeEventListener('ended', listener);
+    }
+
 
     public makeActive(element: HTMLElement): void {
         if (!(element instanceof HTMLButtonElement)) {
