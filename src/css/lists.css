@@ -71,10 +71,17 @@
 
     &__item {
         display: flex;
-        gap: 30px;  
+        gap: 20px;
+        padding: 10px;  
     }
     &__item:hover {
-        background: #484848
+        background: #484848;
+        & .playlist__playbutton {
+            opacity: 1;
+        }
+        & .playlist-item__name {
+            color: #C15DF3;
+        }
     }
 
     &__image-container {
@@ -135,6 +142,7 @@
 
     &__name {
         margin: 10px 0 10px 0;
+        cursor: pointer;
     }
 
     &__duration {

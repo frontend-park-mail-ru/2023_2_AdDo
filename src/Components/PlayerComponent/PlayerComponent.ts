@@ -18,7 +18,9 @@ export class PlayerComponent extends IComponent {
 	constructor(parent: HTMLElement, 
 				song: Song = {Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false}, 
 				Playing: boolean = false) {
-		super(parent, template({PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, Auth: false}));
+		super(parent, template({PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false}));
+		const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+		like.classList.add('disabled');
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
 	}
 
