@@ -33,7 +33,9 @@ export class PlayerComponent extends IComponent {
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
 		img.src = hosts.s3HOST + song.Preview;
 		const like = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
-		isLiked && like ? like.src = '/static/img/LikePressed.svg' : like.src = '/static/img/Like.svg';
+		if(like) {
+			isLiked ? like.src = '/static/img/LikePressed.svg' : like.src = '/static/img/Like.svg';
+		}
 		this.querySelector('.title')!.textContent = song.Name;
 		this.querySelector('.artistname')!.textContent = song.ArtistName;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
