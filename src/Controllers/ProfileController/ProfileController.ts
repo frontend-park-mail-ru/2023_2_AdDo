@@ -53,7 +53,7 @@ class ProfileController extends IController<ProfileView, UserModel> {
         const avatar = this.view.getAvatarFromForm();
         this.model.updateUser({username, email, birthdate, avatar: ''});
         const formdata = new FormData();
-        formdata.append('avatar', avatar, avatar.name);
+        formdata.append('Avatar', avatar, avatar.name);
         this.model.uploadAvatar(formdata);
     }
 
