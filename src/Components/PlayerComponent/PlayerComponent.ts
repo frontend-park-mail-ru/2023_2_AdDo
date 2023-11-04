@@ -112,7 +112,7 @@ export class PlayerComponent extends IComponent {
 
 
 	private setVolumeSlider(e: Event): void {
-		const slider = this.querySelector('.volume-bar__volume-btn') as HTMLInputElement;
+		const slider = this.querySelector('.volume-bar') as HTMLInputElement;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.volume = parseInt(slider.value) / 100 as number;
 	}

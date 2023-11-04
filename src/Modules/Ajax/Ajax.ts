@@ -93,7 +93,7 @@ export default class Ajax {
             method: AJAX_METHODS.POST,
             headers,
         },
-        isFormData? new FormData(body) : JSON.stringify(body),);
+        isFormData? body : JSON.stringify(body),);
     }
 
     static async put (

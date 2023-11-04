@@ -264,7 +264,7 @@ export default class ContentModel extends IModel {
     }
 
     public requestCollection(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection', {})
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/tracks', {})
         .then(({ status, responseBody }) => {
             if (status === 200) {
                 this.album = responseBody.slice(0);
