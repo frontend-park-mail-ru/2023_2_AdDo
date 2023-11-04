@@ -229,8 +229,12 @@ class MainView extends IView {
     public volume(): void {
         const audio = this.footer.querySelector('audio')! as HTMLAudioElement;
         if (audio.muted) {
+            const img =  this.footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
+            img.src = '/static/img/SoundOn.svg';
             audio.muted = false;
         } else {
+            const img =  this.footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
+            img.src = '/static/img/SoundOff.svg';
             audio.muted = true;
         }
     }
