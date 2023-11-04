@@ -48,14 +48,12 @@ export class PlayerComponent extends IComponent {
 		this.querySelector('.artist')!.textContent = song.ArtistName;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
-		const width: number = this.querySelector('.volume-bar')!.clientWidth;
-		const volumee: HTMLElement = this.querySelector('.volume-bar__volume')!;
-		const volumeeWidth: number = volumee.clientWidth;
-		if(volumeeWidth === 0) {
-			volumee.style.width = '50%';
+		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
+		if(parseInt(volumeSlider.value) === 0) {
+			volumeSlider.value = '50';
 			audio.volume = 0.5;
 		} else {
-			audio.volume = (volumeeWidth / width);
+			audio.volume = (parseInt(volumeSlider.value) / 100);
 		}
 		audio.play();
 	}
