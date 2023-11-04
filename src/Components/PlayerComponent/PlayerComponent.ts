@@ -144,14 +144,10 @@ export class PlayerComponent extends IComponent {
 	}
 
 	public userChanged(user: User): void {
-		if( user !== null) {
-			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing: false, isLiked: false, Auth: true});
-			
+		if(user !== null) {
+			this.element.querySelector('[data-section="likeBtn"]')!.classList.remove('disabled');
 		} else {
-			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing: false, isLiked: false, Auth: false});
+			this.element.querySelector('[data-section="likeBtn"]')!.classList.add('disabled');
 		}
-		this.bindEvents();
 	}
 }

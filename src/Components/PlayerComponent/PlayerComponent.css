@@ -66,3 +66,6 @@
     color: #1E1E1E;
 }
 
+.disabled {
+    display: none;
+}
