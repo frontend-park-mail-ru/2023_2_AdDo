@@ -220,7 +220,7 @@ export default class ContentModel extends IModel {
     }
 
     public isLiked(callback: Callback, songId: number, user: User | null = null): void {
-        Ajax.get(hosts.HOST + hosts.PORT + 'api/v1/track/' + this.currentsongs[songId].Id + '/is_like', {})
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/track/' + this.currentsongs[songId].Id + '/is_like', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
                 this.currentsongs[songId].isLiked = responseBody.isLiked;
