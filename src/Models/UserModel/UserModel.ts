@@ -189,7 +189,7 @@ class UserModel extends IModel {
     }
 
     public uploadAvatar(FormData: FormData) {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload_avatar', {'Content-Type': 'multipart/form-data;boundary=yet another boundary',}, FormData, true)
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload_avatar', {}, FormData, true)
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 EventDispatcher.emit('user-changed', this.currentUser);
