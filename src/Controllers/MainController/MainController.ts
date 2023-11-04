@@ -46,7 +46,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */    
     public updateAlbum(): void {
         this.view.renderAlbum();
-        this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), parseInt(location.href[location.href.length - 1]));
+        this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), parseInt(location.href.split('/')[location.href.split('/').length - 1]));
     }
     
     /**
@@ -56,7 +56,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */    
     public updateArtist(): void {
         this.view.renderArtist();
-        this.model.ContentModel.requestArtist(this.view.fillArtist.bind(this.view), parseInt(location.href[location.href.length - 1]));
+        this.model.ContentModel.requestArtist(this.view.fillArtist.bind(this.view), parseInt(location.href.split('/')[location.href.split('/').length - 1]));
     }
 
     /**
