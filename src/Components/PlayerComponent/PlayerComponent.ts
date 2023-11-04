@@ -19,17 +19,7 @@ export class PlayerComponent extends IComponent {
 				song: Song = {Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false}, 
 				Playing: boolean = false) {
 		super(parent, template({PlayerComponentConfig, song, port: hosts.s3HOST, Playing, isLiked: false, Auth: false}));
-		EventDispatcher.subscribe('user-changed', (user: User) => {
-			if( user !== null) {
-				this.parent.innerHTML = '';
-				this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: true});
-				
-			} else {
-				this.parent.innerHTML = '';
-				this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing, isLiked: false, Auth: false});
-			}
-			this.bindEvents();
-		})
+		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
 	}
 
 	/**
@@ -43,7 +33,7 @@ export class PlayerComponent extends IComponent {
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
 		img.src = hosts.s3HOST + song.Preview;
 		const like = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
-		isLiked ? like.src = '/static/img/LikePressed.svg' : like.src = '/static/img/Like.svg';
+		isLiked && like ? like.src = '/static/img/LikePressed.svg' : like.src = '/static/img/Like.svg';
 		this.querySelector('.title')!.textContent = song.Name;
 		this.querySelector('.artistname')!.textContent = song.ArtistName;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
@@ -149,5 +139,17 @@ export class PlayerComponent extends IComponent {
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
+	}
+
+	public userChanged(user: User): void {
+		if( user !== null) {
+			this.parent.innerHTML = '';
+			this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing: false, isLiked: false, Auth: true});
+			
+		} else {
+			this.parent.innerHTML = '';
+			this.parent.innerHTML = template({PlayerComponentConfig, song: this.currentSong, port: hosts.s3HOST, Playing: false, isLiked: false, Auth: false});
+		}
+		this.bindEvents();
 	}
 }
