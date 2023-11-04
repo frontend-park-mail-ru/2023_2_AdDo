@@ -4,3 +4,6 @@
     margin-top: 10vh;
 }
 
+body {
+    background-image: url("../../static/img/WaveBackground.png");
+}
