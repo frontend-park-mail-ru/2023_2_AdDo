@@ -184,6 +184,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     this.model.ContentModel.getSongById(this.songId).isLiked ? this.dislike() : this.like();
                 }
                 return;
+            case 'volumeBtn':
+                if (this.isActive) {
+                    this.view.volume();
+                }
+                return;
         }
     }
 

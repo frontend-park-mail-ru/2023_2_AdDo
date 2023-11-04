@@ -225,6 +225,15 @@ class MainView extends IView {
         const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
         img.src = '/static/img/Random.svg';
     }
+
+    public volume(): void {
+        const audio = this.footer.querySelector('audio')! as HTMLAudioElement;
+        if (audio.muted) {
+            audio.muted = false;
+        } else {
+            audio.muted = true;
+        }
+    }
 }
 
 export default MainView;
