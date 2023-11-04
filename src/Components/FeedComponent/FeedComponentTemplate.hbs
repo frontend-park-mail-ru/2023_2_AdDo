@@ -3,9 +3,9 @@
     <ul class="feed__list">
         {{#each FeedComponentConfig}}
             <li class="feed-list__item">
-                <div class="feed-list-item__name" data-section="link" data-url="{{this.key}}">
+                <a class="feed-list-item__name" >
                     {{this.name}}
-                </div>
+                </a>
             </li>
         {{/each}}
     </ul>
@@ -17,10 +17,10 @@
                         <img class="albumlist__photo" data-section="link" data-url="/album/{{this.Id}}" data-id="{{this.Id}}" src="{{../host}}{{this.Preview}}" alt="">
                         <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playButton" data-url="{{this.Id}}"></div>
                     </div>
-                    <a class="medium-text albumlist-item__name" data-section="link" data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
+                    <a href="/album/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link" data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
                         {{this.Name}}
                     </a>  
-                    <a class="small-text albumlist-item__name" data-section="link" data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
+                    <a href="/artist/{{this.ArtistId}}" class="small-text albumlist-item__name" data-section="link" data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
                         {{this.ArtistName}}
                     </a> 
             </li>   
