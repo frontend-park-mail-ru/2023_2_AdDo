@@ -51,11 +51,13 @@ class ProfileController extends IController<ProfileView, UserModel> {
         e.preventDefault();
         const {username, email, birthdate} = this.view.getDataFromForm();
         const avatar = this.view.getAvatarFromForm();
-        this.model.updateUser({username, email, birthdate, avatar: ''});
         if (avatar) {
             const formdata = new FormData();
             formdata.append('Avatar', avatar, avatar.name);
             this.model.uploadAvatar(formdata);
+            this.model.updateUser({username, email, birthdate, avatar: avatar.name});
+        } else {
+            this.model.updateUser({username, email, birthdate, avatar: this.model.getCurrentUser()!.avatar});
         }
     }
 

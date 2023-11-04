@@ -185,7 +185,6 @@ class UserModel extends IModel {
             .catch((error) => {
                 throw error;
             });
-        EventDispatcher.emit('user-changed', this.currentUser);
     }
 
     public uploadAvatar(FormData: FormData) {
