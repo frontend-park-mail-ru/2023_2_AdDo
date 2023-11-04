@@ -9,7 +9,7 @@
     <h1 class="artist__title">Песни</h1>
     <ul class="playlist artist__list">
         {{#each Artist.Tracks}}
-            <li class="playlist__item">
+            <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">
                 <div class="playlist__image-container" style="display: inline-block;">
                     <div class="medium-text playlist__index playlist__index__position"></div>
                     <div class="playlist__playbutton playlist__playbutton__position" data-section="miniArtistPlayButton" data-url="{{@index}}"></div>

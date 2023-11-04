@@ -173,13 +173,16 @@ class UserModel extends IModel {
             });
     }
 
-    public updateUser(user: User) {
+    public updateUser(user: User, errorCallback: Callback) {
         this.setCurrentUser(user);
         Ajax.put(hosts.HOST + hosts.PORT + '/api/v1/update_info', {'Content-Type': 'application/json',},
         {email: user.email, username: user.username, birthdate: user.birthdate})
             .then(({ ok, status, responseBody }) => {
                 if (status >= 200 && status < 300) {
+                    errorCallback('ok');
                     EventDispatcher.emit('user-changed', this.currentUser);
+                } else if (status === 400) {
+                    errorCallback('bad request');
                 }
             })
             .catch((error) => {
@@ -187,12 +190,14 @@ class UserModel extends IModel {
             });
     }
 
-    public uploadAvatar(FormData: FormData) {
+    public uploadAvatar(FormData: FormData, errorCallback: Callback) {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload_avatar', {}, FormData, true)
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
                 this.currentUser!.avatar = responseBody.AvatarUrl;
                 EventDispatcher.emit('user-changed', this.currentUser);
+            } else if (status === 400) {
+                errorCallback('not an image');
             }
         })
         .catch((error) => {

@@ -52,12 +52,16 @@ class ProfileController extends IController<ProfileView, UserModel> {
         const {username, email, birthdate} = this.view.getDataFromForm();
         const avatar = this.view.getAvatarFromForm();
         if (avatar) {
-            const formdata = new FormData();
-            formdata.append('Avatar', avatar, avatar.name);
-            this.model.uploadAvatar(formdata);
-            this.model.updateUser({username, email, birthdate, avatar: avatar.name});
+            if (avatar.type.startsWith('image/')) {
+                const formdata = new FormData();
+                formdata.append('Avatar', avatar, avatar.name);
+                this.model.uploadAvatar(formdata, this.view.renderError.bind(this.view));
+                this.model.updateUser({username, email, birthdate, avatar: avatar.name}, this.view.renderError.bind(this.view));
+            } else {
+                this.view.renderError('not an image');
+            }
         } else {
-            this.model.updateUser({username, email, birthdate, avatar: this.model.getCurrentUser()!.avatar});
+            this.model.updateUser({username, email, birthdate, avatar: this.model.getCurrentUser()!.avatar}, this.view.renderError.bind(this.view));
         }
     }
 
@@ -68,8 +72,15 @@ class ProfileController extends IController<ProfileView, UserModel> {
 
     public handleUpload(event: Event): void {
         let target = event.target as HTMLInputElement;
-        let fileName = target.files![0].name;
-        document.querySelector('.upload-button__input')!.textContent = fileName;
+        const selectedFile = target.files![0];
+        if (selectedFile && selectedFile.type.startsWith('image/')) {
+            let fileName = target.files![0].name;
+            document.querySelector('.upload-button__input')!.textContent = fileName;
+        } else {
+            this.view.renderError('not an image');
+        }
+       
+       
     }
 
     public bindEvents(): void {

@@ -157,9 +157,6 @@ export class PlayerComponent extends IComponent {
 		} else {
 			const audio = this.element.querySelector('audio') as HTMLAudioElement;
 			audio.src = '';
-			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
-			like.src = '/static/img/Like.svg';
-			like.classList.remove('disabled');
 			const img = this.element.querySelector('.avatar') as HTMLImageElement;
 			img.src = '/static/img/grey.png';
 			this.element.querySelector('.artistname')!.textContent = '';

@@ -3,13 +3,13 @@
         <img style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
         <div style="display: inline-block;">
             <div class="info__name big-text">{{album.Name}}</div>
-            <h1>{{album.ArtistName}}</h1>
+            <a class="medium-text" href="/artist/{{album.ArtistId}}" data-section="link" data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}</a>
             <h2>{{album.ReleaseDate}}</h2>
         </div>
     </div>
     <ul class="playlist album__list">
         {{#each album.Tracks}}
-            <li class="playlist__item">
+            <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">
                 <div class="playlist__image-container" style="display: inline-block;">
                     <div class="medium-text playlist__index playlist__index__position"></div>
                     <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton" data-url="{{@index}}"></div>
