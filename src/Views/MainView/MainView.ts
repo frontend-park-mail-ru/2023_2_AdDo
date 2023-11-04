@@ -201,6 +201,26 @@ class MainView extends IView {
     public bindEvents(): void {
         this.footer.bindEvents();
     }
+
+    public loop(): void {
+        const img = this.footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
+        img.src = '/static/img/RepeatActive.svg';
+    }
+
+    public unloop(): void {
+        const img = this.footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Repeat.svg';
+    }
+
+    public shuffle(): void {
+        const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
+        img.src = '/static/img/RandomActive.svg';
+    }
+
+    public unshuffle(): void {
+        const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Random.svg';
+    }
 }
 
 export default MainView;
