@@ -226,8 +226,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public bindEvents(): void {
         this.view.bindEvents();
-        this.view.bindClickEvent(this.handleClick.bind(this));
-        this.view.bindEndedEvent(this.nextSong.bind(this));
     }
 }
 
