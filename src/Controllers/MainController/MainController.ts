@@ -117,6 +117,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.albumId = parseInt(target.getAttribute('data-url')!);
                 this.songId = 0;
                 this.model.ContentModel.getSongs(this.view.play.bind(this.view), this.albumId, this.model.UserModel.getCurrentUser());
+                if(this.isShuffled) {
+                    this.isShuffled = false;
+                    this.shuffle();
+                }
                 this.Playing = true;
                 this.isActive = true;
                 return;
@@ -125,6 +129,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
                 this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+                if(this.isShuffled) {
+                    this.isShuffled = false;
+                    this.shuffle();
+                }
                 this.Playing = true;
                 this.isActive = true;
                 return;
@@ -133,6 +141,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
                 this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+                if(this.isShuffled) {
+                    this.isShuffled = false;
+                    this.shuffle();
+                }
                 this.Playing = true;
                 this.isActive = true;
                 return;
