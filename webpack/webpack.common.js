@@ -2,6 +2,7 @@ const defines = require('./webpack-defines')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WorkBoxWebpackPlugin = require('workbox-webpack-plugin')
 // helpers:
 // I want one rule for development and production, so I use `isDev` to check the process
 const isDev = process.env.NODE_ENV !== 'production'
@@ -135,6 +136,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${defines.assets}css/[name].css`,
       chunkFilename: '[id].css'
+    }),
+
+    new WorkBoxWebpackPlugin.InjectManifest({
+        swSrc: `${defines.src}/src-sw.js`,
+        swDest: 'sw.js',
     }),
 
     new CopyWebpackPlugin({

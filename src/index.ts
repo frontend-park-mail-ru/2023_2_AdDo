@@ -114,7 +114,6 @@ class App {
 	public renderLogin(): void {
 		EventDispatcher.emit('unmount-all');
 		this.logincontroller.mountComponent();
-		document.querySelector('body')!.className = 'loginpage';
 	}
 
 	/**
@@ -125,7 +124,6 @@ class App {
 	public renderSignUp(): void {
 		EventDispatcher.emit('unmount-all');
 		this.signupcontroller.mountComponent();
-		document.querySelector('body')!.className = 'signuppage';
 	}
 
 	public renderFeedAll(): void {
@@ -133,7 +131,6 @@ class App {
 		this.maincontroller.updateFeed();
 		this.maincontroller.mountComponent();
 		this.maincontroller.bindEvents();
-		document.querySelector('body')!.className = 'defaultpage';
 	}
 
 	/**
