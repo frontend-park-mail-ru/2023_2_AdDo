@@ -1,0 +1,122 @@
+.submit-big-button {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: none; 
+    outline: none;
+    display: flex;
+    width: 400px;
+    height: 55px;
+    padding: 6px 27px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
+    color: #EAF1FB;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.submit-big-button:hover {
+    background: linear-gradient(90deg, #372F5F 0%, #AE54DB 100%);
+}
+
+.submit-big-button:active {
+    background: linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
+    box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
+    transform: translateY(2px);
+}
+
+
+.default-button {
+    border: none; 
+    outline: none;
+    display: flex;
+    width: 103px;
+    height: 37px;
+    padding: 6px 24px;
+    gap: 10px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
+    color: #EAF1FB;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.default-button:hover {
+    background: linear-gradient(90deg, #372F5F 0%, #AE54DB 100%);
+}
+
+.default-button:active {
+    background: linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
+    box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #9A4AC2 100%);
+    transform: translateY(2px);
+}
+
+
+.upload-button {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    &__input {
+        background-color: #0F0F0F;
+        display: flex;
+        width: 368px;
+        height: 33px;
+        padding-top: 15px;
+        padding-left: 15px;
+        gap: 10px;
+        border-radius: 12px 0 0 12px;
+        border: 1px solid #FFF;
+        color: rgba(255, 255, 255, 0.40);
+        font-feature-settings: 'clig' off, 'liga' off;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        font-family: 'Montserrat', sans-serif;
+        border-color: #FFF;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    &__text {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        outline: none;
+        text-decoration: none;
+        vertical-align: middle;
+        border-radius: 0 12px 12px 0;
+        background: linear-gradient(90deg, #5C4F9E 0%, #2B76DA 100%);
+        line-height: 22px;
+        height: 50px;
+        padding: 13px 20px;
+        box-sizing: border-box;
+        border: none;
+        margin: 0;
+        transition: background-color 0.2s;
+    }
+
+    input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        display: block;
+        width: 0;
+        height: 0;
+    }
+}
+
+.upload-button:hover .text {
+    background-color: linear-gradient(90deg, #372F5F 0%, #276AC4 100%);
+}
+
+.upload-button:active .text {
+    background-color: linear-gradient(90deg, #372F5F 0%, #276AC4 100%);
+}

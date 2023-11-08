@@ -1,0 +1,50 @@
+<div class="profile">
+    <div class="info profile__info">
+        {{#if user.avatar}}
+        <img class="info__photo" src="{{port}}{{user.avatar}}" alt="">
+        {{else}}
+        <img class="info__photo" src="/static/img/worm.jpg" alt="">
+        {{/if}}
+        <div style="display: inline-block;">
+            <div class="large-text" data-section="bigUsername">{{user.username}}</div>
+            <div class="medium-text info__name" data-section="bigEmail">{{user.email}}</div>
+        </div>
+    </div>
+    <form method="post">
+        <ul class="profile__list">
+            <li class="profile__item">
+                <div class="medium-text"> Имя пользователя </div>
+                <input class="auth-input" data-section="username" type="text" value="{{user.username}}" required>
+            </li>
+            <li class="profile__item">
+                <div class="medium-text"> Email </div>
+                <input class="auth-input" data-section="email" type="email" value="{{user.email}}" required>
+            </li>
+            <li class="profile__item">
+                <div class="medium-text"> Дата рождения </div>
+                <input class="auth-input" data-section="birthdate" type="date" value="{{user.birthdate}}" required>
+            </li>
+            <li class="profile__item">
+                <div class="medium-text"> Фото профиля </div>
+                <label class="upload-button">
+                    {{#if user.avatar}}
+                    <span class="upload-button__input" type="text">{{user.avatar}}</span>
+                    {{else}}
+                    <span class="upload-button__input" type="text"></span>
+                    {{/if}}
+                    <input type="file" name="file" data-section="fileInput">        
+                    <span class="upload-button__text medium-text">Выберите файл</span>
+                </label>
+            </li>
+            <li class="profile__item">
+                <div style="display: block;">
+                    <div class="authlist__error__disabled" data-section="passcheck" >Некорретное имя пользователя или email</div>
+                </div>
+            </li>
+            <li class="profile__item">
+                <button class="default-button" style="display: inline-block;" type="submit">Готово</button>
+            </li>
+ 
+        </ul>
+    </form>
+</div>

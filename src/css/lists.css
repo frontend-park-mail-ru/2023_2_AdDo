@@ -1,0 +1,204 @@
+.albumlist {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    gap: 70px;
+    margin-bottom: 10vh;
+    &__item {
+        list-style-type: none;
+        width: 200px;
+    }
+    &__image-container {
+        position: relative;
+        img {
+            size: 200px;
+            transition: opacity 0.3s;
+            cursor: pointer;
+            margin-bottom: 10px;
+            float: left;
+            border-radius: 10px;
+        }
+    }
+
+    &__image-container:hover {
+        opacity: 0.7;
+        & .albumlist__playbutton {
+            opacity: 1;
+        }
+    }
+
+    &__playbutton {
+        transform: translate(-50%, -50%);
+        size: 60px;
+        background-image: url(../../static/img/playButton.png);
+        background-size: cover;
+        opacity: 0;
+        transition: opacity 0.3s;
+        cursor: pointer;
+        &__position {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+        }
+    }
+}
+
+.albumlist-item {
+    cursor: pointer;
+    &__name {
+        margin: 10px 0 10px 0;
+        cursor: pointer;
+        display: block;
+    }
+    &__name:hover {
+        color:#C15DF3;
+    }
+}
+
+.albumlist-item:hover {
+    color: #C15DF3;
+}
+
+.playlist {
+    display: inline-block;
+    margin-top: 20px;
+    display: grid;
+    flex-wrap: wrap;
+    padding: 0px;
+    margin-bottom: 100px;
+    gap: 30px;
+
+    &__item {
+        display: flex;
+        gap: 20px;
+        padding: 10px;  
+    }
+    &__item:hover {
+        background: #484848;
+        & .playlist__playbutton {
+            opacity: 1;
+        }
+        & .playlist-item__name {
+            color: #C15DF3;
+        }
+    }
+
+    &__image-container {
+        position: relative;
+        img {
+            size: 200px;
+            transition: opacity 0.3s;
+            cursor: pointer;
+            margin-bottom: 10px;
+            float: left;
+            border-radius: 10px;
+        }
+    }
+
+    &__image-container:hover {
+        opacity: 0.7;
+        & .playlist__playbutton {
+            opacity: 1;
+        }
+    }
+
+    &__index {
+        width: 25px;
+        content: counter(name);
+        &__position {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    &__index::before {
+        counter-increment: index;
+        content: counter(index);
+    }
+
+    &__playbutton {
+        size: 30px;
+        transform: translate(-50%, -50%);
+        background-image: url(../../static/img/playButton.png);
+        background-size: cover;
+        opacity: 0;
+        transition: opacity 0.3s;
+        cursor: pointer;
+        &__position {
+            position: absolute;
+            left: 25%;
+            top: 50%;
+        }
+    }
+
+    &__photo {
+        margin-top: 5px;
+        size: 40px;
+    }
+}
+
+.playlist-item {
+    cursor: pointer;
+    &__name {
+        margin: 10px 0 10px 0;
+        cursor: pointer;
+    }
+
+    &__duration {
+        margin: 10px 10px 10px 0;
+        position: absolute;
+        right: 0;
+    }
+}
+
+
+.authlist {
+    &__logo {
+        display: flex;
+        justify-content: center;
+    }
+    &__item {
+        vertical-align: middle;
+        margin: 15px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+    &__error {
+        &__active {
+            color: #EF5858;
+            visibility: visible;
+            display: block;
+        }
+        &__disabled {
+            color: #EF5858;
+            visibility: hidden;
+            display: block;
+        }
+    }
+}
+
+.authlist-item {
+    &__yet {
+        color: #FFF;
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    &__yet-link {
+        color: #FFF;
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-decoration-line: underline;
+        display: inline-block;
+        cursor: pointer;
+    }
+    &__yet-link:hover {
+        color:#C15DF3;
+    }
+}
+

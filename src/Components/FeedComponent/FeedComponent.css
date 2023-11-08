@@ -1,0 +1,36 @@
+
+.feed {
+    margin-top: 6vh;
+    display: grid;
+    gap: 10px;
+    position: relative;
+    &__list {
+        display: flex;
+        gap: 20px;
+    }
+    &__title {
+        margin: 10px 0 10px 0; 
+    }
+}
+
+.feed-list-item {
+    display: inline-flex;
+    margin: 10px;
+    &__name {
+        text-decoration: none;
+        color: #FFF;
+        font-family: 'Lato', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        word-wrap: break-word;
+        cursor: pointer;
+    }
+    &__name:hover {
+        color: #C15DF3;
+    }
+}
+
+
+.defaultpage {
+    background-image: url("../../static/img/background.png");
+}

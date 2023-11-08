@@ -1,0 +1,34 @@
+<div class="login">
+    <ul class="authlist">
+         <div class="logo authlist__logo">
+            <li class="authlist__item">
+            <div>
+                <img class="logo__photo" data-section="link" data-url="/feed/all" src="/static/img/Logo.svg" alt="">
+            </div>
+            <div class="logo__text">MusicOn</div>    
+            </li>
+         </div>
+        <form method="post">
+            {{#each LoginComponentConfig}}
+            <li class="authlist__item">
+                <input class="auth-input" data-section="{{this.name}}" type="{{this.type}}" placeholder="{{this.text}}" required >
+            </li> 
+            {{/each}}
+            <li class="authlist__item">
+                <div style="display: block;">
+                    <div class="authlist__error__disabled" data-section="passcheck" >Неверное имя пользователя или пароль!</div>
+                </div>
+            </li>
+            <li class="authlist__item">
+                <button class="submit-big-button"  data-section="/feed" type="submit">Войти</button>
+            </li>
+        </form>
+        <li class="authlist__item">
+            <div class="authlist-item__yet">
+            Ещё нет учётной записи?
+            <div class="authlist-item__yet-link" data-section="link" data-url="/signup">Зарегистрируйтесь</div>
+            </div>
+        </li>
+    </ul>
+</div>
+    

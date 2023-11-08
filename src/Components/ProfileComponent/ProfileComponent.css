@@ -1,0 +1,19 @@
+.profile {
+    margin-top: 6vh;
+    display: grid;
+    gap: 10px;
+    position: relative;
+    &__list {
+        margin-top: 20px;
+        display: grid;
+        padding: 0px;
+        margin-bottom: 15vh;
+        gap: 30px;
+    }
+    &__item {
+        display: grid;
+        gap: 10px;
+        vertical-align: middle;
+        align-items: center;
+    }
+}

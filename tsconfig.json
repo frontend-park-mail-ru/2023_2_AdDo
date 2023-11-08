@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "ESNext", 
+    "moduleResolution": "node10",                   
+    "types": ["handlebars"],                            
+    "allowJs": true,
+    "sourceMap": true,                          
+    "outDir": "./dist/",                             
+    "esModuleInterop": true,                             
+    "forceConsistentCasingInFileNames": true,            
+    "strict": true,                                      
+  },
+  "files": [
+    "tsconfig.json"
+  ],
+  "include": [
+    "src/global.d.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.hbs"
+  ]
+}

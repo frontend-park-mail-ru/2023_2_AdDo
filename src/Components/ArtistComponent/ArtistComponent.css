@@ -1,0 +1,12 @@
+.artist {
+    margin-top: 6vh;
+    display: grid;
+    gap: 10px;
+    position: relative;
+    &__title {
+        margin: 10px 0 10px 0; 
+    }
+    &__list {
+        margin-bottom: 0px;
+    }
+}

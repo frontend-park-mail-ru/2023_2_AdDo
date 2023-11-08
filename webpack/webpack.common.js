@@ -2,20 +2,20 @@ const defines = require('./webpack-defines')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
+const WorkBoxWebpackPlugin = require('workbox-webpack-plugin')
 // helpers:
 // I want one rule for development and production, so I use `isDev` to check the process
 const isDev = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   entry: {
-    app: `${defines.src}/index.js`
+    app: `${defines.src}/index.ts`
   },
   output: {
     path: defines.dist,
+    publicPath: '/',
     filename: `${defines.assets}js/[name].js`
   },
-
   // optimization (chunks)
   optimization: {
     chunkIds: 'named',
@@ -45,7 +45,6 @@ module.exports = {
       }
     }
   },
-
   module: {
     rules: [
       // js(x) & ts(x)
@@ -55,6 +54,12 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         }
+      },
+
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
 
       {
@@ -131,6 +136,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${defines.assets}css/[name].css`,
       chunkFilename: '[id].css'
+    }),
+
+    new WorkBoxWebpackPlugin.InjectManifest({
+        swSrc: `${defines.src}/src-sw.js`,
+        swDest: 'sw.js',
     }),
 
     new CopyWebpackPlugin({
