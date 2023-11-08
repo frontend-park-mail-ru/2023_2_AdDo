@@ -93,10 +93,12 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
     public updateCollection(): void {
+        this.view.renderCollection();
         this.model.ContentModel.requestCollection(this.view.fillCollection.bind(this.view));
     }
 
     public updateOffline(): void {
+        this.view.renderCollection();
         this.model.ContentModel.requestOffline(this.view.fillCollection.bind(this.view));
     }
 

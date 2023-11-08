@@ -15,9 +15,4 @@ export const HeaderConfig: HeaderConfigType = [
 		href: '/podcasts',
 		name: 'Подкасты',
 	},
-	{
-		key: 'collection',
-		href: '/collection',
-		name: 'Коллекция',
-	},
 ];
