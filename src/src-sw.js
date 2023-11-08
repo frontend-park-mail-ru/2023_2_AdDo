@@ -30,6 +30,4 @@ workbox.routing.registerRoute(
     })
 );
 
-workbox.skipWaiting();
-
 workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
