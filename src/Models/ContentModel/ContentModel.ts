@@ -2,6 +2,7 @@ import IModel from "../IModel/IModel";
 import { Album, Artist, Callback, Song, User } from "../../types";
 import Ajax from '../../Modules/Ajax/Ajax';
 import hosts from "../../HostConsts";
+import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 
 
 /** Class representing an ContentModel. */
@@ -9,7 +10,6 @@ export default class ContentModel extends IModel {
     private albums: Array<Album> = [];
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
-    private currentBuffer: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
 
