@@ -1,9 +1,10 @@
 body {
-    background-image: url("../../static/img/wave.webp");
+    background-image: url("../../static/img/wave.webp"), url("../../static/img/background.webp");
     background: #0D0B18;
     font-family: 'Source Sans Pro', 'Montserrat', sans-serif;
     counter-reset: index;
-    background-repeat: repeat-x;
+    background-repeat: repeat-x, repeat;
+    background-size: 2000px 1100px;
 }
 
 main {

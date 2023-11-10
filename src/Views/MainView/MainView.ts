@@ -184,7 +184,7 @@ class MainView extends IView {
 
 
     public makeActive(element: HTMLElement): void {
-        if (!(element instanceof HTMLButtonElement || element.classList.contains('logo_text')) ) {
+        if (!(element instanceof HTMLButtonElement || element.classList.contains('logo__text')) ) {
             this.element.querySelectorAll('.active').forEach(el => {
                 el.classList.remove('active');
             });

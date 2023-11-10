@@ -1,6 +1,8 @@
 <div class="artist">
     <div class="info artist__info">
+        {{#if Artist.Avatar}}
         <img class="info__photo" src="{{port}}{{Artist.Avatar}}" alt="">
+        {{/if}}
         <div style="display: inline-block;">
             <div class="medium-text info__name">Исполнитель</div>
             <div class="large-text">{{Artist.Name}}</div>
