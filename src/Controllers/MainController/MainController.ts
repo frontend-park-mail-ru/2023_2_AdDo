@@ -142,7 +142,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 e.preventDefault();
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
-                this.view.play(this.model.ContentModel.getSongByCollectionId(this.songId), true);
+                this.view.play(this.model.ContentModel.getSongById(this.songId), true);
                 this.Playing = true;
                 this.isActive = true;
                 return;

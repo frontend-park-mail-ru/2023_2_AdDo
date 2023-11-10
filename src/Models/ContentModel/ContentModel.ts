@@ -150,7 +150,7 @@ export default class ContentModel extends IModel {
     public getAlbums(): Array<Album> {
         return this.albums;
     }
-    
+
     /**
      * Retrieves the current songs.
      *
@@ -198,6 +198,7 @@ export default class ContentModel extends IModel {
      * @return {Song} The song object corresponding to the given ID.
      */
     public getSongByCollectionId(songId: number): Song {
+
         return this.collectionSongs[songId];
     }
 
@@ -302,8 +303,8 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/tracks', {})
         .then(({ status, responseBody }) => {
             if (status === 200) {
-                this.collectionSongs = responseBody.Tracks.slice(0);
-                callback(this.collectionSongs); 
+                this.songs = responseBody.Tracks.slice(0);
+                callback(this.songs); 
                 return;
             }
         })
