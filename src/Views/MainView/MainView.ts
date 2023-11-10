@@ -33,7 +33,7 @@ class MainView extends IView {
         this.feed = new FeedComponent(this.element.querySelector('main')!);
         this.album = new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
         this.artist = new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
-        this.collection = new CollectionComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
+        this.collection = new CollectionComponent(this.element.querySelector('main')!, []);
         this.footer = new PlayerComponent(this.element.querySelector('footer')!);
         this.header.append();
         this.footer.append();
@@ -121,7 +121,7 @@ class MainView extends IView {
 
     
     public fillCollection(album: Album): void {
-        this.collection.Album = album;
+        this.collection.Songs = album.Tracks;
     }
 
     /**

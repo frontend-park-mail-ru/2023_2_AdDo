@@ -1,11 +1,11 @@
-import { Album } from '../../types';
+import { Album, Song } from '../../types';
 import template from './CollectionComponentTemplate.hbs';
 import  IComponent  from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 
 /** Class representing a AlbumComponent. */
 export class CollectionComponent extends IComponent{
-	private album: Album;
+	private songs: Array<Song> = [];
 
 	/**
 	 * Constructor for the class.
@@ -13,9 +13,9 @@ export class CollectionComponent extends IComponent{
 	 * @param {HTMLElement} parent - The parent element.
 	 * @param {Album} album - The album object.
 	 */
-	constructor(parent: HTMLElement, album: Album) {
-		super(parent, template({Tracks: album.Tracks, port: hosts.s3HOST}));
-		this.album = album;
+	constructor(parent: HTMLElement, songs: Array<Song>) {
+		super(parent, template({Tracks: songs, port: hosts.s3HOST}));
+		this.songs = songs;
 	}
 
 	/**
@@ -23,8 +23,8 @@ export class CollectionComponent extends IComponent{
 	 *
 	 * @return {Album} The Album object.
 	 */
-	public get Album() : Album {
-		return this.album;
+	public get Songs() : Array<Song> {
+		return this.songs;
 	}
 
 	/**
@@ -32,8 +32,8 @@ export class CollectionComponent extends IComponent{
 	 *
 	 * @param {Album} album - The album to set.
 	 */
-	public set Album(album: Album) {
-		this.album = album;
+	public set Songs(songs: Array<Song>) {
+		this.songs = songs;
 		this.renderContent();
 	}
 
@@ -44,6 +44,6 @@ export class CollectionComponent extends IComponent{
 	 */
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({Tracks: this.album.Tracks, port: hosts.s3HOST});
+		this.parent.innerHTML = template({Tracks: this.songs, port: hosts.s3HOST});
 	}
 }
