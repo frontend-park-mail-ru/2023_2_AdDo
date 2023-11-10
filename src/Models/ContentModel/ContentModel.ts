@@ -304,6 +304,9 @@ export default class ContentModel extends IModel {
         .then(({ status, responseBody }) => {
             if (status === 200) {
                 this.songs = responseBody.Tracks.slice(0);
+                this.songs.forEach((song) => {
+                    song.isLiked = true;
+                });
                 callback(this.songs); 
                 return;
             }
