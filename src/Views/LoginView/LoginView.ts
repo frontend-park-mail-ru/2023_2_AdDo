@@ -54,14 +54,20 @@ class LoginView extends IView {
     public renderError(err: string): void {
         switch (err) {
             case 'incorrect password':
+                this.login.querySelector('[data-section="password"]').className = 'auth-wrong-input';
+                this.login.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 this.login.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
-                this.login.querySelector('[data-section="passcheck"]').textContent = 'Неверный пароль!';
+                this.login.querySelector('[data-section="passcheck"]').textContent = 'Неверный пароль или email!';
                 return;
             case 'password too short':
+                this.login.querySelector('[data-section="password"]').className = 'auth-wrong-input';
+                this.login.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 this.login.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 this.login.querySelector('[data-section="passcheck"]').textContent = 'Email или пароль(от 6 до 30 символов) неверный!';
                 return;
             case 'ok':
+                this.login.querySelector('[data-section="password"]').className = 'auth-input';
+                this.login.querySelector('[data-section="email"]').className = 'auth-input';
                 this.login.querySelector('[data-section="passcheck"]').className = 'authlist__error__disabled';
                 return;
         }

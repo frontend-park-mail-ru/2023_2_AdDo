@@ -1,7 +1,9 @@
 body {
-    background-image: url("../../static/img/NewWaveLayout.jpg");
+    background-image: url("../../static/img/wave.webp");
+    background: #0D0B18;
     font-family: 'Source Sans Pro', 'Montserrat', sans-serif;
     counter-reset: index;
+    background-repeat: repeat-x;
 }
 
 main {

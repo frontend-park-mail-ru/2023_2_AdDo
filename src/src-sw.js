@@ -5,6 +5,10 @@ import {CacheFirst} from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import {CacheableResponsePlugin} from 'workbox-cacheable-response';
 
+workbox.setConfig({
+    debug: false
+  });
+  
 workbox.routing.registerRoute(
     /https:\/\/musicon\.space/,
     new NetworkFirst()
