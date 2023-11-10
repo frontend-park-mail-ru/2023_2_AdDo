@@ -120,8 +120,8 @@ class MainView extends IView {
     }
 
     
-    public fillCollection(album: Album): void {
-        this.collection.Songs = album.Tracks;
+    public fillCollection(songs: Array<Song>): void {
+        this.collection.Songs = songs;
     }
 
     /**
