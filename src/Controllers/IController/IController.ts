@@ -11,7 +11,13 @@ abstract class IController<templateView extends IView, templateModel extends IMo
     protected view: templateView;
     protected model: templateModel;
     protected isMounted: boolean;
-
+    
+    /**
+     * Create a new instance of the class.
+     *
+     * @param {templateView} view - The view for the template.
+     * @param {templateModel} model - The model for the template.
+     */
     protected constructor(view: templateView, model: templateModel) {
         this.view = view;
         this.model = model;

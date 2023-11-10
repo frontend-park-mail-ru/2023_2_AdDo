@@ -65,11 +65,21 @@ class ProfileController extends IController<ProfileView, UserModel> {
         }
     }
 
-    
+    /**
+     * Update the user profile.
+     *
+     * @return {void}
+     */ 
     public updateProfile(): void {
         this.view.fillContent(this.model.getCurrentUser()!);
     }
-
+    
+    /**
+     * Handles the upload event.
+     *
+     * @param {Event} event - The upload event.
+     * @return {void} This function does not return anything.
+     */
     public handleUpload(event: Event): void {
         let target = event.target as HTMLInputElement;
         const selectedFile = target.files![0];

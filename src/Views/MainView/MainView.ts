@@ -119,7 +119,12 @@ class MainView extends IView {
         this.artist.Artist = artist;
     }
 
-    
+    /**
+     * Fills the collection with the given array of songs.
+     *
+     * @param {Array<Song>} songs - The array of songs to fill the collection with.
+     * @return {void} 
+     */
     public fillCollection(songs: Array<Song>): void {
         this.collection.Songs = songs;
     }
@@ -178,11 +183,22 @@ class MainView extends IView {
         this.footer.querySelector('audio')!.addEventListener('ended', listener);
     }
 
+    /**
+     * Removes the event listener for the 'ended' event.
+     *
+     * @param {Callback} listener - The callback function to be removed.
+     * @return {void}
+     */
     public removeEndedEvent(listener: Callback): void {
         this.footer.querySelector('audio')!.removeEventListener('ended', listener)
     }
 
-
+    /**
+     * Makes the given element active.
+     *
+     * @param {HTMLElement} element - The element to make active.
+     * @return {void} 
+     */
     public makeActive(element: HTMLElement): void {
         if (!(element instanceof HTMLButtonElement || element.classList.contains('logo__text')) ) {
             this.element.querySelectorAll('.active').forEach(el => {
@@ -192,40 +208,80 @@ class MainView extends IView {
         }
     }
 
-    public like() {
+    /**
+     * A function that performs the action of liking.
+     *
+     * @return {void}
+     */
+    public like(): void {
         let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
         img.src = '/static/img/LikePressed.svg';
     }
 
-    public dislike() {
+    /**
+     * Dislikes the item.
+     *
+     * @return {void}
+     */
+    public dislike(): void {
         let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
         img.src = '/static/img/Like.svg';
     }
 
+    /**
+     * Binds the events for the current object.
+     *
+     * @return {void} 
+     */    
     public bindEvents(): void {
         this.footer.bindEvents();
     }
 
+    /**
+     * Loops through the elements in the footer and updates the image source of the loop button.
+     *
+     * @return {void}
+     */
     public loop(): void {
         const img = this.footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
         img.src = '/static/img/RepeatActive.svg';
     }
 
+    /**
+     * Unloops the function.
+     *
+     * @return {void} 
+     */
     public unloop(): void {
         const img = this.footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
         img.src = '/static/img/Repeat.svg';
     }
 
+    /**
+     * Shuffles the footer section by changing the source of the image element to a random image.
+     *
+     * @return {void}
+     */
     public shuffle(): void {
         const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
         img.src = '/static/img/RandomActive.svg';
     }
 
+    /**
+     * Unshuffles the elements in the footer section.
+     *
+     * @return {void} 
+     */
     public unshuffle(): void {
         const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
         img.src = '/static/img/Random.svg';
     }
 
+    /**
+     * Controls the volume of the audio player.
+     *
+     * @return {void}
+     */
     public volume(): void {
         const audio = this.footer.querySelector('audio')! as HTMLAudioElement;
         if (audio.muted) {

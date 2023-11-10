@@ -51,6 +51,12 @@ class LoginView extends IView {
         return {email: emailInput.value!, password: passwordInput.value!}
     }
 
+    /**
+     * Renders an error message based on the given error code.
+     *
+     * @param {string} err - The error code indicating the type of error.
+     * @return {void}
+     */
     public renderError(err: string): void {
         switch (err) {
             case 'incorrect password':

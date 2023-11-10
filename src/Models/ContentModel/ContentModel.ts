@@ -150,7 +150,12 @@ export default class ContentModel extends IModel {
     public getAlbums(): Array<Album> {
         return this.albums;
     }
-
+    
+    /**
+     * Retrieves the current songs.
+     *
+     * @return {Array<Song>} The array of current songs.
+     */
     public getCurrentSongs(): Array<Song> {
         return this.currentsongs;
     }
@@ -186,6 +191,12 @@ export default class ContentModel extends IModel {
         return this.currentsongs[songId];
     }
 
+    /**
+     * Retrieves a song from the collection by its ID.
+     *
+     * @param {number} songId - The ID of the song to retrieve.
+     * @return {Song} The song object corresponding to the given ID.
+     */
     public getSongByCollectionId(songId: number): Song {
         return this.collectionSongs[songId];
     }
@@ -199,10 +210,24 @@ export default class ContentModel extends IModel {
         return this.currentsongs.length;
     }
 
+    /**
+     * This function updates the list of current songs to be the same as the list of all songs.
+     *
+     * @param {void} None
+     * @return {void} It does not return a value.
+     */
     public nowPlaying(): void {
         this.currentsongs = this.songs.slice(0);
     }
 
+    /**
+     * Checks if a song is liked by a user.
+     *
+     * @param {Callback} callback - The callback function to be called after the request is completed.
+     * @param {number} songId - The ID of the song to check.
+     * @param {User | null} user - The user object. Defaults to null.
+     * @return {void}
+     */
     public isLiked(callback: Callback, songId: number, user: User | null = null): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/track/' + this.currentsongs[songId].Id + '/is_like', {})
         .then(({ status, responseBody }) => {
@@ -215,6 +240,13 @@ export default class ContentModel extends IModel {
         })
     }
 
+    /**
+     * Like a song.
+     *
+     * @param {number} songId - The ID of the song to like.
+     * @param {Callback} callback - The callback function to be called after the like operation is complete.
+     * @return {void} 
+     */
     public like(songId: number, callback: Callback): void {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/track/' + this.currentsongs[songId].Id + '/like', {'Content-Type': 'application/json',}, { })
         .then(({ status }) => {
@@ -229,6 +261,13 @@ export default class ContentModel extends IModel {
         });
     }
 
+    /**
+     * Dislikes a song.
+     *
+     * @param {number} songId - The ID of the song to dislike.
+     * @param {Callback} callback - The callback function to be called after disliking the song.
+     * @return {void}
+     */
     public dislike(songId: number, callback: Callback): void {
         Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/track/' + this.currentsongs[songId].Id + '/unlike', {'Content-Type': 'application/json',}, { })
         .then(({ status }) => {
@@ -243,10 +282,22 @@ export default class ContentModel extends IModel {
         });
     }
 
+    /**
+     * Requests the offline data and invokes the provided callback function with the parsed data.
+     *
+     * @param {Callback} callback - The callback function to be invoked with the parsed data.
+     * @return {void} 
+     */
     public requestOffline(callback: Callback): void {
         callback(JSON.parse(localStorage.getItem('collection')!) as Album);
     }
 
+    /**
+     * Requests the collection of tracks from the API.
+     *
+     * @param {Callback} callback - The callback function to be executed after the request is completed.
+     * @return {void}
+     */
     public requestCollection(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/tracks', {})
         .then(({ status, responseBody }) => {

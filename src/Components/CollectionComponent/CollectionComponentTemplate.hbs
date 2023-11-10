@@ -2,10 +2,10 @@
     <div class="large-text artist__title">Коллекция</div>
     <ul class="playlist album__list">
         {{#each Tracks}}
-            <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">
+            <li class="playlist__item" data-section="miniCollectionPlayButton" data-url="{{@index}}">
                 <div class="playlist__image-container" style="display: inline-block;">
                     <div class="medium-text playlist__index playlist__index__position"></div>
-                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton" data-url="{{@index}}"></div>
+                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniCollectionPlayButton" data-url="{{@index}}"></div>
                 </div>
                 <div style="display:inline-block">
                     <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
