@@ -10,6 +10,7 @@ export default class ContentModel extends IModel {
     private albums: Array<Album> = [];
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
+    private collectionSongs: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
 
@@ -185,6 +186,10 @@ export default class ContentModel extends IModel {
         return this.currentsongs[songId];
     }
 
+    public getSongByCollectionId(songId: number): Song {
+        return this.collectionSongs[songId];
+    }
+
     /**
      * Returns the length of the current songs array.
      *
@@ -246,8 +251,8 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/tracks', {})
         .then(({ status, responseBody }) => {
             if (status === 200) {
-                this.album.Tracks = responseBody.Tracks.slice(0);
-                callback(this.album); 
+                this.collectionSongs = responseBody.Tracks.slice(0);
+                callback(this.collectionSongs); 
                 return;
             }
         })
