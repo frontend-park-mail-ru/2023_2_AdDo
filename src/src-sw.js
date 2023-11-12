@@ -1,11 +1,10 @@
 // sw.js
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js');
+// importScripts('https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js');
 import {NetworkFirst} from 'workbox-strategies';
 import {CacheFirst} from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import {CacheableResponsePlugin} from 'workbox-cacheable-response';
-
-self.__wb_disable_dev_logs = true
+self.__WB_DISABLE_DEV_LOGS = true;
 workbox.routing.registerRoute(
     /https:\/\/musicon\.space/,
     new NetworkFirst()
