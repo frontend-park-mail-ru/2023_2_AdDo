@@ -1,5 +1,5 @@
 // sw.js
-// importScripts('https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js');
 import {NetworkFirst} from 'workbox-strategies';
 import {CacheFirst} from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
