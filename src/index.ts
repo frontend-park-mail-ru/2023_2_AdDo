@@ -113,6 +113,7 @@ class App {
 	 */
 	public renderLogin(): void {
 		EventDispatcher.emit('unmount-all');
+		this.usermodel.getCSRFToken();
 		this.logincontroller.mountComponent();
 	}
 
@@ -123,6 +124,7 @@ class App {
 	 */
 	public renderSignUp(): void {
 		EventDispatcher.emit('unmount-all');
+		this.usermodel.getCSRFToken();
 		this.signupcontroller.mountComponent();
 	}
 
@@ -176,6 +178,7 @@ class App {
 	 */
 	public renderProfile(): void {
 		EventDispatcher.emit('unmount-all');
+		this.usermodel.getCSRFToken();
 		this.profilecontroller.mountComponent();
 		this.profilecontroller.bindEvents();
 		EventDispatcher.subscribe('user-changed', this.profilecontroller.bindEvents.bind(this.profilecontroller));

@@ -131,6 +131,15 @@ class UserModel extends IModel {
             });
     }
 
+    public getCSRFToken(): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/get_csrf', {})
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    return;
+                }
+            })
+    }
+
     /**
      * Authenticates the user using a cookie.
      *

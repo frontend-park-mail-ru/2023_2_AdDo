@@ -36,7 +36,7 @@ export default class Ajax {
             mode: 'cors',
         });
 
-        if(params.url === 'https://musicon.space/api/v1/auth') {
+        if(params.url === 'https://musicon.space/api/v1/get_csrf') {
             this.csrfToken = response.headers.get('X-Csrf-Token')!;
         }
 
