@@ -8,6 +8,7 @@ const WorkBoxWebpackPlugin = require('workbox-webpack-plugin')
 const isDev = process.env.NODE_ENV !== 'production'
 
 module.exports = {
+  mode: 'production',
   entry: {
     app: `${defines.src}/index.ts`
   },
