@@ -1,10 +1,10 @@
 import { Album, Song } from '../../types';
 import template from './CollectionComponentTemplate.hbs';
-import  IComponent  from '../IComponent/IComponent';
+import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 
 /** Class representing a CollectionComponent. */
-export class CollectionComponent extends IComponent{
+export class CollectionComponent extends IComponent {
 	private songs: Array<Song> = [];
 
 	/**
@@ -14,7 +14,7 @@ export class CollectionComponent extends IComponent{
 	 * @param {Array<Song>} songs - The array of songs.
 	 */
 	constructor(parent: HTMLElement, songs: Array<Song>) {
-		super(parent, template({Tracks: songs, port: hosts.s3HOST}));
+		super(parent, template({ Tracks: songs, port: hosts.s3HOST }));
 		this.songs = songs;
 	}
 
@@ -23,7 +23,7 @@ export class CollectionComponent extends IComponent{
 	 *
 	 * @return {Array<Song>} An array of songs.
 	 */
-	public get Songs() : Array<Song> {
+	public get Songs(): Array<Song> {
 		return this.songs;
 	}
 
@@ -44,6 +44,6 @@ export class CollectionComponent extends IComponent{
 	 */
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({Tracks: this.songs, port: hosts.s3HOST});
+		this.parent.innerHTML = template({ Tracks: this.songs, port: hosts.s3HOST });
 	}
 }

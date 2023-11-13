@@ -1,10 +1,10 @@
 import { Artist } from '../../types';
 import template from './ArtistComponent.hbs';
-import  IComponent  from '../IComponent/IComponent';
+import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 
 /** Class representing a ArtistComponent. */
-export class ArtistComponent extends IComponent{
+export class ArtistComponent extends IComponent {
 	private artist: Artist;
 
 	/**
@@ -14,7 +14,7 @@ export class ArtistComponent extends IComponent{
 	 * @param {Artist} artist - The artist object.
 	 */
 	constructor(parent: HTMLElement, artist: Artist) {
-		super(parent, template({artist, port: hosts.s3HOST}));
+		super(parent, template({ artist, port: hosts.s3HOST }));
 		this.artist = artist;
 	}
 
@@ -23,7 +23,7 @@ export class ArtistComponent extends IComponent{
 	 *
 	 * @return {Artist} The Artist object.
 	 */
-	public get Artist() : Artist {
+	public get Artist(): Artist {
 		return this.artist;
 	}
 
@@ -44,6 +44,6 @@ export class ArtistComponent extends IComponent{
 	 */
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({Artist: this.artist, port: hosts.s3HOST});
+		this.parent.innerHTML = template({ Artist: this.artist, port: hosts.s3HOST });
 	}
 }
