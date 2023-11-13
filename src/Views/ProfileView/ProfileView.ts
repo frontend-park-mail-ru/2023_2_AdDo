@@ -53,14 +53,31 @@ class ProfileView extends IView {
         this.element.addEventListener('click', listener);
     }
 
+    /**
+     * Binds a submit event listener to the form element within the profile element.
+     *
+     * @param {Callback} listener - The callback function to be executed when the submit event is triggered.
+     * @return {void}
+     */
     public bindSubmitEvent(listener: Callback): void {
         this.profile.querySelector('form')!.addEventListener('submit', listener);
     }
 
+    /**
+     * Binds an upload event listener to the 'change' event of the file input element in the profile section.
+     *
+     * @param {Callback} listener - The callback function to be executed when the 'change' event is triggered.
+     * @return {void} 
+     */
     public bindUploadEvent(listener: Callback): void {
         this.profile.querySelector('[data-section="fileInput"]')?.addEventListener('change', listener);
     }
 
+    /**
+     * Retrieves data from a form.
+     *
+     * @return {{email: string, username: string, birthdate: string}} The data from the form.
+     */
     public getDataFromForm(): {email: string, username: string, birthdate: string} {
         const emailInput = this.profile.querySelector('[data-section="email"]') as HTMLInputElement;
         const birthdateInput = this.profile.querySelector('[data-section="birthdate"]') as HTMLInputElement;
@@ -68,11 +85,23 @@ class ProfileView extends IView {
         return {email: emailInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!};
     }
 
+    /**
+     * 
+     * Retrieves the avatar file from the form.
+     *
+     * @return {File} The avatar file selected in the form.
+     */
     public getAvatarFromForm(): File {
         const avatarInput = this.profile.querySelector('[data-section="fileInput"]') as HTMLInputElement;
         return avatarInput.files![0];
     }
-
+    
+    /**
+     * Renders an error message based on the given error.
+     *
+     * @param {string} err - The error message.
+     * @return {void}
+     */
     public renderError(err: string): void {
         switch (err) {
             case 'bad request':

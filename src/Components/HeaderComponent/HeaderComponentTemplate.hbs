@@ -3,46 +3,54 @@
         <li class="menu__item">
             <div class="logo">
                 <img class="logo__photo" data-url="/feed/all" data-section="link" src="{{logo}}" alt="">
-                <div class="logo__text">MusicOn</div>  
+                <div class="logo__text" data-url="/feed/all" data-section="link">MusicOn</div>
             </div>
+        </li>
+        <li class="menu__item">
+            <a class="menu-item__link" href="/feed/all" data-section="link" data-url="/feed/all">
+                Главное
+            </a>
         </li>
         {{#each HeaderConfig}}
             <li class="menu__item">
-                <h2 class="menu-item__link">
+                <a class="menu-item__link">
                     {{this.name}}
-                </h2>
+                </a>
             </li>
         {{/each}}
         {{#if user}}
             <li class="menu__item">
-                <h2 class="menu-item__link" data-section="link" data-url="/collection">
+                <a class="menu-item__link" href="/collection" data-section="link" data-url="/collection">
                     Коллекция
-                </h2>
+                </a>
             </li>
         {{/if}}
     </ul>
     <ul class="menu__rest">
         <li class="menu__item">
             <img class="magnifying-glass" src="/static/img/Loupe.svg" alt="">
-                <input type="text" data-section="text" class="input-search" placeholder ="Введите название песни или альбома">
+            <input type="text" data-section="text" class="input-search"
+                placeholder="Введите название песни или альбома">
         </li>
         {{#if user}}
-        <li class="menu__item">
-            <div class="mini-profile">
-                {{#if user.avatar}}
-                <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.avatar}}" alt="">
-                {{else}}
-                <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.jpg" alt="">
-                {{/if}}
-                <h2 class="menu-item__link" data-section="signout">
-                    Выйти
-                </h2>
-            </div>
-        </li>
+            <li class="menu__item">
+                <div class="mini-profile">
+                    {{#if user.avatar}}
+                        <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.avatar}}"
+                            alt="">
+                    {{else}}
+                        <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.webp"
+                            alt="">
+                    {{/if}}
+                    <h2 class="menu-item__link" data-section="signout">
+                        Выйти
+                    </h2>
+                </div>
+            </li>
         {{else}}
-        <li class="menu__item">
-            <button class="default-button" data-url="/login" data-section="link">Войти</button>
-        </li>
+            <li class="menu__item">
+                <button class="default-button" data-url="/login" data-section="link">Войти</button>
+            </li>
         {{/if}}
     </ul>
 </div>

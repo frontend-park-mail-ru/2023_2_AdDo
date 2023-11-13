@@ -131,6 +131,15 @@ class UserModel extends IModel {
             });
     }
 
+    public getCSRFToken(): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/get_csrf', {})
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    return;
+                }
+            })
+    }
+
     /**
      * Authenticates the user using a cookie.
      *
@@ -173,6 +182,13 @@ class UserModel extends IModel {
             });
     }
 
+    /**
+     * Updates the user information on the server.
+     *
+     * @param {User} user - The user object containing the updated information.
+     * @param {Callback} errorCallback - The callback function to handle any errors.
+     * @return {void}
+     */
     public updateUser(user: User, errorCallback: Callback) {
         this.setCurrentUser(user);
         Ajax.put(hosts.HOST + hosts.PORT + '/api/v1/update_info', {'Content-Type': 'application/json',},
@@ -190,6 +206,12 @@ class UserModel extends IModel {
             });
     }
 
+    /**
+     * Uploads the user's avatar to the server.
+     *
+     * @param {FormData} FormData - The FormData object containing the user's avatar file.
+     * @param {Callback} errorCallback - A callback function to handle errors during the upload process.
+     */
     public uploadAvatar(FormData: FormData, errorCallback: Callback) {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/upload_avatar', {}, FormData, true)
         .then(({ status, responseBody }) => {

@@ -1,9 +1,12 @@
 <div class="album">
     <div class="info album__info">
-        <img style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
+        {{#if album.Preview}}
+            <img style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
+        {{/if}}
         <div style="display: inline-block;">
             <div class="large-text">{{album.Name}}</div>
-            <a class="big-text albumlist-item__name" href="/artist/{{album.ArtistId}}" data-section="link" data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}</a>
+            <a class="big-text albumlist-item__name" href="/artist/{{album.ArtistId}}" data-section="link"
+                data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}</a>
             <h2>{{album.ReleaseDate}}</h2>
         </div>
     </div>
@@ -12,15 +15,17 @@
             <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">
                 <div class="playlist__image-container" style="display: inline-block;">
                     <div class="medium-text playlist__index playlist__index__position"></div>
-                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton" data-url="{{@index}}"></div>
+                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton"
+                        data-url="{{@index}}"></div>
                 </div>
-                <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}" style="display: inline-block;">
+                <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}"
+                    style="display: inline-block;">
                     {{this.Name}}
                 </div>
                 <div class="medium-text playlist-item__duration" style="display: inline-block;">
                     {{this.Duration}}
                 </div>
-            </li>   
-        {{/each}}   
+            </li>
+        {{/each}}
     </ul>
 </div>

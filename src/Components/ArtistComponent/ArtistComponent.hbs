@@ -1,6 +1,8 @@
 <div class="artist">
     <div class="info artist__info">
-        <img class="info__photo" src="{{port}}{{Artist.Avatar}}" alt="">
+        {{#if Artist.Avatar}}
+            <img class="info__photo" src="{{port}}{{Artist.Avatar}}" alt="">
+        {{/if}}
         <div style="display: inline-block;">
             <div class="medium-text info__name">Исполнитель</div>
             <div class="large-text">{{Artist.Name}}</div>
@@ -12,32 +14,37 @@
             <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">
                 <div class="playlist__image-container" style="display: inline-block;">
                     <div class="medium-text playlist__index playlist__index__position"></div>
-                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniArtistPlayButton" data-url="{{@index}}"></div>
+                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniArtistPlayButton"
+                        data-url="{{@index}}"></div>
                 </div>
                 <div style="display:inline-block">
                     <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
                 </div>
-                <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}" style="display: inline-block;">
+                <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}"
+                    style="display: inline-block;">
                     {{this.Name}}
                 </div>
                 <div class="medium-text playlist-item__duration" style="display: inline-block;">
                     {{this.Duration}}
                 </div>
-            </li>   
-        {{/each}}   
+            </li>
+        {{/each}}
     </ul>
     <h1 class="artist__title">Альбомы</h1>
     <ul class="albumlist artist__album-list">
         {{#each Artist.Albums}}
             <li class="albumlist__item">
                 <div class="albumlist__image-container">
-                    <img class="albumlist__photo" data-section="link" data-url="/album/{{this.Id}}" data-id="{{this.Id}}" src="{{../port}}{{this.Preview}}" alt="">
-                    <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playButton" data-url="{{this.Id}}"></div>
+                    <img class="albumlist__photo" data-section="link" data-url="/album/{{this.Id}}" data-id="{{this.Id}}"
+                        src="{{../port}}{{this.Preview}}" alt="">
+                    <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playButton"
+                        data-url="{{this.Id}}"></div>
                 </div>
-                <a href="/album/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link" data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
+                <a href="/album/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
+                    data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
                     {{this.Name}}
                 </a>
-            </li>   
-        {{/each}}   
+            </li>
+        {{/each}}
     </ul>
 </div>

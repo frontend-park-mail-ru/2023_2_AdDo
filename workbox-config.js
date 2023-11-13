@@ -9,4 +9,5 @@ module.exports = {
 		/^utm_/,
 		/^fbclid$/
 	],
+	debugger: false,
 };

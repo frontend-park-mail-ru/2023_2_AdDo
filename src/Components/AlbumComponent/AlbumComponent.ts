@@ -1,10 +1,10 @@
 import { Album } from '../../types';
 import template from './AlbumComponent.hbs';
-import  IComponent  from '../IComponent/IComponent';
+import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 
 /** Class representing a AlbumComponent. */
-export class AlbumComponent extends IComponent{
+export class AlbumComponent extends IComponent {
 	private album: Album;
 
 	/**
@@ -14,7 +14,7 @@ export class AlbumComponent extends IComponent{
 	 * @param {Album} album - The album object.
 	 */
 	constructor(parent: HTMLElement, album: Album) {
-		super(parent, template({album, port: hosts.s3HOST}));
+		super(parent, template({ album, port: hosts.s3HOST }));
 		this.album = album;
 	}
 
@@ -23,7 +23,7 @@ export class AlbumComponent extends IComponent{
 	 *
 	 * @return {Album} The Album object.
 	 */
-	public get Album() : Album {
+	public get Album(): Album {
 		return this.album;
 	}
 
@@ -44,6 +44,6 @@ export class AlbumComponent extends IComponent{
 	 */
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({album: this.album, port: hosts.s3HOST});
+		this.parent.innerHTML = template({ album: this.album, port: hosts.s3HOST });
 	}
 }

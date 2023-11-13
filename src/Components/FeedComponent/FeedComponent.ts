@@ -1,11 +1,11 @@
 import { Album } from '../../types';
 import template from './FeedComponentTemplate.hbs';
 import { FeedComponentConfig } from './FeedComponentConst';
-import  IComponent  from '../IComponent/IComponent';
+import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 
 /** Class representing a FeedComponent. */
-export class FeedComponent extends IComponent{
+export class FeedComponent extends IComponent {
 	private content: Array<Album> = [];
 
 	/**
@@ -13,9 +13,9 @@ export class FeedComponent extends IComponent{
 	 *
 	 * @param {HTMLElement} parent - The parent element.
 	 * @param {Array<Album>} content - An array of albums. Default value is an empty array.
-	 */	
+	 */
 	constructor(parent: HTMLElement, content: Array<Album> = []) {
-		super(parent, template({FeedComponentConfig, content}));
+		super(parent, template({ FeedComponentConfig, content }));
 		this.content = content;
 	}
 
@@ -24,7 +24,7 @@ export class FeedComponent extends IComponent{
 	 *
 	 * @return {Array<Album>} - The content of the object as an array of Album objects.
 	 */
-	public get Content() : Array<Album> {
+	public get Content(): Array<Album> {
 		return Object.entries(this.content).map(([key, { Id, Name, Preview, ArtistId, ArtistName, Tracks }]) => ({
 			Id,
 			Name,
@@ -57,6 +57,6 @@ export class FeedComponent extends IComponent{
 	 */
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({FeedComponentConfig, host: hosts.s3HOST, content: this.Content });
+		this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.Content });
 	}
 }

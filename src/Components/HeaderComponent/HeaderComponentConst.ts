@@ -6,11 +6,6 @@ import type { HeaderConfigType } from './HeaderComponentTypes';
  */
 export const HeaderConfig: HeaderConfigType = [
 	{
-		key: 'main',
-		href: '/feed/all',
-		name: 'Главное',
-	},
-	{
 		key: 'podcasts',
 		href: '/podcasts',
 		name: 'Подкасты',

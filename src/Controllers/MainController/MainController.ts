@@ -91,12 +91,20 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     public updatePlaylists(): void {
         this.model.ContentModel.requestPlaylists(this.view.fillContent.bind(this.view));
     }
-
+    /**
+     * Updates the collection.
+     *
+     * @return {void} 
+     */
     public updateCollection(): void {
         this.view.renderCollection();
         this.model.ContentModel.requestCollection(this.view.fillCollection.bind(this.view));
     }
-
+    /**
+     * Updates the offline content.
+     *
+     * @return {void} No return value.
+     */
     public updateOffline(): void {
         this.view.renderCollection();
         this.model.ContentModel.requestOffline(this.view.fillCollection.bind(this.view));
@@ -127,6 +135,14 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
                 this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+                this.Playing = true;
+                this.isActive = true;
+                return;
+            case 'miniCollectionPlayButton':
+                e.preventDefault();
+                this.songId = parseInt(target.getAttribute('data-url')!);
+                this.model.ContentModel.nowPlaying();
+                this.view.play(this.model.ContentModel.getSongById(this.songId), this.model.ContentModel.getSongById(this.songId).isLiked);
                 this.Playing = true;
                 this.isActive = true;
                 return;
@@ -216,6 +232,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         return;
     }
 
+    /**
+     * Shuffles the elements in the array.
+     *
+     * @return {void} 
+     */
     public shuffle(): void {
         if(this.isShuffled) {
             this.isShuffled = false;
@@ -227,6 +248,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         return;
     }
 
+    /**
+     * Loops the song if it is not already looped, or stops looping if it is already looped.
+     *
+     * @return {void} 
+     */
     public loop(): void {
         if(this.isLooped) {
             this.isLooped = false;
@@ -243,24 +269,51 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         return;
     }
 
+    /**
+     * Likes the song.
+     *
+     * @return {void} 
+     */
     public like(): void {
         this.model.ContentModel.like(this.songId, this.view.like.bind(this.view));
         return;
     }
 
+    /**
+     * Dislikes the song.
+     *
+     * @return {void} 
+     */
     public dislike(): void {
         this.model.ContentModel.dislike(this.songId, this.view.dislike.bind(this.view));
         return;
     }
 
+    /**
+     * Disables the player.
+     *
+     * This function sets the `isActive` property of the object to `false`,
+     * effectively disabling the player.
+     *
+     * @return {void} 
+     */
     public disablePlayer(): void {
         this.isActive = false;
     }
 
+    /**
+     * Binds the events for the current instance.
+     *
+     * @return {void} 
+     */
     public bindEvents(): void {
         this.view.bindEvents();
     }
-
+    /**
+     * Repeats the currently playing song.
+     *
+     * @return {void} 
+     */
     public repeatSong(): void {
         this.view.play(this.model.ContentModel.getSongById(this.songId), this.model.ContentModel.getSongById(this.songId).isLiked);
     }
