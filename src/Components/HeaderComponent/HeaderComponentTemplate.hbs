@@ -1,5 +1,5 @@
 <div class="menu">
-    <ul class="menu__links">
+    <ul class="menu__links" data-section="menu-links">
         <li class="menu__item">
             <div class="logo">
                 <img class="logo__photo" data-url="/feed/all" data-section="link" src="{{logo}}" alt="">
@@ -26,7 +26,7 @@
     </ul>
 
 
-    <div class="mobile-menu">
+    <div class="mobile-menu" data-section="menu-links">
          <div class="menu-icon" data-section="menu-icon">
             <div class="bar"></div>
             <div class="bar"></div>
@@ -57,11 +57,11 @@
 
     <ul class="menu__rest">
         <li class="menu__item">
-            <img class="magnifying-glass" src="/static/img/Loupe.svg" data-section="search">
-        </li>
-        <li class="menu__item">
             <input type="text" data-section="inputSearch" class="input-search"
                 placeholder="Введите название песни или альбома">
+        </li>
+        <li class="menu__item">
+            <img class="magnifying-glass" src="/static/img/Loupe.svg" data-section="search">
         </li>
         {{#if user}}
         <li class="menu__item">

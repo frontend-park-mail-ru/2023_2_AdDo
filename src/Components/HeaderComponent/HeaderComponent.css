@@ -87,6 +87,7 @@
 }
 
 .magnifying-glass {
+    cursor: pointer;
 }
 .mobile-menu {
     grid-area: links;
@@ -132,11 +133,11 @@
   }
   
   .menu-icon.close-icon .bar:first-child {
-    transform: rotate(-45deg) translateY(4px);
+    transform: rotate(-45deg) translateY(6px);
   }
   
   .menu-icon.close-icon .bar:last-child {
-    transform: rotate(45deg) translateY(-4px);
+    transform: rotate(45deg);
   }
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 768px) {

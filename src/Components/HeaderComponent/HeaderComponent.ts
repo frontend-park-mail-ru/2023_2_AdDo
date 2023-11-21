@@ -50,6 +50,11 @@ export class HeaderComponent extends IComponent {
 
 	private handleSearchClick(e: Event): void {
 		let searchInput: HTMLElement = this.element.querySelector('[data-section="inputSearch"]')!;
+		this.element.querySelectorAll('[data-section="menu-links"]').forEach((element: any) => {
+			element.style.display === 'block'? element.style.display = 'none' : element.style.display = 'block';
+			
+
+		})
 		searchInput.style.display = (searchInput.style.display === 'block') ? 'none' : 'block';
 	}
 
