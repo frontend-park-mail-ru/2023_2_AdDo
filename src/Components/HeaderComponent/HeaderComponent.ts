@@ -1,7 +1,7 @@
 import IComponent from '../IComponent/IComponent';
 import { HeaderConfig } from './HeaderComponentConst';
 import template from './HeaderComponentTemplate.hbs'
-import { User } from '../../types';
+import { Callback, User } from '../../types';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
@@ -16,7 +16,8 @@ export class HeaderComponent extends IComponent {
 	 */
 	constructor(parent: HTMLElement) {
 		super(parent, template({ HeaderConfig, port: hosts.s3HOST, logo: '/static/img/Logo.svg' }));
-
+		this.bindClickEvent(this.handleClick.bind(this));
+		this.bindTouchEvent(this.handleClick.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		})
@@ -41,6 +42,20 @@ export class HeaderComponent extends IComponent {
 		this.user = user;
 		this.renderHeader();
 	}
+	private handleClick(e: Event): void {
+		let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
+		mobileMenu.style.display = (mobileMenu.style.display === 'block') ? 'none' : 'block';
+	}
+
+
+	private bindClickEvent(listener: Callback): void {
+		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
+	}
+
+	private bindTouchEvent(listener: Callback): void {
+		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('touchstart', listener);
+	}
+
 
 	/**
 	 * Renders the header of the page.

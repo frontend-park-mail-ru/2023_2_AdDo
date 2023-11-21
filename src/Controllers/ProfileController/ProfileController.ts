@@ -83,7 +83,7 @@ class ProfileController extends IController<ProfileView, UserModel> {
     public handleUpload(event: Event): void {
         let target = event.target as HTMLInputElement;
         const selectedFile = target.files![0];
-        if (selectedFile && selectedFile.type.startsWith('image/')) {
+        if (selectedFile && selectedFile.type.startsWith('image/') && !selectedFile.type.startsWith('image/gif')) {
             let fileName = target.files![0].name;
             document.querySelector('.upload-button__input')!.textContent = fileName;
         } else {

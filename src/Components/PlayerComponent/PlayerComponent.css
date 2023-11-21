@@ -69,3 +69,7 @@
 .disabled {
     display: none;
 }
+
+.artistname:hover {
+    color: #C15DF3;
+}

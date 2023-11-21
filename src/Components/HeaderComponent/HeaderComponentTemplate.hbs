@@ -11,46 +11,79 @@
                 Главное
             </a>
         </li>
-        {{#each HeaderConfig}}
+        <li class="menu__item">
+            <a class="menu-item__link" href="/podcasts" data-section="link" data-url="/podcasts">
+                Подкасты
+            </a>
+        </li>
+        {{#if user}}
+        <li class="menu__item">
+            <a class="menu-item__link" href="/collection" data-section="link" data-url="/collection">
+                Коллекция
+            </a>
+        </li>
+        {{/if}}
+    </ul>
+
+
+    <div>
+         <div class="menu-icon" data-section="menu-icon">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <ul class="mobile-menu__links" data-section="mobile-menu">
             <li class="menu__item">
-                <a class="menu-item__link">
-                    {{this.name}}
+                <a class="mobile-menu-item__link" href="/feed/all" data-section="link" data-url="/feed/all">
+                    Главное
                 </a>
             </li>
-        {{/each}}
-        {{#if user}}
             <li class="menu__item">
-                <a class="menu-item__link" href="/collection" data-section="link" data-url="/collection">
+                <a class="mobile-menu-item__link" href="/podcasts" data-section="link" data-url="/podcasts">
+                    Подкасты
+                </a>
+            </li>
+            {{#if user}}
+            <li class="menu__item">
+                <a class="mobile-menu-item__link" href="/collection" data-section="link" data-url="/collection">
                     Коллекция
                 </a>
             </li>
-        {{/if}}
-    </ul>
+            {{/if}}
+        </ul>
+    </div>
+   
+
     <ul class="menu__rest">
         <li class="menu__item">
             <img class="magnifying-glass" src="/static/img/Loupe.svg" alt="">
+        </li>
+        <li class="menu__item">
             <input type="text" data-section="text" class="input-search"
                 placeholder="Введите название песни или альбома">
         </li>
         {{#if user}}
-            <li class="menu__item">
-                <div class="mini-profile">
-                    {{#if user.avatar}}
-                        <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.avatar}}"
-                            alt="">
-                    {{else}}
-                        <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.webp"
-                            alt="">
-                    {{/if}}
-                    <h2 class="menu-item__link" data-section="signout">
-                        Выйти
-                    </h2>
-                </div>
-            </li>
+        <li class="menu__item">
+            <div class="mini-profile">
+                {{#if user.avatar}}
+                <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.avatar}}"
+                    alt="">
+                {{else}}
+                <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.webp"
+                    alt="">
+                {{/if}}
+                <h2 class="menu-item__link" data-section="signout">
+                    Выйти
+                </h2>
+            </div>
+        </li>
         {{else}}
-            <li class="menu__item">
-                <button class="default-button" data-url="/login" data-section="link">Войти</button>
-            </li>
+        <li class="menu__item">
+            <button class="default-button" data-url="/login" data-section="link">Войти</button>
+        </li>
         {{/if}}
     </ul>
+
+
 </div>

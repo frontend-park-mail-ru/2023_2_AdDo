@@ -32,6 +32,7 @@ export type Song = {
     Content: string,
     ArtistName: string,
     isLiked: boolean,
+    ArtistId: number,
 }
 
 

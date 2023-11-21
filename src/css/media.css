@@ -1,0 +1,116 @@
+/* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
+@media only screen and (min-width: 768px) {
+  .player {
+    min-width: 800px;
+  }
+  .input-search {
+    display: block;
+  }
+  .menu-icon {
+    display: none;
+  }
+
+  .mobile-menu__links {
+    display: none;
+  }
+  .menu__links {
+    display: flex;
+  }
+}
+
+/* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .mobile-menu__links {
+    display: none;
+  }
+  .player {
+    min-width: 100%;
+  }
+  .input-search {
+    display: none;
+  }
+  .menu__links {
+    display: none;
+  }
+  .small-text {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: left;
+}
+
+.medium-text {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.big-text {
+    color: #FFF;
+    font-size: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.large-text {
+    color: #FFF;
+    font-size: 56px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+}
+
+/* Стили для мобильных устройств (ширина экрана до 480 пикселей) */
+@media only screen and (max-width: 480px) {
+  .menu-icon {
+    display: block;
+  }
+.small-text {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: left;
+}
+
+.medium-text {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.big-text {
+    color: #FFF;
+    font-size: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.large-text {
+    color: #FFF;
+    font-size: 56px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+  .mobile-menu__links {
+    display: none;
+  }
+  .player {
+    min-width: 100%;
+  }
+  .input-search {
+    display: none;
+  }
+  .menu__links {
+    display: none;
+  }
+}

@@ -172,6 +172,12 @@ class MainView extends IView {
         this.element.addEventListener('click', listener);
     }
 
+    public bindTouchEvent(listener: Callback): void {
+        this.element.addEventListener('touchstart', listener);
+    }
+
+    
+
     /**
      * Binds an event listener to the 'ended' event of the audio element
      * in the footer.

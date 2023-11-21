@@ -7,7 +7,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
-	private currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false };
+	private currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 };
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -16,9 +16,9 @@ export class PlayerComponent extends IComponent {
 	 * @param {boolean} Playing - The initial playing state.
 	 */
 	constructor(parent: HTMLElement,
-		song: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false },
+		song: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 },
 		Playing: boolean = false) {
-		super(parent, template({ PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false }));
+		super(parent, template({ PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, isMobile: navigator.userAgentData!.mobile }));
 		const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
 		like.classList.add('disabled');
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
