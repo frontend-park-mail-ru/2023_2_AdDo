@@ -9,7 +9,6 @@
     justify-content: center;
     list-style: none;
     padding: 0px;
-    display: flex;
     grid-area: links;
     gap: 25px;
   }
@@ -89,16 +88,18 @@
 
 .magnifying-glass {
 }
-
 .mobile-menu {
-  display: none;
-  background-color: #f4f4f4;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
+    grid-area: links;
+}
+
+.mobile-menu__links {
+    background-color: #f4f4f4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .mobile-menu-item__link {
@@ -110,7 +111,6 @@
 }
 
 .menu-icon {
-  display: none;
   cursor: pointer;
 }
 
@@ -121,3 +121,37 @@
   margin: 6px 0;
   transition: 0.4s;
 }
+
+
+/* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
+@media screen and (min-width: 768px) {
+    .input-search {
+      display: block;
+    }
+    .menu-icon {
+      display: none;
+    }
+  
+    .mobile-menu__links {
+      display: none;
+    }
+    .menu__links {
+      display: flex;
+    }
+  }
+  
+  /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+  @media screen and (max-width: 767px) {
+    .menu-icon {
+      display: block;
+    }
+    .mobile-menu__links {
+      display: none;
+    }
+    .input-search {
+      display: none;
+    }
+    .menu__links {
+      display: none;
+    }
+  }
