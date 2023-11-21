@@ -142,9 +142,6 @@
   }
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 768px) {
-    .input-search {
-      display: block;
-    }
     .menu-icon {
       display: none !important;
     }
@@ -163,9 +160,6 @@
       display: block;
     }
     .mobile-menu__links {
-      display: none;
-    }
-    .input-search {
       display: none;
     }
     .menu__links {
