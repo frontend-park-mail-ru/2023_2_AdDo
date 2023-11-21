@@ -129,7 +129,7 @@
   transition: 0.4s;
 }
 
-.menu-icon .bar:nth-child(2) {
+.menu-icon.close-icon .bar:nth-child(2) {
     display: none;
   }
   
@@ -138,7 +138,7 @@
   }
   
   .menu-icon.close-icon .bar:last-child {
-    transform: rotate(45deg);
+    transform: rotate(45deg) translateY(-6px);
   }
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 768px) {
