@@ -1,5 +1,4 @@
 import IComponent from '../IComponent/IComponent';
-import { HeaderConfig } from './HeaderComponentConst';
 import template from './HeaderComponentTemplate.hbs'
 import { Callback, User } from '../../types';
 import hosts from '../../HostConsts';
@@ -15,9 +14,8 @@ export class HeaderComponent extends IComponent {
 	 * @param {HTMLElement} parent - The parent element.
 	 */
 	constructor(parent: HTMLElement) {
-		super(parent, template({ HeaderConfig, port: hosts.s3HOST, logo: '/static/img/Logo.svg' }));
+		super(parent, template({ port: hosts.s3HOST, logo: '/static/img/Logo.svg' }));
 		this.bindClickEvent(this.handleClick.bind(this));
-		this.bindTouchEvent(this.handleClick.bind(this));
 		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
@@ -45,7 +43,9 @@ export class HeaderComponent extends IComponent {
 	}
 	private handleClick(e: Event): void {
 		let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
+		let menuIcon: HTMLElement = this.element.querySelector('[data-section="menu-icon"]')!;
 		mobileMenu.style.display = (mobileMenu.style.display === 'flex') ? 'none' : 'flex';
+		menuIcon.classList.toggle('close-icon');
 	}
 
 	private handleSearchClick(e: Event): void {
@@ -59,11 +59,6 @@ export class HeaderComponent extends IComponent {
 	private bindClickEvent(listener: Callback): void {
 		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
 	}
-
-	private bindTouchEvent(listener: Callback): void {
-		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('touchstart', listener);
-	}
-
 
 	/**
 	 * Renders the header of the page.
@@ -85,6 +80,6 @@ export class HeaderComponent extends IComponent {
 				randomlogo = '/static/img/Logo3.svg';
 				break;
 		}
-		this.parent.innerHTML = template({ HeaderConfig, port: hosts.s3HOST, user: this.user, logo: randomlogo });
+		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
 	}
 }

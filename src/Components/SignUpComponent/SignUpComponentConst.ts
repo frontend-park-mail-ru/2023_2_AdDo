@@ -29,10 +29,4 @@ export const SignUpConfig: SignupConfigType = [
 		text: 'Повторите пароль',
 		name: 'passwordCheck',
 	},
-	{
-		key: 'DateInput',
-		type: 'date',
-		text: '',
-		name: 'date',
-	},
 ]

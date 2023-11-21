@@ -90,10 +90,12 @@
 }
 .mobile-menu {
     grid-area: links;
+    display: flex;
+    gap: 15px;
 }
 
 .mobile-menu__links {
-    background-color: #000000;
+    background-color: #1E1E1E;
     border-radius: 10px;
     padding: 15px;
     gap: 20px;
@@ -114,7 +116,7 @@
     padding: 10px;
     height: 35px;
     background: #1E1E1E;
-
+    width: 30px;
 }
 
 .bar {
@@ -125,36 +127,46 @@
   transition: 0.4s;
 }
 
-
+.menu-icon .bar:nth-child(2) {
+    display: none;
+  }
+  
+  .menu-icon.close-icon .bar:first-child {
+    transform: rotate(-45deg) translateY(4px);
+  }
+  
+  .menu-icon.close-icon .bar:last-child {
+    transform: rotate(45deg) translateY(-4px);
+  }
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 768px) {
     .input-search {
-      display: block !important;
+      display: block;
     }
     .menu-icon {
-      display: none !important;
+      display: none;
     }
   
     .mobile-menu__links {
-      display: none !important;
+      display: none ;
     }
     .menu__links {
-      display: flex !important;
+      display: flex;
     }
   }
   
   /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
   @media screen and (max-width: 767px) {
     .menu-icon {
-      display: block !important;
+      display: block;
     }
     .mobile-menu__links {
-      display: none !important;
+      display: none;
     }
     .input-search {
-      display: none !important;
+      display: none;
     }
     .menu__links {
-      display: none !important;
+      display: none;
     }
   }
