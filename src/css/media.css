@@ -23,7 +23,6 @@
   .menu-icon {
     display: block;
   }
-
   .mobile-menu__links {
     display: none;
   }
@@ -36,35 +35,6 @@
   .menu__links {
     display: none;
   }
-  .small-text {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 300;
-    text-align: left;
-}
-
-.medium-text {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    text-align: left;
-}
-
-.big-text {
-    color: #FFF;
-    font-size: 40px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-.large-text {
-    color: #FFF;
-    font-size: 56px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
 }
 
 /* Стили для мобильных устройств (ширина экрана до 480 пикселей) */
@@ -72,35 +42,6 @@
   .menu-icon {
     display: block;
   }
-.small-text {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 300;
-    text-align: left;
-}
-
-.medium-text {
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    text-align: left;
-}
-
-.big-text {
-    color: #FFF;
-    font-size: 40px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-.large-text {
-    color: #FFF;
-    font-size: 56px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
   .mobile-menu__links {
     display: none;
   }
