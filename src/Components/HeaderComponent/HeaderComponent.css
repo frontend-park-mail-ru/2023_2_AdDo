@@ -93,6 +93,7 @@
     grid-area: links;
     display: flex;
     gap: 15px;
+    align-items: center;
 }
 
 .mobile-menu__links {

@@ -80,6 +80,21 @@
     .player {
       min-width: 800px;
     }
+    .like-btn {
+        display: block;
+    }
+    .shuffleBtn {
+        display: block;
+    }
+    .nextBtn {
+        display: block;
+    }
+    .loopBtn {
+        display: block;
+    }
+    .prev-btn {
+        display: block;
+    }
   }
   
   /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
@@ -87,4 +102,20 @@
     .player {
       min-width: 100%;
     }
+    .like-btn {
+        display: none;
+    }
+    .shuffleBtn {
+        display: none;
+    }
+    .nextBtn {
+        display: none;
+    }
+    .loopBtn {
+        display: none;
+    }
+    .prev-btn {
+        display: none;
+    }
+    
   }

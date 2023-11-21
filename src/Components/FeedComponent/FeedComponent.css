@@ -7,15 +7,17 @@
     &__list {
         display: flex;
         gap: 20px;
+
     }
     &__title {
         margin: 10px 0 10px 0; 
     }
 }
 
-.feed-list-item {
+.feed-list__item {
     display: inline-flex;
     margin: 10px;
+    width: fit-content;
     &__name {
         text-decoration: none;
         color: #FFF;
