@@ -18,6 +18,7 @@ export class HeaderComponent extends IComponent {
 		super(parent, template({ HeaderConfig, port: hosts.s3HOST, logo: '/static/img/Logo.svg' }));
 		this.bindClickEvent(this.handleClick.bind(this));
 		this.bindTouchEvent(this.handleClick.bind(this));
+		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		})
@@ -44,10 +45,17 @@ export class HeaderComponent extends IComponent {
 	}
 	private handleClick(e: Event): void {
 		let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
-		mobileMenu.style.display = (mobileMenu.style.display === 'block') ? 'none' : 'block';
+		mobileMenu.style.display = (mobileMenu.style.display === 'flex') ? 'none' : 'flex';
 	}
 
+	private handleSearchClick(e: Event): void {
+		let searchInput: HTMLElement = this.element.querySelector('[data-section="inputSearch"]')!;
+		searchInput.style.display = (searchInput.style.display === 'block') ? 'none' : 'block';
+	}
 
+	private bindSearchClickEvent(listener: Callback): void {
+		this.element.querySelector('[data-section="search"]')!.addEventListener('click', listener);
+	}
 	private bindClickEvent(listener: Callback): void {
 		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
 	}
