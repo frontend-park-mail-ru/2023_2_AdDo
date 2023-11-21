@@ -83,7 +83,9 @@
   
   /* Стили для мобильных устройств (ширина экрана до 480 пикселей) */
   @media only screen and (max-width: 480px) {
-    
+    .playButton {
+        display: none;
+    }
   }
 
 .info {

@@ -53,10 +53,10 @@
 
 @media screen and (min-width: 768px) {
     .auth-input {
-        width: 75vw;
+        width: 368px;
     }
     .auth-wrong-input {
-        width: 75vw;
+        width: 368px;
     }
   }
   

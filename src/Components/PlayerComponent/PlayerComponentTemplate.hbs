@@ -24,8 +24,8 @@
         </div>
         <div>
             <div class="title medium-text">{{song.Name}}</div>
-            <a href="/artist/{{this.ArtistId}}" class="artistname small-text" data-section="link"
-                data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">{{song.ArtistName}}</a>
+            <a href="/artist/{{song.ArtistId}}" class="artistname small-text" data-section="link"
+                data-url="/artist/{{song.ArtistId}}" data-Id="{{song.ArtistId}}">{{song.ArtistName}}</a>
         </div>
         {{#if song.isLiked}}
             <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/LikePressed.svg" alt="">

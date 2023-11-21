@@ -6,7 +6,6 @@ import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 import { Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
 import paths from "../../Modules/Router/RouterPaths";
-import { isThisTypeNode } from "typescript";
 
 /** Class representing an MainController. */
 class MainController extends IController<MainView, {ContentModel: ContentModel, UserModel: UserModel}> {

@@ -169,7 +169,12 @@ class MainView extends IView {
      * @return {void} 
      */
     public bindClickEvent(listener: Callback): void {
-        this.element.addEventListener('click', listener);
+        if(navigator.userAgentData!.mobile) {
+            this.element.addEventListener('touchstart', listener);
+        } else {
+            this.element.addEventListener('click', listener);
+        }
+        
     }
 
     public bindTouchEvent(listener: Callback): void {
