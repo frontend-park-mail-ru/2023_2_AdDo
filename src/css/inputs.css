@@ -40,6 +40,7 @@
     width: 15vw;
     padding: 0px 16px;
     gap: 10px;
+    display: none;
     border-radius: 12px;
     border: 1px solid #FFF;
     color: rgba(255, 255, 255, 0.40);

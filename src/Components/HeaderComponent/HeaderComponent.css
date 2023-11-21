@@ -149,6 +149,10 @@
     .mobile-menu__links {
       display: none !important;
     }
+
+    .mobile-menu {
+        display: none !important;
+      }
     .menu__links {
       display: flex;
     }
@@ -162,6 +166,9 @@
     .mobile-menu__links {
       display: none;
     }
+    .mobile-menu {
+        display: flex !important;
+      }
     .menu__links {
       display: none !important;
     }
