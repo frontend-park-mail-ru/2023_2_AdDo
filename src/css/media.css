@@ -1,4 +1,4 @@
-/* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
+/* 
 @media screen and (min-width: 768px) {
   .player {
     min-width: 800px;
@@ -18,7 +18,6 @@
   }
 }
 
-/* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
 @media screen and (max-width: 767px) {
   .menu-icon {
     display: block;
@@ -35,5 +34,5 @@
   .menu__links {
     display: none;
   }
-}
+} */
 
