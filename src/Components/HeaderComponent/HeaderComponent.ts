@@ -44,7 +44,7 @@ export class HeaderComponent extends IComponent {
 	private handleClick(e: Event): void {
 		let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
 		let menuIcon: HTMLElement = this.element.querySelector('[data-section="menu-icon"]')!;
-		mobileMenu.style.display = (mobileMenu.style.display === 'flex') ? 'none' : 'flex';
+		mobileMenu.style.display = (mobileMenu.style.display === 'grid') ? 'none' : 'grid';
 		menuIcon.classList.toggle('close-icon');
 	}
 
@@ -52,8 +52,6 @@ export class HeaderComponent extends IComponent {
 		let searchInput: HTMLElement = this.element.querySelector('[data-section="inputSearch"]')!;
 		this.element.querySelectorAll('[data-section="menu-links"]').forEach((element: any) => {
 			element.style.display === 'flex'? element.style.display = 'none' : element.style.display = 'flex';
-			
-
 		})
 		searchInput.style.display = (searchInput.style.display === 'block') ? 'none' : 'block';
 	}
