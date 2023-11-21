@@ -145,11 +145,11 @@
       display: block;
     }
     .menu-icon {
-      display: none;
+      display: none !important;
     }
   
     .mobile-menu__links {
-      display: none ;
+      display: none !important;
     }
     .menu__links {
       display: flex;
@@ -168,6 +168,6 @@
       display: none;
     }
     .menu__links {
-      display: none;
+      display: none !important;
     }
   }
