@@ -15,7 +15,7 @@ module.exports = {
   output: {
     path: defines.dist,
     publicPath: '/',
-    filename: `${defines.assets}js/[name].js`
+    filename: `${defines.assets}js/[name]-[hash].js`
   },
   // optimization (chunks)
   optimization: {
@@ -135,7 +135,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: `${defines.assets}css/[name].css`,
+      filename: `${defines.assets}css/[name]-[hash].css`,
       chunkFilename: '[id].css'
     }),
 

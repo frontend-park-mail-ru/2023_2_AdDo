@@ -1,0 +1,53 @@
+name: continuos-deployment
+
+on:
+  push:
+    branches: [main, test]
+  pull_request:
+    types: [opened, reopened, closed]
+
+jobs:    
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install packages
+        run: npm install
+      - name: Compile webpack
+        run: npm run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+      - name: Minio deploy
+        uses: mamal72/minio-perfect-deploy-action@main
+        with:
+          endpoint: https://api.s3.musicon.space/
+          access_key: ${{ secrets.MINIO_ACCESS_KEY }}
+          secret_key: ${{ secrets.MINIO_SECRET_KEY }}
+          bucket: 'frontend'
+          source_dir: 'dist'
+          target_dir: '/'
+      - name: Copy index.html content to VM
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          source: dist/index.html
+          target: /home/musicon/
