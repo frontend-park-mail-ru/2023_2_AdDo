@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-name: Deploy
-
-on: [push]
-
-jobs:
-=======
 name: continuos-deployment
 
 on:
@@ -14,25 +7,10 @@ on:
     types: [opened, reopened, closed]
 
 jobs:    
->>>>>>> e9ac2f39ccbeca90f64c70dd39defa4448103f7e
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-<<<<<<< HEAD
-      - name: Copy repository content to VM
-        uses: appleboy/scp-action@master
-        with:
-          HOST: 146.185.242.115
-          USERNAME: ubuntu
-          PORT: 22
-          sshkey: ${{ secrets.sshkey }}
-          source: "."
-          target: ~/AdDoBackendDeploy
-
-      - name: Executing remote command
-        uses: appleboy/ssh-action@master
-=======
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -66,15 +44,10 @@ jobs:
           target_dir: '/'
       - name: Copy index.html content to VM
         uses: appleboy/scp-action@v0.1.4
->>>>>>> e9ac2f39ccbeca90f64c70dd39defa4448103f7e
         with:
           HOST: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
           PASSWORD: ${{ secrets.PASSWORD }}
-<<<<<<< HEAD
-          script: cd AdDoBackendDeploy && chmod +x deploy.sh && ./deploy.sh
-=======
           source: dist/index.html
           target: /home/musicon/
->>>>>>> e9ac2f39ccbeca90f64c70dd39defa4448103f7e
