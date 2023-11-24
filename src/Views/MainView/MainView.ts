@@ -200,22 +200,22 @@ class MainView extends IView {
     }
 
     public fillFavArtists(artists: Array<Artist>): void {
-        const favArtists = this.components.get('favartists') as favArtistsComponent;
+        const favArtists = this.components.get('favArtists') as favArtistsComponent;
         favArtists.Artists = artists;
     }
 
     public fillFavTracks(songs: Array<Song>): void {
-        const favTracks = this.components.get('favartists') as favTracksComponent;
+        const favTracks = this.components.get('favTracks') as favTracksComponent;
         favTracks.Songs = songs;
     }
 
     public fillFavAlbums(albums: Array<Album>): void {
-        const favAlbums = this.components.get('favalbums') as favAlbumsComponent;
+        const favAlbums = this.components.get('favAlbums') as favAlbumsComponent;
         favAlbums.Albums = albums;
     }
 
     public fillFavPlaylists(playlists: Array<Album>): void {
-        const favPlaylists = this.components.get('favplaylists') as favPlaylistsComponent;
+        const favPlaylists = this.components.get('favPlaylists') as favPlaylistsComponent;
         favPlaylists.Playlists = playlists;
     }
 
@@ -343,8 +343,6 @@ class MainView extends IView {
      */    
     public bindEvents(): void {
         const footer = this.components.get('footer') as PlayerComponent;
-        const header = this.components.get('header') as HeaderComponent;
-        header.bindEvents();
         footer.bindEvents();
     }
 
