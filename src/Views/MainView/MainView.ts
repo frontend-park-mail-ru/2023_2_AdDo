@@ -12,6 +12,7 @@ import { favArtistsComponent } from '../../Components/FavArtistsComponent/FavArt
 import { favTracksComponent } from '../../Components/FavTracksComponent/FavTracksComponent';
 import { favAlbumsComponent } from '../../Components/FavAlbumsComponent/FavAlbumsComponent';
 import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/FavPlaylistsComponent';
+import IComponent from '../../Components/IComponent/IComponent';
 
 
 /** Class representing a MainView. */
@@ -27,6 +28,7 @@ class MainView extends IView {
     private favTracks: favTracksComponent;
     private favAlbums: favAlbumsComponent;
     private favPlaylists: favPlaylistsComponent;
+    private components: Map<string, IComponent> = new Map();
 
 
     /**
@@ -47,12 +49,28 @@ class MainView extends IView {
         this.favAlbums = new favAlbumsComponent(this.element.querySelector('main')!, []);
         this.favPlaylists = new favPlaylistsComponent(this.element.querySelector('main')!, []);
         this.footer = new PlayerComponent(this.element.querySelector('footer')!);
+        this.initComponents();
+        this.components.get('header')!.append();
+        this.components.get('footer')!.append();
         this.header.append();
         this.footer.append();
 
         EventDispatcher.subscribe('user-changed', (user: User | null = null) => {
             this.header.User = user;
         });
+    }
+
+    private initComponents(): void {
+        this.components.set('header', new HeaderComponent(this.element.querySelector('header')!));
+        this.components.set('feed', new FeedComponent(this.element.querySelector('main')!));
+        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []}));
+        this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []}));
+        this.components.set('collection', new CollectionComponent(this.element.querySelector('main')!, []));
+        this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!));
+        this.components.set('favArtists', new favArtistsComponent(this.element.querySelector('main')!, []));
+        this.components.set('favTracks', new favTracksComponent(this.element.querySelector('main')!, []));
+        this.components.set('favAlbums', new favAlbumsComponent(this.element.querySelector('main')!, []));
+        this.components.set('favPlaylists', new favPlaylistsComponent(this.element.querySelector('main')!, []));
     }
 
     /**
@@ -63,6 +81,9 @@ class MainView extends IView {
      */
     public renderFeed(): void {
         this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
         this.feed.append();
     }
 
@@ -74,6 +95,9 @@ class MainView extends IView {
      */
     public renderAlbum(): void {
         this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
         this.album.append();
     }
 
@@ -84,26 +108,41 @@ class MainView extends IView {
      */
     public renderArtist(): void {
         this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
         this.artist.append();
     }
 
     public renderFavTracks(): void {
         this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
         this.collection.append();
         this.favTracks.append();
     }
     public renderFavAlbums(): void {
         this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
         this.collection.append();
         this.favAlbums.append();
     }
     public renderFavArtists(): void {
         this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
         this.collection.append();
         this.favArtists.append();
     }
     public renderFavPlaylists(): void {
         this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
         this.collection.append();
         this.favPlaylists.append();
     }

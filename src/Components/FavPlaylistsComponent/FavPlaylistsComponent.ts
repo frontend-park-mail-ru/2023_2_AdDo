@@ -38,13 +38,9 @@ export class favPlaylistsComponent extends IComponent {
 	 */
 	public set User(user: User | null) {
 		this.user = user;
-		this.renderCollection();
+		this.renderContent();
 	}
 
-	public renderCollection(): void {
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ Playlists: this.playlists, port: hosts.s3HOST, user: this.user });
-	}
 	/**
 	 * Returns an array of songs.
 	 *
@@ -70,7 +66,9 @@ export class favPlaylistsComponent extends IComponent {
 	 * @return {void} 
 	 */
 	public renderContent(): void {
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ Playlists: this.playlists, port: hosts.s3HOST });
+		if (this.isMounted) {
+			this.parent.innerHTML = '';
+			this.parent.innerHTML = template({ Playlists: this.playlists, port: hosts.s3HOST });
+		}
 	}
 }

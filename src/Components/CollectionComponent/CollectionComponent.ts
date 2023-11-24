@@ -17,9 +17,6 @@ export class CollectionComponent extends IComponent {
 	constructor(parent: HTMLElement, songs: Array<Song>) {
 		super(parent, template({ Tracks: songs, port: hosts.s3HOST }));
 		this.songs = songs;
-		EventDispatcher.subscribe('user-changed', (user: User) => {
-			this.User = user;
-		})
 	}
 	/**
 	 * Returns the User property.
