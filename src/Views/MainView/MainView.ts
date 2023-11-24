@@ -8,6 +8,10 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { AlbumComponent } from '../../Components/AlbumComponent/AlbumComponent';
 import { ArtistComponent } from '../../Components/ArtistComponent/ArtistComponent';
 import { CollectionComponent } from '../../Components/CollectionComponent/CollectionComponent';
+import { favArtistsComponent } from '../../Components/FavArtistsComponent/FavArtistsComponent';
+import { favTracksComponent } from '../../Components/FavTracksComponent/FavTracksComponent';
+import { favAlbumsComponent } from '../../Components/FavAlbumsComponent/FavAlbumsComponent';
+import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/FavPlaylistsComponent';
 
 
 /** Class representing a MainView. */
@@ -19,6 +23,10 @@ class MainView extends IView {
     private artist: ArtistComponent;
     private collection: CollectionComponent;
     private footer: PlayerComponent;
+    private favArtists: favArtistsComponent;
+    private favTracks: favTracksComponent;
+    private favAlbums: favAlbumsComponent;
+    private favPlaylists: favPlaylistsComponent;
 
 
     /**
@@ -34,6 +42,10 @@ class MainView extends IView {
         this.album = new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
         this.artist = new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
         this.collection = new CollectionComponent(this.element.querySelector('main')!, []);
+        this.favArtists = new favArtistsComponent(this.element.querySelector('main')!, []);
+        this.favTracks = new favTracksComponent(this.element.querySelector('main')!, []);
+        this.favAlbums = new favAlbumsComponent(this.element.querySelector('main')!, []);
+        this.favPlaylists = new favPlaylistsComponent(this.element.querySelector('main')!, []);
         this.footer = new PlayerComponent(this.element.querySelector('footer')!);
         this.header.append();
         this.footer.append();
@@ -75,9 +87,25 @@ class MainView extends IView {
         this.artist.append();
     }
 
-    public renderCollection(): void {
+    public renderFavTracks(): void {
         this.element.querySelector('main')!.innerHTML = '';
         this.collection.append();
+        this.favTracks.append();
+    }
+    public renderFavAlbums(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.collection.append();
+        this.favAlbums.append();
+    }
+    public renderFavArtists(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.collection.append();
+        this.favArtists.append();
+    }
+    public renderFavPlaylists(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.collection.append();
+        this.favPlaylists.append();
     }
     /**
      * Sets the user object in the header.
@@ -127,6 +155,22 @@ class MainView extends IView {
      */
     public fillCollection(songs: Array<Song>): void {
         this.collection.Songs = songs;
+    }
+
+    public fillFavArtists(artists: Array<Artist>): void {
+        this.favArtists.Artists = artists;
+    }
+
+    public fillFavTracks(songs: Array<Song>): void {
+        this.favTracks.Songs = songs;
+    }
+
+    public fillFavAlbums(albums: Array<Album>): void {
+        this.favAlbums.Albums = albums;
+    }
+
+    public fillFavPlaylists(playlists: Array<Album>): void {
+        this.favPlaylists.Playlists = playlists;
     }
 
     /**

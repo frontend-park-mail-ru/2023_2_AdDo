@@ -1,12 +1,12 @@
 import { Album, Song, User } from '../../types';
-import template from './CollectionComponentTemplate.hbs';
+import template from './favAlbumsComponentTemplate.hbs';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a CollectionComponent. */
-export class CollectionComponent extends IComponent {
-	private songs: Array<Song> = [];
+export class favAlbumsComponent extends IComponent {
+	private albums: Array<Album> = [];
 	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
 	/**
 	 * Constructs a new instance of the class.
@@ -14,9 +14,9 @@ export class CollectionComponent extends IComponent {
 	 * @param {HTMLElement} parent - The parent element.
 	 * @param {Array<Song>} songs - The array of songs.
 	 */
-	constructor(parent: HTMLElement, songs: Array<Song>) {
-		super(parent, template({ Tracks: songs, port: hosts.s3HOST }));
-		this.songs = songs;
+	constructor(parent: HTMLElement, albums: Array<Album>) {
+		super(parent, template({ Albums: albums, port: hosts.s3HOST }));
+		this.albums = albums;
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		})
@@ -43,15 +43,15 @@ export class CollectionComponent extends IComponent {
 
 	public renderCollection(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ Tracks: this.songs, port: hosts.s3HOST, user: this.user });
+		this.parent.innerHTML = template({ Albums: this.albums, port: hosts.s3HOST, user: this.user });
 	}
 	/**
 	 * Returns an array of songs.
 	 *
 	 * @return {Array<Song>} An array of songs.
 	 */
-	public get Songs(): Array<Song> {
-		return this.songs;
+	public get Albums(): Array<Album> {
+		return this.albums;
 	}
 
 	/**
@@ -59,8 +59,8 @@ export class CollectionComponent extends IComponent {
 	 *
 	 * @param {Array<Song>} songs - An array of songs to be set.
 	 */
-	public set Songs(songs: Array<Song>) {
-		this.songs = songs;
+	public set Albums(albums: Array<Album>) {
+		this.albums = albums;
 		this.renderContent();
 	}
 
@@ -71,6 +71,6 @@ export class CollectionComponent extends IComponent {
 	 */
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ Tracks: this.songs, port: hosts.s3HOST });
+		this.parent.innerHTML = template({ Albums: this.albums, port: hosts.s3HOST });
 	}
 }

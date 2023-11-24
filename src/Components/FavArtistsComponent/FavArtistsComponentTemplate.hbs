@@ -1,0 +1,17 @@
+<div class="favArtists">
+    <div class="large-text artist__title">Альбомы</div>
+    <ul class="artistlist">
+        {{#each Artist}}
+            <li class="artistlist__item">
+                <div class="artistlist__image-container">
+                    <img class="artistlist__photo" data-section="link" data-url="/artist/{{this.Id}}" data-id="{{this.Id}}"
+                        src="{{../host}}{{this.Avatar}}" alt="">
+                </div>
+                <a href="/artist/{{this.Id}}" class="medium-text artistlist-item__name" data-section="link"
+                    data-id="{{this.Id}}" data-url="/artist/{{this.Id}}">
+                    {{this.Name}}
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+</div>

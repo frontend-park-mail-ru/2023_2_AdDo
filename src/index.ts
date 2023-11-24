@@ -96,9 +96,12 @@ class App {
 			{ path: paths.feedNew, handler: this.renderFeedNew },
 			{ path: paths.album, handler: this.renderAlbum },
 			{ path: paths.artist, handler: this.renderArtist },
-			{ path: paths.collection, handler: this.renderCollection },
 			{ path: paths.podcasts, handler: this.renderPodcasts },
 			{ path: paths.profile, handler: this.renderProfile },
+			{ path: paths.favAlbums, handler: this.renderfavAlbums },
+			{ path: paths.favArtists, handler: this.renderfavArtists },
+			{ path: paths.favPlaylists, handler: this.renderfavPlaylists },
+			{ path: paths.favTracks, handler: this.renderfavTracks },
 		];
 
 		routes.forEach(({ path, handler }) => {
@@ -215,9 +218,27 @@ class App {
 	 *
 	 * @return {void} 
 	 */
-	public renderCollection(): void {
+	public renderfavPlaylists(): void {
 		EventDispatcher.emit('unmount-all');
-		this.isOnline ? this.maincontroller.updateCollection() : this.maincontroller.updateOffline();
+		this.maincontroller.updatefavPlaylists();
+		this.maincontroller.mountComponent();
+	}
+
+	public renderfavTracks(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatefavTracks();
+		this.maincontroller.mountComponent();
+	}
+
+	public renderfavAlbums(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatefavAlbums();
+		this.maincontroller.mountComponent();
+	}
+
+	public renderfavArtists(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatefavArtists();
 		this.maincontroller.mountComponent();
 	}
 
@@ -231,11 +252,7 @@ class App {
 	}
 
 	public cacheCollection(): void {
-		if(this.usermodel.getCurrentUser() !== null) {
-			this.contentmodel.requestCollection((album: Album) => {
-				localStorage.setItem('collection', JSON.stringify(album));
-			});
-		}
+		
 	}
 }
 

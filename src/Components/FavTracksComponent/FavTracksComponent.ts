@@ -1,11 +1,11 @@
 import { Album, Song, User } from '../../types';
-import template from './CollectionComponentTemplate.hbs';
+import template from './favTracksComponentTemplate.hbs';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a CollectionComponent. */
-export class CollectionComponent extends IComponent {
+export class favTracksComponent extends IComponent {
 	private songs: Array<Song> = [];
 	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
 	/**

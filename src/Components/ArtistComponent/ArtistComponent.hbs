@@ -6,6 +6,12 @@
         <div style="display: inline-block;">
             <div class="medium-text info__name">Исполнитель</div>
             <div class="large-text">{{Artist.Name}}</div>
+            {{#if user}}
+            <div class="big-like-btn">
+                <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/Like.svg"></div>
+                <div class="medium-text">Нравится</div>
+            </div>
+            {{/if}}
         </div>
     </div>
     <h1 class="artist__title">Песни</h1>

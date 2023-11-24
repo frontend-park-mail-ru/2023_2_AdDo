@@ -7,6 +7,7 @@ import { Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
 import paths from "../../Modules/Router/RouterPaths";
 
+
 /** Class representing an MainController. */
 class MainController extends IController<MainView, {ContentModel: ContentModel, UserModel: UserModel}> {
     private albumId: number = 0;
@@ -95,21 +96,25 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      *
      * @return {void} 
      */
-    public updateCollection(): void {
-        this.view.renderCollection();
-        this.model.ContentModel.requestCollection(this.view.fillCollection.bind(this.view));
-    }
-    /**
-     * Updates the offline content.
-     *
-     * @return {void} No return value.
-     */
-    public updateOffline(): void {
-        this.view.renderCollection();
-        this.model.ContentModel.requestOffline(this.view.fillCollection.bind(this.view));
+    public updatefavArtists(): void {
+        this.view.renderFavArtists();
+        this.model.ContentModel.requestfavArtists(this.view.fillFavArtists.bind(this.view));
     }
 
+    public updatefavTracks(): void {
+        this.view.renderFavTracks();
+        this.model.ContentModel.requestfavTracks(this.view.fillFavTracks.bind(this.view));
+    }
 
+    public updatefavAlbums(): void {
+        this.view.renderFavAlbums();
+        this.model.ContentModel.requestfavAlbums(this.view.fillFavAlbums.bind(this.view));
+    }
+
+    public updatefavPlaylists(): void {
+        this.view.renderFavPlaylists();
+        this.model.ContentModel.requestfavPlaylists(this.view.fillFavPlaylists.bind(this.view));
+    }
 
     /**
      * Handles the click event and performs different actions based on the target element.

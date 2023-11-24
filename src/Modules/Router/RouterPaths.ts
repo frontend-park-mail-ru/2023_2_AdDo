@@ -5,7 +5,10 @@
  */
 const paths = {
     root: '/',
-    collection: '/collection',
+    favTracks: '/collection/tracks',
+    favAlbums: '/collection/albums',
+    favArtists: '/collection/artists',
+    favPlaylists: '/collection/playlists',
     podcasts: '/podcasts',
     feedAll: '/feed/all',
     feedChart: '/feed/chart',

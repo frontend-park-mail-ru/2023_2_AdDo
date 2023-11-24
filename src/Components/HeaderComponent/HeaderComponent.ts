@@ -81,5 +81,7 @@ export class HeaderComponent extends IComponent {
 				break;
 		}
 		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
+		this.bindClickEvent(this.handleClick.bind(this));
+		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
 	}
 }

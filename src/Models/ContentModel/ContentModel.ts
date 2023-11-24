@@ -8,6 +8,7 @@ import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 /** Class representing an ContentModel. */
 export default class ContentModel extends IModel {
     private albums: Array<Album> = [];
+    private artists: Array<Artist> = [];
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
     private collectionSongs: Array<Song> = [];
@@ -299,7 +300,20 @@ export default class ContentModel extends IModel {
      * @param {Callback} callback - The callback function to be executed after the request is completed.
      * @return {void}
      */
-    public requestCollection(callback: Callback): void {
+    public requestfavAlbums(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/albums', {})
+        .then(({ status, responseBody }) => {
+            if (status === 200) {
+                this.albums = responseBody.slice(0);
+                callback(this.albums); 
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+    public requestfavTracks(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/tracks', {})
         .then(({ status, responseBody }) => {
             if (status === 200) {
@@ -308,6 +322,32 @@ export default class ContentModel extends IModel {
                     song.isLiked = true;
                 });
                 callback(this.songs); 
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+    public requestfavPlaylists(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/playlists', {})
+        .then(({ status, responseBody }) => {
+            if (status === 200) {
+                this.albums = responseBody.slice(0);
+                callback(this.albums); 
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+    public requestfavArtists(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/artists', {})
+        .then(({ status, responseBody }) => {
+            if (status === 200) {
+                this.artists = responseBody.slice(0);
+                callback(this.artists); 
                 return;
             }
         })

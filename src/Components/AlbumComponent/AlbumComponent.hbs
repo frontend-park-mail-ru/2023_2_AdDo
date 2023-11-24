@@ -6,8 +6,14 @@
         <div style="display: inline-block;">
             <div class="large-text">{{album.Name}}</div>
             <a class="big-text albumlist-item__name" href="/artist/{{album.ArtistId}}" data-section="link"
-                data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}</a>
-            <h2>{{album.ReleaseDate}}</h2>
+                data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}
+            </a>
+            {{#if user}}
+            <div class="big-like-btn">
+                <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/Like.svg"></div>
+                <div class="medium-text">Нравится</div>
+            </div>
+            {{/if}}
         </div>
     </div>
     <ul class="playlist album__list">

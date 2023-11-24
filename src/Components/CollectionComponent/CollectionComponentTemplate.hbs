@@ -1,25 +1,29 @@
 <div class="collection">
-    <div class="large-text artist__title">Коллекция</div>
-    <ul class="playlist album__list">
-        {{#each Tracks}}
-            <li class="playlist__item" data-section="miniCollectionPlayButton" data-url="{{@index}}">
-                <div class="playlist__image-container" style="display: inline-block;">
-                    <div class="medium-text playlist__index playlist__index__position"></div>
-                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniCollectionPlayButton"
-                        data-url="{{@index}}"></div>
-                </div>
-                <div style="display:inline-block">
-                    <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
-                </div>
-                <div class="medium-text playlist-item__name" data-section="miniCollectionPlayButton" data-url="{{@index}}"
-                    style="display: inline-block;">
-                    {{this.Name}}
-                </div>
-                <div class="medium-text playlist-item__duration" style="display: inline-block;">
-                    {{this.Duration}}
-                </div>
-            </li>
-        {{/each}}
+    {{#if user}}
+    <div class="big-text collection__title">Главное</div>
+    <ul class="collection__list">
+        <li class="collection-list__item">
+            <a class="collection-list__item__name">
+                Треки
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name">
+                Альбомы
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name">
+                Плейлисты
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name">
+                Артисты
+            </a>
+        </li>
     </ul>
-
+    {{else}}
+    <div class="big-text artist__title">Авторизуйтесь чтобы добавлять песни и альбомы в коллекцию</div>
+    {{/if}}
 </div>
