@@ -55,10 +55,10 @@ export class HeaderComponent extends IComponent {
 	}
 
 	private bindSearchClickEvent(listener: Callback): void {
-		document.querySelector('[data-section="search"]')!.addEventListener('click', listener);
+		this.element.querySelector('[data-section="search"]')!.addEventListener('click', listener);
 	}
 	private bindClickEvent(listener: Callback): void {
-		document.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
+		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
 	}
 
 	public bindEvents(): void {
@@ -85,8 +85,8 @@ export class HeaderComponent extends IComponent {
 				randomlogo = '/static/img/Logo3.svg';
 				break;
 		}
-		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
 		this.bindClickEvent(this.handleClick.bind(this));
 		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
+		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
 	}
 }

@@ -119,7 +119,7 @@ class MainView extends IView {
             component.hide();
         });
         this.components.get('collection')!.append();
-        this.components.get('favtracks')!.append();
+        this.components.get('favTracks')!.append();
     }
     public renderFavAlbums(): void {
         this.element.querySelector('main')!.innerHTML = '';
@@ -127,7 +127,7 @@ class MainView extends IView {
             component.hide();
         });
         this.components.get('collection')!.append();
-        this.components.get('favalbums')!.append();
+        this.components.get('favAlbums')!.append();
     }
     public renderFavArtists(): void {
         this.element.querySelector('main')!.innerHTML = '';
@@ -135,7 +135,7 @@ class MainView extends IView {
             component.hide();
         });
         this.components.get('collection')!.append();
-        this.components.get('favartists')!.append();
+        this.components.get('favArtists')!.append();
     }
     public renderFavPlaylists(): void {
         this.element.querySelector('main')!.innerHTML = '';
@@ -143,7 +143,7 @@ class MainView extends IView {
             component.hide();
         });
         this.components.get('collection')!.append();
-        this.components.get('favplaylists')!.append();
+        this.components.get('favPlaylists')!.append();
     }
     /**
      * Sets the user object in the header.
