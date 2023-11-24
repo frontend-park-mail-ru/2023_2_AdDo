@@ -19,6 +19,8 @@ export class HeaderComponent extends IComponent {
 		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
+			this.bindClickEvent(this.handleClick.bind(this));
+			this.bindSearchClickEvent(this.handleSearchClick.bind(this));
 		})
 	}
 
@@ -61,6 +63,10 @@ export class HeaderComponent extends IComponent {
 		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
 	}
 
+	public bindEvents(): void {
+		this.bindClickEvent(this.handleClick.bind(this));
+		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
+	}
 	/**
 	 * Renders the header of the page.
 	 *
@@ -82,7 +88,5 @@ export class HeaderComponent extends IComponent {
 				break;
 		}
 		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
-		this.bindClickEvent(this.handleClick.bind(this));
-		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
 	}
 }
