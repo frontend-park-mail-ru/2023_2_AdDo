@@ -52,10 +52,11 @@ class MainView extends IView {
         this.initComponents();
         this.components.get('header')!.append();
         this.components.get('footer')!.append();
-        this.header.append();
-        this.footer.append();
+        // this.header.append();
+        // this.footer.append();
 
         EventDispatcher.subscribe('user-changed', (user: User | null = null) => {
+            this.components.get('header')
             this.header.User = user;
         });
     }

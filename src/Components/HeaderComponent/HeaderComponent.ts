@@ -41,6 +41,7 @@ export class HeaderComponent extends IComponent {
 		this.user = user;
 		this.renderHeader();
 	}
+	
 	private handleClick(e: Event): void {
 		let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
 		let menuIcon: HTMLElement = this.element.querySelector('[data-section="menu-icon"]')!;

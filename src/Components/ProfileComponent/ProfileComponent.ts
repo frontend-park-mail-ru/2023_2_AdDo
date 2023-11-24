@@ -47,8 +47,11 @@ export class ProfileComponent extends IComponent {
 	 * @return {void} 
 	 */
 	public renderProfile(): void {
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST, Date: formatDate(new Date()) });
+		if (this.isMounted) {
+			this.parent.innerHTML = '';
+			this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST, Date: formatDate(new Date()) });
+		}
+		
 	}
 
 }
