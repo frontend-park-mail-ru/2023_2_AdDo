@@ -1,5 +1,5 @@
 import { Album, Artist, Song, User } from '../../types';
-import template from './favArtistsComponentTemplate.hbs';
+import template from './FavArtistsComponentTemplate.hbs';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
