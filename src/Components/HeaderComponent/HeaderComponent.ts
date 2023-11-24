@@ -55,10 +55,10 @@ export class HeaderComponent extends IComponent {
 	}
 
 	private bindSearchClickEvent(listener: Callback): void {
-		this.element.querySelector('[data-section="search"]')!.addEventListener('click', listener);
+		document.querySelector('[data-section="search"]')!.addEventListener('click', listener);
 	}
 	private bindClickEvent(listener: Callback): void {
-		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
+		document.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
 	}
 
 	public bindEvents(): void {

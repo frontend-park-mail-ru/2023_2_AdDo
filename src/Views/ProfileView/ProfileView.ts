@@ -73,9 +73,6 @@ class ProfileView extends IView {
         this.profile.querySelector('[data-section="fileInput"]')?.addEventListener('change', listener);
     }
 
-    public bindEvents(): void {
-        this.header.bindEvents();
-    }
     /**
      * Retrieves data from a form.
      *

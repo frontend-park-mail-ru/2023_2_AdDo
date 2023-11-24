@@ -97,7 +97,6 @@ class ProfileController extends IController<ProfileView, UserModel> {
         this.view.bindClickEvent(this.handleClick.bind(this));
         this.view.bindSubmitEvent(this.handleSubmit.bind(this));
         this.view.bindUploadEvent(this.handleUpload.bind(this));
-        this.view.bindEvents();
     }
 
 }
