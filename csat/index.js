@@ -7,7 +7,7 @@ const poll = {
     id: null
 }
 
-const HOST = 'https://musicon.space';
+const HOST = 'https://musicon.space/';
 const PORT = '';
 
 const urlString = window.location.href;
