@@ -21,10 +21,11 @@ export class FeedComponent extends IComponent {
 		EventDispatcher.subscribe('show-poll', () => {
 			const iframe = document.querySelector("iframe")!;
     		iframe.contentWindow!.postMessage('reload', '*');
-			this.parent.querySelector('iframe')!.style.display = 'block';
+			iframe.style.display = 'block';
 		});
 		EventDispatcher.subscribe('hide-poll', () => {
-			this.parent.querySelector('iframe')!.style.display = 'none';
+			const iframe = document.querySelector("iframe")!;
+			iframe.style.display = 'none';
 		})
 	}
 
