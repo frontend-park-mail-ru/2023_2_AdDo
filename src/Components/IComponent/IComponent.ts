@@ -53,9 +53,7 @@ class IComponent {
      * @return {void} 
      */
     public hide(): void {
-        if(this.isMounted) {
-            this.parent.removeChild?.(this.element);
-        }
+        this.isMounted = false;
     }
 }
 

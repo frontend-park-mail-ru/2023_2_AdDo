@@ -12,23 +12,24 @@ import { favArtistsComponent } from '../../Components/FavArtistsComponent/FavArt
 import { favTracksComponent } from '../../Components/FavTracksComponent/FavTracksComponent';
 import { favAlbumsComponent } from '../../Components/FavAlbumsComponent/FavAlbumsComponent';
 import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/FavPlaylistsComponent';
+import IComponent from '../../Components/IComponent/IComponent';
 import { StatisticsComponent } from '../../Components/StatisticsComponent/StatisticsComponent';
 
 
 /** Class representing a MainView. */
 class MainView extends IView {
 
-    private header: HeaderComponent; 
-    private feed: FeedComponent;
-    private album: AlbumComponent;
-    private artist: ArtistComponent;
-    private collection: CollectionComponent;
-    private footer: PlayerComponent;
-    private favArtists: favArtistsComponent;
-    private favTracks: favTracksComponent;
-    private favAlbums: favAlbumsComponent;
-    private favPlaylists: favPlaylistsComponent;
-    private statistics: StatisticsComponent;
+    // private header: HeaderComponent; 
+    // private feed: FeedComponent;
+    // private album: AlbumComponent;
+    // private artist: ArtistComponent;
+    // private collection: CollectionComponent;
+    // private footer: PlayerComponent;
+    // private favArtists: favArtistsComponent;
+    // private favTracks: favTracksComponent;
+    // private favAlbums: favAlbumsComponent;
+    // private favPlaylists: favPlaylistsComponent;
+    private components: Map<string, IComponent> = new Map();
 
 
     /**
@@ -39,23 +40,38 @@ class MainView extends IView {
     public constructor(parent: HTMLElement) {
         super(parent, template({}));
 
-        this.header = new HeaderComponent(this.element.querySelector('header')!);
-        this.feed = new FeedComponent(this.element.querySelector('main')!);
-        this.album = new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
-        this.artist = new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
-        this.collection = new CollectionComponent(this.element.querySelector('main')!, []);
-        this.favArtists = new favArtistsComponent(this.element.querySelector('main')!, []);
-        this.favTracks = new favTracksComponent(this.element.querySelector('main')!, []);
-        this.favAlbums = new favAlbumsComponent(this.element.querySelector('main')!, []);
-        this.favPlaylists = new favPlaylistsComponent(this.element.querySelector('main')!, []);
-        this.statistics = new StatisticsComponent(this.element.querySelector('main')!, []);
-        this.footer = new PlayerComponent(this.element.querySelector('footer')!);
-        this.header.append();
-        this.footer.append();
-
+        // this.header = new HeaderComponent(this.element.querySelector('header')!);
+        // this.feed = new FeedComponent(this.element.querySelector('main')!);
+        // this.album = new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
+        // this.artist = new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
+        // this.collection = new CollectionComponent(this.element.querySelector('main')!, []);
+        // this.favArtists = new favArtistsComponent(this.element.querySelector('main')!, []);
+        // this.favTracks = new favTracksComponent(this.element.querySelector('main')!, []);
+        // this.favAlbums = new favAlbumsComponent(this.element.querySelector('main')!, []);
+        // this.favPlaylists = new favPlaylistsComponent(this.element.querySelector('main')!, []);
+        // this.footer = new PlayerComponent(this.element.querySelector('footer')!);
+        this.initComponents();
+        this.components.get('header')!.append();
+        this.components.get('footer')!.append();
+        
         EventDispatcher.subscribe('user-changed', (user: User | null = null) => {
-            this.header.User = user;
+            const header = this.components.get('header') as HeaderComponent;
+            header.User = user;
         });
+    }
+
+    private initComponents(): void {
+        this.components.set('header', new HeaderComponent(this.element.querySelector('header')!));
+        this.components.set('feed', new FeedComponent(this.element.querySelector('main')!));
+        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []}));
+        this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []}));
+        this.components.set('collection', new CollectionComponent(this.element.querySelector('main')!, []));
+        this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!));
+        this.components.set('favArtists', new favArtistsComponent(this.element.querySelector('main')!, []));
+        this.components.set('favTracks', new favTracksComponent(this.element.querySelector('main')!, []));
+        this.components.set('favAlbums', new favAlbumsComponent(this.element.querySelector('main')!, []));
+        this.components.set('favPlaylists', new favPlaylistsComponent(this.element.querySelector('main')!, []));
+        this.components.set('statistics', new StatisticsComponent(this.element.querySelector('main')!, []));
     }
 
     /**
@@ -66,7 +82,10 @@ class MainView extends IView {
      */
     public renderFeed(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.feed.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('feed')!.append();
     }
 
     /**
@@ -77,7 +96,10 @@ class MainView extends IView {
      */
     public renderAlbum(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.album.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('album')!.append();
     }
 
     /**
@@ -87,37 +109,50 @@ class MainView extends IView {
      */
     public renderArtist(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.artist.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('artist')!.append();
+    }
+    public renderStatistics(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('statistics')!.append();
     }
 
     public renderFavTracks(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.collection.append();
-        this.favTracks.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('collection')!.append();
+        this.components.get('favTracks')!.append();
     }
     public renderFavAlbums(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.collection.append();
-        this.favAlbums.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('collection')!.append();
+        this.components.get('favAlbums')!.append();
     }
     public renderFavArtists(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.collection.append();
-        this.favArtists.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('collection')!.append();
+        this.components.get('favArtists')!.append();
     }
     public renderFavPlaylists(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.collection.append();
-        this.favPlaylists.append();
-    }
-
-    public renderStatistics():void {
-        this.element.querySelector('main')!.innerHTML = '';
-        this.statistics.append();
-    }
-
-    public fillStatistics(statistics: Array<{question: string, avg: number}>): void {
-        this.statistics.Statistics = statistics;
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('collection')!.append();
+        this.components.get('favPlaylists')!.append();
     }
     /**
      * Sets the user object in the header.
@@ -125,9 +160,9 @@ class MainView extends IView {
      * @param {User} user - The user to be set in the header.
      * @return {void} 
      */
-    public fillHeader(user: User): void {
-        this.header.User = user;
-    }
+    // public fillHeader(user: User): void {
+    //     this.header.User = user;
+    // }
 
     /**
      * Sets the content of the feed with the given array of albums.
@@ -136,7 +171,13 @@ class MainView extends IView {
      * @return {void} 
      */    
     public fillContent(content: Array<Album>): void {
-        this.feed.Content = content;
+        const feed = this.components.get('feed') as FeedComponent;
+        feed.Content = content;
+    }
+
+    public fillStatistics(statistics: Array<{question: string, avg: number}>): void {
+        const feed = this.components.get('statistics') as StatisticsComponent;
+        feed.Statistics = statistics;
     }
 
     /**
@@ -146,7 +187,8 @@ class MainView extends IView {
      * @return {void}
      */
     public fillAlbum(album: Album): void {
-        this.album.Album = album;
+        const albumComponent = this.components.get('album') as AlbumComponent;
+        albumComponent.Album = album;
     }
 
     /**
@@ -156,7 +198,8 @@ class MainView extends IView {
      * @return {void} 
      */
     public fillArtist(artist: Artist): void {
-        this.artist.Artist = artist;
+        const artistComponent = this.components.get('album') as ArtistComponent;
+        artistComponent.Artist = artist;
     }
 
     /**
@@ -166,23 +209,28 @@ class MainView extends IView {
      * @return {void} 
      */
     public fillCollection(songs: Array<Song>): void {
-        this.collection.Songs = songs;
+        const collection = this.components.get('collection') as CollectionComponent;
+        collection.Songs = songs;
     }
 
     public fillFavArtists(artists: Array<Artist>): void {
-        this.favArtists.Artists = artists;
+        const favArtists = this.components.get('favArtists') as favArtistsComponent;
+        favArtists.Artists = artists;
     }
 
     public fillFavTracks(songs: Array<Song>): void {
-        this.favTracks.Songs = songs;
+        const favTracks = this.components.get('favTracks') as favTracksComponent;
+        favTracks.Songs = songs;
     }
 
     public fillFavAlbums(albums: Array<Album>): void {
-        this.favAlbums.Albums = albums;
+        const favAlbums = this.components.get('favAlbums') as favAlbumsComponent;
+        favAlbums.Albums = albums;
     }
 
     public fillFavPlaylists(playlists: Array<Album>): void {
-        this.favPlaylists.Playlists = playlists;
+        const favPlaylists = this.components.get('favPlaylists') as favPlaylistsComponent;
+        favPlaylists.Playlists = playlists;
     }
 
     /**
@@ -192,9 +240,10 @@ class MainView extends IView {
      * @return {void}
      */
     public play(song: Song, isLiked: boolean): void {
-        let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
-        this.footer.playSong(song, isLiked);
+        footer.playSong(song, isLiked);
     }
 
     /**
@@ -203,9 +252,10 @@ class MainView extends IView {
      * @return {void}
      */
     public resume(): void {
-        let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
-        this.footer.resumeSong();
+        footer.resumeSong();
     }
     /**
      * Pauses the audio player and updates the play button image.
@@ -213,9 +263,10 @@ class MainView extends IView {
      * @return {void}
      */
     public pause(): void {
-        let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Play.svg';
-        this.footer.pauseSong();
+        footer.pauseSong();
     }
 
     /**
@@ -247,7 +298,8 @@ class MainView extends IView {
      * @return {void}
      */
     public bindEndedEvent(listener: Callback): void {
-        this.footer.querySelector('audio')!.addEventListener('ended', listener);
+        const footer = this.components.get('footer') as PlayerComponent;
+        footer.querySelector('audio')!.addEventListener('ended', listener);
     }
 
     /**
@@ -257,7 +309,8 @@ class MainView extends IView {
      * @return {void}
      */
     public removeEndedEvent(listener: Callback): void {
-        this.footer.querySelector('audio')!.removeEventListener('ended', listener)
+        const footer = this.components.get('footer') as PlayerComponent;
+        footer.querySelector('audio')!.removeEventListener('ended', listener)
     }
 
     /**
@@ -281,7 +334,8 @@ class MainView extends IView {
      * @return {void}
      */
     public like(): void {
-        let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        let img = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
         img.src = '/static/img/LikePressed.svg';
     }
 
@@ -291,7 +345,8 @@ class MainView extends IView {
      * @return {void}
      */
     public dislike(): void {
-        let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        let img = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
         img.src = '/static/img/Like.svg';
     }
 
@@ -301,7 +356,8 @@ class MainView extends IView {
      * @return {void} 
      */    
     public bindEvents(): void {
-        this.footer.bindEvents();
+        const footer = this.components.get('footer') as PlayerComponent;
+        footer.bindEvents();
     }
 
     /**
@@ -310,7 +366,8 @@ class MainView extends IView {
      * @return {void}
      */
     public loop(): void {
-        const img = this.footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img = footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
         img.src = '/static/img/RepeatActive.svg';
     }
 
@@ -320,7 +377,8 @@ class MainView extends IView {
      * @return {void} 
      */
     public unloop(): void {
-        const img = this.footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img = footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
         img.src = '/static/img/Repeat.svg';
     }
 
@@ -330,7 +388,8 @@ class MainView extends IView {
      * @return {void}
      */
     public shuffle(): void {
-        const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img = footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
         img.src = '/static/img/RandomActive.svg';
     }
 
@@ -340,7 +399,8 @@ class MainView extends IView {
      * @return {void} 
      */
     public unshuffle(): void {
-        const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img = footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
         img.src = '/static/img/Random.svg';
     }
 
@@ -350,28 +410,21 @@ class MainView extends IView {
      * @return {void}
      */
     public volume(): void {
-        const audio = this.footer.querySelector('audio')! as HTMLAudioElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const audio = footer.querySelector('audio')! as HTMLAudioElement;
         if (audio.muted) {
-            const img =  this.footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
+            const img =  footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
             img.src = '/static/img/SoundOn.svg';
-            const volume = this.footer.querySelector('.volume-bar') as HTMLInputElement;
+            const volume = footer.querySelector('.volume-bar') as HTMLInputElement;
             volume.value = (audio.volume * 100).toString();
             audio.muted = false;
         } else {
-            const img =  this.footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
+            const img = footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
             img.src = '/static/img/SoundOff.svg';
-            const volume = this.footer.querySelector('.volume-bar') as HTMLInputElement;
+            const volume = footer.querySelector('.volume-bar') as HTMLInputElement;
             volume.value = '0';
             audio.muted = true;
         }
-    }
-
-    public showPoll(): void {
-        this.parent.querySelector('iframe')!.style.display = 'block';
-    }
-
-    public hidePoll(): void {
-        this.parent.querySelector('iframe')!.style.display = 'none';
     }
 }
 
