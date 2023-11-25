@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
+
+body {
+    background-color: #0D0B18;
+    margin: 0;
+}
+
+.surveyList {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    gap: 0px;
+    margin-bottom: 10vh;
+    width: fit-content;
+}               
+
+.defaultButton {
+    border: none; 
+    outline: none;
+    display: flex;
+    width: fit-content;
+    height: 37px;
+    padding: 6px 24px;
+    gap: 10px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #5C4F9E 0%, #2B76DA 100%);
+    color: #EAF1FB;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.defaultButton:hover {
+    background: linear-gradient(90deg, #372F5F 0%, #276AC4 100%);
+}
+
+.defaultButton:active {
+    background: linear-gradient(90deg, #292447 0%, #225EAE 100%);
+    box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #225EAE 100%);
+    transform: translateY(2px);
+}
+
+.ratingNumber {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+}
+
+.ratingNumber:hover {
+    cursor: pointer;
+}
+
+.ratingNumber:active {
+    border: solid 2px #0D8BFF;
+}
+
+.active {
+    border: solid 2px #0D8BFF;
+}
+
+.yellow {
+    background-color: #FFD80A;
+}
+.green {
+    background-color: #23FF2C;  
+}
+.red {
+    background-color: #FF2929;
+}
+
+.ratingBar {
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.btnBar {
+    display: flex;
+    gap: 10px;
+    justify-content: right;
+    position: relative;
+}
+
+.left {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+}
+
+.right {
+    cursor: pointer;
+}
+
+.question {
+    display: grid;
+    gap: 25px;
+}
+
+.small-text {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: left;
+}
+
+.medium-text {
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.big-text {
+    color: #FFF;
+    font-size: 26px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    text-align: center;
+}
+
+.large-text {
+    color: #FFF;
+    font-size: 52px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.thanks {
+    display: none;
+}
+
+.question {
+    display: none;
+}
+
+.noAnswer {
+    display: none;
+    color: red;
+    margin-left: 150px;
+}
