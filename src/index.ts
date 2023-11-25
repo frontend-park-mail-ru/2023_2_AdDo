@@ -140,6 +140,15 @@ class App {
 		this.maincontroller.updateFeed();
 		this.maincontroller.mountComponent();
 		this.maincontroller.bindEvents();
+		EventDispatcher.subscribe('show-poll', () => {
+			const iframe = document.querySelector("iframe")!;
+    		iframe.contentWindow!.postMessage('reload', '*');
+			iframe.style.display = 'block';
+		});
+		EventDispatcher.subscribe('hide-poll', () => {
+			const iframe = document.querySelector("iframe")!;
+			iframe.style.display = 'none';
+		})
 	}
 
 	/**

@@ -18,15 +18,7 @@ export class FeedComponent extends IComponent {
 	constructor(parent: HTMLElement, content: Array<Album> = []) {
 		super(parent, template({ FeedComponentConfig, content }));
 		this.content = content;
-		EventDispatcher.subscribe('show-poll', () => {
-			const iframe = document.querySelector("iframe")!;
-    		iframe.contentWindow!.postMessage('reload', '*');
-			iframe.style.display = 'block';
-		});
-		EventDispatcher.subscribe('hide-poll', () => {
-			const iframe = document.querySelector("iframe")!;
-			iframe.style.display = 'none';
-		})
+	
 	}
 
 	/**
