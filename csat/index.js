@@ -196,7 +196,7 @@ getPoll(id)
     .then(({ ok, status, responseBody }) => {
         if (status === 200) {
             poll.id = responseBody.Id
-            responseBody.forEach(key, value => {
+            responseBody.Question.forEach(key, value => {
                 poll.map.set(key, value);
             });
             renderPoll();
