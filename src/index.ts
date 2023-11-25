@@ -77,6 +77,9 @@ class App {
 			url = paths.feedAll;
 		}
 		router.start(url);
+		window.addEventListener('message', function() {
+			EventDispatcher.emit('hide-poll');
+		  });
 	}
 
 	/**
@@ -102,6 +105,7 @@ class App {
 			{ path: paths.favArtists, handler: this.renderfavArtists },
 			{ path: paths.favPlaylists, handler: this.renderfavPlaylists },
 			{ path: paths.favTracks, handler: this.renderfavTracks },
+			{ path: paths.statistics, handler: this.renderStatistics },
 		];
 
 		routes.forEach(({ path, handler }) => {
@@ -199,6 +203,12 @@ class App {
 		this.maincontroller.bindEvents();
 	}
 
+	public renderStatistics(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateStatistics();
+		this.maincontroller.mountComponent();
+		this.maincontroller.bindEvents();
+	}
 	/**
 	 * Renders the artist by emitting an 'unmount-all' event,
 	 * updating the artist in the main controller, and mounting

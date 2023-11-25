@@ -90,6 +90,7 @@ class UserModel extends IModel {
                     this.getUser();
                     routerCallback(paths.feedAll);
                     errorCallback('ok');
+                    EventDispatcher.emit('show-poll');
                     return;
                 } else if (status === 400) {
                     errorCallback('password too short');

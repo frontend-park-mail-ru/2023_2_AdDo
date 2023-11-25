@@ -12,6 +12,7 @@ import { favArtistsComponent } from '../../Components/FavArtistsComponent/FavArt
 import { favTracksComponent } from '../../Components/FavTracksComponent/FavTracksComponent';
 import { favAlbumsComponent } from '../../Components/FavAlbumsComponent/FavAlbumsComponent';
 import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/FavPlaylistsComponent';
+import { StatisticsComponent } from '../../Components/StatisticsComponent/StatisticsComponent';
 
 
 /** Class representing a MainView. */
@@ -27,6 +28,7 @@ class MainView extends IView {
     private favTracks: favTracksComponent;
     private favAlbums: favAlbumsComponent;
     private favPlaylists: favPlaylistsComponent;
+    private statistics: StatisticsComponent;
 
 
     /**
@@ -46,6 +48,7 @@ class MainView extends IView {
         this.favTracks = new favTracksComponent(this.element.querySelector('main')!, []);
         this.favAlbums = new favAlbumsComponent(this.element.querySelector('main')!, []);
         this.favPlaylists = new favPlaylistsComponent(this.element.querySelector('main')!, []);
+        this.statistics = new StatisticsComponent(this.element.querySelector('main')!, []);
         this.footer = new PlayerComponent(this.element.querySelector('footer')!);
         this.header.append();
         this.footer.append();
@@ -106,6 +109,15 @@ class MainView extends IView {
         this.element.querySelector('main')!.innerHTML = '';
         this.collection.append();
         this.favPlaylists.append();
+    }
+
+    public renderStatistics():void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.statistics.append();
+    }
+
+    public fillStatistics(statistics: Array<{question: string, avg: number}>): void {
+        this.statistics.Statistics = statistics;
     }
     /**
      * Sets the user object in the header.
@@ -352,6 +364,14 @@ class MainView extends IView {
             volume.value = '0';
             audio.muted = true;
         }
+    }
+
+    public showPoll(): void {
+        this.parent.querySelector('iframe')!.style.display = 'block';
+    }
+
+    public hidePoll(): void {
+        this.parent.querySelector('iframe')!.style.display = 'none';
     }
 }
 

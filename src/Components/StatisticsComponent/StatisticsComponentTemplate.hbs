@@ -1,0 +1,13 @@
+<div class="statistics">
+    <h1>Средняя оценка по вопросу</h1>
+    <ul class="statistics__list">
+        <li class="statistics__list__item">
+            {{#each question}}
+            <div class="question">
+                <div class="medium-text">{{this.question}}</div>
+                <div class="medium-text">{{this.avg}}</div>
+            </div>
+            {{/each}}
+        </li>
+    </ul>
+</div>

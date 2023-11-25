@@ -10,6 +10,7 @@ export default class ContentModel extends IModel {
     private albums: Array<Album> = [];
     private artists: Array<Artist> = [];
     private songs: Array<Song> = [];
+    private statistics: Array<{question: string, avg: number}> = [];
     private currentsongs: Array<Song> = [];
     private collectionSongs: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
@@ -60,6 +61,21 @@ export default class ContentModel extends IModel {
 			throw error;
 		});
     }
+
+    public requestStatistics(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/survey/1/get_stat', {})
+		.then(({ ok, status, responseBody }) => {
+			if (status === 200) {
+                this.statistics = responseBody.QuestionToAverage;
+                callback(this.statistics);
+                return;
+			}
+		})
+		.catch((error) => {
+			throw error;
+		});
+    }
+ 
 
     /**
      * Requests an artist from the API.

@@ -116,6 +116,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.model.ContentModel.requestfavPlaylists(this.view.fillFavPlaylists.bind(this.view));
     }
 
+    public updateStatistics(): void {
+        this.view.renderStatistics();
+        this.model.ContentModel.requestStatistics(this.view.fillStatistics.bind(this.view));
+    }
+
     /**
      * Handles the click event and performs different actions based on the target element.
      *
@@ -321,6 +326,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     public repeatSong(): void {
         this.view.play(this.model.ContentModel.getSongById(this.songId), this.model.ContentModel.getSongById(this.songId).isLiked);
     }
+
 }
 
 export default MainController;

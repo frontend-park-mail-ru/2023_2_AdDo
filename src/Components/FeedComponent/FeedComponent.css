@@ -36,3 +36,13 @@
 .defaultpage {
     background-image: url("../../static/img/background.png");
 }
+
+.iframe__position {
+    position: absolute;
+    height: 250px;
+    width: 450px;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}

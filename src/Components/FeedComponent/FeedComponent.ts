@@ -3,6 +3,7 @@ import template from './FeedComponentTemplate.hbs';
 import { FeedComponentConfig } from './FeedComponentConst';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
+import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a FeedComponent. */
 export class FeedComponent extends IComponent {
@@ -17,6 +18,14 @@ export class FeedComponent extends IComponent {
 	constructor(parent: HTMLElement, content: Array<Album> = []) {
 		super(parent, template({ FeedComponentConfig, content }));
 		this.content = content;
+		EventDispatcher.subscribe('show-poll', () => {
+			const iframe = document.querySelector("iframe")!;
+    		iframe.contentWindow!.postMessage('reload', '*');
+			this.parent.querySelector('iframe')!.style.display = 'block';
+		});
+		EventDispatcher.subscribe('hide-poll', () => {
+			this.parent.querySelector('iframe')!.style.display = 'none';
+		})
 	}
 
 	/**

@@ -19,6 +19,7 @@ const paths = {
     login: '/login',
     signup: '/signup',
     profile: '/profile',
+    statistics: '/statistics',
 };
 
 export default paths;

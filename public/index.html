@@ -9,6 +9,7 @@
     <meta property="locale" content="ru_RU" />
     <meta property="image" content="/static/img/metalogo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com data:; local-src;">
     <link rel="icon" href="/static/img/Logo.svg">
     <title>MusicOn</title>
 </head>
@@ -23,5 +24,6 @@
             navigator.serviceWorker.register('/sw.js');
         })
     }
+
 </script>
 </html>
