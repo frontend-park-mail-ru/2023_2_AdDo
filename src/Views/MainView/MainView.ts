@@ -7,7 +7,6 @@ import type { Album, Song, User, Artist, Callback } from '../../types';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { AlbumComponent } from '../../Components/AlbumComponent/AlbumComponent';
 import { ArtistComponent } from '../../Components/ArtistComponent/ArtistComponent';
-import { CollectionComponent } from '../../Components/CollectionComponent/CollectionComponent';
 import { favArtistsComponent } from '../../Components/FavArtistsComponent/FavArtistsComponent';
 import { favTracksComponent } from '../../Components/FavTracksComponent/FavTracksComponent';
 import { favAlbumsComponent } from '../../Components/FavAlbumsComponent/FavAlbumsComponent';
@@ -49,7 +48,6 @@ class MainView extends IView {
         this.components.set('feed', new FeedComponent(this.element.querySelector('main')!));
         this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []}));
         this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []}));
-        this.components.set('collection', new CollectionComponent(this.element.querySelector('main')!, []));
         this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!, this.isMobile));
         this.components.set('favArtists', new favArtistsComponent(this.element.querySelector('main')!, []));
         this.components.set('favTracks', new favTracksComponent(this.element.querySelector('main')!, []));
@@ -167,11 +165,6 @@ class MainView extends IView {
      * @param {Array<Song>} songs - The array of songs to fill the collection with.
      * @return {void} 
      */
-    public fillCollection(songs: Array<Song>): void {
-        const collection = this.components.get('collection') as CollectionComponent;
-        collection.Songs = songs;
-    }
-
     public fillFavArtists(artists: Array<Artist>): void {
         const favArtists = this.components.get('favArtists') as favArtistsComponent;
         favArtists.Artists = artists;
