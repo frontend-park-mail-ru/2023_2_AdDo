@@ -18,16 +18,6 @@ import IComponent from '../../Components/IComponent/IComponent';
 /** Class representing a MainView. */
 class MainView extends IView {
 
-    // private header: HeaderComponent; 
-    // private feed: FeedComponent;
-    // private album: AlbumComponent;
-    // private artist: ArtistComponent;
-    // private collection: CollectionComponent;
-    // private footer: PlayerComponent;
-    // private favArtists: favArtistsComponent;
-    // private favTracks: favTracksComponent;
-    // private favAlbums: favAlbumsComponent;
-    // private favPlaylists: favPlaylistsComponent;
     private components: Map<string, IComponent> = new Map();
     public isMobile: boolean = false;
 
@@ -38,17 +28,6 @@ class MainView extends IView {
      */
     public constructor(parent: HTMLElement) {
         super(parent, template({}));
-
-        // this.header = new HeaderComponent(this.element.querySelector('header')!);
-        // this.feed = new FeedComponent(this.element.querySelector('main')!);
-        // this.album = new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
-        // this.artist = new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
-        // this.collection = new CollectionComponent(this.element.querySelector('main')!, []);
-        // this.favArtists = new favArtistsComponent(this.element.querySelector('main')!, []);
-        // this.favTracks = new favTracksComponent(this.element.querySelector('main')!, []);
-        // this.favAlbums = new favAlbumsComponent(this.element.querySelector('main')!, []);
-        // this.favPlaylists = new favPlaylistsComponent(this.element.querySelector('main')!, []);
-        // this.footer = new PlayerComponent(this.element.querySelector('footer')!);
         this.initComponents();
         this.components.get('header')!.append();
         this.components.get('footer')!.append();
@@ -147,15 +126,7 @@ class MainView extends IView {
         });
         this.components.get('favPlaylists')!.append();
     }
-    /**
-     * Sets the user object in the header.
-     *
-     * @param {User} user - The user to be set in the header.
-     * @return {void} 
-     */
-    // public fillHeader(user: User): void {
-    //     this.header.User = user;
-    // }
+
 
     /**
      * Sets the content of the feed with the given array of albums.
@@ -316,6 +287,15 @@ class MainView extends IView {
         }
     }
 
+    public makeActiveInnerLink(element: HTMLElement): void {
+        if (!(element instanceof HTMLButtonElement || element.classList.contains('logo__text')) ) {
+            this.element.querySelectorAll('.activeinnerlink').forEach(el => {
+                el.classList.remove('activeinnerlink');
+            });
+            element.classList.add('activeinnerlink');
+        }
+    }
+    
     /**
      * A function that performs the action of liking.
      *

@@ -166,6 +166,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 localStorage.setItem('redirectId',  this.redirectId.toString());
                 router.goToPage(target.getAttribute('data-url')!);
                 return;
+            case 'innerlink':
+                e.preventDefault();
+                this.view.makeActiveInnerLink(e.target as HTMLElement);
+                router.goToPage(target.getAttribute('data-url')!);
+                return;
             case 'signout':
                 e.preventDefault();
                 EventDispatcher.emit('logout-confirmation');

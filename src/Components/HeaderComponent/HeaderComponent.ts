@@ -52,14 +52,14 @@ export class HeaderComponent extends IComponent {
 		switch (value) {
 			case 'menu-icon':
 				e.preventDefault();
-				let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
-				let menuIcon: HTMLElement = this.element.querySelector('[data-section="menu-icon"]')!;
+				let mobileMenu: HTMLElement = this.parent.querySelector('[data-section="mobile-menu"]')!;
+				let menuIcon: HTMLElement = this.parent.querySelector('[data-section="menu-icon"]')!;
 				mobileMenu.classList.toggle('menu-active');
 				menuIcon.classList.toggle('close-icon');
 				break;
 			case 'search':
 				e.preventDefault();
-				let searchInput: HTMLElement = this.element.querySelector('[data-section="inputSearch"]')!;
+				let searchInput: HTMLElement = this.parent.querySelector('[data-section="inputSearch"]')!;
 				searchInput.classList.toggle('search-active');
 				break;
 			case 'confirm':
