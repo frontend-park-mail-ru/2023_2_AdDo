@@ -15,10 +15,10 @@ export class PlayerComponent extends IComponent {
 	 * @param {Song} song - The song object with default values.
 	 * @param {boolean} Playing - The initial playing state.
 	 */
-	constructor(parent: HTMLElement,
+	constructor(parent: HTMLElement, isMobile: boolean = false,
 		song: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 },
 		Playing: boolean = false) {
-		super(parent, template({ PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, isMobile: navigator.userAgentData!.mobile }));
+		super(parent, template({ PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, isMobile}));
 		const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
 		like.classList.add('disabled');
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));

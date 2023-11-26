@@ -68,7 +68,7 @@ export class favPlaylistsComponent extends IComponent {
 	public renderContent(): void {
 		if (this.isMounted) {
 			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ Playlists: this.playlists, port: hosts.s3HOST });
+			this.parent.innerHTML = template({ Playlists: this.playlists, port: hosts.s3HOST, user: this.user });
 		}
 	}
 }

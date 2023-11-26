@@ -29,7 +29,7 @@ class MainView extends IView {
     // private favAlbums: favAlbumsComponent;
     // private favPlaylists: favPlaylistsComponent;
     private components: Map<string, IComponent> = new Map();
-
+    public isMobile: boolean = false;
 
     /**
      * Constructor for initializing the class.
@@ -57,6 +57,12 @@ class MainView extends IView {
             const header = this.components.get('header') as HeaderComponent;
             header.User = user;
         });
+
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            this.isMobile = true;
+        } else {
+            this.isMobile = false;
+        }
     }
 
     private initComponents(): void {
@@ -65,7 +71,7 @@ class MainView extends IView {
         this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []}));
         this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []}));
         this.components.set('collection', new CollectionComponent(this.element.querySelector('main')!, []));
-        this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!));
+        this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!, this.isMobile));
         this.components.set('favArtists', new favArtistsComponent(this.element.querySelector('main')!, []));
         this.components.set('favTracks', new favTracksComponent(this.element.querySelector('main')!, []));
         this.components.set('favAlbums', new favAlbumsComponent(this.element.querySelector('main')!, []));
@@ -118,7 +124,6 @@ class MainView extends IView {
         this.components.forEach((component: IComponent) => {
             component.hide();
         });
-        this.components.get('collection')!.append();
         this.components.get('favTracks')!.append();
     }
     public renderFavAlbums(): void {
@@ -126,7 +131,6 @@ class MainView extends IView {
         this.components.forEach((component: IComponent) => {
             component.hide();
         });
-        this.components.get('collection')!.append();
         this.components.get('favAlbums')!.append();
     }
     public renderFavArtists(): void {
@@ -134,7 +138,6 @@ class MainView extends IView {
         this.components.forEach((component: IComponent) => {
             component.hide();
         });
-        this.components.get('collection')!.append();
         this.components.get('favArtists')!.append();
     }
     public renderFavPlaylists(): void {
@@ -142,7 +145,6 @@ class MainView extends IView {
         this.components.forEach((component: IComponent) => {
             component.hide();
         });
-        this.components.get('collection')!.append();
         this.components.get('favPlaylists')!.append();
     }
     /**
@@ -184,7 +186,7 @@ class MainView extends IView {
      * @return {void} 
      */
     public fillArtist(artist: Artist): void {
-        const artistComponent = this.components.get('album') as ArtistComponent;
+        const artistComponent = this.components.get('artist') as ArtistComponent;
         artistComponent.Artist = artist;
     }
 

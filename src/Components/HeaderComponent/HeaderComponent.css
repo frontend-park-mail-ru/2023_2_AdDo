@@ -205,6 +205,8 @@
 
 .logout-confirmation__btn-bar {
   display: flex;
+  justify-content: right;
+  gap: 15px;
 }
 
 .logout-confirmation_active {

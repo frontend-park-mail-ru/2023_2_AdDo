@@ -1,4 +1,39 @@
+<div class="collection">
+    {{#if user}}
+    <div class="big-text collection__title">Главное</div>
+    <ul class="collection__list">
+        <li class="collection-list__item">
+            <a class="collection-list__item__name">
+                Треки
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name">
+                Альбомы
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name">
+                Плейлисты
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name">
+                Артисты
+            </a>
+        </li>
+    </ul>
+    {{else}}
+    <div class="big-text artist__title">Авторизуйтесь чтобы добавлять песни и альбомы в коллекцию</div>
+    {{/if}}
+</div>
 <div class="favPlaylists">
+
+    <div class="large-text artist__title">Плейлисты</div>
+    <div class="favPlaylists__create">
+        <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/Like.svg"></div>
+        <div class="medium-text">Создать</div>
+    </div>
     <ul class="albumlist">
         {{#each Playlists}}
             <li class="albumlist__item">

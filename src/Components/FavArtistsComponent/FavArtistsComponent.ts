@@ -68,7 +68,7 @@ export class favArtistsComponent extends IComponent {
 	public renderContent(): void {
 		if (this.isMounted) {
 			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ Artists: this.artists, port: hosts.s3HOST });
+			this.parent.innerHTML = template({ Artists: this.artists, port: hosts.s3HOST, user: this.user });
 		}
 	}
 }

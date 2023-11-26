@@ -22,7 +22,7 @@ export class HeaderComponent extends IComponent {
 		});
 		EventDispatcher.subscribe('logout-confirmation', () => {
 			document.getElementById('overlay')!.style.display = 'block';
-			this.element.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
+			this.parent.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
 		});
 	}
 
@@ -66,11 +66,11 @@ export class HeaderComponent extends IComponent {
 				e.preventDefault();
 				EventDispatcher.emit('logout');
 				document.getElementById('overlay')!.style.display = 'none';
-				this.element.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
+				this.parent.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
 				break;
 			case 'cancel':
 				document.getElementById('overlay')!.style.display = 'none';
-				this.element.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
+				this.parent.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
 				break;
 		}
 	}

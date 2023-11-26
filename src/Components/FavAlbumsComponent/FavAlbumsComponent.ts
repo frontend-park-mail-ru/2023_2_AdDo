@@ -15,7 +15,7 @@ export class favAlbumsComponent extends IComponent {
 	 * @param {Array<Song>} songs - The array of songs.
 	 */
 	constructor(parent: HTMLElement, albums: Array<Album>) {
-		super(parent, template({ Albums: albums, port: hosts.s3HOST }));
+		super(parent, template({ Albums: albums, port: hosts.s3HOST}));
 		this.albums = albums;
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
@@ -68,7 +68,7 @@ export class favAlbumsComponent extends IComponent {
 	public renderContent(): void {
 		if (this.isMounted) {
 			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ Albums: this.albums, port: hosts.s3HOST });
+			this.parent.innerHTML = template({ Albums: this.albums, port: hosts.s3HOST, user: this.user });
 		}
 	}
 }
