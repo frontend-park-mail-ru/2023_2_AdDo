@@ -120,3 +120,32 @@
 .upload-button:active .text {
     background-color: linear-gradient(90deg, #372F5F 0%, #276AC4 100%);
 }
+
+
+
+.logout-button {
+    border: none; 
+    outline: none;
+    display: flex;
+    width: fit-content;
+    height: 37px;
+    padding: 6px 24px;
+    gap: 10px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #5C4F9E 0%, #2B76DA 100%);
+    color: #EAF1FB;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background: linear-gradient(90deg, #372F5F 0%, #276AC4 100%);
+}
+
+.logout-button:active {
+    background: linear-gradient(90deg, #292447 0%, #225EAE 100%);
+    box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #225EAE 100%);
+    transform: translateY(2px);
+}

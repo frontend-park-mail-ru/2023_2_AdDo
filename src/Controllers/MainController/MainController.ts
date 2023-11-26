@@ -33,6 +33,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.nextsongfunction = this.nextSong.bind(this);
         this.view.bindEndedEvent(this.nextsongfunction);
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
+        EventDispatcher.subscribe('logout', this.logout.bind(this));
     }
 
     /**
@@ -167,8 +168,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'signout':
                 e.preventDefault();
-                this.model.UserModel.logoutUser();
-                router.goToPage(paths.feedAll);
+                EventDispatcher.emit('logout-confirmation');
                 return;
             case 'prevBtn':
                 if (this.isActive) {
@@ -212,6 +212,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 }
                 return;
         }
+    }
+
+    public logout(): void {
+        this.model.UserModel.logoutUser();
+        router.goToPage(paths.feedAll);
     }
 
     /**

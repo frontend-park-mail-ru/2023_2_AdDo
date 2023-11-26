@@ -20,6 +20,10 @@ export class HeaderComponent extends IComponent {
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		});
+		EventDispatcher.subscribe('logout-confirmation', () => {
+			document.getElementById('overlay')!.style.display = 'block';
+			this.element.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
+		});
 	}
 
 	/**
@@ -50,16 +54,23 @@ export class HeaderComponent extends IComponent {
 				e.preventDefault();
 				let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
 				let menuIcon: HTMLElement = this.element.querySelector('[data-section="menu-icon"]')!;
-				mobileMenu.style.display = (mobileMenu.style.display === 'grid') ? 'none' : 'grid';
+				mobileMenu.classList.toggle('menu-active');
 				menuIcon.classList.toggle('close-icon');
 				break;
 			case 'search':
 				e.preventDefault();
 				let searchInput: HTMLElement = this.element.querySelector('[data-section="inputSearch"]')!;
-				searchInput.style.display = (searchInput.style.display === 'block') ? 'none' : 'block';
+				searchInput.classList.toggle('search-active');
 				break;
-			case 'signout':
+			case 'confirm':
 				e.preventDefault();
+				EventDispatcher.emit('logout');
+				document.getElementById('overlay')!.style.display = 'none';
+				this.element.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
+				break;
+			case 'cancel':
+				document.getElementById('overlay')!.style.display = 'none';
+				this.element.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
 				break;
 		}
 	}
