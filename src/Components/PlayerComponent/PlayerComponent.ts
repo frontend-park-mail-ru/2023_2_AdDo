@@ -165,7 +165,7 @@ export class PlayerComponent extends IComponent {
 	private handleClick(e: Event): void {
 		const target: HTMLElement = e.target as HTMLElement;
 		const value: string = target.getAttribute('data-section')!
-		const mobilePlayer: HTMLElement = this.parent.querySelector('mobile-player')!;
+		const mobilePlayer: HTMLElement = this.parent.querySelector('.mobile-player')!;
 		switch (value) {
 			case 'closeBtn':
 				this.cardShown = false;
@@ -202,7 +202,7 @@ export class PlayerComponent extends IComponent {
 	public bindEvents(): void {
 		this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
 		this.parent.querySelector('.player')!.addEventListener('click', () => {
-			const mobilePlayer: HTMLElement = document.querySelector('mobile-player')!;
+			const mobilePlayer: HTMLElement = document.querySelector('.mobile-player')!;
 			mobilePlayer.style.display === 'none' ? mobilePlayer.style.display = 'flex' : mobilePlayer.style.display = 'none';
 			this.cardShown = !this.cardShown;
 		});
