@@ -16,6 +16,7 @@ const paths = {
     feedPlaylists: '/feed/playlists',
     album: '/album/{:id}',
     artist: '/artist/{:id}',
+    track: '/track/{:id}',
     login: '/login',
     signup: '/signup',
     profile: '/profile',

@@ -212,3 +212,18 @@
 .logout-confirmation_active {
   display: grid;
 }
+
+.menu__search-results {
+
+}
+
+.search-list {
+  display: grid;
+  &__item {
+
+  }
+
+  &__link {
+
+  }
+}

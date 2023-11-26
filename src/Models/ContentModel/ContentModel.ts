@@ -1,5 +1,5 @@
 import IModel from "../IModel/IModel";
-import { Album, Artist, Callback, Song, User } from "../../types";
+import { Album, Artist, Callback, Playlist, Song, User } from "../../types";
 import Ajax from '../../Modules/Ajax/Ajax';
 import hosts from "../../HostConsts";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
@@ -46,8 +46,8 @@ export default class ContentModel extends IModel {
      * @param {number} albumId - The ID of the album to request.
      * @return {void} This function does not return anything.
      */
-    public requestAlbum(callback: Callback, albumId: number): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + albumId, {})
+    public requestAlbum(callback: Callback, url: string): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/' + url, {})
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
                 this.album = responseBody;
@@ -348,6 +348,24 @@ export default class ContentModel extends IModel {
             if (status === 200) {
                 this.artists = responseBody.slice(0);
                 callback(this.artists); 
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+
+    public search(term: string, callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/search?query=' + term, {})
+        .then(({ status, responseBody }) => {
+            if (status === 200) {
+                const tracks: Array<Song> = responseBody.Tracks.slice(0);
+                const albums: Array<Album> = responseBody.Albums.slice(0);
+                const artists: Array<Artist> = responseBody.Artists.slice(0);
+                const playlists: Array<Playlist> = responseBody.Playlists.slice(0);
+                callback(tracks, albums, artists, playlists);
                 return;
             }
         })

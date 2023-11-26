@@ -6,6 +6,7 @@ import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
 import { Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
 import paths from "../../Modules/Router/RouterPaths";
+import { debounce } from "../../Modules/lib/Debounce";
 
 
 /** Class representing an MainController. */
@@ -34,6 +35,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.view.bindEndedEvent(this.nextsongfunction);
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
         EventDispatcher.subscribe('logout', this.logout.bind(this));
+        EventDispatcher.subscribe('search', this.search.bind(this));
     }
 
     /**
@@ -53,7 +55,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */    
     public updateAlbum(): void {
         this.view.renderAlbum();
-        this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), parseInt(location.href.split('/')[location.href.split('/').length - 1]));
+        this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1]);
     }
     
     /**
@@ -226,6 +228,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     public logout(): void {
         this.model.UserModel.logoutUser();
         router.goToPage(paths.feedAll);
+    }
+
+    public search(value: string): void {
+        const f = debounce(this.model.ContentModel.search, 300);
+        f(value, this.view.searchResults.bind(this.view));
     }
 
     /**

@@ -1,9 +1,8 @@
 import IComponent from '../IComponent/IComponent';
 import template from './HeaderComponentTemplate.hbs'
-import { Callback, User } from '../../types';
+import { Album, Artist, Callback, Playlist, Song, User } from '../../types';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
-import { isJSDocThisTag } from 'typescript';
 
 /** Class representing a HeaderComponent. */
 export class HeaderComponent extends IComponent {
@@ -17,6 +16,9 @@ export class HeaderComponent extends IComponent {
 	constructor(parent: HTMLElement) {
 		super(parent, template({ port: hosts.s3HOST, logo: '/static/img/Logo.svg' }));
 		this.bindClickEvent(this.handleClick.bind(this));
+		this.bindBlurEvent(this.handleBlur.bind(this));
+		this.bindFocusEvent(this.handleFocus.bind(this));
+		this.bindInputEvent(this.handleInput.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		});
@@ -61,8 +63,8 @@ export class HeaderComponent extends IComponent {
 				e.preventDefault();
 				let searchInput: HTMLElement = this.parent.querySelector('[data-section="inputSearch"]')!;
 				searchInput.classList.toggle('search-active');
-				const menu: HTMLElement = this.parent.querySelector('.menu__links"]')!;
-				const menuu: HTMLElement =	this.parent.querySelector('.mobile-menu"]')!;
+				const menu: HTMLElement = this.parent.querySelector('.menu__links')!;
+				const menuu: HTMLElement =	this.parent.querySelector('.mobile-menu')!;
 				menu.style.display === 'none' ? menu.style.display = 'flex' : menu.style.display = 'none';
 				menuu.style.display === 'none' ? menuu.style.display = 'flex' : menuu.style.display = 'none';
 				break;
@@ -79,10 +81,92 @@ export class HeaderComponent extends IComponent {
 		}
 	}
 
+	private handleBlur(e: Event): void {
+		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-result')!;
+		searchresults.style.display = 'none';
+	}
+
+	private handleFocus(e: Event): void {
+		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-result')!;
+		searchresults.style.display = 'grid';
+	}
+
+	private handleInput(e: Event): void {
+		EventDispatcher.emit('search', (e.target as HTMLInputElement).value);
+	}
+
+	private bindInputEvent(listener: Callback): void {
+		this.parent.addEventListener('input', listener);
+	}
+
 	private bindClickEvent(listener: Callback): void {
 		this.parent.addEventListener('click', listener);
 	}
 
+	private bindFocusEvent(listener: Callback): void {
+		this.parent.addEventListener('focus', listener);
+	}
+
+	private bindBlurEvent(listener: Callback): void {
+		this.parent.addEventListener('blur', listener);
+	}
+
+	public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
+		const searchPopUp = this.parent.querySelector('.search-list')!;
+		tracks.forEach(track => {
+			const li = document.createElement('li');
+			li.classList.add('search-list__item');
+			li.innerHTML = track.Name;
+			const a = document.createElement('a');
+			a.classList.add('search-list__link');
+			a.classList.add('medium-text');
+			a.setAttribute('href', `/track/${track.Id}`);
+			a.setAttribute('data-section', 'link');
+			a.setAttribute('data-url', `/track/${track.Id}`);
+			li.appendChild(a);
+			searchPopUp.appendChild(li);
+		});
+		albums.forEach(album => {
+			const li = document.createElement('li');
+			li.classList.add('search-list__item');
+			li.innerHTML = album.Name;
+			const a = document.createElement('a');
+			a.classList.add('search-list__link');
+			a.classList.add('medium-text');
+			a.setAttribute('href', `/track/${album.Id}`);
+			a.setAttribute('data-section', 'link');
+			a.setAttribute('data-url', `/track/${album.Id}`);
+			li.appendChild(a);
+			searchPopUp.appendChild(li);
+		});
+		artists.forEach(artist => {
+			const li = document.createElement('li');
+			li.classList.add('search-list__item');
+			li.innerHTML = artist.Name;
+			const a = document.createElement('a');
+			a.classList.add('search-list__link');
+			a.classList.add('medium-text');
+			a.setAttribute('href', `/artist/${artist.Id}`);
+			a.setAttribute('data-section', 'link');
+			a.setAttribute('data-url', `/artist/${artist.Id}`);
+			li.appendChild(a);
+			searchPopUp.appendChild(li);
+		});
+		playlists.forEach(track => {
+			const li = document.createElement('li');
+			li.classList.add('search-list__item');
+			li.innerHTML = track.Name;
+			const a = document.createElement('a');
+			a.classList.add('search-list__link');
+			a.classList.add('medium-text');
+			a.setAttribute('href', `/album/${track.Id}`);
+			a.setAttribute('data-section', 'link');
+			a.setAttribute('data-url', `/album/${track.Id}`);
+			li.appendChild(a);
+			searchPopUp.appendChild(li);
+		});
+
+	}
 	/**
 	 * Renders the header of the page.
 	 *

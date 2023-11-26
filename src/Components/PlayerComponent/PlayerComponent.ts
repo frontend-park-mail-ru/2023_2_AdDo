@@ -172,8 +172,10 @@ export class PlayerComponent extends IComponent {
 				mobilePlayer.style.display = 'none';
 				break;
 			case 'player':
-				this.cardShown = true;
-				mobilePlayer.style.display = 'flex';
+				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+					this.cardShown = true;
+					mobilePlayer.style.display = 'flex';
+				}
 				break;
 		}
 	}
@@ -201,11 +203,11 @@ export class PlayerComponent extends IComponent {
 
 	public bindEvents(): void {
 		this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
-		this.parent.querySelector('.player')!.addEventListener('click', () => {
-			const mobilePlayer: HTMLElement = document.querySelector('.mobile-player')!;
-			mobilePlayer.style.display === 'none' ? mobilePlayer.style.display = 'flex' : mobilePlayer.style.display = 'none';
-			this.cardShown = !this.cardShown;
-		});
+		// this.parent.querySelector('.player')!.addEventListener('click', () => {
+		// 	const mobilePlayer: HTMLElement = document.querySelector('.mobile-player')!;
+		// 	mobilePlayer.style.display === 'none' ? mobilePlayer.style.display = 'flex' : mobilePlayer.style.display = 'none';
+		// 	this.cardShown = !this.cardShown;
+		// });
 		this.parent.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeMobile.bind(this));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));

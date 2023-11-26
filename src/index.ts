@@ -102,6 +102,7 @@ class App {
 			{ path: paths.favArtists, handler: this.renderfavArtists },
 			{ path: paths.favPlaylists, handler: this.renderfavPlaylists },
 			{ path: paths.favTracks, handler: this.renderfavTracks },
+			{ path: paths.track, handler: this.renderAlbum },
 		];
 
 		routes.forEach(({ path, handler }) => {

@@ -3,7 +3,7 @@ import template from './MainView.hbs';
 import { HeaderComponent } from '../../Components/HeaderComponent/HeaderComponent';
 import { PlayerComponent } from '../../Components/PlayerComponent/PlayerComponent';
 import { FeedComponent } from '../../Components/FeedComponent/FeedComponent';
-import type { Album, Song, User, Artist, Callback } from '../../types';
+import type { Album, Song, User, Artist, Callback, Playlist } from '../../types';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { AlbumComponent } from '../../Components/AlbumComponent/AlbumComponent';
 import { ArtistComponent } from '../../Components/ArtistComponent/ArtistComponent';
@@ -392,6 +392,11 @@ class MainView extends IView {
             volume.value = '0';
             audio.muted = true;
         }
+    }
+
+    public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
+        const header = this.components.get('header')! as HeaderComponent;
+        header.searchResults(tracks, albums, artists, playlists);
     }
 }
 
