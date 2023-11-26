@@ -1,121 +1,181 @@
 .player {
-    background-color: #1E1E1E;
-    position: absolute;
-    width: 75%;
-    min-width: 800px;
-    &__container {
-        display: inline-flex;
-        gap: 30px;
-        padding: 10px;
-        padding-left: 30px;
-    }
+  background-color: #1e1e1e;
+  position: absolute;
+  width: 75%;
+  min-width: 800px;
+  &__container {
+    display: inline-flex;
+    gap: 30px;
+    padding: 10px;
+    padding-left: 30px;
+  }
 }
 
 .progress-bar {
-    background-color: #C0C0C0;
-    width: 100%;
-    height: 10px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    &__progress {
-        background: #453B77;
-        height: 6px;
-    }
+  background-color: #c0c0c0;
+  width: 100%;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &__progress {
+    background: #453b77;
+    height: 6px;
+  }
 }
 
 .volume-bar {
-    border: none;
-    height: 8px;
-    width: 85px;
-    position: absolute;
-    right: 0;
-    margin-top: 15px;
-    margin-right: 15px;
-    font-size: 14px;
-    cursor: pointer;
-    display: inline-block;
-    background: #666F7A;
-    border-radius: 8px;
-    accent-color: #453B77;
+  border: none;
+  height: 8px;
+  width: 85px;
+  position: absolute;
+  right: 0;
+  margin-top: 15px;
+  margin-right: 15px;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-block;
+  background: #666f7a;
+  border-radius: 8px;
+  accent-color: #453b77;
 }
-
 
 .volume-btn {
-    position: absolute;
-    right: 110px;
+  position: absolute;
+  right: 110px;
 }
 
-
 .player-btns {
-    margin-top: 10px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 .title {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    color: #1E1E1E;
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  color: #1e1e1e;
 }
 
 .disabled {
-    display: none;
+  display: none;
 }
 
 .artistname:hover {
-    color: #C15DF3;
+  color: #c15df3;
 }
-
 
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 768px) {
-    .player {
-      min-width: 800px;
-    }
-    .like-btn {
-        display: block;
-    }
-    .shuffleBtn {
-        display: block;
-    }
-    .nextBtn {
-        display: block;
-    }
-    .loopBtn {
-        display: block;
-    }
-    .prev-btn {
-        display: block;
-    }
+  .player {
+    min-width: 800px;
   }
-  
-  /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
-  @media screen and (max-width: 767px) {
-    .player {
-      min-width: 100%;
-    }
-    .like-btn {
-        display: none;
-    }
-    .shuffleBtn {
-        display: none;
-    }
-    .nextBtn {
-        display: none;
-    }
-    .loopBtn {
-        display: none;
-    }
-    .prev-btn {
-        display: none;
-    }
-    
+  .like-btn {
+    display: block;
   }
+  .shuffleBtn {
+    display: block;
+  }
+  .nextBtn {
+    display: block;
+  }
+  .loopBtn {
+    display: block;
+  }
+  .prev-btn {
+    display: block;
+  }
+}
+
+/* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+@media screen and (max-width: 767px) {
+  .player {
+    min-width: 100%;
+  }
+  .like-btn {
+    display: none;
+  }
+  .shuffleBtn {
+    display: none;
+  }
+  .nextBtn {
+    display: none;
+  }
+  .loopBtn {
+    display: none;
+  }
+  .prev-btn {
+    display: none;
+  }
+}
+
+.mobile-player {
+  display: none;
+  z-index: 10000;
+  background-color: #0d0b18;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  gap: 35px;
+  transition: transform 0.3s ease-in-out;
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  &__photo {
+    width: 250px;
+    height: 250px;
+    margin: 40px;
+    border-radius: 20px;
+  }
+  &__playbutton {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+  }
+  &__progress {
+    width: 80vw;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #c15df3;
+  }
+  &__volume {
+    width: 70vw;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #c15df3;
+  }
+  &__volume-bar {
+    display: flex;
+    gap: 5px;
+  }
+  &__progress-bar {
+    position: relative;
+  }
+  &__current-time {
+    position: absolute;
+    left: 0;
+  }
+  &__remaining-time {
+    position: absolute;
+    right: 0;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

@@ -9,8 +9,8 @@
                 data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}
             </a>
             {{#if user}}
-            <div class="big-like-btn">
-                <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/Like.svg"></div>
+            <div class="big-like-btn" data-section="albumlike" data-url="{{album.Id}}">
+                <div class=""><img class="player-btns" src="/static/img/Like.svg"></div>
                 <div class="medium-text">Нравится</div>
             </div>
             {{/if}}

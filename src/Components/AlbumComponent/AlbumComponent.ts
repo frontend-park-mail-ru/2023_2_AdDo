@@ -1,12 +1,13 @@
-import { Album } from '../../types';
+import { Album, User } from '../../types';
 import template from './AlbumComponent.hbs';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
+import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a AlbumComponent. */
 export class AlbumComponent extends IComponent {
 	private album: Album;
-
+	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
 	/**
 	 * Constructor for the class.
 	 *
@@ -16,6 +17,30 @@ export class AlbumComponent extends IComponent {
 	constructor(parent: HTMLElement, album: Album) {
 		super(parent, template({ album, port: hosts.s3HOST }));
 		this.album = album;
+		EventDispatcher.subscribe('user-changed', (user: User) => {
+			this.User = user;
+		})
+	}
+
+
+	/**
+	 * Returns the User property.
+	 *
+	 * @return {User} The User property.
+	 */
+	public get User(): User | null {
+		return this.user;
+	}
+
+	/**
+	 * Set the User property and render the header.
+	 *
+	 * @param {User} user - The User object to set.
+	 * @return {void} 
+	 */
+	public set User(user: User | null) {
+		this.user = user;
+		this.renderContent();
 	}
 
 	/**
@@ -44,6 +69,6 @@ export class AlbumComponent extends IComponent {
 	 */
 	public renderContent(): void {
 		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ album: this.album, port: hosts.s3HOST });
+		this.parent.innerHTML = template({ album: this.album, port: hosts.s3HOST, user: this.user });
 	}
 }

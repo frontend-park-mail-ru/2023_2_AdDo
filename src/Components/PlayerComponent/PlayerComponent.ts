@@ -21,6 +21,7 @@ export class PlayerComponent extends IComponent {
 		super(parent, template({ PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, isMobile}));
 		const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
 		like.classList.add('disabled');
+		this.bindClickEvent(this.handleClick.bind(this));
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
 	}
 
@@ -101,13 +102,33 @@ export class PlayerComponent extends IComponent {
 		audio.currentTime = (x / width) * duration;
 	}
 
-
-
-
 	private setVolumeSlider(e: Event): void {
 		const slider = this.querySelector('.volume-bar') as HTMLInputElement;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.volume = parseInt(slider.value) / 100 as number;
+	}
+
+	private setVolumeMobile(e: Event): void {
+		const slider = this.querySelector('.mobile-player__volume') as HTMLInputElement;
+		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		audio.volume = parseInt(slider.value) / 100 as number;
+	}
+
+	private setProgressMobile(e: Event): void {
+		const slider = this.querySelector('.mobile-player__progress') as HTMLInputElement;
+		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		audio.currentTime = parseInt(slider.value) / 100 * audio.duration as number;
+	}
+
+	private updateProgressSlider(e: Event): void {
+		const { duration, currentTime } = e.target as HTMLAudioElement;
+		const progressPercent = (currentTime / duration) * 100;
+		const slider = this.querySelector('.mobile-player__progress') as HTMLInputElement;
+		slider.value = progressPercent.toString();
+		const currTimeDiv: HTMLElement = this.querySelector('.mobile-player__current-time')!;
+		const remainingTimeDiv: HTMLElement = this.querySelector('.mobile-player__remaining-time')!;
+		currTimeDiv.textContent = currentTime.toString();
+		remainingTimeDiv.textContent = (duration - currentTime).toString();
 	}
 
 	/**
@@ -117,7 +138,22 @@ export class PlayerComponent extends IComponent {
 	 * @return {void} 
 	 */
 	private bindSetProgressEvent(listener: Callback): void {
-		this.element.querySelector('.progress-bar')!.addEventListener('click', listener);
+        this.parent.querySelector('.progress-bar')!.addEventListener('click', listener);
+	}
+	
+	private bindClickEvent(listener: Callback): void {
+		this.parent.addEventListener('click', listener);
+	}
+
+	private handleClick(e: Event): void {
+		const target: HTMLElement = e.target as HTMLElement;
+		const value: string = target.getAttribute('data-section')!
+		switch (value) {
+			case 'closeBtn':
+				const mobilePlayer: HTMLElement = this.parent.querySelector('mobile-player')!;
+				mobilePlayer.style.display = 'none';
+				break;
+		}
 	}
 
 	/**
@@ -128,7 +164,7 @@ export class PlayerComponent extends IComponent {
 	 */
 
 	private bindVolumeSliderEvent(listener: Callback): void {
-		this.element.querySelector('.volume-bar')!.addEventListener('input', listener);
+        this.element.querySelector('.volume-bar')!.addEventListener('input', listener);
 	}
 
 	/**
@@ -142,9 +178,20 @@ export class PlayerComponent extends IComponent {
 	}
 
 	public bindEvents(): void {
-		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
-		this.bindSetProgressEvent(this.setProgress.bind(this));
-		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
+		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+			this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
+			this.parent.querySelector('.player')!.addEventListener('click', () => {
+				const mobilePlayer: HTMLElement = document.querySelector('mobile-player')!;
+				mobilePlayer.style.display === 'none' ? mobilePlayer.style.display = 'flex' : mobilePlayer.style.display = 'none';
+			});
+			this.parent.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
+			this.bindVolumeSliderEvent(this.setVolumeMobile.bind(this));
+        } else {
+			this.bindTimeUpdateEvent(this.updateProgress.bind(this));
+			this.bindSetProgressEvent(this.setProgress.bind(this));
+			this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
+        }
+		
 	}
 
 	public userChanged(user: User): void {

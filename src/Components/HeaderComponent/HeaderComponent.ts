@@ -54,7 +54,7 @@ export class HeaderComponent extends IComponent {
 				e.preventDefault();
 				let mobileMenu: HTMLElement = this.parent.querySelector('[data-section="mobile-menu"]')!;
 				let menuIcon: HTMLElement = this.parent.querySelector('[data-section="menu-icon"]')!;
-				mobileMenu.classList.toggle('menu-active');
+				mobileMenu.style.display === 'grid' ? mobileMenu.style.display = 'none' : mobileMenu.style.display = 'grid';
 				menuIcon.classList.toggle('close-icon');
 				break;
 			case 'search':

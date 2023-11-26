@@ -149,3 +149,14 @@
     box-shadow: 0 5px linear-gradient(90deg, #292447 0%, #225EAE 100%);
     transform: translateY(2px);
 }
+
+.big-like-btn {
+    border-radius: 15px;
+    background: transparent;
+    border: 2px solid white;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    gap: 15px;
+    cursor: pointer;
+}

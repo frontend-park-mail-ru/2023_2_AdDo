@@ -1,4 +1,4 @@
-<div class="player">
+<div class="player" data-section="player">
     <audio preload="meta" src=""></audio>
     <div class="progress-bar">
         <div class="progress-bar__progress"></div>
@@ -39,3 +39,46 @@
 
     </div>
 </div>
+
+
+<div class="mobile-player">
+    <div class="close-btn"><img data-section="closeBtn" src="/static/img/arrowUp.svg" alt=""></div>
+    <div>
+        {{#if song.Preview}}
+            <img class="mobile-player__photo" src="{{port}}{{song.Preview}}" alt="">
+        {{else}}
+            <img class="mobile-player__photo" src="/static/img/grey.png" alt="">
+        {{/if}}
+    </div>
+    <div class="mobile-player__info">
+            <div class="mobile-player__info__name medium-text">
+                {{song.Name}}
+            </div>
+            <div class="mobile-player__info__artist small-text">
+                {{song.ArtistName}}
+            </div>
+    </div>
+
+    <div class="mobile-player__progress-bar">
+        <input class="mobile-player__progress" type="range" min="0" max="100" value="0" step="1">
+        <div class="mobile-player__current-time medium-text"></div>
+        <div class="mobile-player__remaining-time medium-text"></div>
+    </div>
+    
+    <div class="mobile-player__controls">
+        <div class="mobile-player__controls__prev"><img data-section="prevBtn" src="/static/img/SwitchBack.svg" alt=""></div>
+        {{#if Playing}}
+            <div class="mobile-player__controls__play"><img class="mobile-player__playbutton" src="/static/img/pauseBtn.png" alt=""></div>
+        {{else}}
+            <div class="mobile-player__controls__play"><img class="mobile-player__playbutton" src="/static/img/playButton.png" alt=""></div>
+        {{/if}}
+        <div class="mobile-player__controls__next"><img data-section="nextBtn" src="/static/img/SwitchForward.svg" alt=""></div>
+    </div>
+
+    <div class="mobile-player__volume-bar">
+        <div><img src="/static/img/SoundOff.svg" alt=""></div>
+        <input class="mobile-player__volume" type="range" min="0" max="100" value="0" step="1">
+        <div><img src="/static/img/SoundOn.svg" alt=""></div>
+    </div>
+</div>
+   

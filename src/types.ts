@@ -17,6 +17,13 @@ export type Album = {
     Tracks: Array<Song>,
 }
 
+export type Playlist = {
+    Id: number,
+    Name: string,
+    Preview: string,
+    Tracks: Array<Song>,
+}
+
 export type Artist = {
     Id: number,
     Name: string,
