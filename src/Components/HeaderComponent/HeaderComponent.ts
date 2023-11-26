@@ -3,6 +3,7 @@ import template from './HeaderComponentTemplate.hbs'
 import { Callback, User } from '../../types';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
+import { isJSDocThisTag } from 'typescript';
 
 /** Class representing a HeaderComponent. */
 export class HeaderComponent extends IComponent {
@@ -16,7 +17,6 @@ export class HeaderComponent extends IComponent {
 	constructor(parent: HTMLElement) {
 		super(parent, template({ port: hosts.s3HOST, logo: '/static/img/Logo.svg' }));
 		this.bindClickEvent(this.handleClick.bind(this));
-		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		});
@@ -43,28 +43,31 @@ export class HeaderComponent extends IComponent {
 	}
 	
 	private handleClick(e: Event): void {
-		let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
-		let menuIcon: HTMLElement = this.element.querySelector('[data-section="menu-icon"]')!;
-		mobileMenu.style.display = (mobileMenu.style.display === 'grid') ? 'none' : 'grid';
-		menuIcon.classList.toggle('close-icon');
+		const target: HTMLElement = e.target as HTMLElement;
+		const value: string = target.getAttribute('data-section')!
+		switch (value) {
+			case 'menu-icon':
+				e.preventDefault();
+				let mobileMenu: HTMLElement = this.element.querySelector('[data-section="mobile-menu"]')!;
+				let menuIcon: HTMLElement = this.element.querySelector('[data-section="menu-icon"]')!;
+				mobileMenu.style.display = (mobileMenu.style.display === 'grid') ? 'none' : 'grid';
+				menuIcon.classList.toggle('close-icon');
+				break;
+			case 'search':
+				e.preventDefault();
+				let searchInput: HTMLElement = this.element.querySelector('[data-section="inputSearch"]')!;
+				searchInput.style.display = (searchInput.style.display === 'block') ? 'none' : 'block';
+				break;
+			case 'signout':
+				e.preventDefault();
+				break;
+		}
 	}
 
-	private handleSearchClick(e: Event): void {
-		let searchInput: HTMLElement = this.element.querySelector('[data-section="inputSearch"]')!;
-		searchInput.style.display = (searchInput.style.display === 'block') ? 'none' : 'block';
-	}
-
-	private bindSearchClickEvent(listener: Callback): void {
-		this.element.querySelector('[data-section="search"]')!.addEventListener('click', listener);
-	}
 	private bindClickEvent(listener: Callback): void {
-		this.element.querySelector('[data-section="menu-icon"]')!.addEventListener('click', listener);
+		this.parent.addEventListener('click', listener);
 	}
 
-	public bindEvents(): void {
-		this.bindClickEvent(this.handleClick.bind(this));
-		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
-	}
 	/**
 	 * Renders the header of the page.
 	 *
@@ -85,8 +88,6 @@ export class HeaderComponent extends IComponent {
 				randomlogo = '/static/img/Logo3.svg';
 				break;
 		}
-		this.bindClickEvent(this.handleClick.bind(this));
-		this.bindSearchClickEvent(this.handleSearchClick.bind(this));
 		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
 	}
 }

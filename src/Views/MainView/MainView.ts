@@ -262,7 +262,7 @@ class MainView extends IView {
      * @return {void} 
      */
     public bindClickEvent(listener: Callback): void {
-        if(navigator.userAgentData!.mobile) {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             this.element.addEventListener('touchstart', listener);
         } else {
             this.element.addEventListener('click', listener);

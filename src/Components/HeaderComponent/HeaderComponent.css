@@ -97,7 +97,7 @@
 }
 
 .mobile-menu__links {
-    background-color: #1E1E1E;
+    background-color: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
     border-radius: 10px;
     padding: 15px;
     gap: 20px;
@@ -112,12 +112,16 @@
   gap: 15px;
 }
 
+.mobile-menu-item__link:hover {
+  color: #c15df3;
+}
+
 .menu-icon {
     cursor: pointer;
     margin-left: 8vw;
     padding: 10px;
     height: 35px;
-    background: #1E1E1E;
+    background: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
     width: 30px;
 }
 
