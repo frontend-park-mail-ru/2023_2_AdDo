@@ -8,6 +8,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
 	private currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 };
+	private cardShown : boolean = false;
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -34,23 +35,39 @@ export class PlayerComponent extends IComponent {
 	public playSong(song: Song, isLiked: boolean): void {
 		this.currentSong = song;
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
+		const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
 		img.src = hosts.s3HOST + song.Preview;
+		mobileImg.src = hosts.s3HOST + song.Preview;
 		const like = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
 		if (like) {
 			isLiked ? like.src = '/static/img/LikePressed.svg' : like.src = '/static/img/Like.svg';
 		}
 		this.querySelector('.title')!.textContent = song.Name;
 		this.querySelector('.artistname')!.textContent = song.ArtistName;
+		this.element.querySelector('.mobile-player__info__name')!.textContent = song.Name;
+			this.element.querySelector('.mobile-player__info__artist')!.textContent = song.ArtistName;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
+		const mobileVolumeSlider = this.querySelector('.mobile-player__volume')! as HTMLInputElement;
 		if (!audio.muted) {
-			if (parseInt(volumeSlider.value) === 0) {
-				volumeSlider.value = '50';
-				audio.volume = 0.5;
+			if(this.cardShown) {
+				if (parseInt(mobileVolumeSlider.value) === 0) {
+					mobileVolumeSlider.value = '50';
+					audio.volume = 0.5;
+				} else {
+					audio.volume = (parseInt(mobileVolumeSlider.value) / 100);
+				}
 			} else {
-				audio.volume = (parseInt(volumeSlider.value) / 100);
+				if (parseInt(volumeSlider.value) === 0) {
+					volumeSlider.value = '50';
+					mobileVolumeSlider.value = '50';
+					audio.volume = 0.5;
+				} else {
+					audio.volume = (parseInt(volumeSlider.value) / 100);
+				}
 			}
+			
 		}
 		audio.play();
 	}
@@ -148,10 +165,15 @@ export class PlayerComponent extends IComponent {
 	private handleClick(e: Event): void {
 		const target: HTMLElement = e.target as HTMLElement;
 		const value: string = target.getAttribute('data-section')!
+		const mobilePlayer: HTMLElement = this.parent.querySelector('mobile-player')!;
 		switch (value) {
 			case 'closeBtn':
-				const mobilePlayer: HTMLElement = this.parent.querySelector('mobile-player')!;
+				this.cardShown = false;
 				mobilePlayer.style.display = 'none';
+				break;
+			case 'player':
+				this.cardShown = true;
+				mobilePlayer.style.display = 'flex';
 				break;
 		}
 	}
@@ -178,20 +200,17 @@ export class PlayerComponent extends IComponent {
 	}
 
 	public bindEvents(): void {
-		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-			this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
-			this.parent.querySelector('.player')!.addEventListener('click', () => {
-				const mobilePlayer: HTMLElement = document.querySelector('mobile-player')!;
-				mobilePlayer.style.display === 'none' ? mobilePlayer.style.display = 'flex' : mobilePlayer.style.display = 'none';
-			});
-			this.parent.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
-			this.bindVolumeSliderEvent(this.setVolumeMobile.bind(this));
-        } else {
-			this.bindTimeUpdateEvent(this.updateProgress.bind(this));
-			this.bindSetProgressEvent(this.setProgress.bind(this));
-			this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
-        }
-		
+		this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
+		this.parent.querySelector('.player')!.addEventListener('click', () => {
+			const mobilePlayer: HTMLElement = document.querySelector('mobile-player')!;
+			mobilePlayer.style.display === 'none' ? mobilePlayer.style.display = 'flex' : mobilePlayer.style.display = 'none';
+			this.cardShown = !this.cardShown;
+		});
+		this.parent.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
+		this.bindVolumeSliderEvent(this.setVolumeMobile.bind(this));
+		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
+		this.bindSetProgressEvent(this.setProgress.bind(this));
+		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 	}
 
 	public userChanged(user: User): void {
@@ -202,9 +221,13 @@ export class PlayerComponent extends IComponent {
 			like.src = '/static/img/Like.svg';
 			like.classList.remove('disabled');
 			const img = this.element.querySelector('.avatar') as HTMLImageElement;
+			const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
 			img.src = '/static/img/grey.png';
+			mobileImg.src = '/static/img/grey.png';
 			this.element.querySelector('.artistname')!.textContent = '';
 			this.element.querySelector('.title')!.textContent = '';
+			this.element.querySelector('.mobile-player__info__name')!.textContent = '';
+			this.element.querySelector('.mobile-player__info__artist')!.textContent = '';
 		} else {
 			const audio = this.element.querySelector('audio') as HTMLAudioElement;
 			audio.src = '';
@@ -212,9 +235,13 @@ export class PlayerComponent extends IComponent {
 			like.src = '/static/img/Like.svg';
 			like.classList.add('disabled');
 			const img = this.element.querySelector('.avatar') as HTMLImageElement;
+			const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
 			img.src = '/static/img/grey.png';
+			mobileImg.src = '/static/img/grey.png';
 			this.element.querySelector('.artistname')!.textContent = '';
 			this.element.querySelector('.title')!.textContent = '';
+			this.element.querySelector('.mobile-player__info__name')!.textContent = '';
+			this.element.querySelector('.mobile-player__info__artist')!.textContent = '';
 		}
 	}
 }

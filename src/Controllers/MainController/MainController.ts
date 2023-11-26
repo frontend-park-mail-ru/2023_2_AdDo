@@ -191,16 +191,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     }
                 }
                 return;
-            case 'mobile-playBtn':
-                if (this.isActive) {
-                    if(this.Playing) {
-                        this.Playing = false;
-                        this.view.pause();
-                    } else {
-                        this.Playing = true;
-                        this.view.resume();
-                    }
-                }
             case 'nextBtn':
                 if (this.isActive) {
                     this.nextSong();
