@@ -126,6 +126,8 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  position: fixed;
+  top: 0;
   gap: 80px;
   transition: transform 0.3s ease-in-out;
   &__controls {

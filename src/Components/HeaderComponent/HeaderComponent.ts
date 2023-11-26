@@ -52,8 +52,8 @@ export class HeaderComponent extends IComponent {
 		switch (value) {
 			case 'menu-icon':
 				e.preventDefault();
-				let mobileMenu: HTMLElement = this.parent.querySelector('[data-section="mobile-menu"]')!;
-				let menuIcon: HTMLElement = this.parent.querySelector('[data-section="menu-icon"]')!;
+				const mobileMenu: HTMLElement = this.parent.querySelector('[data-section="mobile-menu"]')!;
+				const menuIcon: HTMLElement = this.parent.querySelector('[data-section="menu-icon"]')!;
 				mobileMenu.style.display === 'grid' ? mobileMenu.style.display = 'none' : mobileMenu.style.display = 'grid';
 				menuIcon.classList.toggle('close-icon');
 				break;
@@ -61,6 +61,10 @@ export class HeaderComponent extends IComponent {
 				e.preventDefault();
 				let searchInput: HTMLElement = this.parent.querySelector('[data-section="inputSearch"]')!;
 				searchInput.classList.toggle('search-active');
+				const menu: HTMLElement = this.parent.querySelector('.menu__links"]')!;
+				const menuu: HTMLElement =	this.parent.querySelector('.mobile-menu"]')!;
+				menu.style.display === 'none' ? menu.style.display = 'flex' : menu.style.display = 'none';
+				menuu.style.display === 'none' ? menuu.style.display = 'flex' : menuu.style.display = 'none';
 				break;
 			case 'confirm':
 				e.preventDefault();
