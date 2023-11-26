@@ -1,4 +1,5 @@
-<div class="collection">
+<div>
+    <div class="collection">
     {{#if user}}
     <div class="big-text collection__title">Коллекция</div>
     <ul class="collection__list">
@@ -26,29 +27,29 @@
     {{else}}
     <div class="big-text artist__title">Авторизуйтесь чтобы добавлять песни и альбомы в коллекцию</div>
     {{/if}}
-</div>
-<div class="favTracks">
-    <div class="large-text artist__title">Треки</div>
-    <ul class="playlist">
-        {{#each Tracks}}
-            <li class="playlist__item" data-section="miniCollectionPlayButton" data-url="{{@index}}">
-                <div class="playlist__image-container" style="display: inline-block;">
-                    <div class="medium-text playlist__index playlist__index__position"></div>
-                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniCollectionPlayButton"
-                        data-url="{{@index}}"></div>
-                </div>
-                <div style="display:inline-block">
-                    <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
-                </div>
-                <div class="medium-text playlist-item__name" data-section="miniCollectionPlayButton" data-url="{{@index}}"
-                    style="display: inline-block;">
-                    {{this.Name}}
-                </div>
-                <div class="medium-text playlist-item__duration" style="display: inline-block;">
-                    {{this.Duration}}
-                </div>
-            </li>
-        {{/each}}
-    </ul>
-
+    </div>
+    <div class="favTracks">
+        <div class="large-text artist__title">Треки</div>
+        <ul class="playlist">
+            {{#each Tracks}}
+                <li class="playlist__item" data-section="miniCollectionPlayButton" data-url="{{@index}}">
+                    <div class="playlist__image-container" style="display: inline-block;">
+                        <div class="medium-text playlist__index playlist__index__position"></div>
+                        <div class="playlist__playbutton playlist__playbutton__position" data-section="miniCollectionPlayButton"
+                            data-url="{{@index}}"></div>
+                    </div>
+                    <div style="display:inline-block">
+                        <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
+                    </div>
+                    <div class="medium-text playlist-item__name" data-section="miniCollectionPlayButton" data-url="{{@index}}"
+                        style="display: inline-block;">
+                        {{this.Name}}
+                    </div>
+                    <div class="medium-text playlist-item__duration" style="display: inline-block;">
+                        {{this.Duration}}
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
 </div>

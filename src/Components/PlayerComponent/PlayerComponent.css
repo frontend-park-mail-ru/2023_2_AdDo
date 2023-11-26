@@ -126,13 +126,13 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  gap: 35px;
+  gap: 80px;
   transition: transform 0.3s ease-in-out;
   &__controls {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 50px;
   }
   &__photo {
     width: 250px;
@@ -141,8 +141,8 @@
     border-radius: 20px;
   }
   &__playbutton {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     cursor: pointer;
   }
   &__progress {
@@ -160,6 +160,7 @@
   &__volume-bar {
     display: flex;
     gap: 5px;
+    align-items: center;
   }
   &__progress-bar {
     position: relative;
@@ -172,12 +173,45 @@
     position: absolute;
     right: 0;
   }
+  &__volume-img {
+    margin-top: 5px;
+    width: 25px;
+  }
+  &__prev-img {
+    margin-top: 5px;
+    width: 35px;
+  }
+  &__next-img {
+    margin-top: 5px;
+    width: 35px;
+  }
+  &__info {
+    &__name {
+        position: absolute;
+        left: 10%;
+        top: 45%;
+        color: #FFF;
+        font-size: 52px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+    }
+    &__artist {
+        position: absolute;
+        left: 10%;
+        top: 52%;
+        color: #c2c0c0;
+        font-size: 36px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+    }
+  }
+
 }
 
 .close-btn {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 5%;
+  left: 5%;
 }
 
 .footer {

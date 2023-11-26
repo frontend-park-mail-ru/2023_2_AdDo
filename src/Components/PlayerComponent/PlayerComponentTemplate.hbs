@@ -43,19 +43,19 @@
 
 
 <div class="mobile-player">
-    <div class="close-btn"><img data-section="closeBtn" src="/static/img/arrowUp.svg" alt=""></div>
+    <div class="close-btn"><img data-section="closeBtn" src="/static/img/arrowDown.svg" alt=""></div>
     <div>
         {{#if song.Preview}}
             <img class="mobile-player__photo" src="{{port}}{{song.Preview}}" alt="">
         {{else}}
-            <img class="mobile-player__photo" src="/static/img/grey.png" alt="">
+            <img class="mobile-player__photo" src="/static/img/violet.png" alt="">
         {{/if}}
     </div>
     <div class="mobile-player__info">
-            <div class="mobile-player__info__name medium-text">
+            <div class="mobile-player__info__name">
                 {{song.Name}}
             </div>
-            <div class="mobile-player__info__artist small-text">
+            <div class="mobile-player__info__artist">
                 {{song.ArtistName}}
             </div>
     </div>
@@ -67,19 +67,19 @@
     </div>
     
     <div class="mobile-player__controls">
-        <div class="mobile-player__controls__prev"><img data-section="prevBtn" src="/static/img/SwitchBack.svg" alt=""></div>
+        <div class="mobile-player__controls__prev"><img  class="mobile-player__prev-img" data-section="prevBtn" src="/static/img/SwitchBack.svg" alt=""></div>
         {{#if Playing}}
             <div class="mobile-player__controls__play"><img data-section="playBtn" class="mobile-player__playbutton" src="/static/img/pauseBtn.png" alt=""></div>
         {{else}}
             <div class="mobile-player__controls__play"><img data-section="playBtn" class="mobile-player__playbutton" src="/static/img/playButton.png" alt=""></div>
         {{/if}}
-        <div class="mobile-player__controls__next"><img data-section="nextBtn" src="/static/img/SwitchForward.svg" alt=""></div>
+        <div class="mobile-player__controls__next"><img class="mobile-player__next-img" data-section="nextBtn" src="/static/img/SwitchForward.svg" alt=""></div>
     </div>
 
     <div class="mobile-player__volume-bar">
-        <div><img src="/static/img/SoundOff.svg" alt=""></div>
+        <div><img class="mobile-player__volume-img" src="/static/img/SoundOff.svg" alt=""></div>
         <input class="mobile-player__volume" type="range" min="0" max="100" value="0" step="1">
-        <div><img src="/static/img/SoundOn.svg" alt=""></div>
+        <div><img class="mobile-player__volume-img" src="/static/img/SoundOn.svg" alt=""></div>
     </div>
 </div>
 </div>
