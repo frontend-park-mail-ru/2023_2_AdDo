@@ -59,22 +59,6 @@
         <li class="menu__item">
             <img class="magnifying-glass" src="/static/img/Loupe.svg" data-section="search">
         </li>
-        {{!-- {{#if user}}
-        <li class="menu__item" data-section="user">
-            <div class="mini-profile">
-                {{#if user.avatar}}
-                <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.avatar}}"
-                    alt="">
-                {{else}}
-                <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.webp"
-                    alt="">
-                {{/if}}
-                <h2 class="menu-item__link" data-section="signout">
-                    Выйти
-                </h2>
-            </div>
-        </li>
-        {{else}} --}}
         <li class="menu__item" data-section="user">
             <button class="default-button" data-url="/login" data-section="link">Войти</button>
         </li>
@@ -90,8 +74,8 @@
 
     <div class="menu__search-results">
         <div class="menu__search-results__link" data-section="searchlink" data-url="/search">
-            <img class="menu__search-results__loupe" src="/static/img/Loupe.svg" alt="">
-            <div class="medium-text">Искать</div>
+            <img class="menu__search-results__loupe" data-section="searchlink" data-url="/search" src="/static/img/Loupe.svg" alt="">
+            <div data-section="searchlink" data-url="/search" class="medium-text">Искать</div>
         </div>
         
         
