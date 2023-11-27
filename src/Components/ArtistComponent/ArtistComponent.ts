@@ -27,7 +27,7 @@ export class ArtistComponent extends IComponent {
 		EventDispatcher.subscribe('show-more', () => {
 			if(this.isShown) {
 				this.isShown = false;
-				this.songs = this.artist.Tracks.slice(0, 9);
+				this.songs = this.artist.Tracks.slice(0, 10);
 				this.showmore = 'Смотреть все';
 				this.renderContent();
 			} else {
@@ -75,7 +75,7 @@ export class ArtistComponent extends IComponent {
 	 */
 	public set Artist(artist: Artist) {
 		this.artist = artist;
-		this.songs = artist.Tracks.slice(0, 9);
+		this.songs = artist.Tracks.slice(0, 10);
 		this.renderContent();
 	}
 
@@ -89,6 +89,5 @@ export class ArtistComponent extends IComponent {
 			this.parent.innerHTML = '';
 			this.parent.innerHTML = template({ Artist: this.artist, Tracks: this.songs, port: hosts.s3HOST, user: this.user, showMore: this.showmore });
 		}
-		
 	}
 }
