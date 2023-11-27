@@ -126,52 +126,52 @@ export class HeaderComponent extends IComponent {
 		tracks.forEach(track => {
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
-			li.innerHTML = track.Name;
 			const a = document.createElement('a');
 			a.classList.add('search-list__link');
 			a.classList.add('medium-text');
 			a.setAttribute('href', `/track/${track.Id}`);
 			a.setAttribute('data-section', 'link');
 			a.setAttribute('data-url', `/track/${track.Id}`);
+			a.textContent = track.Name;
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
 		albums.forEach(album => {
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
-			li.innerHTML = album.Name;
 			const a = document.createElement('a');
 			a.classList.add('search-list__link');
 			a.classList.add('medium-text');
 			a.setAttribute('href', `/track/${album.Id}`);
 			a.setAttribute('data-section', 'link');
 			a.setAttribute('data-url', `/track/${album.Id}`);
+			a.textContent = album.Name;
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
 		artists.forEach(artist => {
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
-			li.innerHTML = artist.Name;
 			const a = document.createElement('a');
 			a.classList.add('search-list__link');
 			a.classList.add('medium-text');
 			a.setAttribute('href', `/artist/${artist.Id}`);
 			a.setAttribute('data-section', 'link');
 			a.setAttribute('data-url', `/artist/${artist.Id}`);
+			a.textContent = artist.Name;
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
 		playlists.forEach(track => {
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
-			li.innerHTML = track.Name;
 			const a = document.createElement('a');
 			a.classList.add('search-list__link');
 			a.classList.add('medium-text');
 			a.setAttribute('href', `/album/${track.Id}`);
 			a.setAttribute('data-section', 'link');
 			a.setAttribute('data-url', `/album/${track.Id}`);
+			a.textContent = track.Name;
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
@@ -183,7 +183,6 @@ export class HeaderComponent extends IComponent {
 	 * @return {void} This function does not return a value.
 	 */
 	public renderHeader(): void {
-		this.parent.innerHTML = '';
 		let randomlogo = '';
 		let randomNum = Math.floor(Math.random() * 3);
 		switch (randomNum) {
@@ -228,6 +227,5 @@ export class HeaderComponent extends IComponent {
 		menuRest.appendChild(li);
 		const logo = this.parent.querySelector('.logo__photo')!;
 		logo.setAttribute('src', randomlogo);
-		//this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
 	}
 }
