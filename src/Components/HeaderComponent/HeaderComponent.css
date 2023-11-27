@@ -216,16 +216,16 @@
 .menu__search-results {
   background: #090710;
   min-width: 200px;
-  max-width: 550px;
+  max-width: 650px;
   height: -moz-fit-content;
   height: fit-content;
   display: none;
   gap: 25px;
   position: fixed;
   left: 28%;
-  right: 25%;
+  right: 20%;
   padding: 25px;
-  top: 9%;
+  top: 10%;
   border-radius: 5px;
   z-index: 1;
   &__link {
@@ -237,6 +237,10 @@
   &__link:hover {
     color: #C15DF3;
   }
+}
+
+.menu__search-results:hover {
+  display: grid !important;
 }
 
 .search-list {

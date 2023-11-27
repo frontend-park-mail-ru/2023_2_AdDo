@@ -125,7 +125,10 @@ export class HeaderComponent extends IComponent {
 	public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
 		const searchPopUp = this.parent.querySelector('.search-list')!;
 		searchPopUp.innerHTML = '';
-		tracks.forEach(track => {
+		tracks.forEach((track, index) => {
+			if (index > 3) {
+				return;
+			}
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
 			const a = document.createElement('a');
@@ -138,7 +141,10 @@ export class HeaderComponent extends IComponent {
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
-		albums.forEach(album => {
+		albums.forEach((album, index) => {
+			if (index > 3) {
+				return;
+			}
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
 			const a = document.createElement('a');
@@ -151,7 +157,10 @@ export class HeaderComponent extends IComponent {
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
-		artists.forEach(artist => {
+		artists.forEach((artist, index) => {
+			if (index > 3) {
+				return;
+			}
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
 			const a = document.createElement('a');
@@ -164,7 +173,10 @@ export class HeaderComponent extends IComponent {
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
-		playlists.forEach(track => {
+		playlists.forEach((track, index) => {
+			if (index > 3) {
+				return;
+			}
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
 			const a = document.createElement('a');
