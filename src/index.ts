@@ -149,7 +149,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateChart();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -161,7 +160,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatePlaylists();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -173,7 +171,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateNew();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -185,7 +182,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.usermodel.getCSRFToken();
 		this.profilecontroller.mountComponent();
-		this.profilecontroller.bindEvents();
 		EventDispatcher.subscribe('user-changed', this.profilecontroller.bindEvents.bind(this.profilecontroller));
 	}
 
@@ -198,7 +194,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateAlbum();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -212,7 +207,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateArtist();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -248,6 +242,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateSearch();
 		this.maincontroller.mountComponent();
+		
 	}
 
 	/**
