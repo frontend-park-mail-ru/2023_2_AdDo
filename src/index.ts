@@ -138,6 +138,7 @@ class App {
 		this.maincontroller.updateFeed();
 		this.maincontroller.mountComponent();
 		this.maincontroller.bindEvents();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	/**
@@ -149,6 +150,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateChart();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	/**
@@ -160,6 +162,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatePlaylists();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	/**
@@ -171,6 +174,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateNew();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	/**
@@ -194,6 +198,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateAlbum();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	/**
@@ -207,6 +212,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateArtist();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	/**
@@ -218,31 +224,35 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatefavPlaylists();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	public renderfavTracks(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatefavTracks();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	public renderfavAlbums(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatefavAlbums();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	public renderfavArtists(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatefavArtists();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindSearchEvents();
 	}
 
 	public renderSearch(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateSearch();
 		this.maincontroller.mountComponent();
-		
+		this.maincontroller.bindSearchEvents();
 	}
 
 	/**

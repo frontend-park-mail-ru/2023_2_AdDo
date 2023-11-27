@@ -240,7 +240,7 @@ class MainView extends IView {
         const footer = this.components.get('footer') as PlayerComponent;
         if(this.isMobile) {
             let img: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
-            img.src = '/static/img/playBtn.png';
+            img.src = '/static/img/playButton.png';
         } else {
             let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
             img.src = '/static/img/Play.svg';
@@ -346,6 +346,11 @@ class MainView extends IView {
     public bindEvents(): void {
         const footer = this.components.get('footer') as PlayerComponent;
         footer.bindEvents();
+    }
+
+    public bindSearchEvents(): void {
+        const header = this.components.get('hedaer') as HeaderComponent;
+        header.bindSearchEvents();
     }
 
     /**

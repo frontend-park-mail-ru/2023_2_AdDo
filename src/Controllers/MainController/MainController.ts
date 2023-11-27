@@ -345,6 +345,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     public bindEvents(): void {
         this.view.bindEvents();
     }
+
+    public bindSearchEvents(): void {
+        this.view.bindSearchEvents();
+    }
     /**
      * Repeats the currently playing song.
      *
@@ -353,6 +357,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     public repeatSong(): void {
         this.view.play(this.model.ContentModel.getSongById(this.songId), this.model.ContentModel.getSongById(this.songId).isLiked);
     }
+
 }
 
 export default MainController;

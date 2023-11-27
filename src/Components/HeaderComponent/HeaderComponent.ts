@@ -16,8 +16,6 @@ export class HeaderComponent extends IComponent {
 	constructor(parent: HTMLElement) {
 		super(parent, template({ port: hosts.s3HOST, logo: '/static/img/Logo.svg' }));
 		this.bindClickEvent(this.handleClick.bind(this));
-		this.bindBlurEvent(this.handleBlur.bind(this));
-		this.bindFocusEvent(this.handleFocus.bind(this));
 		this.bindInputEvent(this.handleInput.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
@@ -109,12 +107,17 @@ export class HeaderComponent extends IComponent {
 		this.parent.addEventListener('click', listener);
 	}
 
-	private bindFocusEvent(listener: Callback): void {
-		this.element.querySelector('.input-search')!.addEventListener('focus', listener);
+	public bindFocusEvent(listener: Callback): void {
+		this.parent.querySelector('.input-search')!.addEventListener('focus', listener);
 	}
 
-	private bindBlurEvent(listener: Callback): void {
-		this.element.querySelector('.input-search')!.addEventListener('blur', listener);
+	public bindBlurEvent(listener: Callback): void {
+		this.parent.querySelector('.input-search')!.addEventListener('blur', listener);
+	}
+
+	public bindSearchEvents(): void {
+		this.parent.querySelector('.input-search')!.addEventListener('focus', this.handleFocus.bind(this));
+		this.parent.querySelector('.input-search')!.addEventListener('blur', this.handleBlur.bind(this));
 	}
 
 	public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
@@ -194,5 +197,6 @@ export class HeaderComponent extends IComponent {
 				break;
 		}
 		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
+		this.bindSearchEvents();
 	}
 }
