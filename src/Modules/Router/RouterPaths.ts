@@ -20,7 +20,7 @@ const paths = {
     login: '/login',
     signup: '/signup',
     profile: '/profile',
-    search: '/search',
+    search: '/search?query={:query}',
 };
 
 export default paths;

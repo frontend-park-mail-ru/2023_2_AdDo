@@ -47,7 +47,7 @@
 .logo {
   display: contents;
   &__photo {
-    size: 85px;
+    size: 70px;
     cursor: pointer;
   }
   &__text {
@@ -216,18 +216,23 @@
 .menu__search-results {
   background: #090710;
   min-width: 200px;
+  max-width: 550px;
+  height: -moz-fit-content;
   height: fit-content;
   display: none;
   gap: 25px;
   position: fixed;
-  left: 35%;
-  right: 20%;
+  left: 28%;
+  right: 25%;
   padding: 25px;
-  top: 10%;
+  top: 9%;
   border-radius: 5px;
   z-index: 1;
   &__link {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
   }
   &__link:hover {
     color: #C15DF3;

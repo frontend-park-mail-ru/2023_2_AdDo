@@ -17,6 +17,8 @@ export class HeaderComponent extends IComponent {
 		super(parent, template({ port: hosts.s3HOST, logo: '/static/img/Logo.svg' }));
 		this.bindClickEvent(this.handleClick.bind(this));
 		this.bindInputEvent(this.handleInput.bind(this));
+		this.bindFocusEvent(this.handleFocus.bind(this));
+		this.bindBlurEvent(this.handleBlur.bind(this));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		});
@@ -201,8 +203,10 @@ export class HeaderComponent extends IComponent {
 		const li: HTMLLIElement = document.createElement('li');
 		li.classList.add('menu__item');
 		if(this.user !== null) {
+			const div = document.createElement('div');
+			div.classList.add('mini-profile');
 			const img: HTMLImageElement = document.createElement('img');
-			if(this.user.avatar !== null) {
+			if(this.user.avatar !== null && this.user.avatar !== '') {
 				img.setAttribute('src', hosts.s3HOST + this.user.avatar);
 			} else {
 				img.setAttribute('src', '/static/img/worm.webp');
@@ -210,12 +214,13 @@ export class HeaderComponent extends IComponent {
 			img.classList.add('mini-profile__avatar');
 			img.setAttribute('data-url', '/profile');
 			img.setAttribute('data-section', 'link');
-			li.appendChild(img);
+			div.appendChild(img);
 			const h2: HTMLHeadingElement = document.createElement('h2');
 			h2.classList.add('menu-item__link');
 			h2.setAttribute('data-section', 'signout');
 			h2.textContent = 'Войти';
-			li.appendChild(h2);
+			div.appendChild(h2);
+			li.appendChild(div);
 		} else {
 			const button: HTMLButtonElement = document.createElement('button');
 			button.classList.add('default-button');

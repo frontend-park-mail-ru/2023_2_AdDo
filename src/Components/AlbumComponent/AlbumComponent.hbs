@@ -1,7 +1,7 @@
 <div class="album">
     <div class="info album__info">
         {{#if album.Preview}}
-            <img style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
+            <img class="info__photo" style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
         {{/if}}
         <div style="display: inline-block;">
             <div class="large-text">{{album.Name}}</div>
@@ -10,7 +10,7 @@
             </a>
             {{#if user}}
             <div class="big-like-btn" data-section="albumlike" data-url="{{album.Id}}">
-                <div class=""><img class="player-btns" src="/static/img/Like.svg"></div>
+                <div class=""><img class="big-like-btn__like" src="/static/img/Like.svg"></div>
                 <div class="medium-text">Нравится</div>
             </div>
             {{/if}}

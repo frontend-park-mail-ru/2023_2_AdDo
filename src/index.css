@@ -95,7 +95,7 @@
     display: flex;
     gap: 30px;
 
-    img {
+    &__photo {
         border-radius: 100px;
         size: 190px;
     }

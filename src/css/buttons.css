@@ -151,12 +151,22 @@
 }
 
 .big-like-btn {
-    border-radius: 15px;
+    border-radius: 35px;
     background: transparent;
     border: 2px solid white;
     display: flex;
-    width: 50px;
+    width: fit-content;
     height: 50px;
+    align-items: center;
+    padding-right: 10px;
     gap: 15px;
+    padding-left: 10px;
     cursor: pointer;
+    &__like {
+        margin-top: 10px;
+        width: 35px;
+        height: 25px;
+        cursor: pointer;
+    }
 }
+
