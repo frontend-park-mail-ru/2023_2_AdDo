@@ -150,9 +150,9 @@ export class HeaderComponent extends IComponent {
 			const a = document.createElement('a');
 			a.classList.add('search-list__link');
 			a.classList.add('medium-text');
-			a.setAttribute('href', `/track/${album.Id}`);
+			a.setAttribute('href', `/album/${album.Id}`);
 			a.setAttribute('data-section', 'link');
-			a.setAttribute('data-url', `/track/${album.Id}`);
+			a.setAttribute('data-url', `/album/${album.Id}`);
 			a.textContent = album.Name;
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
