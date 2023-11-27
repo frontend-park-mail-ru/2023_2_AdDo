@@ -119,6 +119,13 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.model.ContentModel.requestfavPlaylists(this.view.fillFavPlaylists.bind(this.view));
     }
 
+    public updateSearch(): void {
+        this.view.renderSearch();
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        this.model.ContentModel.requestSearch(urlParams.get('query')!, this.view.fillSearch.bind(this.view));
+    }
+
     /**
      * Handles the click event and performs different actions based on the target element.
      *
@@ -171,6 +178,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'innerlink':
                 e.preventDefault();
                 this.view.makeActiveInnerLink(e.target as HTMLElement);
+                router.goToPage(target.getAttribute('data-url')!);
+                return;
+            case 'searchlink':
+                e.preventDefault();
                 router.goToPage(target.getAttribute('data-url')!);
                 return;
             case 'signout':
@@ -231,7 +242,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
     public search(value: string): void {
-        const f = debounce(this.model.ContentModel.search, 300);
+        const f = debounce(this.model.ContentModel.requestSearch, 300);
         f(value, this.view.searchResults.bind(this.view));
     }
 

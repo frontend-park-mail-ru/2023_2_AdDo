@@ -75,8 +75,14 @@ export class HeaderComponent extends IComponent {
 				this.parent.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
 				break;
 			case 'cancel':
+				e.preventDefault();
 				document.getElementById('overlay')!.style.display = 'none';
 				this.parent.querySelector('[data-section="logout-confirmation"]')!.classList.toggle('logout-confirmation_active');
+				break;
+			case 'searchlink':
+				const input: HTMLInputElement = document.querySelector('.input-search')!;
+				const link: HTMLElement = document.querySelector('.menu__search-results__link')!;
+				link.setAttribute('data-url', '/search?query=' + input.value);
 				break;
 		}
 	}

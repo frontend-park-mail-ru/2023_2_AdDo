@@ -103,6 +103,7 @@ class App {
 			{ path: paths.favPlaylists, handler: this.renderfavPlaylists },
 			{ path: paths.favTracks, handler: this.renderfavTracks },
 			{ path: paths.track, handler: this.renderAlbum },
+			{ path: paths.search, handler: this.renderSearch },
 		];
 
 		routes.forEach(({ path, handler }) => {
@@ -240,6 +241,12 @@ class App {
 	public renderfavArtists(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatefavArtists();
+		this.maincontroller.mountComponent();
+	}
+
+	public renderSearch(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateSearch();
 		this.maincontroller.mountComponent();
 	}
 

@@ -20,6 +20,7 @@ const paths = {
     login: '/login',
     signup: '/signup',
     profile: '/profile',
+    search: '/search',
 };
 
 export default paths;

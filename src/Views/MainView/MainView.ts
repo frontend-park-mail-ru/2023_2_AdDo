@@ -12,6 +12,7 @@ import { favTracksComponent } from '../../Components/FavTracksComponent/FavTrack
 import { favAlbumsComponent } from '../../Components/FavAlbumsComponent/FavAlbumsComponent';
 import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/FavPlaylistsComponent';
 import IComponent from '../../Components/IComponent/IComponent';
+import { SearchComponent } from '../../Components/SearchComponent/SearchComponent';
 
 
 /** Class representing a MainView. */
@@ -53,6 +54,7 @@ class MainView extends IView {
         this.components.set('favTracks', new favTracksComponent(this.element.querySelector('main')!, []));
         this.components.set('favAlbums', new favAlbumsComponent(this.element.querySelector('main')!, []));
         this.components.set('favPlaylists', new favPlaylistsComponent(this.element.querySelector('main')!, []));
+        this.components.set('search', new SearchComponent(this.element.querySelector('main')!));
     }
 
     /**
@@ -125,6 +127,15 @@ class MainView extends IView {
         this.components.get('favPlaylists')!.append();
     }
 
+    public renderSearch(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('search')!.append();
+    }
+
+
 
     /**
      * Sets the content of the feed with the given array of albums.
@@ -183,6 +194,11 @@ class MainView extends IView {
     public fillFavPlaylists(playlists: Array<Album>): void {
         const favPlaylists = this.components.get('favPlaylists') as favPlaylistsComponent;
         favPlaylists.Playlists = playlists;
+    }
+
+    public fillSearch(playlists: Array<Album>, songs: Array<Song>, artists: Array<Artist>, albums: Array<Album>): void {
+        const search = this.components.get('search') as SearchComponent;
+        search.Content = {Playlists: playlists, Tracks: songs, Artists: artists, Albums: albums};
     }
 
     /**

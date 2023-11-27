@@ -214,7 +214,24 @@
 }
 
 .menu__search-results {
-
+  background: #090710;
+  min-width: 200px;
+  height: fit-content;
+  display: none;
+  gap: 25px;
+  position: fixed;
+  left: 35%;
+  right: 20%;
+  padding: 25px;
+  top: 10%;
+  border-radius: 5px;
+  z-index: 1;
+  &__link {
+    cursor: pointer;
+  }
+  &__link:hover {
+    color: #C15DF3;
+  }
 }
 
 .search-list {

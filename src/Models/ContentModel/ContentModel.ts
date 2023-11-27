@@ -357,7 +357,7 @@ export default class ContentModel extends IModel {
     }
 
 
-    public search(term: string, callback: Callback): void {
+    public requestSearch(term: string, callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/search?query=' + term, {})
         .then(({ status, responseBody }) => {
             if (status === 200) {
