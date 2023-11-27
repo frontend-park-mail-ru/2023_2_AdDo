@@ -108,11 +108,11 @@ export class HeaderComponent extends IComponent {
 	}
 
 	public bindFocusEvent(listener: Callback): void {
-		this.parent.querySelector('.input-search')!.addEventListener('focus', listener);
+		this.element.querySelector('.input-search')!.addEventListener('focus', listener);
 	}
 
 	public bindBlurEvent(listener: Callback): void {
-		this.parent.querySelector('.input-search')!.addEventListener('blur', listener);
+		this.element.querySelector('.input-search')!.addEventListener('blur', listener);
 	}
 
 	public bindSearchEvents(): void {
@@ -122,6 +122,7 @@ export class HeaderComponent extends IComponent {
 
 	public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
 		const searchPopUp = this.parent.querySelector('.search-list')!;
+		searchPopUp.innerHTML = '';
 		tracks.forEach(track => {
 			const li = document.createElement('li');
 			li.classList.add('search-list__item');
@@ -196,7 +197,37 @@ export class HeaderComponent extends IComponent {
 				randomlogo = '/static/img/Logo3.svg';
 				break;
 		}
-		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
-		this.bindSearchEvents();
+		const menuRest: HTMLUListElement = this.parent.querySelector('.menu__rest')!;
+		menuRest.lastElementChild!.remove();
+		const li: HTMLLIElement = document.createElement('li');
+		li.classList.add('menu__item');
+		if(this.user !== null) {
+			const img: HTMLImageElement = document.createElement('img');
+			if(this.user.avatar !== null) {
+				img.setAttribute('src', hosts.s3HOST + this.user.avatar);
+			} else {
+				img.setAttribute('src', '/static/img/worm.webp');
+			}
+			img.classList.add('mini-profile__avatar');
+			img.setAttribute('data-url', '/profile');
+			img.setAttribute('data-section', 'link');
+			li.appendChild(img);
+			const h2: HTMLHeadingElement = document.createElement('h2');
+			h2.classList.add('menu-item__link');
+			h2.setAttribute('data-section', 'signout');
+			h2.textContent = 'Войти';
+			li.appendChild(h2);
+		} else {
+			const button: HTMLButtonElement = document.createElement('button');
+			button.classList.add('default-button');
+			button.setAttribute('data-url', '/login');
+			button.setAttribute('data-section', 'link');
+			button.textContent = 'Войти';
+			li.appendChild(button);
+		}
+		menuRest.appendChild(li);
+		const logo = this.parent.querySelector('.logo__photo')!;
+		logo.setAttribute('src', randomlogo);
+		//this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
 	}
 }

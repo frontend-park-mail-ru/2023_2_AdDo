@@ -59,8 +59,8 @@
         <li class="menu__item">
             <img class="magnifying-glass" src="/static/img/Loupe.svg" data-section="search">
         </li>
-        {{#if user}}
-        <li class="menu__item">
+        {{!-- {{#if user}}
+        <li class="menu__item" data-section="user">
             <div class="mini-profile">
                 {{#if user.avatar}}
                 <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.avatar}}"
@@ -74,11 +74,10 @@
                 </h2>
             </div>
         </li>
-        {{else}}
-        <li class="menu__item">
+        {{else}} --}}
+        <li class="menu__item" data-section="user">
             <button class="default-button" data-url="/login" data-section="link">Войти</button>
         </li>
-        {{/if}}
     </ul>
 
     <div class="menu__logout-confirmation" data-section="logout-confirmation">
