@@ -180,9 +180,9 @@ class App {
 	 */
 	public renderProfile(): void {
 		EventDispatcher.emit('unmount-all');
-		this.usermodel.getCSRFToken();
-		this.profilecontroller.mountComponent();
-		EventDispatcher.subscribe('user-changed', this.profilecontroller.bindEvents.bind(this.profilecontroller));
+		this.maincontroller.updateProfile();
+		this.maincontroller.mountComponent();
+		EventDispatcher.subscribe('user-changed', this.maincontroller.bindProfileEvents.bind(this.maincontroller));
 	}
 
 	/**

@@ -365,7 +365,7 @@ export default class ContentModel extends IModel {
                 const albums: Array<Album> = responseBody.Albums.slice(0);
                 const artists: Array<Artist> = responseBody.Artists.slice(0);
                 const playlists: Array<Playlist> = responseBody.Playlists.slice(0);
-                callback(tracks, albums, artists, playlists);
+                callback(playlists, tracks, artists, albums);
                 return;
             }
         })

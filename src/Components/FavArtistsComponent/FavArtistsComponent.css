@@ -1,0 +1,7 @@
+.favArtists {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    padding: 0px;
+    position: relative;
+    margin-bottom: 10vh;
+}

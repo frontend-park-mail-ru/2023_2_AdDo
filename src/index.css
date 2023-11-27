@@ -9,6 +9,10 @@
 @import './Components/FeedComponent/FeedComponent.css';
 @import './Components/LoginComponent/LoginComponent.css';
 @import './Components/SignUpComponent/SignUpComponent.css';
+@import './Components/FavArtistsComponent/FavArtistsComponent.css';
+@import './Components/FavAlbumsComponent/FavAlbumsComponent.css'; 
+@import './Components/FavTracksComponent/FavTracksComponent.css';
+@import './Components/FavPlaylistsComponent/FavPlaylistsComponent.css';
 @import './Components/AlbumComponent/AlbumComponent.css';
 @import './Components/ArtistComponent/ArtistComponent.css';
 @import './Components/ProfileComponent/ProfileComponent.css';

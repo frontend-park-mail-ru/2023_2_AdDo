@@ -358,6 +358,63 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.view.play(this.model.ContentModel.getSongById(this.songId), this.model.ContentModel.getSongById(this.songId).isLiked);
     }
 
+    /**
+     * Handles the form submission event.
+     *
+     * @param {Event} e - The form submission event.
+     * @return {void} This function does not return a value.
+     */
+    private handleSubmit(e: Event): void {
+        e.preventDefault();
+        const {username, email, birthdate} = this.view.getDataFromForm();
+        const avatar = this.view.getAvatarFromForm();
+        if (avatar) {
+            if (avatar.type.startsWith('image/')) {
+                const formdata = new FormData();
+                formdata.append('Avatar', avatar, avatar.name);
+                this.model.UserModel.uploadAvatar(formdata, this.view.renderError.bind(this.view));
+                this.model.UserModel.updateUser({username, email, birthdate, avatar: avatar.name}, this.view.renderError.bind(this.view));
+            } else {
+                this.view.renderError('not an image');
+            }
+        } else {
+            this.model.UserModel.updateUser({username, email, birthdate, avatar: this.model.UserModel.getCurrentUser()!.avatar}, this.view.renderError.bind(this.view));
+        }
+    }
+
+    /**
+     * Update the user profile.
+     *
+     * @return {void}
+     */ 
+    public updateProfile(): void {
+        this.view.renderProfile();
+        this.view.fillProfile(this.model.UserModel.getCurrentUser()!);
+    }
+    
+    /**
+     * Handles the upload event.
+     *
+     * @param {Event} event - The upload event.
+     * @return {void} This function does not return anything.
+     */
+    public handleUpload(event: Event): void {
+        let target = event.target as HTMLInputElement;
+        const selectedFile = target.files![0];
+        if (selectedFile && selectedFile.type.startsWith('image/') && !selectedFile.type.startsWith('image/gif')) {
+            let fileName = target.files![0].name;
+            document.querySelector('.upload-button__input')!.textContent = fileName;
+        } else {
+            this.view.renderError('not an image');
+        }
+    }
+
+    public bindProfileEvents(): void {
+        this.view.bindClickEvent(this.handleClick.bind(this));
+        this.view.bindSubmitEvent(this.handleSubmit.bind(this));
+        this.view.bindUploadEvent(this.handleUpload.bind(this));
+    }
+
 }
 
 export default MainController;

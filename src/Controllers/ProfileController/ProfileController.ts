@@ -71,7 +71,7 @@ class ProfileController extends IController<ProfileView, UserModel> {
      * @return {void}
      */ 
     public updateProfile(): void {
-        this.view.fillContent(this.model.getCurrentUser()!);
+        this.view.fillProfile(this.model.getCurrentUser()!);
     }
     
     /**
@@ -89,8 +89,6 @@ class ProfileController extends IController<ProfileView, UserModel> {
         } else {
             this.view.renderError('not an image');
         }
-       
-       
     }
 
     public bindEvents(): void {

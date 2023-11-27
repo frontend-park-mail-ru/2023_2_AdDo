@@ -13,6 +13,7 @@ import { favAlbumsComponent } from '../../Components/FavAlbumsComponent/FavAlbum
 import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/FavPlaylistsComponent';
 import IComponent from '../../Components/IComponent/IComponent';
 import { SearchComponent } from '../../Components/SearchComponent/SearchComponent';
+import { ProfileComponent } from '../../Components/ProfileComponent/ProfileComponent';
 
 
 /** Class representing a MainView. */
@@ -55,6 +56,7 @@ class MainView extends IView {
         this.components.set('favAlbums', new favAlbumsComponent(this.element.querySelector('main')!, []));
         this.components.set('favPlaylists', new favPlaylistsComponent(this.element.querySelector('main')!, []));
         this.components.set('search', new SearchComponent(this.element.querySelector('main')!));
+        this.components.set('profile', new ProfileComponent(this.element.querySelector('main')!));
     }
 
     /**
@@ -135,6 +137,14 @@ class MainView extends IView {
         this.components.get('search')!.append();
     }
 
+    public renderProfile(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('profile')!.append();
+    }
+
 
 
     /**
@@ -212,7 +222,7 @@ class MainView extends IView {
         const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
         const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
-        mobileImg.src = '/static/img/pauseBtn.svg';
+        mobileImg.src = '/static/img/pauseBtn.png';
         footer.playSong(song, isLiked);
     }
 
@@ -418,6 +428,95 @@ class MainView extends IView {
     public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
         const header = this.components.get('header')! as HeaderComponent;
         header.searchResults(tracks, albums, artists, playlists);
+    }
+
+    /**
+     * Fills the content of the function with the specified user.
+     *
+     * @param {User} user - The user to fill the content with.
+     * @return {void}
+     */  
+    public fillProfile(user: User): void {
+        const header = this.components.get('header')! as HeaderComponent;
+        header.User = user;
+        const profile = this.components.get('profile')! as ProfileComponent;
+        profile.User = user;
+    }
+
+
+    /**
+     * Binds a submit event listener to the form element within the profile element.
+     *
+     * @param {Callback} listener - The callback function to be executed when the submit event is triggered.
+     * @return {void}
+     */
+    public bindSubmitEvent(listener: Callback): void {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        profile.querySelector('form')!.addEventListener('submit', listener);
+    }
+
+    /**
+     * Binds an upload event listener to the 'change' event of the file input element in the profile section.
+     *
+     * @param {Callback} listener - The callback function to be executed when the 'change' event is triggered.
+     * @return {void} 
+     */
+    public bindUploadEvent(listener: Callback): void {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        profile.querySelector('[data-section="fileInput"]')?.addEventListener('change', listener);
+    }
+
+    /**
+     * Retrieves data from a form.
+     *
+     * @return {{email: string, username: string, birthdate: string}} The data from the form.
+     */
+    public getDataFromForm(): {email: string, username: string, birthdate: string} {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        const emailInput = profile.querySelector('[data-section="email"]') as HTMLInputElement;
+        const birthdateInput = profile.querySelector('[data-section="birthdate"]') as HTMLInputElement;
+        const usernameInput = profile.querySelector('[data-section="username"]') as HTMLInputElement;
+        return {email: emailInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!};
+    }
+
+    /**
+     * 
+     * Retrieves the avatar file from the form.
+     *
+     * @return {File} The avatar file selected in the form.
+     */
+    public getAvatarFromForm(): File {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        const avatarInput = profile.querySelector('[data-section="fileInput"]') as HTMLInputElement;
+        return avatarInput.files![0];
+    }
+    
+    /**
+     * Renders an error message based on the given error.
+     *
+     * @param {string} err - The error message.
+     * @return {void}
+     */
+    public renderError(err: string): void {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        switch (err) {
+            case 'bad request':
+                profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                profile.querySelector('[data-section="passcheck"]').textContent = 'Некорретное имя пользователя или email!';
+                return;
+            case 'ok':
+                profile.querySelector('[data-section="username"]').className = 'auth-input';
+                profile.querySelector('[data-section="email"]').className = 'auth-input';
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__disabled';
+                return;
+            case 'not an image':
+                profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                profile.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
+        }
     }
 }
 

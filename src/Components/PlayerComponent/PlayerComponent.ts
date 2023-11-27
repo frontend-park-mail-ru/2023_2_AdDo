@@ -146,10 +146,19 @@ export class PlayerComponent extends IComponent {
 		const remainingTimeDiv: HTMLElement = this.querySelector('.mobile-player__remaining-time')!;
 		let minutes = Math.floor(currentTime / 60);
 		let seconds = currentTime % 60;
-		currTimeDiv.textContent = minutes.toString() + ':' + Math.floor(seconds).toString();
+		if (seconds < 10) {
+			currTimeDiv.textContent = minutes.toString() + ':' + '0' + Math.floor(seconds).toString();
+		} else {
+			currTimeDiv.textContent = minutes.toString() + ':' + Math.floor(seconds).toString();
+		}
 		minutes = Math.floor((duration - currentTime) / 60);
 		seconds = (duration - currentTime) % 60;
-		remainingTimeDiv.textContent = minutes.toString() + ':' + Math.floor(seconds).toString();
+		if (seconds < 10) {
+			remainingTimeDiv.textContent = minutes.toString() + ':' + '0' + Math.floor(seconds).toString();
+		} else {
+			remainingTimeDiv.textContent = minutes.toString() + ':' + Math.floor(seconds).toString();
+		}
+		
 	}
 
 	/**
