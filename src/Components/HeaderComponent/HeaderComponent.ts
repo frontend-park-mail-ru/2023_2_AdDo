@@ -110,11 +110,11 @@ export class HeaderComponent extends IComponent {
 	}
 
 	private bindFocusEvent(listener: Callback): void {
-		this.parent.addEventListener('focus', listener);
+		this.parent.querySelector('.input-search')!.addEventListener('focus', listener);
 	}
 
 	private bindBlurEvent(listener: Callback): void {
-		this.parent.addEventListener('blur', listener);
+		this.parent.querySelector('.input-search')!.addEventListener('blur', listener);
 	}
 
 	public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
@@ -194,5 +194,7 @@ export class HeaderComponent extends IComponent {
 				break;
 		}
 		this.parent.innerHTML = template({ port: hosts.s3HOST, user: this.user, logo: randomlogo });
+		this.bindBlurEvent(this.handleBlur.bind(this));
+		this.bindFocusEvent(this.handleFocus.bind(this));
 	}
 }

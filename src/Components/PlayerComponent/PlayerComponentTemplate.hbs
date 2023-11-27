@@ -55,7 +55,8 @@
             <div class="mobile-player__info__name">
                 {{song.Name}}
             </div>
-            <div class="mobile-player__info__artist">
+            <div class="mobile-player__info__artist" data-section="link"
+                data-url="/artist/{{song.ArtistId}}" data-Id="{{song.ArtistId}}">
                 {{song.ArtistName}}
             </div>
     </div>

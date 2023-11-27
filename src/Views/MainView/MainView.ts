@@ -238,8 +238,13 @@ class MainView extends IView {
      */
     public pause(): void {
         const footer = this.components.get('footer') as PlayerComponent;
-        let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
-        img.src = '/static/img/Play.svg';
+        if(this.isMobile) {
+            let img: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+            img.src = '/static/img/playBtn.png';
+        } else {
+            let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+            img.src = '/static/img/Play.svg';
+        } 
         footer.pauseSong();
     }
 

@@ -144,8 +144,12 @@ export class PlayerComponent extends IComponent {
 		slider.value = progressPercent.toString();
 		const currTimeDiv: HTMLElement = this.querySelector('.mobile-player__current-time')!;
 		const remainingTimeDiv: HTMLElement = this.querySelector('.mobile-player__remaining-time')!;
-		currTimeDiv.textContent = currentTime.toString();
-		remainingTimeDiv.textContent = (duration - currentTime).toString();
+		let minutes = Math.floor(currentTime / 60);
+		let seconds = currentTime % 60;
+		currTimeDiv.textContent = minutes.toString() + ':' + seconds.toString();
+		minutes = Math.floor((duration - currentTime) / 60);
+		seconds = (duration - currentTime) % 60;
+		remainingTimeDiv.textContent = minutes.toString() + ':' + seconds.toString();
 	}
 
 	/**
@@ -191,6 +195,10 @@ export class PlayerComponent extends IComponent {
         this.element.querySelector('.volume-bar')!.addEventListener('input', listener);
 	}
 
+	private bindMobileVolumeSliderEvent(listener: Callback): void {
+        this.element.querySelector('.mobile-player__volume')!.addEventListener('input', listener);
+	}
+
 	/**
 	 * Binds a time update event listener to the audio element.
 	 *
@@ -203,13 +211,8 @@ export class PlayerComponent extends IComponent {
 
 	public bindEvents(): void {
 		this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
-		// this.parent.querySelector('.player')!.addEventListener('click', () => {
-		// 	const mobilePlayer: HTMLElement = document.querySelector('.mobile-player')!;
-		// 	mobilePlayer.style.display === 'none' ? mobilePlayer.style.display = 'flex' : mobilePlayer.style.display = 'none';
-		// 	this.cardShown = !this.cardShown;
-		// });
 		this.parent.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
-		this.bindVolumeSliderEvent(this.setVolumeMobile.bind(this));
+		this.bindMobileVolumeSliderEvent(this.setVolumeMobile.bind(this));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
