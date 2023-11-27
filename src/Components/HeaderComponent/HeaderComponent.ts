@@ -230,7 +230,7 @@ export class HeaderComponent extends IComponent {
 			const h2: HTMLHeadingElement = document.createElement('h2');
 			h2.classList.add('menu-item__link');
 			h2.setAttribute('data-section', 'signout');
-			h2.textContent = 'Войти';
+			h2.textContent = 'Выйти';
 			div.appendChild(h2);
 			li.appendChild(div);
 		} else {

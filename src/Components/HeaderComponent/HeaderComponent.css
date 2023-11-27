@@ -153,15 +153,15 @@
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 768px) {
     .menu-icon {
-      display: none ;
+      display: none;
     }
   
     .mobile-menu__links {
-      display: none ;
+      display: none;
     }
 
     .mobile-menu {
-        display: none ;
+        display: none !important;
       }
     .menu__links {
       display: flex;
@@ -180,7 +180,7 @@
         display: flex;
       }
     .menu__links {
-        display: none;
+        display: none !important;
     }
   }
 

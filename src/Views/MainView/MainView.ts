@@ -209,8 +209,10 @@ class MainView extends IView {
      */
     public play(song: Song, isLiked: boolean): void {
         const footer = this.components.get('footer') as PlayerComponent;
-        let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/pauseBtn.svg';
         footer.playSong(song, isLiked);
     }
 
@@ -221,14 +223,10 @@ class MainView extends IView {
      */
     public resume(): void {
         const footer = this.components.get('footer') as PlayerComponent;
-        if(this.isMobile) {
-            let img: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
-            img.src = '/static/img/pauseBtn.png';
-        } else {
-            let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
-            img.src = '/static/img/Pause.svg';
-        }
-        
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/pauseBtn.png';
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Pause.svg';
         footer.resumeSong();
     }
     /**
@@ -238,13 +236,10 @@ class MainView extends IView {
      */
     public pause(): void {
         const footer = this.components.get('footer') as PlayerComponent;
-        if(this.isMobile) {
-            let img: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
-            img.src = '/static/img/playButton.png';
-        } else {
-            let img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
-            img.src = '/static/img/Play.svg';
-        } 
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/playButton.png';
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Play.svg';
         footer.pauseSong();
     }
 
