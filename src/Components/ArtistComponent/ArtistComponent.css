@@ -9,4 +9,9 @@
     &__list {
         margin-bottom: 0px;
     }
+    &__tracks {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }

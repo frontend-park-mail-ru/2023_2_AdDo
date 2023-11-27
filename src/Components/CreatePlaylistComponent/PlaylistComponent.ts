@@ -1,15 +1,12 @@
-import { Artist, Song, User } from '../../types';
-import template from './ArtistComponent.hbs';
+import { Artist, Playlist, Song, User } from '../../types';
+import template from './PlaylistComponentTemplate.hbs';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a ArtistComponent. */
-export class ArtistComponent extends IComponent {
-	private artist: Artist;
-	private songs: Array<Song> = [];
-	private showmore: string = 'Смотреть все';
-	private isShown: boolean = false;
+export class PlaylistComponent extends IComponent {
+	private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [] };
 	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
 	/**
 	 * Create a new instance of the constructor.
@@ -17,25 +14,10 @@ export class ArtistComponent extends IComponent {
 	 * @param {HTMLElement} parent - The parent element.
 	 * @param {Artist} artist - The artist object.
 	 */
-	constructor(parent: HTMLElement, artist: Artist) {
-		super(parent, template({ artist, port: hosts.s3HOST }));
-		this.artist = artist;
+	constructor(parent: HTMLElement) {
+		super(parent, template({ port: hosts.s3HOST }));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
-		})
-
-		EventDispatcher.subscribe('show-more', () => {
-			if(this.isShown) {
-				this.isShown = false;
-				this.songs = this.artist.Tracks.slice(0, 9);
-				this.showmore = 'Смотреть все';
-				this.renderContent();
-			} else {
-				this.isShown = true;
-				this.songs = this.artist.Tracks;
-				this.showmore = 'Скрыть';
-				this.renderContent();
-			}	
 		})
 	}
 	
@@ -64,8 +46,8 @@ export class ArtistComponent extends IComponent {
 	 *
 	 * @return {Artist} The Artist object.
 	 */
-	public get Artist(): Artist {
-		return this.artist;
+	public get Playlist(): Playlist {
+		return this.playlist;
 	}
 
 	/**
@@ -73,9 +55,8 @@ export class ArtistComponent extends IComponent {
 	 *
 	 * @param {Artist} artist - The new Artist to set.
 	 */
-	public set Artist(artist: Artist) {
-		this.artist = artist;
-		this.songs = artist.Tracks.slice(0, 9);
+	public set Playlist(playlist: Playlist) {
+		this.playlist = playlist;
 		this.renderContent();
 	}
 
@@ -87,8 +68,7 @@ export class ArtistComponent extends IComponent {
 	public renderContent(): void {
 		if (this.isMounted) {
 			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ Artist: this.artist, Tracks: this.songs, port: hosts.s3HOST, user: this.user, showMore: this.showmore });
+			this.parent.innerHTML = template({ Playlist: this.playlist, port: hosts.s3HOST, user: this.user });
 		}
-		
 	}
 }

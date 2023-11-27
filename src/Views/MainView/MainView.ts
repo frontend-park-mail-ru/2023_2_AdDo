@@ -14,6 +14,7 @@ import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/Fa
 import IComponent from '../../Components/IComponent/IComponent';
 import { SearchComponent } from '../../Components/SearchComponent/SearchComponent';
 import { ProfileComponent } from '../../Components/ProfileComponent/ProfileComponent';
+import { PlaylistComponent } from '../../Components/CreatePlaylistComponent/PlaylistComponent';
 
 
 /** Class representing a MainView. */
@@ -57,6 +58,7 @@ class MainView extends IView {
         this.components.set('favPlaylists', new favPlaylistsComponent(this.element.querySelector('main')!, []));
         this.components.set('search', new SearchComponent(this.element.querySelector('main')!));
         this.components.set('profile', new ProfileComponent(this.element.querySelector('main')!));
+        this.components.set('playlist', new PlaylistComponent(this.element.querySelector('main')!));
     }
 
     /**
@@ -145,6 +147,14 @@ class MainView extends IView {
         this.components.get('profile')!.append();
     }
 
+    public renderPlaylist(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('playlist')!.append();
+    }
+
 
 
     /**
@@ -209,6 +219,11 @@ class MainView extends IView {
     public fillSearch(playlists: Array<Album>, songs: Array<Song>, artists: Array<Artist>, albums: Array<Album>): void {
         const search = this.components.get('search') as SearchComponent;
         search.Content = {Playlists: playlists, Tracks: songs, Artists: artists, Albums: albums};
+    }
+
+    public fillPlaylist(playlist: Playlist): void {
+        const playlistComponent = this.components.get('playlist') as PlaylistComponent;
+        playlistComponent.Playlist = playlist;
     }
 
     /**
@@ -479,15 +494,27 @@ class MainView extends IView {
         return {email: emailInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!};
     }
 
+    public getDataFromPlaylistForm(): string {
+        const playlist = this.components.get('playlist')! as PlaylistComponent;
+        const nameInput = playlist.querySelector('[data-section="playlistName"]') as HTMLInputElement;
+        return nameInput.value;
+    }
+
     /**
      * 
      * Retrieves the avatar file from the form.
-     *
+     * 
      * @return {File} The avatar file selected in the form.
      */
     public getAvatarFromForm(): File {
         const profile = this.components.get('profile')! as ProfileComponent;
         const avatarInput = profile.querySelector('[data-section="fileInput"]') as HTMLInputElement;
+        return avatarInput.files![0];
+    }
+
+    public getAvatarFromPlaylistForm(): File {
+        const playlist = this.components.get('playlist')! as ProfileComponent;
+        const avatarInput = playlist.querySelector('[data-section="fileInput"]') as HTMLInputElement;
         return avatarInput.files![0];
     }
     
@@ -512,10 +539,11 @@ class MainView extends IView {
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__disabled';
                 return;
             case 'not an image':
-                profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
-                profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 profile.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
+                profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
+                return;
         }
     }
 }

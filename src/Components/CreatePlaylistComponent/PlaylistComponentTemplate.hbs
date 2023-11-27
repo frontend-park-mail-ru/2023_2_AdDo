@@ -1,0 +1,39 @@
+<div class="album">
+    <div class="info album__info">
+        <form method="post">
+            {{#if Playlist.Preview}}
+            <img src="{{port}}{{Playlist.Preview}}" alt="">
+            {{else}}
+            <img src="/static/img/worm.png" alt="">
+            {{/if}}
+            <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" required>
+            <label class="upload-button">
+                <span class="upload-button__input" type="text"></span>
+                <input type="file" name="file" data-section="fileInput">
+                <span class="upload-button__text medium-text">Выберите файл</span>
+            </label>
+            <button class="default-btn" data-section="updatePlaylist" type="submit">Сохранить</button>
+        </form>
+        <div style="display: block;">
+            <div class="authlist__error__disabled" data-section="passcheck">Выбранный файл не является картинкой</div>
+        </div>
+    </div>
+     <ul class="playlist album__list">
+        {{#each Playlist.Tracks}}
+            <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">
+                <div class="playlist__image-container" style="display: inline-block;">
+                    <div class="medium-text playlist__index playlist__index__position"></div>
+                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton"
+                        data-url="{{@index}}"></div>
+                </div>
+                <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}"
+                    style="display: inline-block;">
+                    {{this.Name}}
+                </div>
+                <div class="medium-text playlist-item__duration" style="display: inline-block;">
+                    {{this.Duration}}
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+</div>

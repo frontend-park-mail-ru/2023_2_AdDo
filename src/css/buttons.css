@@ -152,6 +152,7 @@
 
 .big-like-btn {
     border-radius: 35px;
+    margin-top: 15px;
     background: transparent;
     border: 2px solid white;
     display: flex;
@@ -170,3 +171,11 @@
     }
 }
 
+
+.more-btn {
+    cursor: pointer;
+}
+
+.more-btn:hover {
+    color: #C15DF3;
+}

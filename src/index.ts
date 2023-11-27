@@ -244,6 +244,12 @@ class App {
 		this.maincontroller.mountComponent();
 	}
 
+	public renderPlaylist(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatePlaylist();
+		this.maincontroller.mountComponent();
+	}
+
 	/**
 	 * Renders the podcasts.
 	 *

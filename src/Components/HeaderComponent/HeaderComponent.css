@@ -215,17 +215,11 @@
 
 .menu__search-results {
   background: #090710;
-  min-width: 200px;
-  max-width: 650px;
   height: -moz-fit-content;
   height: fit-content;
   display: none;
   gap: 25px;
-  position: absolute;
-  left: 28%;
-  right: 20%;
   padding: 25px;
-  top: 10%;
   border-radius: 5px;
   z-index: 1;
   &__link {
@@ -236,6 +230,14 @@
   }
   &__link:hover {
     color: #C15DF3;
+  }
+  &__position {
+    left: 28%;
+    right: 20%;
+    position: absolute;
+    top: 10%;
+    min-width: 200px;
+    max-width: 650px;
   }
 }
 

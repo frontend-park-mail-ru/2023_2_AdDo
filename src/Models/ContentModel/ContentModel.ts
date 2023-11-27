@@ -303,7 +303,7 @@ export default class ContentModel extends IModel {
     public requestfavAlbums(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/albums', {})
         .then(({ status, responseBody }) => {
-            if (status === 200) {
+            if (status >= 200 && status < 300) {
                 this.albums = responseBody.slice(0);
                 callback(this.albums); 
                 return;
@@ -316,7 +316,7 @@ export default class ContentModel extends IModel {
     public requestfavTracks(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/tracks', {})
         .then(({ status, responseBody }) => {
-            if (status === 200) {
+            if (status >= 200 && status < 300) {
                 this.songs = responseBody.Tracks.slice(0);
                 this.songs.forEach((song) => {
                     song.isLiked = true;
@@ -332,7 +332,7 @@ export default class ContentModel extends IModel {
     public requestfavPlaylists(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/playlists', {})
         .then(({ status, responseBody }) => {
-            if (status === 200) {
+            if (status >= 200 && status < 300) {
                 this.albums = responseBody.slice(0);
                 callback(this.albums); 
                 return;
@@ -345,7 +345,7 @@ export default class ContentModel extends IModel {
     public requestfavArtists(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/artists', {})
         .then(({ status, responseBody }) => {
-            if (status === 200) {
+            if (status >= 200 && status < 300) {
                 this.artists = responseBody.slice(0);
                 callback(this.artists); 
                 return;
@@ -356,16 +356,63 @@ export default class ContentModel extends IModel {
         });
     }
 
-
     public requestSearch(term: string, callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/search?query=' + term, {})
         .then(({ status, responseBody }) => {
-            if (status === 200) {
+            if (status >= 200 && status < 300) {
                 const tracks: Array<Song> = responseBody.Tracks.slice(0);
                 const albums: Array<Album> = responseBody.Albums.slice(0);
                 const artists: Array<Artist> = responseBody.Artists.slice(0);
                 const playlists: Array<Playlist> = responseBody.Playlists.slice(0);
                 callback(playlists, tracks, artists, albums);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public createPlaylist(callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/create_playlist', {}, {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                callback('/playlist/' + responseBody.Id);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public updatePlaylist(name: string, photo: FormData, callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/update_playlist_avatar', {}, photo)
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/update_playlist_info', {}, JSON.stringify({ Name: name }))
+                .then(({ status }) => {
+                    if (status >= 200 && status < 300) {
+                        callback();
+                        return;
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestPlaylist(callback: Callback, playlistId: number): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist' + playlistId, {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                callback(responseBody.Playlist);
                 return;
             }
         })

@@ -100,7 +100,7 @@
     gap: 30px;
 
     &__photo {
-        border-radius: 100px;
+        border-radius: 15px;
         size: 190px;
     }
 

@@ -27,8 +27,8 @@
 <div class="favPlaylists">
     <div class="large-text artist__title">Плейлисты</div>
     <div class="favPlaylists__create" data-section="link" data-url="/create_playlist">
-        <div><img class="player-btns" src="/static/img/plus.svg"></div>
-        <div class="medium-text">Создать</div>
+        <div><img class="player-btns" src="/static/img/plus.svg" data-section="link" data-url="/create_playlist"></div>
+        <div class="medium-text" data-section="link" data-url="/create_playlist">Создать</div>
     </div>
     <ul class="albumlist">
         {{#each Playlists}}

@@ -14,9 +14,13 @@
             {{/if}}
         </div>
     </div>
-    <h1 class="artist__title">Песни</h1>
+    <div class="artist__tracks">
+        <h1 class="artist__title">Песни</h1>
+        <div class="more-btn" data-section="moreBtn">{{showMore}}</div>
+    </div>
+    
     <ul class="playlist artist__list">
-        {{#each Artist.Tracks}}
+        {{#each Tracks}}
             <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">
                 <div class="playlist__image-container" style="display: inline-block;">
                     <div class="medium-text playlist__index playlist__index__position"></div>

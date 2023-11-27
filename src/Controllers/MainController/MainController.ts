@@ -126,6 +126,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.model.ContentModel.requestSearch(urlParams.get('query')!, this.view.fillSearch.bind(this.view));
     }
 
+    public updatePlaylist(): void {
+        this.view.renderPlaylist();
+        this.model.ContentModel.requestPlaylist(this.view.fillPlaylist.bind(this.view), parseInt(location.href.split('/')[location.href.split('/').length - 1]));
+    }
+
     /**
      * Handles the click event and performs different actions based on the target element.
      *
@@ -177,7 +182,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'innerlink':
                 e.preventDefault();
-                this.view.makeActiveInnerLink(e.target as HTMLElement);
+                // this.view.makeActiveInnerLink(e.target as HTMLElement);
                 router.goToPage(target.getAttribute('data-url')!);
                 return;
             case 'searchlink':
@@ -187,6 +192,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'signout':
                 e.preventDefault();
                 EventDispatcher.emit('logout-confirmation');
+                return;
+            case 'moreBtn':
+                e.preventDefault();
+                EventDispatcher.emit('show-more');
                 return;
             case 'prevBtn':
                 if (this.isActive) {
@@ -227,7 +236,25 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'albumlike':
                 return;
             case 'artistlike':
-                return; 
+                return;
+            case 'createPlaylist':
+                e.preventDefault();
+                this.model.ContentModel.createPlaylist(router.goToPage);
+                return;
+            case 'updatePlaylist':
+                e.preventDefault();
+                const name = this.view.getDataFromPlaylistForm();
+                const avatar = this.view.getAvatarFromPlaylistForm();
+                if (avatar) {
+                    if (avatar.type.startsWith('image/')) {
+                        const formdata = new FormData();
+                        formdata.append('Avatar', avatar, avatar.name);
+                        this.model.ContentModel.updatePlaylist(name, formdata, router.goToPage);
+                    } else {
+                        this.view.renderError('not an image');
+                    }
+                }
+                return;
             case 'volumeBtn':
                 if (this.isActive) {
                     this.view.volume();
