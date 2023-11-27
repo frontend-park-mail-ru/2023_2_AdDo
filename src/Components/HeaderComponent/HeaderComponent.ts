@@ -88,12 +88,12 @@ export class HeaderComponent extends IComponent {
 	}
 
 	private handleBlur(e: Event): void {
-		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-result')!;
+		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-results')!;
 		searchresults.style.display = 'none';
 	}
 
 	private handleFocus(e: Event): void {
-		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-result')!;
+		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-results')!;
 		searchresults.style.display = 'grid';
 	}
 
