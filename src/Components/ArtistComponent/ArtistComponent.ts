@@ -67,7 +67,10 @@ export class ArtistComponent extends IComponent {
 	 * @return {void} 
 	 */
 	public renderContent(): void {
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ Artist: this.artist, port: hosts.s3HOST, user: this.user });
+		if (this.isMounted) {
+			this.parent.innerHTML = '';
+			this.parent.innerHTML = template({ Artist: this.artist, port: hosts.s3HOST, user: this.user });
+		}
+		
 	}
 }

@@ -68,7 +68,10 @@ export class AlbumComponent extends IComponent {
 	 * @return {void} 
 	 */
 	public renderContent(): void {
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ album: this.album, port: hosts.s3HOST, user: this.user });
+		if (this.isMounted) {
+			this.parent.innerHTML = '';
+			this.parent.innerHTML = template({ album: this.album, port: hosts.s3HOST, user: this.user });
+		}
+		
 	}
 }
