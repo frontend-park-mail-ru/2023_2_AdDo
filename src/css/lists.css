@@ -145,11 +145,17 @@
         margin: 10px 0 10px 0;
         cursor: pointer;
     }
-
     &__options {
         margin: 10px 10px 10px 0;
         position: absolute;
         right: 0;
+        &__img {
+            position: absolute;
+            top: -20%;
+            right: 10%;
+            cursor: pointer;
+            opacity: 0;
+        }
     }
     &__options:hover {
         &__duration {
@@ -158,8 +164,8 @@
         & img {
             opacity: 1;
         }
-
-    }
+        
+    }  
 }
 
 

@@ -24,7 +24,7 @@ export class AlbumComponent extends IComponent {
 			const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
 			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 		});
-		EventDispatcher.subscribe('show-playlists', (id: string, playlists: Array<Playlist>) => {
+		EventDispatcher.subscribe('show-playlists', ({id, playlists}: { id: string, playlists: Array<Playlist> }) => {
 			const avaliablePlaylists = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
 			avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
 			playlists.forEach((playlist: Playlist) => {
