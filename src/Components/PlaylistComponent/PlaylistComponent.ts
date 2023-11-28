@@ -18,7 +18,15 @@ export class PlaylistComponent extends IComponent {
 		super(parent, template({ port: hosts.s3HOST }));
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
-		})
+		});
+		EventDispatcher.subscribe('show-options', (id: string) => {
+			const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+		});
+		EventDispatcher.subscribe('delete-track-from-playlist', (id: string) => {
+			const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+		});
 	}
 	
 	/**

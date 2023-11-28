@@ -35,8 +35,16 @@
                     style="display: inline-block;">
                     {{this.Name}}
                 </div>
-                <div class="medium-text playlist-item__options" style="display: inline-block;">
-                    {{this.Duration}}
+                <div class="playlist-item__options" style="display: inline-block;">
+                    <div class="medium-text playlist-item__options__duration">
+                        {{this.Duration}}
+                    </div>
+                    <div class="playlist-item__options__img">
+                        <img src="/static/img/Options.svg" class="" data-section="trackOptions" data-id="{{this.Id}}" alt="">
+                    </div>
+                </div>
+                <div class="options" style="display: none;" data-section="{{this.Id}}">
+                    <div class="medium-text options__add-to-playlist" data-section="deleteTrackFromPlaylist" data-id="{{this.Id}}" data-playlist-id="{{../Playlist.Id}}">Удалить из плейлиста</div>
                 </div>
             </li>
         {{/each}}

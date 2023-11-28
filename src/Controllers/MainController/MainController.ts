@@ -269,7 +269,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                         this.view.renderError('not an image');
                     }
                 }
-                this.model.ContentModel.updatePlaylistData(name, id, router.goToPage);
+                this.model.ContentModel.updatePlaylistData(name, id, router.goToPage.bind(router));
                 return;
             case 'volumeBtn':
                 if (this.isActive) {
@@ -287,6 +287,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'addTrackToPlaylist':
                 e.preventDefault();
                 this.model.ContentModel.addTrackToPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!);
+                return;
+            case 'deleteTrackFromPlaylist':
+                e.preventDefault();
+                this.model.ContentModel.deleteTrackFromPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!);
                 return;
         }
     }
