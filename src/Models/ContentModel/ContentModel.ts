@@ -579,10 +579,23 @@ export default class ContentModel extends IModel {
     }
 
     public addTrackToPlaylist(trackId: string, playlistId: string): void {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/track/' + trackId, {}, {})
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/add_track/', {'Content-Type': 'application/json'}, {Id: trackId})
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 EventDispatcher.emit('add-track-to-playlist', trackId);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public removeTrackFromPlaylist(trackId: string, playlistId: string): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/remove_track/', {'Content-Type': 'application/json'}, {Id: trackId})
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                EventDispatcher.emit('remove-track-from-playlist', trackId);
                 return;
             }
         })

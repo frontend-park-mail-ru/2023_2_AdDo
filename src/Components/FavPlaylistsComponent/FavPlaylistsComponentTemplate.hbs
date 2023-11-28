@@ -35,8 +35,11 @@
         {{#each LikedPlaylists}}
             <li class="albumlist__item">
                 <div class="albumlist__image-container">
-                    <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}"
-                        src="{{../host}}{{this.Preview}}" alt="">
+                    {{#if this.Preview}}
+                    <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}" src="{{../host}}{{this.Preview}}" alt="">
+                    {{else}}
+                    <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}" src="/static/img/worm.webp" alt="">
+                    {{/if}}
                     <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playButton"
                         data-url="{{this.Id}}"></div>
                 </div>
