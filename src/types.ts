@@ -15,6 +15,7 @@ export type Album = {
     ArtistId: number,
     ArtistName: string,
     Tracks: Array<Song>,
+    isLiked: boolean,
 }
 
 export type Playlist = {
@@ -22,6 +23,7 @@ export type Playlist = {
     Name: string,
     Preview: string,
     Tracks: Array<Song>,
+    isLiked: boolean,
 }
 
 export type Artist = {
@@ -30,6 +32,7 @@ export type Artist = {
     Avatar: string,
     Albums: Array<Album>,
     Tracks: Array<Song>,
+    isLiked: boolean,
 }
 
 export type Song = {

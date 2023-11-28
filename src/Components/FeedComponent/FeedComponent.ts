@@ -25,13 +25,14 @@ export class FeedComponent extends IComponent {
 	 * @return {Array<Album>} - The content of the object as an array of Album objects.
 	 */
 	public get Content(): Array<Album> {
-		return Object.entries(this.content).map(([key, { Id, Name, Preview, ArtistId, ArtistName, Tracks }]) => ({
+		return Object.entries(this.content).map(([key, { Id, Name, Preview, ArtistId, ArtistName, Tracks, isLiked }]) => ({
 			Id,
 			Name,
 			Preview,
 			ArtistId,
 			ArtistName,
-			Tracks
+			Tracks,
+			isLiked
 		}));
 	}
 

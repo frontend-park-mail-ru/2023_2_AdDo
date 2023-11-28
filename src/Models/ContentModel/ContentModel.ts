@@ -12,8 +12,9 @@ export default class ContentModel extends IModel {
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
     private collectionSongs: Array<Song> = [];
-    private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
-    private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
+    private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false };
+    private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false };
+    private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [], isLiked: false };
 
     constructor () {
         super();
@@ -52,7 +53,17 @@ export default class ContentModel extends IModel {
 			if (status === 200) {
                 this.album = responseBody;
                 this.songs = this.album.Tracks.slice(0);
-                callback(this.album);
+                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + responseBody.Id + '/is_like', {})
+                .then(({ status, responseBody }) => {
+                    if (status >= 200 && status < 300) {
+                        this.album.isLiked = responseBody.IsLiked;
+                        callback(this.album);
+                        return;
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
                 return;
 			}
 		})
@@ -74,7 +85,17 @@ export default class ContentModel extends IModel {
 			if (status === 200) {
                 this.artist = responseBody;
                 this.songs = this.artist.Tracks.slice(0);
-                callback(this.artist);
+                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artist/' + artistId + '/is_like', {})
+                .then(({ status, responseBody }) => {
+                    if (status >= 200 && status < 300) {
+                        this.artist.isLiked = responseBody.IsLiked;
+                        callback(this.artist);
+                        return;
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
                 return;
 			}
 		})
@@ -199,8 +220,15 @@ export default class ContentModel extends IModel {
      * @return {Song} The song object corresponding to the given ID.
      */
     public getSongByCollectionId(songId: number): Song {
-
         return this.collectionSongs[songId];
+    }
+
+    public getAlbum(): Album {
+        return this.album;
+    }
+
+    public getArtist(): Artist {
+        return this.artist;
     }
 
     /**
@@ -275,6 +303,90 @@ export default class ContentModel extends IModel {
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 this.currentsongs[songId].isLiked = false;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+        /**
+     * Like a song.
+     *
+     * @param {number} songId - The ID of the song to like.
+     * @param {Callback} callback - The callback function to be called after the like operation is complete.
+     * @return {void} 
+     */
+    public albumLike(callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/album/' + this.album.Id + '/like', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.album.isLiked = true;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    /**
+     * Dislikes a song.
+     *
+     * @param {number} songId - The ID of the song to dislike.
+     * @param {Callback} callback - The callback function to be called after disliking the song.
+     * @return {void}
+     */
+    public albumDislike(callback: Callback): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/album/' + this.album.Id + '/unlike', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.album.isLiked = false;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    /**
+     * Like a song.
+     *
+     * @param {number} songId - The ID of the song to like.
+     * @param {Callback} callback - The callback function to be called after the like operation is complete.
+     * @return {void} 
+     */
+    public artistLike(callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/artist/' + this.artist.Id + '/like', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.artist.isLiked = true;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    /**
+     * Dislikes a song.
+     *
+     * @param {number} songId - The ID of the song to dislike.
+     * @param {Callback} callback - The callback function to be called after disliking the song.
+     * @return {void}
+     */
+    public artistDislike(callback: Callback): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/artist/' + this.artist.Id + '/unlike', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.artist.isLiked = false;
                 callback();
                 return;
             }

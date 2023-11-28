@@ -49,8 +49,8 @@ class MainView extends IView {
     private initComponents(): void {
         this.components.set('header', new HeaderComponent(this.element.querySelector('header')!));
         this.components.set('feed', new FeedComponent(this.element.querySelector('main')!));
-        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []}));
-        this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []}));
+        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false}));
+        this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false}));
         this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!, this.isMobile));
         this.components.set('favArtists', new favArtistsComponent(this.element.querySelector('main')!, []));
         this.components.set('favTracks', new favTracksComponent(this.element.querySelector('main')!, []));
@@ -347,6 +347,18 @@ class MainView extends IView {
         img.src = '/static/img/LikePressed.svg';
     }
 
+    public albumLike(): void {
+        const album = this.components.get('album') as AlbumComponent;
+        let img = album.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+    }
+
+    public artistLike(): void {
+        const artist = this.components.get('artist') as ArtistComponent;
+        let img = artist.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+    }
+
     /**
      * Dislikes the item.
      *
@@ -355,6 +367,18 @@ class MainView extends IView {
     public dislike(): void {
         const footer = this.components.get('footer') as PlayerComponent;
         let img = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
+    }
+
+    public albumDislike(): void {
+        const album = this.components.get('album') as AlbumComponent;
+        let img = album.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
+    }
+
+    public artistDislike(): void {
+        const artist = this.components.get('artist') as ArtistComponent;
+        let img = artist.querySelector('.big-like-btn__like') as HTMLImageElement;
         img.src = '/static/img/Like.svg';
     }
 

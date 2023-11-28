@@ -7,10 +7,14 @@
             <div class="medium-text info__name">Исполнитель</div>
             <div class="large-text">{{Artist.Name}}</div>
             {{#if user}}
-            <div class="big-like-btn" data-section="artistlike" data-url="{{Artist.Id}}">
-                <div class="like-btn"><img class="big-like-btn__like" src="/static/img/Like.svg"></div>
-                <div class="medium-text">Нравится</div>
-            </div>
+                <div class="big-like-btn" data-section="artistlike" data-url="{{Artist.Id}}">
+                    {{#if Artist.isLiked}}
+                    <div class=""><img class="big-like-btn__like" data-section="artistlike" data-url="{{Artist.Id}}" src="/static/img/LikePressed.svg"></div>
+                    {{else}}
+                    <div class=""><img class="big-like-btn__like" data-section="artistlike" data-url="{{Artist.Id}}" src="/static/img/Like.svg"></div>
+                    {{/if}}
+                    <div class="medium-text" data-section="artistlike" data-url="{{Artist.Id}}">Нравится</div>
+                </div>
             {{/if}}
         </div>
     </div>

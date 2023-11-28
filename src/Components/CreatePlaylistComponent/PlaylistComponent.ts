@@ -6,7 +6,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a ArtistComponent. */
 export class PlaylistComponent extends IComponent {
-	private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [] };
+	private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [], isLiked: false };
 	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
 	/**
 	 * Create a new instance of the constructor.
