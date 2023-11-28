@@ -271,7 +271,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 if (avatar) {
                     if (avatar.type.startsWith('image/')) {
                         const formdata = new FormData();
-                        formdata.append('Avatar', avatar, avatar.name);
+                        formdata.append('Preview', avatar, avatar.name);
                         this.model.ContentModel.updatePlaylistAvatar(id, formdata);
                     } else {
                         this.view.renderError('not an image');
