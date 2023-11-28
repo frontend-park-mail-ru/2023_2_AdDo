@@ -244,7 +244,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'createPlaylist':
                 e.preventDefault();
-                this.model.ContentModel.createPlaylist(router.goToPage);
+                this.model.ContentModel.createPlaylist(router.goToPage.bind(router));
                 return;
             case 'updatePlaylist':
                 e.preventDefault();
