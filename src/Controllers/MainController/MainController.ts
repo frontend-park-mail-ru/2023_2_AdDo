@@ -298,7 +298,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'deleteTrackFromPlaylist':
                 e.preventDefault();
-                this.model.ContentModel.deleteTrackFromPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!);
+                this.model.ContentModel.deleteTrackFromPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!, router.goToPage.bind(router));
                 return;
         }
     }

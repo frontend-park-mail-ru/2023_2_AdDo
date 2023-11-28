@@ -623,11 +623,12 @@ export default class ContentModel extends IModel {
         });
     }
 
-    public deleteTrackFromPlaylist(trackId: string, playlistId: string): void {
-        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/remove_track/', {'Content-Type': 'application/json'}, {Id:  parseInt(trackId)})
+    public deleteTrackFromPlaylist(trackId: string, playlistId: string, callback: Callback): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/remove_track', {'Content-Type': 'application/json'}, {Id:  parseInt(trackId)})
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 EventDispatcher.emit('delete-track-from-playlist', trackId);
+                callback(paths.playlist + playlistId);
                 return;
             }
         })
