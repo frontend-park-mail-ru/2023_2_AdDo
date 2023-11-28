@@ -143,6 +143,10 @@ export class HeaderComponent extends IComponent {
 			a.setAttribute('data-url', `/track/${track.Id}`);
 			a.textContent = track.Name;
 			li.appendChild(a);
+			const h1 = document.createElement('h1');
+			h1.classList.add('search-list__title');
+			h1.textContent = 'Треки';
+			searchPopUp.appendChild(h1);
 			searchPopUp.appendChild(li);
 		});
 		albums.forEach((album, index) => {
@@ -159,6 +163,10 @@ export class HeaderComponent extends IComponent {
 			a.setAttribute('data-url', `/album/${album.Id}`);
 			a.textContent = album.Name;
 			li.appendChild(a);
+			const h1 = document.createElement('h1');
+			h1.classList.add('search-list__title');
+			h1.textContent = 'Альбомы';
+			searchPopUp.appendChild(h1);
 			searchPopUp.appendChild(li);
 		});
 		artists.forEach((artist, index) => {
@@ -175,9 +183,13 @@ export class HeaderComponent extends IComponent {
 			a.setAttribute('data-url', `/artist/${artist.Id}`);
 			a.textContent = artist.Name;
 			li.appendChild(a);
+			const h1 = document.createElement('h1');
+			h1.classList.add('search-list__title');
+			h1.textContent = 'Исполнители';
+			searchPopUp.appendChild(h1);
 			searchPopUp.appendChild(li);
 		});
-		playlists.forEach((track, index) => {
+		playlists.forEach((playlist, index) => {
 			if (index > 3) {
 				return;
 			}
@@ -186,11 +198,15 @@ export class HeaderComponent extends IComponent {
 			const a = document.createElement('a');
 			a.classList.add('search-list__link');
 			a.classList.add('medium-text');
-			a.setAttribute('href', `/album/${track.Id}`);
+			a.setAttribute('href', `/album/${playlist.Id}`);
 			a.setAttribute('data-section', 'link');
-			a.setAttribute('data-url', `/album/${track.Id}`);
-			a.textContent = track.Name;
+			a.setAttribute('data-url', `/album/${playlist.Id}`);
+			a.textContent = playlist.Name;
 			li.appendChild(a);
+			const h1 = document.createElement('h1');
+			h1.classList.add('search-list__title');
+			h1.textContent = 'Плейлисты';
+			searchPopUp.appendChild(h1);
 			searchPopUp.appendChild(li);
 		});
 
