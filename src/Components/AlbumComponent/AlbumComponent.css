@@ -10,3 +10,12 @@
         
     }
 }
+
+.options {
+    display: grid;
+    gap: 10px;
+    &__avaliablePlaylists {
+        display: grid;
+        gap: 10px;
+    }
+}
