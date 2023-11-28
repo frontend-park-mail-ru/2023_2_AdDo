@@ -27,6 +27,7 @@ export class AlbumComponent extends IComponent {
 		EventDispatcher.subscribe('show-playlists', ({id, playlists}: { id: string, playlists: Array<Playlist> }) => {
 			const avaliablePlaylists = document.querySelector(`[data-list="${id}"]`)! as HTMLElement;
 			avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
+			avaliablePlaylists.innerHTML = '';
 			playlists.forEach((playlist: Playlist) => {
 				const div = document.createElement('div');
 				div.classList.add('medium-text');

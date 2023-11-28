@@ -1,19 +1,19 @@
 <div class="album">
-    <form method="post"></form>
+    <form method="post">
         <div style="display: flex;">
             {{#if Playlist.Preview}}
-            <img src="{{port}}{{Playlist.Preview}}" alt="">
+            <img class="info__photo" src="{{port}}{{Playlist.Preview}}" alt="">
             {{else}}
-            <img src="/static/img/worm.webp" alt="">
+            <img class="info__photo" src="/static/img/worm.webp" alt="">
             {{/if}}
-            <div class="info album__info">
+            <div class="info album__info" style="display: grid; gap: 25px;">
                 <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
                 <label class="upload-button">
                     <span class="upload-button__input" type="text"></span>
                     <input type="file" name="file" data-section="fileInput">
                     <span class="upload-button__text medium-text">Выберите файл</span>
                 </label>
-                <div style="display: flex;">
+                <div class="album__info__buttons" style="display: flex; gap: 25px; justify-content: right;">
                     <button class="default-button" style="width: fit-content;" data-id="{{Playlist.Id}}" data-section="deletePlaylist">Удалить</button>
                     <button class="default-button" style="width: fit-content;" data-section="updatePlaylist" type="submit">Сохранить</button>
                 </div>
