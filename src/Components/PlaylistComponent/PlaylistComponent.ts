@@ -20,12 +20,16 @@ export class PlaylistComponent extends IComponent {
 			this.User = user;
 		});
 		EventDispatcher.subscribe('show-options', (id: string) => {
-			const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
-			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			if(this.isMounted) {
+				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}
 		});
 		EventDispatcher.subscribe('delete-track-from-playlist', (id: string) => {
-			const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
-			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			if(this.isMounted) {
+				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}
 		});
 	}
 	

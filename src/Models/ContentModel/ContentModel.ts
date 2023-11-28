@@ -211,6 +211,21 @@ export default class ContentModel extends IModel {
 		});
     }
 
+    public getPlaylistSongs(callback: Callback, PlaylistId: number, user: User | null = null): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + PlaylistId, {})
+		.then(({ status, responseBody }) => {
+			if (status === 200) {
+                this.songs = responseBody.Tracks.slice(0);
+                this.currentsongs = this.songs.slice(0); 
+                this.isLiked(callback, 0, user);
+                return;
+			}
+		})
+		.catch((error) => {
+			throw error;
+		});
+    }
+
     /**
      * Retrieves a song from the current songs array based on its ID.
      *
