@@ -6,7 +6,7 @@
             {{else}}
             <img src="/static/img/worm.png" alt="">
             {{/if}}
-            <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" required>
+            <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
             <label class="upload-button">
                 <span class="upload-button__input" type="text"></span>
                 <input type="file" name="file" data-section="fileInput">

@@ -518,10 +518,10 @@ class MainView extends IView {
         return {email: emailInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!};
     }
 
-    public getDataFromPlaylistForm(): string {
+    public getDataFromPlaylistForm(): {name: string, id: number} {
         const playlist = this.components.get('playlist')! as PlaylistComponent;
         const nameInput = playlist.querySelector('[data-section="playlistName"]') as HTMLInputElement;
-        return nameInput.value;
+        return {name: nameInput.value, id: parseInt(nameInput.getAttribute('data-id')!)};
     }
 
     /**

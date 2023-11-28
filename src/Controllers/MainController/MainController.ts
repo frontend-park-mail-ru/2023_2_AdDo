@@ -248,13 +248,13 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'updatePlaylist':
                 e.preventDefault();
-                const name = this.view.getDataFromPlaylistForm();
+                const {name, id} = this.view.getDataFromPlaylistForm();
                 const avatar = this.view.getAvatarFromPlaylistForm();
                 if (avatar) {
                     if (avatar.type.startsWith('image/')) {
                         const formdata = new FormData();
                         formdata.append('Avatar', avatar, avatar.name);
-                        this.model.ContentModel.updatePlaylist(name, formdata, router.goToPage);
+                        this.model.ContentModel.updatePlaylist(name, formdata, id, router.goToPage);
                     } else {
                         this.view.renderError('not an image');
                     }
