@@ -424,7 +424,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/albums', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                this.albums = responseBody.slice(0);
+                this.albums = responseBody;
                 callback(this.albums); 
                 return;
             }
@@ -453,7 +453,19 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/playlists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                this.albums = responseBody.slice(0);
+                this.albums = responseBody;
+                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
+                .then(({ status, responseBody }) => {
+                    if (status >= 200 && status < 300) {
+                        callback(this.albums, responseBody); 
+                        return;
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
+                return;
+                this.albums = responseBody;
                 callback(this.albums); 
                 return;
             }
@@ -466,7 +478,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/artists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                this.artists = responseBody.slice(0);
+                this.artists = responseBody;
                 callback(this.artists); 
                 return;
             }
@@ -506,6 +518,18 @@ export default class ContentModel extends IModel {
         });
     }
 
+    public deletePlaylist(playlistId: number): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId, {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
     public updatePlaylist(name: string, photo: FormData, playlistId: number,  callback: Callback): void {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' +  playlistId  + '/update_preview', {}, photo)
         .then(({ status, responseBody }) => {
@@ -532,7 +556,33 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId, {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                callback(responseBody.Playlist);
+                callback(responseBody);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestUserPlaylists(id: string): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                EventDispatcher.emit('show-playlists', {id, responseBody});
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public addTrackToPlaylist(trackId: string, playlistId: string): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/track/' + trackId, {}, {})
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                EventDispatcher.emit('add-track-to-playlist', trackId);
                 return;
             }
         })

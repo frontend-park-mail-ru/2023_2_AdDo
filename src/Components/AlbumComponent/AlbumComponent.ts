@@ -1,4 +1,4 @@
-import { Album, User } from '../../types';
+import { Album, Playlist, User } from '../../types';
 import template from './AlbumComponent.hbs';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
@@ -20,6 +20,21 @@ export class AlbumComponent extends IComponent {
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		})
+		EventDispatcher.subscribe('show-options', (id: string) => {
+			const options = this.element.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+		});
+		EventDispatcher.subscribe('show-playlists', (id: string, playlists: Array<Playlist>) => {
+			const avaliablePlaylists = this.element.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+			avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
+			playlists.forEach((playlist: Playlist) => {
+				
+			});
+		});
+		EventDispatcher.subscribe('add-track-to-playlist', (id: string) => {
+			const options = this.element.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+		});
 	}
 
 

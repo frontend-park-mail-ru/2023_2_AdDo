@@ -246,6 +246,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 e.preventDefault();
                 this.model.ContentModel.createPlaylist(router.goToPage.bind(router));
                 return;
+            case 'deletePlaylist':
+                e.preventDefault();
+                this.model.ContentModel.deletePlaylist(parseInt(target.getAttribute('data-id')!));
+                router.goToPage(paths.favPlaylists);
+                return;
             case 'updatePlaylist':
                 e.preventDefault();
                 const {name, id} = this.view.getDataFromPlaylistForm();
@@ -264,6 +269,19 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 if (this.isActive) {
                     this.view.volume();
                 }
+                return;
+            case 'trackOptions':
+                e.preventDefault();
+                EventDispatcher.emit('show-options', target.getAttribute('data-id')!);
+                return;
+            case 'showAvaliblePlaylists':
+                e.preventDefault();
+                this.model.ContentModel.requestUserPlaylists(target.getAttribute('data-id')!);
+                return;
+            case 'addTrackToPlaylist':
+                e.preventDefault();
+                this.model.ContentModel.addTrackToPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!);
+                return;
                 return;
         }
     }

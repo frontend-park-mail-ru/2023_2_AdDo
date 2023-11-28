@@ -1,23 +1,28 @@
 <div class="album">
-    <div class="info album__info">
-        <form method="post">
+    <form method="post"></form>
+        <div style="display: flex;">
             {{#if Playlist.Preview}}
             <img src="{{port}}{{Playlist.Preview}}" alt="">
             {{else}}
-            <img src="/static/img/worm.png" alt="">
+            <img src="/static/img/worm.webp" alt="">
             {{/if}}
-            <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
-            <label class="upload-button">
-                <span class="upload-button__input" type="text"></span>
-                <input type="file" name="file" data-section="fileInput">
-                <span class="upload-button__text medium-text">Выберите файл</span>
-            </label>
-            <button class="default-btn" data-section="updatePlaylist" type="submit">Сохранить</button>
-        </form>
-        <div style="display: block;">
-            <div class="authlist__error__disabled" data-section="passcheck">Выбранный файл не является картинкой</div>
+            <div class="info album__info">
+                <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
+                <label class="upload-button">
+                    <span class="upload-button__input" type="text"></span>
+                    <input type="file" name="file" data-section="fileInput">
+                    <span class="upload-button__text medium-text">Выберите файл</span>
+                </label>
+                <div style="display: flex;">
+                    <button class="default-button" style="width: fit-content;" data-id="{{Playlist.Id}}" data-section="deletePlaylist">Удалить</button>
+                    <button class="default-button" style="width: fit-content;" data-section="updatePlaylist" type="submit">Сохранить</button>
+                </div>
+                <div style="display: block;">
+                    <div class="authlist__error__disabled" data-section="passcheck">Выбранный файл не является картинкой</div>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
      <ul class="playlist album__list">
         {{#each Playlist.Tracks}}
             <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">

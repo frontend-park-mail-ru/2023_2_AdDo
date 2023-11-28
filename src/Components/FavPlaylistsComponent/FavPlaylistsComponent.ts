@@ -6,7 +6,8 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a CollectionComponent. */
 export class favPlaylistsComponent extends IComponent {
-	private playlists: Array<Album> = [];
+	private likedPlaylists: Array<Album> = [];
+	private userPlaylists: Array<Album> = [];
 	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
 	/**
 	 * Constructs a new instance of the class.
@@ -16,7 +17,8 @@ export class favPlaylistsComponent extends IComponent {
 	 */
 	constructor(parent: HTMLElement, playlists: Array<Album>) {
 		super(parent, template({ Playlists: playlists, port: hosts.s3HOST }));
-		this.playlists = playlists;
+		this.likedPlaylists = playlists;
+		this.userPlaylists = playlists;
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		})
@@ -46,8 +48,8 @@ export class favPlaylistsComponent extends IComponent {
 	 *
 	 * @return {Array<Song>} An array of songs.
 	 */
-	public get Playlists(): Array<Album> {
-		return this.playlists;
+	public get Playlists(): { likedPlaylists: Array<Album>, userPlaylist: Array<Album> } {
+		return { likedPlaylists: this.likedPlaylists, userPlaylist: this.userPlaylists };
 	}
 
 	/**
@@ -55,8 +57,9 @@ export class favPlaylistsComponent extends IComponent {
 	 *
 	 * @param {Array<Song>} songs - An array of songs to be set.
 	 */
-	public set Playlists(playlists: Array<Album>) {
-		this.playlists = playlists;
+	public set Playlists({likedPlaylists, userPlaylist}: {likedPlaylists: Array<Album>, userPlaylist: Array<Album>}) {
+		this.likedPlaylists = likedPlaylists;
+		this.userPlaylists = userPlaylist;
 		this.renderContent();
 	}
 
@@ -68,7 +71,7 @@ export class favPlaylistsComponent extends IComponent {
 	public renderContent(): void {
 		if (this.isMounted) {
 			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ Playlists: this.playlists, port: hosts.s3HOST, user: this.user });
+			this.parent.innerHTML = template({ LikedPlaylists: this.likedPlaylists, UserPlaylists: this.userPlaylists, port: hosts.s3HOST, user: this.user });
 		}
 	}
 }

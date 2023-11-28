@@ -211,9 +211,9 @@ class MainView extends IView {
         favAlbums.Albums = albums;
     }
 
-    public fillFavPlaylists(playlists: Array<Album>): void {
+    public fillFavPlaylists(liked_playlists: Array<Album>, user_playlists: Array<Album>): void {
         const favPlaylists = this.components.get('favPlaylists') as favPlaylistsComponent;
-        favPlaylists.Playlists = playlists;
+        favPlaylists.Playlists = {likedPlaylists: liked_playlists, userPlaylist: user_playlists};
     }
 
     public fillSearch(playlists: Array<Album>, songs: Array<Song>, artists: Array<Artist>, albums: Array<Album>): void {
