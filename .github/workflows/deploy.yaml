@@ -42,11 +42,10 @@ jobs:
       - name: Create an Alias for the S3-Compatible Service
         run: ./mc alias set musicon https://api.s3.musicon.space/ ${{ secrets.MINIO_ACCESS_KEY }} ${{ secrets.MINIO_SECRET_KEY }}
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
-          retention-days: 1
       - name: Upload deploy to S3
         run: ./mc cp --recursive dist/ musicon/frontend
       - name: Copy index.html content to VM
