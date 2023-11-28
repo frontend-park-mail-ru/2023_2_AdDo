@@ -3,6 +3,7 @@ import { Album, Artist, Callback, Playlist, Song, User } from "../../types";
 import Ajax from '../../Modules/Ajax/Ajax';
 import hosts from "../../HostConsts";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
+import paths from "../../Modules/Router/RouterPaths";
 
 
 /** Class representing an ContentModel. */
@@ -546,7 +547,7 @@ export default class ContentModel extends IModel {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/update_name', {}, { Name: name })
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
-                callback();
+                callback(paths.favPlaylists);
                 return;
             }
         })
