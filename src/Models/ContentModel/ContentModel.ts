@@ -60,6 +60,10 @@ export default class ContentModel extends IModel {
                         callback(this.album);
                         return;
                     }
+                    if (status === 401) {
+                        callback(this.album);
+                        return;
+                    }
                 })
                 .catch((error) => {
                     throw error;
@@ -90,6 +94,10 @@ export default class ContentModel extends IModel {
                     if (status >= 200 && status < 300) {
                         this.artist.isLiked = responseBody.IsLiked;
                         callback(this.artist);
+                        return;
+                    }
+                    if (status === 401) {
+                        callback(this.album);
                         return;
                     }
                 })

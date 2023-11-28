@@ -14,7 +14,7 @@ import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/Fa
 import IComponent from '../../Components/IComponent/IComponent';
 import { SearchComponent } from '../../Components/SearchComponent/SearchComponent';
 import { ProfileComponent } from '../../Components/ProfileComponent/ProfileComponent';
-import { PlaylistComponent } from '../../Components/CreatePlaylistComponent/PlaylistComponent';
+import { PlaylistComponent } from '../../Components/PlaylistComponent/PlaylistComponent';
 
 
 /** Class representing a MainView. */

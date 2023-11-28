@@ -5,6 +5,7 @@
  */
 const paths = {
     root: '/',
+    playlist: '/playlist/{:id}',
     favTracks: '/collection/tracks',
     favAlbums: '/collection/albums',
     favArtists: '/collection/artists',
