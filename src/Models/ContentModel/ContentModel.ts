@@ -424,7 +424,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/albums', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                this.albums = responseBody;
+                this.albums = responseBody.Albums.slice(0);
                 callback(this.albums); 
                 return;
             }
@@ -453,20 +453,17 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/playlists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                this.albums = responseBody;
+                this.albums = responseBody.slice(0);
                 Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
-                        callback(this.albums, responseBody); 
+                        callback(this.albums, responseBody.slice(0)); 
                         return;
                     }
                 })
                 .catch((error) => {
                     throw error;
                 });
-                return;
-                this.albums = responseBody;
-                callback(this.albums); 
                 return;
             }
         })
@@ -478,7 +475,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/artists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                this.artists = responseBody;
+                this.artists = responseBody.Artists.slice(0);
                 callback(this.artists); 
                 return;
             }
@@ -530,20 +527,23 @@ export default class ContentModel extends IModel {
         });
     }
 
-    public updatePlaylist(name: string, photo: FormData, playlistId: number,  callback: Callback): void {
+    public updatePlaylistData(name: string, playlistId: number, callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/update_name', {}, JSON.stringify({ Name: name }))
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public updatePlaylistAvatar (playlistId: number, photo: FormData): void {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' +  playlistId  + '/update_preview', {}, photo)
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/update_name', {}, JSON.stringify({ Name: name }))
-                .then(({ status }) => {
-                    if (status >= 200 && status < 300) {
-                        callback();
-                        return;
-                    }
-                })
-                .catch((error) => {
-                    throw error;
-                });
                 return;
             }
         })

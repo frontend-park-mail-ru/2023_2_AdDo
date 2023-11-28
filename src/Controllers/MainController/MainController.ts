@@ -259,11 +259,12 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     if (avatar.type.startsWith('image/')) {
                         const formdata = new FormData();
                         formdata.append('Avatar', avatar, avatar.name);
-                        this.model.ContentModel.updatePlaylist(name, formdata, id, router.goToPage);
+                        this.model.ContentModel.updatePlaylistAvatar(id, formdata);
                     } else {
                         this.view.renderError('not an image');
                     }
                 }
+                this.model.ContentModel.updatePlaylistData(name, id, router.goToPage);
                 return;
             case 'volumeBtn':
                 if (this.isActive) {
