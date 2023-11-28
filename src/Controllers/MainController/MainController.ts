@@ -176,6 +176,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'link':
                 e.preventDefault();
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+                    && target.getAttribute('data-url')!.split('/')[target.getAttribute('data-url')!.split('/').length - 2] === 'album'
+                    && target instanceof HTMLImageElement) {
+                    return;
+                }
                 this.view.makeActive(e.target as HTMLElement);
                 this.redirectId = parseInt(target.getAttribute('data-id')!);
                 localStorage.setItem('redirectId',  this.redirectId.toString());

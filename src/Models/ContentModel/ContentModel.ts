@@ -528,7 +528,7 @@ export default class ContentModel extends IModel {
     }
 
     public updatePlaylistData(name: string, playlistId: number, callback: Callback): void {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/update_name', {}, JSON.stringify({ Name: name }))
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/update_name', {}, { Name: name })
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 callback();
@@ -541,7 +541,7 @@ export default class ContentModel extends IModel {
     }
 
     public updatePlaylistAvatar (playlistId: number, photo: FormData): void {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' +  playlistId  + '/update_preview', {}, photo)
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' +  playlistId  + '/update_preview', {}, photo, true)
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
                 return;
@@ -582,7 +582,7 @@ export default class ContentModel extends IModel {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/add_track', {'Content-Type': 'application/json'}, {Id: trackId})
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
-                EventDispatcher.emit('add-track-to-playlist', trackId);
+                EventDispatcher.emit('add-track-to-playlist', parseInt(trackId));
                 return;
             }
         })
