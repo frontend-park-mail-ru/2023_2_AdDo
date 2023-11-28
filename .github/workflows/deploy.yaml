@@ -18,17 +18,16 @@ jobs:
         run: npm install
       - name: Compile webpack
         run: npm run build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist
-          retention-days: 1
       - name: Rename server worker file
         run: |
           sw_filename=sw-$(ls dist/assets/js/app-* |  awk -F'[-.]' '{print $2}').js
           sed -i "s/sw.js/$sw_filename/g" dist/index.html
           mv dist/sw.js dist/$sw_filename
-          
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
 
   deploy:
     needs: build
