@@ -569,7 +569,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                EventDispatcher.emit('show-playlists', {id, responseBody});
+                EventDispatcher.emit('show-playlists', {id, playlists: responseBody});
                 return;
             }
         })

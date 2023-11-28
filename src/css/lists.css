@@ -158,10 +158,10 @@
         }
     }
     &__options:hover {
-        &__duration {
+        & .playlist-item__options__duration {
             opacity: 0;
         }
-        & img {
+        & .playlist-item__options__img {
             opacity: 1;
         }
         
