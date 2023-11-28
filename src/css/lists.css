@@ -151,6 +151,15 @@
         position: absolute;
         right: 0;
     }
+    &__options:hover {
+        &__duration {
+            opacity: 0;
+        }
+        & img {
+            opacity: 1;
+        }
+
+    }
 }
 
 

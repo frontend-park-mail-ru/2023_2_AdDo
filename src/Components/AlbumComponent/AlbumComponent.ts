@@ -21,18 +21,25 @@ export class AlbumComponent extends IComponent {
 			this.User = user;
 		})
 		EventDispatcher.subscribe('show-options', (id: string) => {
-			const options = this.element.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+			const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
 			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 		});
 		EventDispatcher.subscribe('show-playlists', (id: string, playlists: Array<Playlist>) => {
-			const avaliablePlaylists = this.element.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+			const avaliablePlaylists = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
 			avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
 			playlists.forEach((playlist: Playlist) => {
-				
+				const div = document.createElement('div');
+				div.classList.add('medium-text');
+				div.classList.add('options__avaliablePlaylists__name');
+				div.textContent = playlist.Name;
+				div.setAttribute('data-section', 'addTrackToPlaylist');
+				div.setAttribute('data-playlist-id', `${playlist.Id}`);
+				div.setAttribute('data-id', `${id}`);
+				avaliablePlaylists.appendChild(div);
 			});
 		});
 		EventDispatcher.subscribe('add-track-to-playlist', (id: string) => {
-			const options = this.element.querySelector(`[data-section="${id}"]`)! as HTMLElement;
+			const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
 			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 		});
 	}

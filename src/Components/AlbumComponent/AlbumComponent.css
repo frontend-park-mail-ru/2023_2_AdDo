@@ -12,10 +12,38 @@
 }
 
 .options {
-    display: grid;
+    display: none;
+    grid-gap: 10px;
     gap: 10px;
+    background: #0D0B18;
+    position: absolute;
+    right: 7%;
+    top: 0;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 1;
     &__avaliablePlaylists {
-        display: grid;
+        display: none;
         gap: 10px;
+        &__name {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        &__name:hover {
+            color: #C15DF3
+        }
+    }
+    &__img {
+        position: absolute;
+        top: -20%;
+        right: 10%;
+        cursor: pointer;
+        opacity: 0;
+    }
+    &__add-to-playlist {
+        cursor: pointer
+    }
+    &__add-to-playlist:hover {
+        color: #C15DF3
     }
 }

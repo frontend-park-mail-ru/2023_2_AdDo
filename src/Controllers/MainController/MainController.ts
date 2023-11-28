@@ -282,7 +282,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 e.preventDefault();
                 this.model.ContentModel.addTrackToPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!);
                 return;
-                return;
         }
     }
 
