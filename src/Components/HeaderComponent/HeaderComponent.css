@@ -155,7 +155,10 @@
     .menu-icon {
       display: none;
     }
-  
+    .menu__search-results__position {
+      left: 28%;
+      right: 20%;
+    }
     .mobile-menu__links {
       display: none;
     }
@@ -175,6 +178,10 @@
     }
     .mobile-menu__links {
       display: none;
+    }
+    .menu__search-results__position {
+      left: 10%;
+      right: 40%;
     }
     .mobile-menu {
         display: flex;

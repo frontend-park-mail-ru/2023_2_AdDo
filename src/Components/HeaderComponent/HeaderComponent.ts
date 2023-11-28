@@ -82,7 +82,11 @@ export class HeaderComponent extends IComponent {
 			case 'searchlink':
 				const input: HTMLInputElement = document.querySelector('.input-search')!;
 				const link: HTMLElement = document.querySelector('.menu__search-results__link')!;
+				const loupe: HTMLElement = document.querySelector('.menu__search-results__loupe')!;
+				const text: HTMLElement = document.querySelector('.menu__search-results__text')!;
 				link.setAttribute('data-url', '/search?query=' + input.value);
+				loupe.setAttribute('data-url', '/search?query=' + input.value);
+				text.setAttribute('data-url', '/search?query=' + input.value);
 				break;
 		}
 	}
@@ -122,7 +126,7 @@ export class HeaderComponent extends IComponent {
 		this.parent.querySelector('.input-search')!.addEventListener('blur', this.handleBlur.bind(this));
 	}
 
-	public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
+	public searchResults(playlists: Array<Playlist>, tracks: Array<Song>, artists: Array<Artist>, albums: Array<Album>): void {
 		const searchPopUp = this.parent.querySelector('.search-list')!;
 		searchPopUp.innerHTML = '';
 		tracks.forEach((track, index) => {

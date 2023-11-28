@@ -3,7 +3,7 @@ import UserModel from "../../Models/UserModel/UserModel";
 import MainView from "../../Views/MainView/MainView";
 import IController from "../IController/IController";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
-import { Song, User } from "../../types";
+import { Callback, Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
 import paths from "../../Modules/Router/RouterPaths";
 import { debounce } from "../../Modules/lib/Debounce";
@@ -21,7 +21,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     private isShuffled: boolean = false;
     private nextsongfunction: () => void = () => {};
     private repeatsongfunction: () => void = () => {};
-
+    private searchDebounced: (term: string, callback: Callback) => void = () => {};
     /**
      * Constructs a new instance of the class.
      *
@@ -36,6 +36,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
         EventDispatcher.subscribe('logout', this.logout.bind(this));
         EventDispatcher.subscribe('search', this.search.bind(this));
+        this.searchDebounced = debounce(this.model.ContentModel.requestSearch, 300);
     }
 
     /**
@@ -273,8 +274,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
     public search(value: string): void {
-        const f = debounce(this.model.ContentModel.requestSearch, 300);
-        f(value, this.view.searchResults.bind(this.view));
+        this.searchDebounced(value, this.view.searchResults.bind(this.view));
     }
 
     /**

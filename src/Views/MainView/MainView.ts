@@ -464,9 +464,9 @@ class MainView extends IView {
         }
     }
 
-    public searchResults(tracks: Array<Song>, albums: Array<Album>, artists: Array<Artist>, playlists: Array<Playlist>): void {
+    public searchResults(playlists: Array<Playlist>, tracks: Array<Song>, artists: Array<Artist>, albums: Array<Album> ): void {
         const header = this.components.get('header')! as HeaderComponent;
-        header.searchResults(tracks, albums, artists, playlists);
+        header.searchResults(playlists, tracks, artists, albums);
     }
 
     /**

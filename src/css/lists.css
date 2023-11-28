@@ -68,7 +68,7 @@
     padding: 0px;
     margin-bottom: 100px;
     gap: 30px;
-
+    position: relative;
     &__item {
         display: flex;
         gap: 20px;
