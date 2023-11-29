@@ -253,11 +253,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'artistlike':
                 e.preventDefault();
-                this.model.ContentModel.getAlbum().isLiked ? this.playlistDislike() : this.playlistLike();
+                this.model.ContentModel.getArtist().isLiked ? this.playlistDislike() : this.playlistLike();
                 return;
             case 'playlistlike':
                 e.preventDefault();
-                this.model.ContentModel.getArtist().isLiked ? this.artistDislike() : this.artistLike();
+                this.model.ContentModel.getAlbum().isLiked ? this.artistDislike() : this.artistLike();
                 return;
             case 'createPlaylist':
                 e.preventDefault();
