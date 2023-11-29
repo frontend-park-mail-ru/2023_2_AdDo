@@ -7,7 +7,7 @@
             <div style="display: inline-block;">
                 <div class="large-text">{{Playlist.Name}}</div>
                 {{#if user}}
-                    <div class="big-like-btn" data-section="albumlike" data-url="{{Playlist.Id}}">
+                    <div class="big-like-btn" data-section="playlistlike" data-url="{{Playlist.Id}}">
                         {{#if Playlist.isLiked}}
                         <div class=""><img class="big-like-btn__like" data-section="playlistlike" src="/static/img/LikePressed.svg"></div>
                         {{else}}
