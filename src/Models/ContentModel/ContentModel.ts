@@ -98,7 +98,7 @@ export default class ContentModel extends IModel {
                         return;
                     }
                     if (status === 401) {
-                        callback(this.album);
+                        callback(this.artist);
                         return;
                     }
                 })

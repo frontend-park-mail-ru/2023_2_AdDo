@@ -138,7 +138,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateFeed();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**

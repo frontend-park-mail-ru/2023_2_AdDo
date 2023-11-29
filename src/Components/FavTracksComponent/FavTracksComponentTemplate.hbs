@@ -28,6 +28,7 @@
     <h1 class="artist__title">Авторизуйтесь чтобы добавлять песни и альбомы в коллекцию</h1>
     {{/if}}
     </div>
+    {{#if user}}
     <div class="favTracks">
         <div class="large-text artist__title">Треки</div>
         <ul class="playlist">
@@ -62,4 +63,5 @@
             {{/each}}
         </ul>
     </div>
+    {{/if}}
 </div>

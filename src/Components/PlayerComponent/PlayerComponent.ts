@@ -23,6 +23,12 @@ export class PlayerComponent extends IComponent {
 		const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
 		like.classList.add('disabled');
 		this.bindClickEvent(this.handleClick.bind(this));
+		this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
+		this.parent.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
+		this.bindMobileVolumeSliderEvent(this.setVolumeMobile.bind(this));
+		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
+		this.bindSetProgressEvent(this.setProgress.bind(this));
+		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
 	}
 

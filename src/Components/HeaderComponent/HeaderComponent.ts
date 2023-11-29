@@ -202,9 +202,9 @@ export class HeaderComponent extends IComponent {
 			const a = document.createElement('a');
 			a.classList.add('search-list__link');
 			a.classList.add('medium-text');
-			a.setAttribute('href', `/album/${playlist.Id}`);
+			a.setAttribute('href', `/playlist/${playlist.Id}`);
 			a.setAttribute('data-section', 'link');
-			a.setAttribute('data-url', `/album/${playlist.Id}`);
+			a.setAttribute('data-url', `/playlist/${playlist.Id}`);
 			a.textContent = playlist.Name;
 			li.appendChild(a);
 
