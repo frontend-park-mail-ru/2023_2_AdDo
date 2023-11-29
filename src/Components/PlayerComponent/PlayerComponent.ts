@@ -174,11 +174,11 @@ export class PlayerComponent extends IComponent {
 	 * @return {void} 
 	 */
 	private bindSetProgressEvent(listener: Callback): void {
-        this.parent.querySelector('.progress-bar')!.addEventListener('click', listener);
+        this.element.querySelector('.progress-bar')!.addEventListener('click', listener);
 	}
 	
 	private bindClickEvent(listener: Callback): void {
-		this.parent.addEventListener('click', listener);
+		this.element.addEventListener('click', listener);
 	}
 
 	private handleClick(e: Event): void {
@@ -226,7 +226,7 @@ export class PlayerComponent extends IComponent {
 
 	public bindEvents(): void {
 		this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
-		this.parent.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
+		this.element.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
 		this.bindMobileVolumeSliderEvent(this.setVolumeMobile.bind(this));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
