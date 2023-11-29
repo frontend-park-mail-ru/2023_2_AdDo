@@ -619,7 +619,7 @@ export default class ContentModel extends IModel {
                                 return;
                             }
                         });
-                        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + responseBody.Id + '/is_like', {})
+                        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/is_like', {})
                         .then(({ status, responseBody }) => {
                             if (status >= 200 && status < 300) {
                                 this.album.isLiked = responseBody.IsLiked;
@@ -633,7 +633,7 @@ export default class ContentModel extends IModel {
                         return;
                     }
                     if (status === 401) {
-                        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + responseBody.Id + '/is_like', {})
+                        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/is_like', {})
                         .then(({ status, responseBody }) => {
                             if (status >= 200 && status < 300) {
                                 this.album.isLiked = responseBody.IsLiked;
