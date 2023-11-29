@@ -614,7 +614,7 @@ export default class ContentModel extends IModel {
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
                         this.album.isLiked = responseBody.IsLiked;
-                        callback(this.album, false);
+                        callback({playlist: this.album, isMine: false});
                         return;
                     }
                     if (status === 401) {
@@ -623,7 +623,7 @@ export default class ContentModel extends IModel {
                             if (status >= 200 && status < 300) {
                                 responseBody.forEach((playlist: Playlist) => {
                                     if (this.album.Id === playlist.Id) {
-                                        callback(this.album, true);
+                                        callback({playlist: this.album, isMine: true});
                                         return;
                                     }
                                 });
