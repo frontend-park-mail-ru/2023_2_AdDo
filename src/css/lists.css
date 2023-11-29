@@ -82,6 +82,12 @@
         & .playlist-item__name {
             color: #C15DF3;
         }
+        & .playlist-item__options__duration {
+            opacity: 0;
+        }
+        & .playlist-item__options__img {
+            opacity: 1;
+        }
     }
 
     &__image-container {
@@ -159,15 +165,6 @@
     }
 }
 
-.playlist-item:hover {
-    & .playlist-item__options__duration {
-        opacity: 0;
-    }
-    & .playlist-item__options__img {
-        opacity: 1;
-    }
-    
-}  
 
 .authlist {
     &__logo {
