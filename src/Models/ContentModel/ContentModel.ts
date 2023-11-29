@@ -610,35 +610,35 @@ export default class ContentModel extends IModel {
             if (status >= 200 && status < 300) {
                 this.album = responseBody;
                 this.songs = this.album.Tracks.slice(0);
-                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + responseBody.Id + '/is_like', {})
+                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
-                        this.album.isLiked = responseBody.IsLiked;
-                        callback({playlist: this.album, isMine: false});
+                        responseBody.forEach((playlist: Playlist) => {
+                            if (this.album.Id === playlist.Id) {
+                                callback({playlist: this.album, isMine: false});
+                                return;
+                            }
+                        });
                         return;
                     }
                     if (status === 401) {
-                        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
+                        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + responseBody.Id + '/is_like', {})
                         .then(({ status, responseBody }) => {
                             if (status >= 200 && status < 300) {
-                                responseBody.forEach((playlist: Playlist) => {
-                                    if (this.album.Id === playlist.Id) {
-                                        callback({playlist: this.album, isMine: true});
-                                        return;
-                                    }
-                                });
+                                this.album.isLiked = responseBody.IsLiked;
+                                callback({playlist: this.album, isMine: true});
                                 return;
                             }
-                        })
-                        .catch((error) => {
-                            throw error;
-                        });
+                    })
+                    .catch((error) => {
+                        throw error;
+                    });
+                    return;
                     }
                 })
                 .catch((error) => {
                     throw error;
                 });
-                return;
             }
         })
         .catch((error) => {
