@@ -378,6 +378,42 @@ export default class ContentModel extends IModel {
         });
     }
 
+
+    public playlistLike(callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/like', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.album.isLiked = true;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    /**
+     * Dislikes a song.
+     *
+     * @param {number} songId - The ID of the song to dislike.
+     * @param {Callback} callback - The callback function to be called after disliking the song.
+     * @return {void}
+     */
+    public playlistDislike(callback: Callback): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/unlike', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.album.isLiked = false;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
     /**
      * Like a song.
      *
@@ -578,12 +614,25 @@ export default class ContentModel extends IModel {
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
                         this.album.isLiked = responseBody.IsLiked;
-                        callback(this.album);
+                        callback(this.album, false);
                         return;
                     }
                     if (status === 401) {
-                        callback(this.album);
-                        return;
+                        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
+                        .then(({ status, responseBody }) => {
+                            if (status >= 200 && status < 300) {
+                                responseBody.forEach((playlist: Playlist) => {
+                                    if (this.album.Id === playlist.Id) {
+                                        callback(this.album, true);
+                                        return;
+                                    }
+                                });
+                                return;
+                            }
+                        })
+                        .catch((error) => {
+                            throw error;
+                        });
                     }
                 })
                 .catch((error) => {

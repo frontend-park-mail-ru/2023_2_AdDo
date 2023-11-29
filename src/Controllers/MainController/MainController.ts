@@ -253,6 +253,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'artistlike':
                 e.preventDefault();
+                this.model.ContentModel.getAlbum().isLiked ? this.playlistDislike() : this.playlistLike();
+                return;
+            case 'playlistlike':
+                e.preventDefault();
                 this.model.ContentModel.getArtist().isLiked ? this.artistDislike() : this.artistLike();
                 return;
             case 'createPlaylist':
@@ -391,6 +395,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         return;
     }
 
+    public playlistLike(): void {
+        this.model.ContentModel.playlistLike(this.view.playlistLike.bind(this.view));
+        return;
+    }
+
     /**
      * Dislikes the song.
      *
@@ -408,6 +417,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public artistDislike(): void {
         this.model.ContentModel.artistDislike(this.view.artistDislike.bind(this.view));
+        return;
+    }
+
+    public playlistDislike(): void {
+        this.model.ContentModel.playlistDislike(this.view.playlistDislike.bind(this.view));
         return;
     }
 

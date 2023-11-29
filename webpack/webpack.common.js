@@ -86,7 +86,7 @@ module.exports = {
               postcssOptions: {
                 plugins: [
                   [
-                    'postcss-preset-env'
+                    'postcss-preset-env',
                   ]
                 ],
                 postcssOptions: {
@@ -96,12 +96,6 @@ module.exports = {
               }
             }
           },
-        //   {
-        //     loader: 'sass-loader',
-        //     options: {
-        //       sourceMap: isDev
-        //     }
-        //   }
         ]
       },
 

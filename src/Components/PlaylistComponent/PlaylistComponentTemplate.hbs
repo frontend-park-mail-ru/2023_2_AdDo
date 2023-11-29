@@ -1,28 +1,50 @@
 <div class="album">
-    <form method="post">
-        <div style="display: flex; gap: 35px;">
+    {{#if isMine}}
+        <div class="info album__info">
             {{#if Playlist.Preview}}
-            <img class="info__photo" src="{{port}}{{Playlist.Preview}}" alt="">
-            {{else}}
-            <img class="info__photo" src="/static/img/worm.webp" alt="">
+                <img class="info__photo" style="display: inline-block;" src="{{port}}{{Playlist.Preview}}" alt="">
             {{/if}}
-            <div class="info album__info" style="display: grid; gap: 25px;">
-                <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
-                <label class="upload-button">
-                    <span class="upload-button__input" type="text"></span>
-                    <input type="file" name="file" data-section="fileInput">
-                    <span class="upload-button__text medium-text">Выберите файл</span>
-                </label>
-                <div class="album__info__buttons" style="display: flex; gap: 25px; justify-content: right;">
-                    <button class="default-button" style="width: fit-content;" data-id="{{Playlist.Id}}" data-section="deletePlaylist">Удалить</button>
-                    <button class="default-button" style="width: fit-content;" data-section="updatePlaylist" type="submit">Сохранить</button>
-                </div>
-                <div style="display: block;">
-                    <div class="authlist__error__disabled" data-section="passcheck">Выбранный файл не является картинкой</div>
-                </div>
+            <div style="display: inline-block;">
+                <div class="large-text">{{Playlist.Name}}</div>
+                {{#if user}}
+                    <div class="big-like-btn" data-section="albumlike" data-url="{{Playlist.Id}}">
+                        {{#if Playlist.isLiked}}
+                        <div class=""><img class="big-like-btn__like" data-section="playlistlike" src="/static/img/LikePressed.svg"></div>
+                        {{else}}
+                        <div class=""><img class="big-like-btn__like" data-section="playlistlike" src="/static/img/Like.svg"></div>
+                        {{/if}}
+                        <div class="medium-text">Нравится</div>
+                    </div>
+                {{/if}}
             </div>
         </div>
-    </form>
+    {{else}}
+        <form method="post">
+            <div style="display: flex; gap: 35px;">
+                {{#if Playlist.Preview}}
+                <img class="info__photo" src="{{port}}{{Playlist.Preview}}" alt="">
+                {{else}}
+                <img class="info__photo" src="/static/img/worm.webp" alt="">
+                {{/if}}
+                <div class="info album__info" style="display: grid; gap: 25px;">
+                    <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
+                    <label class="upload-button">
+                        <span class="upload-button__input" type="text"></span>
+                        <input type="file" name="file" data-section="fileInput">
+                        <span class="upload-button__text medium-text">Выберите файл</span>
+                    </label>
+                    <div class="album__info__buttons" style="display: flex; gap: 25px; justify-content: right;">
+                        <button class="default-button" style="width: fit-content;" data-id="{{Playlist.Id}}" data-section="deletePlaylist">Удалить</button>
+                        <button class="default-button" style="width: fit-content;" data-section="updatePlaylist" type="submit">Сохранить</button>
+                    </div>
+                    <div style="display: block;">
+                        <div class="authlist__error__disabled" data-section="passcheck">Выбранный файл не является картинкой</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {{/if}}
+    
      <ul class="playlist album__list">
         {{#each Playlist.Tracks}}
             <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">

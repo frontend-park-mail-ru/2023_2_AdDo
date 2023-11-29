@@ -8,6 +8,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 export class PlaylistComponent extends IComponent {
 	private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [], isLiked: false };
 	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
+	private isMine: boolean = false;
 	/**
 	 * Create a new instance of the constructor.
 	 *
@@ -67,8 +68,9 @@ export class PlaylistComponent extends IComponent {
 	 *
 	 * @param {Artist} artist - The new Artist to set.
 	 */
-	public set Playlist(playlist: Playlist) {
+	public set Playlist({playlist, isMine}: {playlist: Playlist, isMine: boolean}) {
 		this.playlist = playlist;
+		this.isMine = isMine;
 		this.renderContent();
 	}
 
@@ -80,7 +82,7 @@ export class PlaylistComponent extends IComponent {
 	public renderContent(): void {
 		if (this.isMounted) {
 			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ Playlist: this.playlist, port: hosts.s3HOST, user: this.user });
+			this.parent.innerHTML = template({ Playlist: this.playlist, port: hosts.s3HOST, user: this.user, isMine: this.isMine  });
 		}
 	}
 }

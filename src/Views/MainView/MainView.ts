@@ -221,9 +221,9 @@ class MainView extends IView {
         search.Content = {Playlists: playlists, Tracks: songs, Artists: artists, Albums: albums};
     }
 
-    public fillPlaylist(playlist: Playlist): void {
+    public fillPlaylist({playlist, isMine}: {playlist: Playlist, isMine: boolean}): void {
         const playlistComponent = this.components.get('playlist') as PlaylistComponent;
-        playlistComponent.Playlist = playlist;
+        playlistComponent.Playlist = {playlist, isMine};
     }
 
     /**
@@ -359,6 +359,12 @@ class MainView extends IView {
         img.src = '/static/img/LikePressed.svg';
     }
 
+    public playlistLike(): void {
+        const playlist = this.components.get('playlist') as PlaylistComponent;
+        let img = playlist.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+    }
+
     /**
      * Dislikes the item.
      *
@@ -379,6 +385,12 @@ class MainView extends IView {
     public artistDislike(): void {
         const artist = this.components.get('artist') as ArtistComponent;
         let img = artist.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
+    }
+
+    public playlistDislike(): void {
+        const playlist = this.components.get('playlist') as PlaylistComponent;
+        let img = playlist.querySelector('.big-like-btn__like') as HTMLImageElement;
         img.src = '/static/img/Like.svg';
     }
 

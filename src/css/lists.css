@@ -157,17 +157,17 @@
             opacity: 0;
         }
     }
-    &__options:hover {
-        & .playlist-item__options__duration {
-            opacity: 0;
-        }
-        & .playlist-item__options__img {
-            opacity: 1;
-        }
-        
-    }  
 }
 
+.playlist-item:hover {
+    & .playlist-item__options__duration {
+        opacity: 0;
+    }
+    & .playlist-item__options__img {
+        opacity: 1;
+    }
+    
+}  
 
 .authlist {
     &__logo {
