@@ -102,8 +102,8 @@
 
 .mobile-logo {
   display: contents;
-  position: absolute;
-  
+  position: fixed;
+  left: 20%;
   &__photo {
     size: 70px;
     cursor: pointer;
@@ -200,6 +200,9 @@
       }
     .menu__links {
         display: none !important;
+    }
+    .mobile-logo {
+      left:4%;
     }
   }
 
