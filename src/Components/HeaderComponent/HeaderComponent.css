@@ -148,11 +148,11 @@
   }
   
   .menu-icon.close-icon .bar:first-child {
-    transform: rotate(-45deg) translate(0px, 6px);
+    transform: translate(0px, 10px) rotate(-45deg);
   }
   
   .menu-icon.close-icon .bar:last-child {
-    transform: rotate(45deg) translate(0px, -6px);
+    transform: translate(0px, 1px) rotate(45deg);
   }
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 768px) {

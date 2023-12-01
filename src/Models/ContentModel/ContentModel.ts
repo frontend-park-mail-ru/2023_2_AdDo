@@ -579,11 +579,15 @@ export default class ContentModel extends IModel {
         });
     }
 
-    public updatePlaylistData(name: string, playlistId: number, callback: Callback): void {
+    public updatePlaylistData(name: string, playlistId: number, callback: Callback, errorCallback: Callback): void {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/update_name', {}, { Name: name })
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 callback(paths.favPlaylists);
+                return;
+            }
+            if (status === 400) {
+                errorCallback();
                 return;
             }
         })

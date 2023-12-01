@@ -1,10 +1,13 @@
 <div class="profile">
     <div class="info profile__info">
-        {{#if user.avatar}}
-            <img class="info__photo" src="{{port}}{{user.avatar}}" alt="">
-        {{else}}
-            <img class="info__photo" src="/static/img/worm.webp" alt="">
-        {{/if}}
+        <label class="upload-button">
+             {{#if user.avatar}}
+                <img class="info__photo" src="{{port}}{{user.avatar}}" alt="">
+            {{else}}
+                <img class="info__photo" src="/static/img/worm.webp" alt="">
+            {{/if}}
+            <input type="file" name="file" data-section="fileInput">
+        </label>
         <div style="display: inline-block;">
             <div class="large-text" data-section="bigUsername">{{user.username}}</div>
             <div class="medium-text info__name" data-section="bigEmail">{{user.email}}</div>
@@ -23,18 +26,6 @@
             <li class="profile__item">
                 <div class="medium-text"> Дата рождения </div>
                 <input class="auth-input" data-section="birthdate" type="date" value="{{user.birthdate}}" min="1901-01-01" max="{{Date}}" required >
-            </li>
-            <li class="profile__item">
-                <div class="medium-text"> Фото профиля </div>
-                <label class="upload-button">
-                    {{#if user.avatar}}
-                        <span class="upload-button__input" type="text">{{user.avatar}}</span>
-                    {{else}}
-                        <span class="upload-button__input" type="text"></span>
-                    {{/if}}
-                    <input type="file" name="file" data-section="fileInput">
-                    <span class="upload-button__text medium-text">Выберите файл</span>
-                </label>
             </li>
             <li class="profile__item">
                 <div style="display: block;">

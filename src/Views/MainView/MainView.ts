@@ -580,6 +580,10 @@ class MainView extends IView {
                 profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
                 profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 return;
+            case 'only english': 
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                profile.querySelector('[data-section="passcheck"]').textContent = 'Название плейлиста может быть только латиницей) Извините!';
+                return;
         }
     }
 }

@@ -281,7 +281,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                         this.view.renderError('not an image');
                     }
                 }
-                this.model.ContentModel.updatePlaylistData(name, id, router.goToPage.bind(router));
+                this.model.ContentModel.updatePlaylistData(name, id, router.goToPage.bind(router), this.view.renderError.bind(this.view));
                 return;
             case 'volumeBtn':
                 if (this.isActive) {

@@ -58,12 +58,18 @@
         {{/each}} 
     </ul>
     <h1>Плейлисты</h1>
-    <ul class="albumlist">
+    <ul class="albumlist" style="padding-bottom: 10vh;">
         {{#each Playlists}}
             <li class="albumlist__item">
                 <div class="albumlist__image-container">
-                    <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}"
-                        src="{{../port}}{{this.Preview}}" alt="">
+                    {{#if this.Preview}}
+                        <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}"
+                            src="{{../port}}{{this.Preview}}" alt="">
+                    {{else}}
+                        <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}"
+                            src="/static/img/worm.webp" alt="">
+                    {{/if}}
+                    
                     <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playButton"
                         data-url="{{this.Id}}"></div>
                 </div>
