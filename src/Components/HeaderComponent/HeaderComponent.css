@@ -184,30 +184,14 @@
     
   }
   
-  @media only screen and (min-width: 481px) and (max-width: 767px) {
-    .menu-icon {
-      display: block;
-    }
-    .mobile-menu__links {
-      display: none;
-    }
-    .menu__search-results__position {
-      left: 10%;
-      right: 40%;
-    }
-    .mobile-menu {
-        display: flex;
-      }
-    .menu__links {
-        display: none !important;
-    }
+  @media only screen and (min-width: 767px) and (max-width: 1200px) {
     .mobile-logo {
       left: 5%;
     }
   }
 
   /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
-  @media screen and (max-width: 481px) {
+  @media screen and (max-width: 767px) {
     .menu-icon {
       display: block;
     }
