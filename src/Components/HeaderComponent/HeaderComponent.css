@@ -100,7 +100,15 @@
     display: grid;
 }
 
-
+.mobile-logo {
+  display: contents;
+  position: absolute;
+  
+  &__photo {
+    size: 70px;
+    cursor: pointer;
+  }
+}
 
 .mobile-menu__links {
     background-color: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
