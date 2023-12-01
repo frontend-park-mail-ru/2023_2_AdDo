@@ -182,6 +182,7 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateProfile();
 		this.maincontroller.mountComponent();
+		this.maincontroller.bindProfileEvents.bind(this.maincontroller);
 		EventDispatcher.subscribe('user-changed', this.maincontroller.bindProfileEvents.bind(this.maincontroller));
 	}
 
