@@ -23,7 +23,15 @@ export class AlbumComponent extends IComponent {
 		EventDispatcher.subscribe('show-options', (id: string) => {
 			if(this.isMounted) {
 				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
-				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+				if(options.style.display === 'none') {
+					const alloptions = document.querySelectorAll('.options')! as NodeListOf<HTMLElement>;
+					alloptions.forEach((option: HTMLElement) => {
+						option.style.display = 'none';
+					});
+					options.style.display = 'grid';
+				} else {
+					options.style.display = 'none';
+				}
 			}
 		});
 		EventDispatcher.subscribe('show-playlists', ({id, playlists}: { id: string, playlists: Array<Playlist> }) => {

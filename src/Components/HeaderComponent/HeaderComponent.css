@@ -108,6 +108,9 @@
     padding: 15px;
     gap: 20px;
     box-sizing: border-box;
+    position: absolute;
+    top: 1%;
+    left: 20%;
 }
 
 .mobile-menu-item__link {
@@ -129,6 +132,7 @@
     height: 35px;
     background: linear-gradient(90deg, #5C4F9E 0%, #C15DF3 100%);
     width: 30px;
+    border-radius: 5px;
 }
 
 .bar {
