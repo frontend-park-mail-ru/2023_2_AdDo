@@ -93,6 +93,21 @@
     .playButton {
         display: none;
     }
+    .small-text {
+        font-size: 18px;
+    }
+    
+    .medium-text {
+        font-size: 22px;
+    }
+    
+    .big-text {
+        font-size: 36px;
+    }
+    
+    .large-text {
+        font-size: 52px;
+    }
   }
 
 .info {
