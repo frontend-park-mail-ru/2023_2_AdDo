@@ -67,7 +67,7 @@ export class HeaderComponent extends IComponent {
 				const menuu: HTMLElement =	this.parent.querySelector('.mobile-menu')!;
 				const mobileLogo: HTMLElement = this.parent.querySelector('.mobile-logo')!;
 				menu.style.display === 'none' ? menu.style.display = 'flex' : menu.style.display = 'none';
-				mobileLogo.style.display === 'none' ? menu.style.display = 'flex' : menu.style.display = 'none';
+				mobileLogo.style.display === 'none' ? mobileLogo.style.display = 'flex' : mobileLogo.style.display = 'none';
 				menuu.style.display === 'none' ? menuu.style.display = 'flex' : menuu.style.display = 'none';
 				break;
 			case 'confirm':
