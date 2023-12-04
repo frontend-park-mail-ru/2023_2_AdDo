@@ -1,6 +1,6 @@
 import IComponent from '../IComponent/IComponent';
 import template from './PlayerComponentTemplate.hbs';
-import { Callback, Song, User } from '../../types';
+import { Callback, Playlist, Song, User } from '../../types';
 import { PlayerComponentConfig } from './PlayerComponentConfig';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
@@ -30,6 +30,76 @@ export class PlayerComponent extends IComponent {
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
+		EventDispatcher.subscribe('player-show-options', (id: string) => {
+			if(this.isMounted) {
+				const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
+				if(options.style.display === 'none') {
+					options.style.display = 'grid';
+				} else {
+					options.style.display = 'none';
+				}
+			}
+		});
+		EventDispatcher.subscribe('player-show-playlists', ({id, playlists}: { id: string, playlists: Array<Playlist> }) => {
+			if(this.isMounted) {
+				const avaliablePlaylists = document.querySelector(`[data-player-list="${id}"]`)! as HTMLElement;
+				avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
+				avaliablePlaylists.innerHTML = '';
+				playlists.forEach((playlist: Playlist) => {
+					const div = document.createElement('div');
+					div.classList.add('medium-text');
+					div.classList.add('options__avaliablePlaylists__name');
+					div.textContent = playlist.Name;
+					div.setAttribute('data-section', 'addTrackToPlaylist');
+					div.setAttribute('data-playlist-id', `${playlist.Id}`);
+					div.setAttribute('data-id', `${id}`);
+					avaliablePlaylists.appendChild(div);
+				});
+			}
+		});
+		EventDispatcher.subscribe('player-add-track-to-playlist', (id: string) => {
+			if(this.isMounted) {
+				const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
+				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}	
+		});
+		EventDispatcher.subscribe('mobile-player-show-options', (id: string) => {
+			if(this.isMounted) {
+				const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
+				if(options.style.display === 'none') {
+					const alloptions = document.querySelectorAll('.options')! as NodeListOf<HTMLElement>;
+					alloptions.forEach((option: HTMLElement) => {
+						option.style.display = 'none';
+					});
+					options.style.display = 'grid';
+				} else {
+					options.style.display = 'none';
+				}
+			}
+		});
+		EventDispatcher.subscribe('mobile-player-show-playlists', ({id, playlists}: { id: string, playlists: Array<Playlist> }) => {
+			if(this.isMounted) {
+				const avaliablePlaylists = document.querySelector(`[data-mobile-player-list="${id}"]`)! as HTMLElement;
+				avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
+				avaliablePlaylists.innerHTML = '';
+				playlists.forEach((playlist: Playlist) => {
+					const div = document.createElement('div');
+					div.classList.add('medium-text');
+					div.classList.add('options__avaliablePlaylists__name');
+					div.textContent = playlist.Name;
+					div.setAttribute('data-section', 'addTrackToPlaylist');
+					div.setAttribute('data-playlist-id', `${playlist.Id}`);
+					div.setAttribute('data-id', `${id}`);
+					avaliablePlaylists.appendChild(div);
+				});
+			}
+		});
+		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', (id: string) => {
+			if(this.isMounted) {
+				const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
+				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}	
+		});
 	}
 
 	/**

@@ -669,11 +669,15 @@ export default class ContentModel extends IModel {
         });
     }
 
-    public requestUserPlaylists(id: string): void {
+    public requestUserPlaylists(id: string, type: string): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                EventDispatcher.emit('show-playlists', {id, playlists: responseBody});
+                EventDispatcher.emit(type, {id, playlists: responseBody});
+                return;
+            }
+            if (status === 401) {
+                EventDispatcher.emit(type, {id, playlists: []});
                 return;
             }
         })
@@ -682,11 +686,11 @@ export default class ContentModel extends IModel {
         });
     }
 
-    public addTrackToPlaylist(trackId: string, playlistId: string): void {
+    public addTrackToPlaylist(trackId: string, playlistId: string, type: string): void {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/add_track', {'Content-Type': 'application/json'}, {Id:  parseInt(trackId)})
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
-                EventDispatcher.emit('add-track-to-playlist',trackId);
+                EventDispatcher.emit(type,trackId);
                 return;
             }
         })

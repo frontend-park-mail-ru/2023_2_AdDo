@@ -48,22 +48,35 @@ export class ArtistComponent extends IComponent {
 				const avaliablePlaylists = document.querySelector(`[data-list="${id}"]`)! as HTMLElement;
 				avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
 				avaliablePlaylists.innerHTML = '';
-				playlists.forEach((playlist: Playlist) => {
-					const div = document.createElement('div');
-					div.classList.add('medium-text');
-					div.classList.add('options__avaliablePlaylists__name');
-					div.textContent = playlist.Name;
-					div.setAttribute('data-section', 'addTrackToPlaylist');
-					div.setAttribute('data-playlist-id', `${playlist.Id}`);
-					div.setAttribute('data-id', `${id}`);
-					avaliablePlaylists.appendChild(div);
-				});
+				if(playlists.length === 0) {
+					const h1 = document.createElement('h1');
+					h1.textContent = "У вас нет плейлистов или вы не авторизованы";
+					avaliablePlaylists.appendChild(h1);
+				} else {
+					playlists.forEach((playlist: Playlist) => {
+						const div = document.createElement('div');
+						div.classList.add('medium-text');
+						div.classList.add('options__avaliablePlaylists__name');
+						div.textContent = playlist.Name;
+						div.setAttribute('data-section', 'addTrackToPlaylist');
+						div.setAttribute('data-playlist-id', `${playlist.Id}`);
+						div.setAttribute('data-id', `${id}`);
+						avaliablePlaylists.appendChild(div);
+					});
+				}
+				
 			}
 		});
 		EventDispatcher.subscribe('add-track-to-playlist', (id: string) => {
 			if(this.isMounted) {
 				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
 				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}	
+		});
+
+		EventDispatcher.subscribe('track-added-to-playlist', (id: string) => {
+			if(this.isMounted) {
+				// трек добавлен
 			}	
 		});
 	}

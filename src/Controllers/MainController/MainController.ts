@@ -292,13 +292,37 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 e.preventDefault();
                 EventDispatcher.emit('show-options', target.getAttribute('data-id')!);
                 return;
+            case 'playerTrackOptions':
+                e.preventDefault();
+                EventDispatcher.emit('player-show-options', target.getAttribute('data-id')!);
+                return;
+            case 'mobilePlayerTrackOptions':
+                e.preventDefault();
+                EventDispatcher.emit('mobile-player-show-options', target.getAttribute('data-id')!);
+                return;
             case 'showAvaliblePlaylists':
                 e.preventDefault();
-                this.model.ContentModel.requestUserPlaylists(target.getAttribute('data-id')!);
+                this.model.ContentModel.requestUserPlaylists(target.getAttribute('data-id')!, 'show-playlists');
+                return;
+            case 'playerShowAvaliblePlaylists':
+                e.preventDefault();
+                this.model.ContentModel.requestUserPlaylists(target.getAttribute('data-id')!, 'player-show-playlists');
+                return;
+            case 'mobilePlayerShowAvaliblePlaylists':
+                e.preventDefault();
+                this.model.ContentModel.requestUserPlaylists(target.getAttribute('data-id')!, 'mobile-player-show-playlists');
                 return;
             case 'addTrackToPlaylist':
                 e.preventDefault();
-                this.model.ContentModel.addTrackToPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!);
+                this.model.ContentModel.addTrackToPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!, 'add-track-to-playlist');
+                return;
+            case 'playerAddTrackToPlaylist':
+                e.preventDefault();
+                this.model.ContentModel.addTrackToPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!, 'player-add-track-to-playlist');
+                return;
+            case 'mobilePlayerAddTrackToPlaylist':
+                e.preventDefault();
+                this.model.ContentModel.addTrackToPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!, 'mobile-player-add-track-to-playlist');
                 return;
             case 'deleteTrackFromPlaylist':
                 e.preventDefault();

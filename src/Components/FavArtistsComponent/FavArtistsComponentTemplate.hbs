@@ -27,18 +27,22 @@
 <div class="favArtists">
     <div class="large-text artist__title">Исполнители</div>
     <ul class="albumlist">
-        {{#each Artists}}
-            <li class="albumlist__item">
-                <div class="albumlist__image-container">
-                    <img class="albumlist__photo" data-section="link" data-url="/artist/{{this.Id}}" data-id="{{this.Id}}"
-                        src="{{../port}}{{this.Avatar}}" alt="">
-                </div>
-                <a href="/artist/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
-                    data-id="{{this.Id}}" data-url="/artist/{{this.Id}}">
-                    {{this.Name}}
-                </a>
-            </li>
-        {{/each}}
+        {{#if Artists}}
+            {{#each Artists}}
+                <li class="albumlist__item">
+                    <div class="albumlist__image-container">
+                        <img class="albumlist__photo" data-section="link" data-url="/artist/{{this.Id}}" data-id="{{this.Id}}"
+                            src="{{../port}}{{this.Avatar}}" alt="">
+                    </div>
+                    <a href="/artist/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
+                        data-id="{{this.Id}}" data-url="/artist/{{this.Id}}">
+                        {{this.Name}}
+                    </a>
+                </li>
+            {{/each}}
+        {{else}}
+            <h1>Добавьте любимых артистов</h1>
+        {{/if}}
     </ul>
 </div>
 </div>
