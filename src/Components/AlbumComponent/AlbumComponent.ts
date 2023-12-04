@@ -39,16 +39,24 @@ export class AlbumComponent extends IComponent {
 				const avaliablePlaylists = document.querySelector(`[data-list="${id}"]`)! as HTMLElement;
 				avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
 				avaliablePlaylists.innerHTML = '';
-				playlists.forEach((playlist: Playlist) => {
+				if(playlists.length === 0) {
 					const div = document.createElement('div');
-					div.classList.add('medium-text');
-					div.classList.add('options__avaliablePlaylists__name');
-					div.textContent = playlist.Name;
-					div.setAttribute('data-section', 'addTrackToPlaylist');
-					div.setAttribute('data-playlist-id', `${playlist.Id}`);
-					div.setAttribute('data-id', `${id}`);
+					div.classList.add('small-text');
+					div.textContent = "У вас нет плейлистов или вы не авторизованы";
 					avaliablePlaylists.appendChild(div);
-				});
+				} else {
+					playlists.forEach((playlist: Playlist) => {
+						const div = document.createElement('div');
+						div.classList.add('medium-text');
+						div.classList.add('options__avaliablePlaylists__name');
+						div.textContent = playlist.Name;
+						div.setAttribute('data-section', 'addTrackToPlaylist');
+						div.setAttribute('data-playlist-id', `${playlist.Id}`);
+						div.setAttribute('data-id', `${id}`);
+						avaliablePlaylists.appendChild(div);
+					});
+				}
+				
 			}
 		});
 		EventDispatcher.subscribe('add-track-to-playlist', (id: string) => {

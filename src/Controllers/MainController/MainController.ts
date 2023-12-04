@@ -247,6 +247,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     this.model.ContentModel.getSongById(this.songId).isLiked ? this.dislike() : this.like();
                 }
                 return;
+            case 'mobileLikeBtn':
+                if (this.isActive) {
+                    this.model.ContentModel.getSongById(this.songId).isLiked ? this.dislike() : this.like();
+                }
+                return;
             case 'albumlike':
                 e.preventDefault();
                 this.model.ContentModel.getAlbum().isLiked ? this.albumDislike() : this.albumLike();
@@ -273,10 +278,12 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 const {name, id} = this.view.getDataFromPlaylistForm();
                 const avatar = this.view.getAvatarFromPlaylistForm();
                 if (avatar) {
-                    if (avatar.type.startsWith('image/')) {
+                    if (avatar.type.startsWith('image/') && !avatar.type.startsWith('image/gif')) {
                         const formdata = new FormData();
                         formdata.append('Preview', avatar, avatar.name);
                         this.model.ContentModel.updatePlaylistAvatar(id, formdata);
+                        const img: HTMLImageElement = document.querySelector('.info__photo')!
+                        img.src = URL.createObjectURL(avatar);
                     } else {
                         this.view.renderError('not an image');
                     }
@@ -493,7 +500,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         const {username, email, birthdate} = this.view.getDataFromForm();
         const avatar = this.view.getAvatarFromForm();
         if (avatar) {
-            if (avatar.type.startsWith('image/')) {
+            if (avatar.type.startsWith('image/') && !avatar.type.startsWith('image/gif')) {
                 const formdata = new FormData();
                 formdata.append('Avatar', avatar, avatar.name);
                 this.model.UserModel.uploadAvatar(formdata, this.view.renderError.bind(this.view));
@@ -526,8 +533,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         let target = event.target as HTMLInputElement;
         const selectedFile = target.files![0];
         if (selectedFile && selectedFile.type.startsWith('image/') && !selectedFile.type.startsWith('image/gif')) {
-            let fileName = target.files![0].name;
-            document.querySelector('.upload-button__input')!.textContent = fileName;
+            const img: HTMLImageElement = document.querySelector('.info__photo')!
+            img.src = URL.createObjectURL(selectedFile);
         } else {
             this.view.renderError('not an image');
         }

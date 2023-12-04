@@ -40,7 +40,15 @@ export class ArtistComponent extends IComponent {
 		EventDispatcher.subscribe('show-options', (id: string) => {
 			if(this.isMounted) {
 				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
-				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+				if(options.style.display === 'none') {
+					const alloptions = document.querySelectorAll('.options')! as NodeListOf<HTMLElement>;
+					alloptions.forEach((option: HTMLElement) => {
+						option.style.display = 'none';
+					});
+					options.style.display = 'grid';
+				} else {
+					options.style.display = 'none';
+				}
 			}
 		});
 		EventDispatcher.subscribe('show-playlists', ({id, playlists}: { id: string, playlists: Array<Playlist> }) => {
@@ -49,9 +57,10 @@ export class ArtistComponent extends IComponent {
 				avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
 				avaliablePlaylists.innerHTML = '';
 				if(playlists.length === 0) {
-					const h1 = document.createElement('h1');
-					h1.textContent = "У вас нет плейлистов или вы не авторизованы";
-					avaliablePlaylists.appendChild(h1);
+					const div = document.createElement('div');
+					div.classList.add('small-text');
+					div.textContent = "У вас нет плейлистов или вы не авторизованы";
+					avaliablePlaylists.appendChild(div);
 				} else {
 					playlists.forEach((playlist: Playlist) => {
 						const div = document.createElement('div');

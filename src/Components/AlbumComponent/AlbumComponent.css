@@ -15,6 +15,7 @@
     display: none;
     grid-gap: 10px;
     gap: 10px;
+    max-width: 200px;
     background: #0D0B18;
     position: absolute;
     right: 7%;

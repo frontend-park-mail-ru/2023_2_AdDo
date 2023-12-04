@@ -276,7 +276,7 @@ class MainView extends IView {
      */
     public bindClickEvent(listener: Callback): void {
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            this.element.addEventListener('touchend', listener);
+            this.element.addEventListener('click', listener);
         } else {
             this.element.addEventListener('click', listener);
         }
@@ -345,6 +345,8 @@ class MainView extends IView {
         const footer = this.components.get('footer') as PlayerComponent;
         let img = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
         img.src = '/static/img/LikePressed.svg';
+        let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+        mobileimg.src = '/static/img/LikePressed.svg';
     }
 
     public albumLike(): void {
@@ -374,6 +376,8 @@ class MainView extends IView {
         const footer = this.components.get('footer') as PlayerComponent;
         let img = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
         img.src = '/static/img/Like.svg';
+        let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+        mobileimg.src = '/static/img/Like.svg';
     }
 
     public albumDislike(): void {

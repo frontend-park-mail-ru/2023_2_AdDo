@@ -113,7 +113,6 @@
 .info {
     display: flex;
     gap: 30px;
-    justify-content: center;
     align-items: center;
     &__photo {
         border-radius: 15px;
@@ -154,6 +153,7 @@
 @media screen and (max-width: 767px) {
     .info {
         display: grid;
+        justify-content: center;
     }
     .playlist-item__options__img {
         opacity: 1;

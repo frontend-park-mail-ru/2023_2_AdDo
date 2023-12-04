@@ -77,7 +77,7 @@
     
     <div class="mobile-player__controls">
         <div class="mobile-player__controls__options">
-            <img src="/static/img/Options.svg" class="" data-section="mobilePlayerTrackOptions" data-id="{{song.Id}}" alt="">
+            <img src="/static/img/Options.svg" class="player-btns" data-section="mobilePlayerTrackOptions" data-id="{{song.Id}}" alt="">
             <div class="options" style="display: none;" data-mobile-player="{{song.Id}}">
                 <div class="medium-text options__add-to-playlist" data-section="mobilePlayerShowAvaliblePlaylists" data-id="{{song.Id}}">Добавить в плейлист</div>
                 <div class="options__avaliablePlaylists" style="display: none;" data-player-mobile-list="{{song.Id}}">
@@ -91,7 +91,7 @@
             <div class="mobile-player__controls__play"><img data-section="playBtn" class="mobile-player__playbutton" src="/static/img/playButton.png" alt=""></div>
         {{/if}}
         <div class="mobile-player__controls__next"><img class="mobile-player__next-img" data-section="nextBtn" src="/static/img/SwitchForward.svg" alt=""></div>
-        <div class="mobile-player__controls__like"><img class="mobile-player__like-img" data-section="likeBtn" src="/static/img/Like.svg" alt=""></div>
+        <div class="mobile-player__controls__like"><img class="mobile-player__like-img" data-section="mobileLikeBtn" src="/static/img/Like.svg" alt=""></div>
     </div>
 
     <div class="mobile-player__volume-bar">

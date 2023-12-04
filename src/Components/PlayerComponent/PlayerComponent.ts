@@ -31,74 +31,62 @@ export class PlayerComponent extends IComponent {
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
 		EventDispatcher.subscribe('player-show-options', (id: string) => {
-			if(this.isMounted) {
-				const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
-				if(options.style.display === 'none') {
-					options.style.display = 'grid';
-				} else {
-					options.style.display = 'none';
-				}
+			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
+			if(options.style.display === 'none') {
+				options.style.display = 'grid';
+			} else {
+				options.style.display = 'none';
 			}
 		});
 		EventDispatcher.subscribe('player-show-playlists', ({id, playlists}: { id: string, playlists: Array<Playlist> }) => {
-			if(this.isMounted) {
-				const avaliablePlaylists = document.querySelector(`[data-player-list="${id}"]`)! as HTMLElement;
-				avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
-				avaliablePlaylists.innerHTML = '';
-				playlists.forEach((playlist: Playlist) => {
-					const div = document.createElement('div');
-					div.classList.add('medium-text');
-					div.classList.add('options__avaliablePlaylists__name');
-					div.textContent = playlist.Name;
-					div.setAttribute('data-section', 'addTrackToPlaylist');
-					div.setAttribute('data-playlist-id', `${playlist.Id}`);
-					div.setAttribute('data-id', `${id}`);
-					avaliablePlaylists.appendChild(div);
-				});
-			}
+			const avaliablePlaylists = document.querySelector(`[data-player-list="${id}"]`)! as HTMLElement;
+			avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
+			avaliablePlaylists.innerHTML = '';
+			playlists.forEach((playlist: Playlist) => {
+				const div = document.createElement('div');
+				div.classList.add('medium-text');
+				div.classList.add('options__avaliablePlaylists__name');
+				div.textContent = playlist.Name;
+				div.setAttribute('data-section', 'addTrackToPlaylist');
+				div.setAttribute('data-playlist-id', `${playlist.Id}`);
+				div.setAttribute('data-id', `${id}`);
+				avaliablePlaylists.appendChild(div);
+			});
 		});
 		EventDispatcher.subscribe('player-add-track-to-playlist', (id: string) => {
-			if(this.isMounted) {
-				const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
-				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
-			}	
+			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
+			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 		});
 		EventDispatcher.subscribe('mobile-player-show-options', (id: string) => {
-			if(this.isMounted) {
-				const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
-				if(options.style.display === 'none') {
-					const alloptions = document.querySelectorAll('.options')! as NodeListOf<HTMLElement>;
-					alloptions.forEach((option: HTMLElement) => {
-						option.style.display = 'none';
-					});
-					options.style.display = 'grid';
-				} else {
-					options.style.display = 'none';
-				}
+			const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
+			if(options.style.display === 'none') {
+				const alloptions = document.querySelectorAll('.options')! as NodeListOf<HTMLElement>;
+				alloptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+				options.style.display = 'grid';
+			} else {
+				options.style.display = 'none';
 			}
 		});
 		EventDispatcher.subscribe('mobile-player-show-playlists', ({id, playlists}: { id: string, playlists: Array<Playlist> }) => {
-			if(this.isMounted) {
-				const avaliablePlaylists = document.querySelector(`[data-mobile-player-list="${id}"]`)! as HTMLElement;
-				avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
-				avaliablePlaylists.innerHTML = '';
-				playlists.forEach((playlist: Playlist) => {
-					const div = document.createElement('div');
-					div.classList.add('medium-text');
-					div.classList.add('options__avaliablePlaylists__name');
-					div.textContent = playlist.Name;
-					div.setAttribute('data-section', 'addTrackToPlaylist');
-					div.setAttribute('data-playlist-id', `${playlist.Id}`);
-					div.setAttribute('data-id', `${id}`);
-					avaliablePlaylists.appendChild(div);
-				});
-			}
+			const avaliablePlaylists = document.querySelector(`[data-mobile-player-list="${id}"]`)! as HTMLElement;
+			avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
+			avaliablePlaylists.innerHTML = '';
+			playlists.forEach((playlist: Playlist) => {
+				const div = document.createElement('div');
+				div.classList.add('medium-text');
+				div.classList.add('options__avaliablePlaylists__name');
+				div.textContent = playlist.Name;
+				div.setAttribute('data-section', 'addTrackToPlaylist');
+				div.setAttribute('data-playlist-id', `${playlist.Id}`);
+				div.setAttribute('data-id', `${id}`);
+				avaliablePlaylists.appendChild(div);
+			});
 		});
 		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', (id: string) => {
-			if(this.isMounted) {
-				const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
-				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
-			}	
+			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
+			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 		});
 	}
 
@@ -229,6 +217,10 @@ export class PlayerComponent extends IComponent {
 		}
 		minutes = Math.floor((duration - currentTime) / 60);
 		seconds = (duration - currentTime) % 60;
+		if(isNaN(minutes) || isNaN(seconds)) {
+			minutes = 0;
+			seconds = 0;
+		}
 		if (seconds < 10) {
 			remainingTimeDiv.textContent = minutes.toString() + ':' + '0' + Math.floor(seconds).toString();
 		} else {
@@ -313,7 +305,7 @@ export class PlayerComponent extends IComponent {
 			const img = this.element.querySelector('.avatar') as HTMLImageElement;
 			const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
 			img.src = '/static/img/grey.png';
-			mobileImg.src = '/static/img/grey.png';
+			mobileImg.src = '/static/img/violet.png';
 			this.element.querySelector('.artistname')!.textContent = '';
 			this.element.querySelector('.title')!.textContent = '';
 			this.element.querySelector('.mobile-player__info__name')!.textContent = '';
@@ -327,7 +319,7 @@ export class PlayerComponent extends IComponent {
 			const img = this.element.querySelector('.avatar') as HTMLImageElement;
 			const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
 			img.src = '/static/img/grey.png';
-			mobileImg.src = '/static/img/grey.png';
+			mobileImg.src = '/static/img/violet.png';
 			this.element.querySelector('.artistname')!.textContent = '';
 			this.element.querySelector('.title')!.textContent = '';
 			this.element.querySelector('.mobile-player__info__name')!.textContent = '';
