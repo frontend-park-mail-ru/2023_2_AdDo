@@ -42,16 +42,23 @@ export class PlayerComponent extends IComponent {
 			const avaliablePlaylists = document.querySelector(`[data-player-list="${id}"]`)! as HTMLElement;
 			avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
 			avaliablePlaylists.innerHTML = '';
-			playlists.forEach((playlist: Playlist) => {
+			if(playlists.length === 0) {
 				const div = document.createElement('div');
-				div.classList.add('medium-text');
-				div.classList.add('options__avaliablePlaylists__name');
-				div.textContent = playlist.Name;
-				div.setAttribute('data-section', 'addTrackToPlaylist');
-				div.setAttribute('data-playlist-id', `${playlist.Id}`);
-				div.setAttribute('data-id', `${id}`);
+				div.classList.add('small-text');
+				div.textContent = "У вас нет плейлистов или вы не авторизованы";
 				avaliablePlaylists.appendChild(div);
-			});
+			} else {
+				playlists.forEach((playlist: Playlist) => {
+					const div = document.createElement('div');
+					div.classList.add('medium-text');
+					div.classList.add('options__avaliablePlaylists__name');
+					div.textContent = playlist.Name;
+					div.setAttribute('data-section', 'playerAddTrackToPlaylist');
+					div.setAttribute('data-playlist-id', `${playlist.Id}`);
+					div.setAttribute('data-id', `${id}`);
+					avaliablePlaylists.appendChild(div);
+				});
+			}
 		});
 		EventDispatcher.subscribe('player-add-track-to-playlist', (id: string) => {
 			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
@@ -73,16 +80,23 @@ export class PlayerComponent extends IComponent {
 			const avaliablePlaylists = document.querySelector(`[data-mobile-player-list="${id}"]`)! as HTMLElement;
 			avaliablePlaylists.style.display === 'none' ? avaliablePlaylists.style.display = 'grid' : avaliablePlaylists.style.display = 'none';
 			avaliablePlaylists.innerHTML = '';
-			playlists.forEach((playlist: Playlist) => {
+			if(playlists.length === 0) {
 				const div = document.createElement('div');
-				div.classList.add('medium-text');
-				div.classList.add('options__avaliablePlaylists__name');
-				div.textContent = playlist.Name;
-				div.setAttribute('data-section', 'addTrackToPlaylist');
-				div.setAttribute('data-playlist-id', `${playlist.Id}`);
-				div.setAttribute('data-id', `${id}`);
+				div.classList.add('small-text');
+				div.textContent = "У вас нет плейлистов или вы не авторизованы";
 				avaliablePlaylists.appendChild(div);
-			});
+			} else {
+				playlists.forEach((playlist: Playlist) => {
+					const div = document.createElement('div');
+					div.classList.add('medium-text');
+					div.classList.add('options__avaliablePlaylists__name');
+					div.textContent = playlist.Name;
+					div.setAttribute('data-section', 'mobilePlayerAddTrackToPlaylist');
+					div.setAttribute('data-playlist-id', `${playlist.Id}`);
+					div.setAttribute('data-id', `${id}`);
+					avaliablePlaylists.appendChild(div);
+				});
+			}
 		});
 		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', (id: string) => {
 			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
@@ -107,9 +121,15 @@ export class PlayerComponent extends IComponent {
 			isLiked ? like.src = '/static/img/LikePressed.svg' : like.src = '/static/img/Like.svg';
 		}
 		this.querySelector('.title')!.textContent = song.Name;
-		this.querySelector('.artistname')!.textContent = song.ArtistName;
+		const artistname: HTMLElement = this.querySelector('.artistname')!;
+		artistname.textContent = song.ArtistName; 
+		artistname.setAttribute('data-url', '/artist/' + song.ArtistId);
+		artistname.setAttribute('data-id', song.ArtistId.toString());
 		this.element.querySelector('.mobile-player__info__name')!.textContent = song.Name;
-			this.element.querySelector('.mobile-player__info__artist')!.textContent = song.ArtistName;
+		const mobileArtistName: HTMLElement = this.element.querySelector('.mobile-player__info__artist')!;
+		mobileArtistName.textContent = song.ArtistName; 
+		mobileArtistName.setAttribute('data-url', '/artist/' + song.ArtistId);
+		mobileArtistName.setAttribute('data-id', song.ArtistId.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;

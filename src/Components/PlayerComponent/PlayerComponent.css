@@ -189,18 +189,12 @@
   }
   &__info {
     &__name {
-        position: absolute;
-        left: 10%;
-        top: 45%;
         color: #FFF;
         font-size: 52px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
     }
     &__artist {
-        position: absolute;
-        left: 10%;
-        top: 52%;
         color: #c2c0c0;
         font-size: 36px;
         font-family: 'Montserrat', sans-serif;
@@ -225,4 +219,68 @@
     width: 100%;
     align-items: center;
     justify-content: center;
+}
+
+.player__options {
+  display: none;
+  grid-gap: 10px;
+  gap: 10px;
+  max-width: 200px;
+  background: #0D0B18;
+  position: absolute;
+  right: 20%;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 1;
+  bottom: 110px;
+    &__avaliablePlaylists {
+        display: none;
+        gap: 10px;
+        &__name {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        &__name:hover {
+            color: #C15DF3;
+        }
+    }
+
+    &__add-to-playlist {
+        cursor: pointer;
+    }
+    &__add-to-playlist:hover {
+        color: #C15DF3;
+    }
+}
+
+.mobile-player__options {
+  display: none;
+  grid-gap: 10px;
+  gap: 10px;
+  background: #0D0B18;
+  position: absolute;
+  padding: 35px;
+  min-width: 100%;
+  left: 0;
+  bottom: 0;
+  border-radius: 10px;
+  z-index: 1;
+  &__avaliablePlaylists {
+    display: none;
+    gap: 10px;
+    &__name {
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    &__name:hover {
+        color: #C15DF3;
+    }
+  }
+
+  &__add-to-playlist {
+      cursor: pointer;
+  }
+  &__add-to-playlist:hover {
+      color: #C15DF3;
+  }
 }
