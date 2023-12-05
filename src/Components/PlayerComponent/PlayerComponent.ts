@@ -130,6 +130,14 @@ export class PlayerComponent extends IComponent {
 		mobileArtistName.textContent = song.ArtistName; 
 		mobileArtistName.setAttribute('data-url', '/artist/' + song.ArtistId);
 		mobileArtistName.setAttribute('data-id', song.ArtistId.toString());
+		this.element.querySelector('[data-section="mobilePlayerTrackOptions"]')!.setAttribute('data-id', song.Id.toString());
+		this.element.querySelector('[data-section="mobilePlayerOptions"]')!.setAttribute('data-mobile-player', song.Id.toString());
+		this.element.querySelector('[data-section="mobilePlayerShowAvaliblePlaylists"]')!.setAttribute('data-id', song.Id.toString());
+		this.element.querySelector('[data-section="mobilePlayerList"]')!.setAttribute('data-mobile-player-list', song.Id.toString());
+		this.element.querySelector('[data-section="playerTrackOptions"]')!.setAttribute('data-id', song.Id.toString());
+		this.element.querySelector('[data-section="playerOptions"]')!.setAttribute('data-player', song.Id.toString());
+		this.element.querySelector('[data-section="playerShowAvaliblePlaylists"]')!.setAttribute('data-id', song.Id.toString());
+		this.element.querySelector('[data-section="playerList"]')!.setAttribute('data-player-list', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
