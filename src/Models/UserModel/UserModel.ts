@@ -123,6 +123,7 @@ class UserModel extends IModel {
                 if (status >= 200 && status < 300) {
                     this.currentUser = null;
                     EventDispatcher.emit('user-changed', this.currentUser);
+                    EventDispatcher.emit('logout');
                     return;
                 }
             })

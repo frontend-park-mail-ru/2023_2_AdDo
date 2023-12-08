@@ -20,6 +20,10 @@ export default class ContentModel extends IModel {
     public isSocketConnected: boolean = false;
     constructor () {
         super();
+        EventDispatcher.subscribe('logout', (user: User) => {
+            this.socket?.close();
+            this.socket = null;
+        })
     }
 
     /**
