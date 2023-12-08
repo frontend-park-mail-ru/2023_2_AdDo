@@ -9,7 +9,7 @@
     <ul class="feed__list">
         {{#each FeedComponentConfig}}
             <li class="feed-list__item">
-                <a class="feed-list__item__name" data-section="link" data-url="{{this.url}}">
+                <a class="feed-list__item__name" href="{{this.href}}" data-section="link" data-url="{{this.href}}">
                     {{this.name}}
                 </a>
             </li>

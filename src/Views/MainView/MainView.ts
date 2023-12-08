@@ -73,8 +73,10 @@ class MainView extends IView {
      * @return {void}
      */
     public renderFeed(): void {
-        const header = this.element.querySelector('header')!
-        header.style.display === 'none' ? header.style.display = 'block' : header.style.display = 'none';
+        const header = this.element.querySelector('header')!;
+        if (header.style.display === 'none') {
+            header.style.display = 'block';
+        }
         this.element.querySelector('main')!.innerHTML = '';
         this.components.forEach((component: IComponent) => {
             component.hide();
