@@ -50,7 +50,6 @@
         margin: 10px 0 10px 0;
         cursor: pointer;
         display: block;
-        width: fit-content;
     }
     &__name:hover {
         color:#C15DF3;
@@ -135,7 +134,7 @@
         cursor: pointer;
         &__position {
             position: absolute;
-            left: 25%;
+            left: 50%;
             top: 50%;
         }
     }

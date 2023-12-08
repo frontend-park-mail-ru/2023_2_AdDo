@@ -276,9 +276,12 @@ export class PlayerComponent extends IComponent {
 		const value: string = target.getAttribute('data-section')!
 		const mobilePlayer: HTMLElement = this.parent.querySelector('.mobile-player')!;
 		switch (value) {
-			case 'closeButton':
+			case 'closeBtn':
 				this.cardShown = false;
 				mobilePlayer.style.display = 'none';
+				break;
+			case 'closeButton':
+				EventDispatcher.emit('mobile-player-show-options', target.getAttribute('data-id')!);
 				break;
 			case 'player':
 				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
