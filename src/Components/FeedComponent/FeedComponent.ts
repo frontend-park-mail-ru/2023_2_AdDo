@@ -56,20 +56,20 @@ export class FeedComponent extends IComponent {
 	 *
 	 * @return {User} The User property.
 	 */
-		public get User(): User | null {
-			return this.user;
-		}
-	
-		/**
-		 * Set the User property and render the header.
-		 *
-		 * @param {User} user - The User object to set.
-		 * @return {void} 
-		 */
-		public set User(user: User | null) {
-			this.user = user;
-			this.renderContent();
-		}
+	public get User(): User | null {
+		return this.user;
+	}
+
+	/**
+	 * Set the User property and render the header.
+	 *
+	 * @param {User} user - The User object to set.
+	 * @return {void} 
+	 */
+	public set User(user: User | null) {
+		this.user = user;
+		this.renderContent();
+	}
 	/**
 	 * Renders the content of the component.
 	 *
