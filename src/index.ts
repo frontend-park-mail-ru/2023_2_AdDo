@@ -95,7 +95,6 @@ class App {
 			{ path: paths.feedNew, handler: this.renderFeedNew },
 			{ path: paths.album, handler: this.renderAlbum },
 			{ path: paths.artist, handler: this.renderArtist },
-			{ path: paths.podcasts, handler: this.renderPodcasts },
 			{ path: paths.profile, handler: this.renderProfile },
 			{ path: paths.favAlbums, handler: this.renderfavAlbums },
 			{ path: paths.favArtists, handler: this.renderfavArtists },
@@ -268,10 +267,6 @@ class App {
 	 *
 	 * @return {void} 
 	 */
-	public renderPodcasts(): void {
-		EventDispatcher.emit('unmount-all');
-	}
-
 	public cacheCollection(): void {
 		
 	}

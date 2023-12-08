@@ -16,7 +16,8 @@ export default class ContentModel extends IModel {
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false };
     private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false };
     private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [], isLiked: false };
-
+    private socket: WebSocket | null = null;
+    public isSocketConnected: boolean = false;
     constructor () {
         super();
     }
@@ -120,11 +121,11 @@ export default class ContentModel extends IModel {
      * @return {void}
      */
     public requestChart(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/chart', {})
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/popular', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
-                callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
+                callback(this.albums); 
                 return;
 			}
 		})
@@ -140,7 +141,7 @@ export default class ContentModel extends IModel {
      * @return {void} 
      */
     public requestPlaylists(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlists', {})
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/most_liked', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
@@ -202,7 +203,7 @@ export default class ContentModel extends IModel {
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.songs = responseBody.Tracks.slice(0);
-                this.currentsongs = this.songs.slice(0); 
+                this.nowPlaying();
                 this.isLiked(callback, 0, user);
                 return;
 			}
@@ -217,7 +218,7 @@ export default class ContentModel extends IModel {
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.songs = responseBody.Tracks.slice(0);
-                this.currentsongs = this.songs.slice(0); 
+                this.nowPlaying();
                 this.isLiked(callback, 0, user);
                 return;
 			}
@@ -272,6 +273,9 @@ export default class ContentModel extends IModel {
      */
     public nowPlaying(): void {
         this.currentsongs = this.songs.slice(0);
+        if(this.isSocketConnected) {
+            this.socket?.close();
+        }
     }
 
     /**
@@ -714,7 +718,7 @@ export default class ContentModel extends IModel {
     }
 
     public listenCount(duration: number, id: number): void {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/listen/' + id, {'Content-Type': 'application/json',}, { Duration: duration}, )
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/listen/' + id, {'Content-Type': 'application/json',}, { Duration: duration }, )
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 return;
@@ -773,5 +777,26 @@ export default class ContentModel extends IModel {
         .catch((error) => {
             throw error;
         });
+    }
+
+    public openSocket(callback: Callback, songId: number, user: User | null = null): void {
+        this.socket = new WebSocket(hosts.HOST + hosts.PORT + '/api/v1/wave');
+        this.socket.onopen = () => {
+            console.log('connected');
+            this.isSocketConnected = true;
+        }
+        this.socket.onclose = () => {
+            console.log('disconnected');
+            this.isSocketConnected = false;
+        }
+        this.socket.onmessage = (event) => { 
+            this.songs = JSON.parse(event.data);
+            this.nowPlaying();
+            this.isLiked(callback, songId, user);
+        }
+    }
+
+    public requestSocketTracks(): void {
+        this.socket?.send('1');
     }
 }

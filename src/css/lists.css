@@ -260,4 +260,9 @@
     &__name {
 
     }
+    
+    &__error {
+        color: red;
+        display: none;
+    }
 }

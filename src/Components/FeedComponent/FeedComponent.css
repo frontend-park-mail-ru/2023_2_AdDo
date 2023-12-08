@@ -12,6 +12,12 @@
     &__title {
         margin: 10px 0 10px 0; 
     }
+    &__my-wave {
+
+    }
+    &__my-wave:hover {
+        transform: scale(1.2);
+    }
 }
 
 .feed-list__item {

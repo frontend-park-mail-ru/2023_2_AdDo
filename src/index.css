@@ -119,6 +119,7 @@
     &__photo {
         border-radius: 15px;
         size: 190px;
+        object-fit: cover;
     }
 
     &__name {

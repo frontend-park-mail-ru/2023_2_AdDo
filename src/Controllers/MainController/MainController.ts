@@ -27,7 +27,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      *
      * @param {MainView} view - The main view object.
      * @param {{ContentModel: ContentModel, UserModel: UserModel}} model - The content model and user model.
-     */   
+     */
     public constructor(view: MainView, model: {ContentModel: ContentModel, UserModel: UserModel}) {
         super(view, model);
         this.view.bindClickEvent(this.handleClick.bind(this));
@@ -147,7 +147,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      *
      * @param {Event} e - The click event object.
      * @return {void}
-     */    
+     */
     private handleClick(e: Event): void {
         const target: HTMLElement = e.target as HTMLElement;
 
@@ -189,6 +189,14 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
                 this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+                this.Playing = true;
+                this.isActive = true;
+                return;
+            case 'myWavePlayButton':
+                e.preventDefault();
+                this.songId = 0;
+                this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+                this.model.ContentModel.requestSocketTracks();
                 this.Playing = true;
                 this.isActive = true;
                 return;
@@ -380,9 +388,18 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */
     public nextSong(): void {
         this.view.listen(this.model.ContentModel.listenCount.bind(this.model.ContentModel));
-        this.isShuffled ? this.songId = Math.floor(Math.random() * this.model.ContentModel.getSongsLength()) :
-        this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
-        this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+        if(this.model.ContentModel.isSocketConnected) {
+            if(this.songId < this.model.ContentModel.getSongsLength() - 1) {
+                this.songId++;
+            } else {
+                this.model.ContentModel.requestSocketTracks();
+            }
+        } else {
+            this.isShuffled ? this.songId = Math.floor(Math.random() * this.model.ContentModel.getSongsLength()) :
+            this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
+            this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+        }
+        
     }
     
     /**
@@ -574,5 +591,4 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
 }
-
 export default MainController;

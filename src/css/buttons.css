@@ -36,7 +36,7 @@
     border: none; 
     outline: none;
     display: flex;
-    width: 103px;
+    width: fit-content;
     height: 37px;
     padding: 6px 24px;
     gap: 10px;
