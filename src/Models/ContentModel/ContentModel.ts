@@ -780,7 +780,7 @@ export default class ContentModel extends IModel {
     }
 
     public openSocket(callback: Callback, songId: number, user: User | null = null): void {
-        this.socket = new WebSocket(hosts.HOST + hosts.PORT + '/api/v1/wave');
+        this.socket = new WebSocket('wss://musicon.space' + '/api/v1/wave');
         this.socket.onopen = () => {
             console.log('connected');
             this.isSocketConnected = true;
