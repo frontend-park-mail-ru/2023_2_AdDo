@@ -99,7 +99,7 @@ export class PlayerComponent extends IComponent {
 			}
 		});
 		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', (id: string) => {
-			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
+			const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
 			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 		});
 	}
@@ -117,8 +117,15 @@ export class PlayerComponent extends IComponent {
 		img.src = hosts.s3HOST + song.Preview;
 		mobileImg.src = hosts.s3HOST + song.Preview;
 		const like = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
+		const mobileLike = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
 		if (like) {
-			isLiked ? like.src = '/static/img/LikePressed.svg' : like.src = '/static/img/Like.svg';
+			if(isLiked) {
+				like.src = '/static/img/LikePressed.svg';
+				mobileLike.src = '/static/img/LikePressed.svg';
+			} else {
+				like.src = '/static/img/Like.svg';
+				mobileLike.src = '/static/img/Like.svg';
+			}
 		}
 		this.querySelector('.title')!.textContent = song.Name;
 		const artistname: HTMLElement = this.querySelector('.artistname')!;
