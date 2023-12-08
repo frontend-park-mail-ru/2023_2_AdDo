@@ -294,7 +294,6 @@
 .mobile-options__avaliablePlaylists {
     display: none;
     gap: 20px;
-
     &__name {
         cursor: pointer;
         margin-left: 10px;

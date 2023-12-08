@@ -89,7 +89,7 @@ export class PlayerComponent extends IComponent {
 				playlists.forEach((playlist: Playlist) => {
 					const div = document.createElement('div');
 					div.classList.add('medium-text');
-					div.classList.add('options__avaliablePlaylists__name');
+					div.classList.add('mobile-options__avaliablePlaylists__name');
 					div.textContent = playlist.Name;
 					div.setAttribute('data-section', 'mobilePlayerAddTrackToPlaylist');
 					div.setAttribute('data-playlist-id', `${playlist.Id}`);
@@ -117,7 +117,7 @@ export class PlayerComponent extends IComponent {
 		img.src = hosts.s3HOST + song.Preview;
 		mobileImg.src = hosts.s3HOST + song.Preview;
 		const like = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
-		const mobileLike = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
+		const mobileLike = this.querySelector('[data-section="mobileLikeBtn"]')! as HTMLImageElement;
 		if (like) {
 			if(isLiked) {
 				like.src = '/static/img/LikePressed.svg';
@@ -145,6 +145,7 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="playerOptions"]')!.setAttribute('data-player', song.Id.toString());
 		this.element.querySelector('[data-section="playerShowAvaliblePlaylists"]')!.setAttribute('data-id', song.Id.toString());
 		this.element.querySelector('[data-section="playerList"]')!.setAttribute('data-player-list', song.Id.toString());
+		this.element.querySelector('.closeButton')!.setAttribute('data-id', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
