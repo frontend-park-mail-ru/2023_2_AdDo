@@ -1,0 +1,22 @@
+<div class="onboard">
+    <div class="onboard__info">
+        <h1>Выберите любимых исполнителей</h1>
+        <div class="medium-text">Это поможет нам составить для вас интересные рекомендации</div>
+        <button class="logout-button" data-section="onboardGenres">Готово</button>
+    </div>
+    <ul class="onboard__list">
+        {{#each Genres}}
+            <li class="onboard__list__item">
+                <img class="onboard__list__item__photo" src="{{port}}{{this.Preview}}" alt="" data-section="makeActive" data-id="{{this.Id}}">
+                <div class="medium-text onboard__list__item__name">
+                    {{this.Name}}
+                </div>
+            </li>
+        {{/each}}
+        <li class="onboard__list__item">
+            <div class="medium-text onboard__list__item__error">
+                   Выберите как минимум 3 жанра
+            </div>
+        </li>
+    </ul>
+</div>

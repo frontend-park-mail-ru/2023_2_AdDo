@@ -127,6 +127,16 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.model.ContentModel.requestSearch(urlParams.get('query')!, this.view.fillSearch.bind(this.view));
     }
 
+    public updateOnboardGenres(): void {
+        this.view.renderGenresOnboard();
+        this.model.ContentModel.requestOnboardGenres(this.view.fillOnboardGenres.bind(this.view));
+    }
+
+    public updateOnboardArtists(): void {
+        this.view.renderArtistsOnboard();
+        this.model.ContentModel.requestOnboardArtists(this.view.fillOnboardArtists.bind(this.view));
+    }
+
     public updatePlaylist(): void {
         this.view.renderPlaylist();
         this.model.ContentModel.requestPlaylist(this.view.fillPlaylist.bind(this.view), parseInt(location.href.split('/')[location.href.split('/').length - 1]));
@@ -335,6 +345,22 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 e.preventDefault();
                 this.model.ContentModel.deleteTrackFromPlaylist(target.getAttribute('data-id')!, target.getAttribute('data-playlist-id')!, router.goToPage.bind(router));
                 return;
+            case 'onboardGenres':
+                e.preventDefault();
+                const genres = this.view.getActiveGenres();
+                if(genres.length > 3) {
+                    this.model.ContentModel.sendGenres(genres);
+                    router.goToPage(paths.onboardArtists);
+                }
+                return;
+            case 'onboardArtists':
+                e.preventDefault();
+                const artists = this.view.getActiveArtists();
+                if(artists.length > 3) {
+                    this.model.ContentModel.sendArtists(artists);
+                    router.goToPage(paths.feedAll);
+                } 
+                return;
         }
     }
 
@@ -353,6 +379,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      * @return {void} 
      */
     public nextSong(): void {
+        this.view.listen(this.model.ContentModel.listenCount.bind(this.model.ContentModel));
         this.isShuffled ? this.songId = Math.floor(Math.random() * this.model.ContentModel.getSongsLength()) :
         this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
         this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());

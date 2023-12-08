@@ -45,6 +45,18 @@ export type Song = {
     ArtistId: number,
 }
 
+export type OnboardGenre = {
+    Id: number,
+    Name: string,
+    Preview: string,
+}
+
+export type OnboardArtist = {
+    Id: number,
+    Name: string,
+    Avatar: string,
+}
+
 
 export type User = {
     email: string,

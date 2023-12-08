@@ -3,7 +3,7 @@ import template from './MainView.hbs';
 import { HeaderComponent } from '../../Components/HeaderComponent/HeaderComponent';
 import { PlayerComponent } from '../../Components/PlayerComponent/PlayerComponent';
 import { FeedComponent } from '../../Components/FeedComponent/FeedComponent';
-import type { Album, Song, User, Artist, Callback, Playlist } from '../../types';
+import type { Album, Song, User, Artist, Callback, Playlist, OnboardArtist, OnboardGenre } from '../../types';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { AlbumComponent } from '../../Components/AlbumComponent/AlbumComponent';
 import { ArtistComponent } from '../../Components/ArtistComponent/ArtistComponent';
@@ -15,6 +15,9 @@ import IComponent from '../../Components/IComponent/IComponent';
 import { SearchComponent } from '../../Components/SearchComponent/SearchComponent';
 import { ProfileComponent } from '../../Components/ProfileComponent/ProfileComponent';
 import { PlaylistComponent } from '../../Components/PlaylistComponent/PlaylistComponent';
+import { ArtistsOnboardComponent } from '../../Components/ArtistsOnboardComponent/ArtistsOnboardComponent';
+import { GenresOnboardComponent } from '../../Components/GenresOnboardComponent/GenresOnboardComponent';
+
 
 
 /** Class representing a MainView. */
@@ -59,6 +62,8 @@ class MainView extends IView {
         this.components.set('search', new SearchComponent(this.element.querySelector('main')!));
         this.components.set('profile', new ProfileComponent(this.element.querySelector('main')!));
         this.components.set('playlist', new PlaylistComponent(this.element.querySelector('main')!));
+        this.components.set('onboardArtists', new ArtistsOnboardComponent(this.element.querySelector('main')!, []));
+        this.components.set('onboardGenres', new GenresOnboardComponent(this.element.querySelector('main')!, []));
     }
 
     /**
@@ -155,6 +160,22 @@ class MainView extends IView {
         this.components.get('playlist')!.append();
     }
 
+    public renderArtistsOnboard(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('onboardArtists')!.append();
+    }
+
+    public renderGenresOnboard(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('onboardGenres')!.append();
+    }
+
 
 
     /**
@@ -224,6 +245,16 @@ class MainView extends IView {
     public fillPlaylist({playlist, isMine}: {playlist: Playlist, isMine: boolean}): void {
         const playlistComponent = this.components.get('playlist') as PlaylistComponent;
         playlistComponent.Playlist = {playlist, isMine};
+    }
+
+    public fillOnboardArtists(artists: Array<OnboardArtist>): void {
+        const onboardArtists = this.components.get('onboardArtists') as ArtistsOnboardComponent;
+        onboardArtists.Artists = artists;
+    }
+
+    public fillOnboardGenres(genres: Array<OnboardGenre>): void {
+        const onboardGenres = this.components.get('onboardGenres') as GenresOnboardComponent;
+        onboardGenres.Genres = genres;
     }
 
     /**
@@ -589,6 +620,22 @@ class MainView extends IView {
                 profile.querySelector('[data-section="passcheck"]').textContent = 'Название плейлиста может быть только латиницей) Извините!';
                 return;
         }
+    }
+
+    public listen(callback: Callback): void {
+        const player = this.components.get('footer')! as PlayerComponent;
+        const audio = player.querySelector('audio')! as HTMLAudioElement;
+        callback(audio.currentTime, player.currentSong.Id);
+    }
+
+    public getActiveGenres(): Array<OnboardGenre> {
+        const onboardGenres = this.components.get('onboardGenres')! as GenresOnboardComponent;
+        return onboardGenres.getActives();
+    }
+
+    public getActiveArtists(): Array<OnboardArtist> {
+        const onboardArtists = this.components.get('onboardArtists')! as ArtistsOnboardComponent;
+        return onboardArtists.getActives();
     }
 }
 

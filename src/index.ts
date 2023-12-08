@@ -251,6 +251,17 @@ class App {
 		this.maincontroller.mountComponent();
 	}
 
+	public renderOnboardGenres(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateOnboardGenres();
+		this.maincontroller.mountComponent();
+	}
+	public renderOnboardArtists(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateOnboardArtists();
+		this.maincontroller.mountComponent();
+	}
+
 	/**
 	 * Renders the podcasts.
 	 *

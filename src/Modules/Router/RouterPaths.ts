@@ -22,6 +22,8 @@ const paths = {
     signup: '/signup',
     profile: '/profile',
     search: '/search\?.*/',
+    onboardGenres: '/onboard/genres',
+    onboardArtists: '/onboard/artists',
 };
 
 export default paths;

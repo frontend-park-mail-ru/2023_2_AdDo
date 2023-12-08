@@ -233,3 +233,31 @@
 .collection-list__item:hover {
     color: #C15DF3;
 }
+
+.onboard__list {
+    display: flex;
+    margin-top: 20px;
+    padding: 0px;
+    margin-bottom: 100px;
+    gap: 30px;
+    position: relative;
+    &__item {
+        display: grid;
+        gap: 20px;
+        padding: 10px;  
+    }
+    &__item:hover {
+        &__photo {
+            border: 2px solid blue;
+        }
+    }
+
+    &__photo {
+        margin-top: 5px;
+        size: 160px;
+    }
+
+    &__name {
+
+    }
+}

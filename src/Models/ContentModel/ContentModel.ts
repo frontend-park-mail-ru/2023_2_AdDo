@@ -1,5 +1,5 @@
 import IModel from "../IModel/IModel";
-import { Album, Artist, Callback, Playlist, Song, User } from "../../types";
+import { Album, Artist, Callback, OnboardArtist, OnboardGenre, Playlist, Song, User } from "../../types";
 import Ajax from '../../Modules/Ajax/Ajax';
 import hosts from "../../HostConsts";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
@@ -705,6 +705,68 @@ export default class ContentModel extends IModel {
             if (status >= 200 && status < 300) {
                 EventDispatcher.emit('delete-track-from-playlist', trackId);
                 callback('/playlist/' + playlistId);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public listenCount(duration: number, id: number): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/listen/' + id, {'Content-Type': 'application/json',}, { Duration: duration}, )
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public sendGenres(genres: Array<OnboardGenre>): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/genres', {'Content-Type': 'application/json'}, {Genres: genres})
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public sendArtists(artists: Array<OnboardArtist>): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/genres', {'Content-Type': 'application/json'}, {Artists: artists})
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestOnboardGenres(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/genres', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                callback(responseBody);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestOnboardArtists(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artists', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                callback(responseBody);
                 return;
             }
         })
