@@ -145,7 +145,7 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="playerOptions"]')!.setAttribute('data-player', song.Id.toString());
 		this.element.querySelector('[data-section="playerShowAvaliblePlaylists"]')!.setAttribute('data-id', song.Id.toString());
 		this.element.querySelector('[data-section="playerList"]')!.setAttribute('data-player-list', song.Id.toString());
-		this.element.querySelector('.closeButton')!.setAttribute('data-id', song.Id.toString());
+		this.element.querySelector('[data-section="closeButton"]')!.setAttribute('data-id', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
