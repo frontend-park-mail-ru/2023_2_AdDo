@@ -85,7 +85,6 @@ class App {
 	 * @return {void} 
 	 */
 	public initRoutes() {
-
 		const routes = [
 			{ path: paths.root, handler: this.renderFeedAll },
 			{ path: paths.login, handler: this.renderLogin },
@@ -105,6 +104,8 @@ class App {
 			{ path: paths.track, handler: this.renderAlbum },
 			{ path: paths.search, handler: this.renderSearch },
 			{ path: paths.playlist, handler: this.renderPlaylist },
+			{ path: paths.onboardGenres, handler: this.renderOnboardGenres },
+			{ path: paths.onboardArtists, handler: this.renderOnboardArtists },
 		];
 
 		routes.forEach(({ path, handler }) => {
