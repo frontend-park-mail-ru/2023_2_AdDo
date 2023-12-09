@@ -102,7 +102,7 @@ export class PlayerComponent extends IComponent {
 			const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
 			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 		});
-		EventDispatcher.subscribe('copied-to-clipboard', (id: string, type: string) => {
+		EventDispatcher.subscribe('copied-to-clipboard', ({id, type} : { id: string, type: string }) => {
 			const copied = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
 			copied.style.display = 'flex';
 			setTimeout(() => {

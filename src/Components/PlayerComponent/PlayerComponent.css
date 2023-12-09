@@ -289,11 +289,20 @@
   &__add-to-playlist:hover {
       color: #C15DF3;
   }
+  &__share {
+    &__copied {
+      display: none; 
+      margin-left: 10px;
+      padding: 5px;
+      border-radius: 15px;
+      width: fit-content;
+    }
+  }
 }
 
 .close-button {
   position: absolute;
-  top: 10%;
+  top: 25px;
   left: 5%;
 }
 

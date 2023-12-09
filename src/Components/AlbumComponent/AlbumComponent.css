@@ -28,10 +28,12 @@
         &__copied {
             background: white;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 15px;
             color: black;
             width: fit-content;
             height: fit-content;
+            display: none;
+            width: fit-content;
         }
     }
 }
