@@ -20,7 +20,7 @@
                     </div>
                 {{/if}}
                 <div class="medium-text album__share" data-section="albumShare" data-id="{{album.Id}}">
-                    <img class="album__share-btn" src="/static/img/Share.svg" alt="">
+                    <img class="album__share-btn" src="/static/img/Share.svg" alt="" data-section="albumShare" data-id="{{album.Id}}">
                     <div class="medium-text album__share__copied" data-album-share="{{album.Id}}" style="color: black;">Ссылка скопирована</div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="options" style="display: none;" data-section="{{this.Id}}">
-                    <div class="medium-text options__share" data-section="trackShare" data-id="{{this.Id}}">
+                    <div class="medium-text options__share" data-section="trackShare" data-id="{{this.Id}}" style="color: black;">
                         Поделиться
                         <div class="medium-text options__share__copied" data-track-share="{{this.Id}}">Ссылка скопирована</div>
                     </div>

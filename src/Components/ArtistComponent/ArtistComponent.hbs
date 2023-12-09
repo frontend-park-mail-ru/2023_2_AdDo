@@ -18,7 +18,7 @@
                     </div>
                 {{/if}}
                 <div class="medium-text album__share" data-section="artistShare" data-id="{{Artist.Id}}">
-                    <img src="/static/img/Share.svg" alt="">
+                    <img src="/static/img/Share.svg" alt="" data-section="artistShare" data-id="{{Artist.Id}}">
                     <div class="medium-text album__share__copied" data-artist-share="{{Artist.Id}}">Ссылка скопирована</div>
                 </div>
             </div>
@@ -53,6 +53,10 @@
                     </div>
                 </div>
                 <div class="options" style="display: none;" data-section="{{this.Id}}">
+                    <div class="medium-text options__share" data-section="trackShare" data-id="{{this.Id}}" style="color: black;">
+                        Поделиться
+                        <div class="medium-text options__share__copied" data-track-share="{{this.Id}}">Ссылка скопирована</div>
+                    </div>
                     <div class="medium-text options__add-to-playlist" data-section="showAvaliblePlaylists" data-id="{{this.Id}}">Добавить в плейлист</div>
                     <div class="options__avaliablePlaylists" style="display: none;" data-list="{{this.Id}}">
                     </div>
