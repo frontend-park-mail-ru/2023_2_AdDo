@@ -7,7 +7,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 /** Class representing a CollectionComponent. */
 export class favAlbumsComponent extends IComponent {
 	private albums: Array<Album> = [];
-	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
+	private user: User | null = null;
 	/**
 	 * Constructs a new instance of the class.
 	 *

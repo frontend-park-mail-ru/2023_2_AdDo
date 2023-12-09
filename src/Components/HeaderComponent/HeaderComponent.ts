@@ -6,7 +6,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a HeaderComponent. */
 export class HeaderComponent extends IComponent {
-	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
+	private user: User | null = null;
 
 	/**
 	 * Constructs a new instance of the constructor.
@@ -98,7 +98,7 @@ export class HeaderComponent extends IComponent {
 
 	private handleFocus(e: Event): void {
 		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-results')!;
-		searchresults.style.display = 'grid';
+		searchresults.style.display = 'flex';
 	}
 
 	private handleInput(e: Event): void {
@@ -129,10 +129,12 @@ export class HeaderComponent extends IComponent {
 	public searchResults(playlists: Array<Playlist>, tracks: Array<Song>, artists: Array<Artist>, albums: Array<Album>): void {
 		const searchPopUp = this.parent.querySelector('.search-list')!;
 		searchPopUp.innerHTML = '';
-		const h11 = document.createElement('h1');
-		h11.classList.add('search-list__title');
-		h11.textContent = 'Треки';
-		searchPopUp.appendChild(h11);
+		if(tracks.length !== 0) {
+			const h11 = document.createElement('h1');
+			h11.classList.add('search-list__title');
+			h11.textContent = 'Треки';
+			searchPopUp.appendChild(h11);
+		}
 		tracks.forEach((track, index) => {
 			if (index > 3) {
 				return;
@@ -149,10 +151,12 @@ export class HeaderComponent extends IComponent {
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
-		const h12 = document.createElement('h1');
-		h12.classList.add('search-list__title');
-		h12.textContent = 'Альбомы';
-		searchPopUp.appendChild(h12);
+		if(albums.length !== 0) {
+			const h12 = document.createElement('h1');
+			h12.classList.add('search-list__title');
+			h12.textContent = 'Альбомы';
+			searchPopUp.appendChild(h12);
+		}
 		albums.forEach((album, index) => {
 			if (index > 3) {
 				return;
@@ -169,10 +173,12 @@ export class HeaderComponent extends IComponent {
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
-		const h13 = document.createElement('h1');
-		h13.classList.add('search-list__title');
-		h13.textContent = 'Исполнители';
-		searchPopUp.appendChild(h13);
+		if(artists.length !== 0) {
+			const h13 = document.createElement('h1');
+			h13.classList.add('search-list__title');
+			h13.textContent = 'Исполнители';
+			searchPopUp.appendChild(h13);
+		}
 		artists.forEach((artist, index) => {
 			if (index > 3) {
 				return;
@@ -189,10 +195,12 @@ export class HeaderComponent extends IComponent {
 			li.appendChild(a);
 			searchPopUp.appendChild(li);
 		});
-		const h14 = document.createElement('h1');
-		h14.classList.add('search-list__title');
-		h14.textContent = 'Плейлисты';
-		searchPopUp.appendChild(h14);
+		if(playlists.length !== 0) {
+			const h14 = document.createElement('h1');
+			h14.classList.add('search-list__title');
+			h14.textContent = 'Плейлисты';
+			searchPopUp.appendChild(h14);
+		}
 		playlists.forEach((playlist, index) => {
 			if (index > 3) {
 				return;
@@ -207,7 +215,6 @@ export class HeaderComponent extends IComponent {
 			a.setAttribute('data-url', `/playlist/${playlist.Id}`);
 			a.textContent = playlist.Name;
 			li.appendChild(a);
-
 			searchPopUp.appendChild(li);
 		});
 

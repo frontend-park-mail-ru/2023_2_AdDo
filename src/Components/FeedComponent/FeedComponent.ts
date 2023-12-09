@@ -8,7 +8,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 /** Class representing a FeedComponent. */
 export class FeedComponent extends IComponent {
 	private content: Array<Album> = [];
-	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
+	private user: User | null = null;
 	/**
 	 * Constructor for the class.
 	 *

@@ -8,7 +8,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 export class favPlaylistsComponent extends IComponent {
 	private likedPlaylists: Array<Album> = [];
 	private userPlaylists: Array<Album> = [];
-	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
+	private user: User | null = null;
 	/**
 	 * Constructs a new instance of the class.
 	 *

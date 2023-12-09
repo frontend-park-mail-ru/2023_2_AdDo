@@ -7,7 +7,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 /** Class representing a AlbumComponent. */
 export class AlbumComponent extends IComponent {
 	private album: Album;
-	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
+	private user: User | null = null;
 	/**
 	 * Constructor for the class.
 	 *

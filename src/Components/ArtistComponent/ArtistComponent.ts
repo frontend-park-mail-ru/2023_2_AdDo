@@ -10,7 +10,7 @@ export class ArtistComponent extends IComponent {
 	private songs: Array<Song> = [];
 	private showmore: string = 'Смотреть все';
 	private isShown: boolean = false;
-	private user: User | null = { avatar: '', email: '', username: '', birthdate: '' };
+	private user: User | null = null;
 	/**
 	 * Create a new instance of the constructor.
 	 *

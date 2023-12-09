@@ -184,14 +184,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.Playing = true;
                 this.isActive = true;
                 return;
-            case 'miniArtistPlayButton':
-                e.preventDefault();
-                this.songId = parseInt(target.getAttribute('data-url')!);
-                this.model.ContentModel.nowPlaying();
-                this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
-                this.Playing = true;
-                this.isActive = true;
-                return;
             case 'myWavePlayButton':
                 e.preventDefault();
                 this.songId = 0;

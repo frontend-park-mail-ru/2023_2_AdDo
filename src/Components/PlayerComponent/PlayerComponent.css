@@ -92,6 +92,9 @@
   .prev-btn {
     display: block;
   }
+  .footer {
+    height: 50px;
+  }
 }
 
 /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
@@ -113,6 +116,9 @@
   }
   .prev-btn {
     display: none;
+  }
+  .footer {
+    height: 100px;
   }
 }
 
