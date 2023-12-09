@@ -6,20 +6,23 @@
         <div style="display: inline-block;">
             <div class="medium-text info__name">Исполнитель</div>
             <div class="large-text">{{Artist.Name}}</div>
-            {{#if user}}
-                <div class="big-like-btn" data-section="artistlike" data-url="{{Artist.Id}}">
-                    {{#if Artist.isLiked}}
-                    <div class=""><img class="big-like-btn__like" data-section="artistlike" data-url="{{Artist.Id}}" src="/static/img/LikePressed.svg"></div>
-                    {{else}}
-                    <div class=""><img class="big-like-btn__like" data-section="artistlike" data-url="{{Artist.Id}}" src="/static/img/Like.svg"></div>
-                    {{/if}}
-                    <div class="medium-text" data-section="artistlike" data-url="{{Artist.Id}}">Нравится</div>
+            <div class="album__info__options">
+                {{#if user}}
+                    <div class="big-like-btn" data-section="artistlike" data-url="{{Artist.Id}}">
+                        {{#if Artist.isLiked}}
+                        <div class=""><img class="big-like-btn__like" data-section="artistlike" data-url="{{Artist.Id}}" src="/static/img/LikePressed.svg"></div>
+                        {{else}}
+                        <div class=""><img class="big-like-btn__like" data-section="artistlike" data-url="{{Artist.Id}}" src="/static/img/Like.svg"></div>
+                        {{/if}}
+                        <div class="medium-text" data-section="artistlike" data-url="{{Artist.Id}}">Нравится</div>
+                    </div>
+                {{/if}}
+                <div class="medium-text album__share" data-section="artistShare" data-id="{{Artist.Id}}">
+                    <img src="/static/img/Share.svg" alt="">
+                    <div class="medium-text album__share__copied" data-artist-share="{{Artist.Id}}">Ссылка скопирована</div>
                 </div>
-            {{/if}}
-            <div class="medium-text artist__share" data-section="artistShare" data-id="{{Artist.Id}}">
-                <img src="/static/img/Share.svg" alt="">
-                <div class="medium-text artist__share__copied" data-artist-share="{{Artist.Id}}">Ссылка скопирована</div>
             </div>
+            
         </div>
     </div>
     <div class="artist__tracks">

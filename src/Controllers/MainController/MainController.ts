@@ -374,6 +374,14 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.copyToClipboard(hosts.HOST + '/artist/' + target.getAttribute('data-id')!);
                 EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-artist-share'});
                 return;
+            case 'playerTrackShare':
+                this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
+                EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-player-track-share'});
+                return;
+            case 'mobilePlayerTrackShare':
+                this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
+                EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-mobile-player-track-share'});
+                return;
         }
     }
 

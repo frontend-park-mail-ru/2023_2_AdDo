@@ -8,20 +8,23 @@
             <a class="big-text albumlist-item__name" href="/artist/{{album.ArtistId}}" data-section="link"
                 data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}
             </a>
-            {{#if user}}
-                <div class="big-like-btn" data-section="albumlike" data-url="{{album.Id}}">
-                    {{#if album.isLiked}}
-                    <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/LikePressed.svg"></div>
-                    {{else}}
-                    <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/Like.svg"></div>
-                    {{/if}}
-                    <div class="medium-text" data-section="albumlike">Нравится</div>
+            <div class="album__info__options">
+                {{#if user}}
+                    <div class="big-like-btn" data-section="albumlike" data-url="{{album.Id}}">
+                        {{#if album.isLiked}}
+                        <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/LikePressed.svg"></div>
+                        {{else}}
+                        <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/Like.svg"></div>
+                        {{/if}}
+                        <div class="medium-text" data-section="albumlike">Нравится</div>
+                    </div>
+                {{/if}}
+                <div class="medium-text album__share" data-section="albumShare" data-id="{{album.Id}}">
+                    <img class="album__share-btn" src="/static/img/Share.svg" alt="">
+                    <div class="medium-text album__share__copied" data-album-share="{{album.Id}}">Ссылка скопирована</div>
                 </div>
-            {{/if}}
-            <div class="medium-text album__share" data-section="albumShare" data-id="{{album.Id}}">
-                <img src="/static/img/Share.svg" alt="">
-                <div class="medium-text album__share__copied" data-album-share="{{album.Id}}">Ссылка скопирована</div>
             </div>
+            
         </div>
     </div>
     <ul class="playlist album__list">

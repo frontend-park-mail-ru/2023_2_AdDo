@@ -4,10 +4,35 @@
     gap: 10px;
     position: relative;
     &__info {
-
+        &__options {
+            display: flex;
+            gap: 15px;
+        }
     }
     &__list {
         
+    }
+    &__share-btn {
+        border: 2px solid white;
+        padding: 5px;
+        align-items: center;
+        display: flex;
+        border-radius: 50px;
+        cursor: pointer;
+        size: 45px;
+    }
+    &__share {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        &__copied {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            color: black;
+            width: fit-content;
+            height: fit-content;
+        }
     }
 }
 
@@ -32,6 +57,25 @@
         &__name:hover {
             color: #C15DF3;
         }
+    }
+
+    &__share {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        &__copied {
+            display: none;
+            margin-left: 10px;
+            color: black;   
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    }
+
+    &__share:hover {
+        color: #C15DF3;
     }
 
     &__add-to-playlist {

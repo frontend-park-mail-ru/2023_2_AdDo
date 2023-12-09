@@ -88,6 +88,16 @@ export class ArtistComponent extends IComponent {
 				// трек добавлен
 			}	
 		});
+
+		EventDispatcher.subscribe('copied-to-clipboard', (id: string, type: string) => {
+			if(this.isMounted) {
+				const copied = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+				copied.style.display = 'flex';
+				setTimeout(() => {
+					copied.style.display = 'none';
+				}, 2000);
+			}
+		});
 	}
 	
 	/**

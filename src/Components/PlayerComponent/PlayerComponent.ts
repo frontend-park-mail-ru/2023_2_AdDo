@@ -102,6 +102,13 @@ export class PlayerComponent extends IComponent {
 			const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
 			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 		});
+		EventDispatcher.subscribe('copied-to-clipboard', (id: string, type: string) => {
+			const copied = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+			copied.style.display = 'flex';
+			setTimeout(() => {
+				copied.style.display = 'none';
+			}, 2000);
+		});
 	}
 
 	/**

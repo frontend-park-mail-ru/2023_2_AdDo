@@ -67,9 +67,10 @@ export class AlbumComponent extends IComponent {
 		});
 		EventDispatcher.subscribe('copied-to-clipboard', (id: string, type: string) => {
 			if(this.isMounted) {
-				const copied = document.querySelector(`["${type}"="${id}"]`)! as HTMLElement;
+				const copied = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+				copied.style.display = 'flex';
 				setTimeout(() => {
-					copied.style.display = 'flex';
+					copied.style.display = 'none';
 				}, 2000);
 			}
 		});
