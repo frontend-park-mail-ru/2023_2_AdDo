@@ -65,6 +65,14 @@ export class AlbumComponent extends IComponent {
 				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 			}	
 		});
+		EventDispatcher.subscribe('copied-to-clipboard', (id: string, type: string) => {
+			if(this.isMounted) {
+				const copied = document.querySelector(`["${type}"="${id}"]`)! as HTMLElement;
+				setTimeout(() => {
+					copied.style.display = 'flex';
+				}, 2000);
+			}
+		});
 	}
 
 

@@ -7,6 +7,7 @@ import { Callback, Song, User } from "../../types";
 import router from "../../Modules/Router/Router";
 import paths from "../../Modules/Router/RouterPaths";
 import { debounce } from "../../Modules/lib/Debounce";
+import hosts from "../../HostConsts";
 
 
 /** Class representing an MainController. */
@@ -361,6 +362,18 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     router.goToPage(paths.feedAll);
                 } 
                 return;
+            case 'trackShare':
+                this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
+                EventDispatcher.emit('copied-to-clipboard',  {id: target.getAttribute('data-id')!, type: 'data-track-share'});
+                return;
+            case 'albumShare':
+                this.copyToClipboard(hosts.HOST + '/album/' + target.getAttribute('data-id')!);
+                EventDispatcher.emit('copied-to-clipboard',  {id: target.getAttribute('data-id')!, type: 'data-album-share'});
+                return;
+            case 'artistShare':
+                this.copyToClipboard(hosts.HOST + '/artist/' + target.getAttribute('data-id')!);
+                EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-artist-share'});
+                return;
         }
     }
 
@@ -371,6 +384,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public search(value: string): void {
         this.searchDebounced(value, this.view.searchResults.bind(this.view));
+    }
+
+    public copyToClipboard(text: string): void {
+        navigator.clipboard.writeText(text);
     }
 
     /**
