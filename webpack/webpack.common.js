@@ -148,6 +148,11 @@ module.exports = {
         {
           from: `${defines.src}/shared/misc`,
           to: `${defines.dist}`
+        },
+
+        {
+          from: `${defines.src}/shared/manifest/webmanifest.json`,
+          to: `${defines.dist}`
         }
       ]
     })
