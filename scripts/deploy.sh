@@ -17,7 +17,7 @@ fi
 sw_filename=sw-$(ls dist/assets/js/app-* |  awk -F'[-.]' '{print $2}').js
 sed -i "s/sw.js/$sw_filename/g" dist/index.html
 mv dist/sw.js dist/$sw_filename
-/usr/local/mc cp --recursive dist/ musicon/frontend
+mc cp --recursive dist/ musicon/frontend
 if [[ $? -ne 0  ]];then
     echo "Error upload dist to minio"
     exit 1
@@ -25,5 +25,10 @@ fi
 sshpass -p "$MUSICON_PASSWORD" scp dist/index.html musicon@musicon.space:/home/musicon/dist
 if [[ $? -ne 0  ]];then
     echo "Error upload index.html to VM"
+    exit 1
+fi
+./scripts/clean.sh
+if [[ $? -ne 0  ]];then
+    echo "Error remove old files from minio"
     exit 1
 fi
