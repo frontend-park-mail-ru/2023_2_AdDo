@@ -205,6 +205,13 @@ class MainView extends IView {
         albumComponent.Album = album;
     }
 
+    public fillTrack(album: Album, song: Song, isLiked: boolean): void {
+        const albumComponent = this.components.get('album') as AlbumComponent;
+        albumComponent.Album = album;
+        const player = this.components.get('footer') as PlayerComponent;
+        player.setSong(song, isLiked);
+    }
+
     /**
      * Fill the artist object with the provided artist.
      *

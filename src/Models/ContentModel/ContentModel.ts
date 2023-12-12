@@ -53,7 +53,7 @@ export default class ContentModel extends IModel {
      * @param {number} albumId - The ID of the album to request.
      * @return {void} This function does not return anything.
      */
-    public requestAlbum(callback: Callback, url: string): void {
+    public requestAlbum(callback: Callback, url: string, id?: number): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/' + url, {})
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
@@ -63,11 +63,28 @@ export default class ContentModel extends IModel {
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
                         this.album.isLiked = responseBody.IsLiked;
-                        callback(this.album);
+                        if(id) {
+                            Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/track/' + id + '/is_like', {})
+                            .then(({ status, responseBody }) => {
+                                if (status >= 200 && status < 300) {
+                                    callback(this.album, id, responseBody.IsLiked);
+                                    return;
+                                }
+                            })
+                            .catch((error) => {
+                                throw error;
+                            });
+                        } else {
+                            callback(this.album, id);
+                        }
                         return;
                     }
                     if (status === 401) {
-                        callback(this.album);
+                        if(id) {
+                            callback(this.album, id, false);
+                        } else {
+                            callback(this.album, id);
+                        }
                         return;
                     }
                 })

@@ -117,6 +117,12 @@ export class PlayerComponent extends IComponent {
 	 * @return {void} 
 	 */
 	public playSong(song: Song, isLiked: boolean): void {
+		this.setSong(song, isLiked);
+		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		audio.play();
+	}
+
+	public setSong(song: Song, isLiked: boolean): void {
 		this.currentSong = song;
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
 		const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
@@ -177,9 +183,7 @@ export class PlayerComponent extends IComponent {
 					audio.volume = (parseInt(volumeSlider.value) / 100);
 				}
 			}
-			
 		}
-		audio.play();
 	}
 
 	/**

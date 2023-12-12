@@ -3,7 +3,7 @@
         {{#if Artist.Avatar}}
             <img class="info__photo" src="{{port}}{{Artist.Avatar}}" alt="">
         {{/if}}
-        <div style="display: inline-block;">
+        <div style="display: grid; gap: 15px;">
             <div class="medium-text info__name">Исполнитель</div>
             <div class="large-text">{{Artist.Name}}</div>
             <div class="album__info__options">
@@ -19,7 +19,7 @@
                 {{/if}}
                 <div class="medium-text album__share" data-section="artistShare" data-id="{{Artist.Id}}">
                     <img class="album__share-btn" src="/static/img/Share.svg" alt="" data-section="artistShare" data-id="{{Artist.Id}}">
-                    <div class="medium-text album__share__copied" data-artist-share="{{Artist.Id}}">Ссылка скопирована</div>
+                    <div class="medium-text album__share__copied" data-artist-share="{{Artist.Id}}" style="color: black;">Ссылка скопирована</div>
                 </div>
             </div>
             

@@ -59,6 +59,13 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.view.renderAlbum();
         this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1]);
     }
+
+    public updateTrack(): void {
+        this.view.renderAlbum();
+        this.model.ContentModel.requestAlbum(this.view.fillTrack.bind(this.view), 
+                                            location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1], 
+                                            parseInt(location.href.split('/')[location.href.split('/').length - 1]));
+    }
     
     /**
      * Updates the Artist.

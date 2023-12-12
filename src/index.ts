@@ -88,7 +88,7 @@ class App {
 			{ path: paths.favArtists, handler: this.renderfavArtists },
 			{ path: paths.favPlaylists, handler: this.renderfavPlaylists },
 			{ path: paths.favTracks, handler: this.renderfavTracks },
-			{ path: paths.track, handler: this.renderAlbum },
+			{ path: paths.track, handler: this.renderTrack },
 			{ path: paths.search, handler: this.renderSearch },
 			{ path: paths.playlist, handler: this.renderPlaylist },
 			{ path: paths.onboardGenres, handler: this.renderOnboardGenres },
@@ -186,6 +186,12 @@ class App {
 	public renderAlbum(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateAlbum();
+		this.maincontroller.mountComponent();
+	}
+
+	public renderTrack(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateTrack();
 		this.maincontroller.mountComponent();
 	}
 
