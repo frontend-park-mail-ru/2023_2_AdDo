@@ -1,5 +1,5 @@
 import paths from './RouterPaths';
-import { IRoute, RouteHandler, AnyHandler } from './RouterTypes';
+import { IRoute, RouteHandler, AnyHandler, UnknownHandler } from './RouterTypes';
 
 class Router {
     private routes: IRoute[];
@@ -48,7 +48,7 @@ class Router {
             return;
         }
     }
-    
+
     public addRule(rule: string, handler: RouteHandler): IRoute {
         const newRoute = {
             rule: this.parseRule(rule),

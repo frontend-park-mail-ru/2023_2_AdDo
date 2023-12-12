@@ -5,3 +5,4 @@ export type IRoute = {
 
 export type RouteHandler = (params: string[]) => void;
 export type AnyHandler = () => void;
+export type UnknownHandler = () => void;

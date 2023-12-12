@@ -741,7 +741,7 @@ export default class ContentModel extends IModel {
     }
 
     public listenCount(duration: number, id: number): void {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/listen/' + id, {'Content-Type': 'application/json',}, { Duration: duration }, )
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/listen/' + id, {'Content-Type': 'application/json',}, { Duration: Math.floor(duration) }, )
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 return;

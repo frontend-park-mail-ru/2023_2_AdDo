@@ -23,6 +23,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     private nextsongfunction: () => void = () => {};
     private repeatsongfunction: () => void = () => {};
     private searchDebounced: (term: string, callback: Callback) => void = () => {};
+    private addPlaylistDebounced: (callback: Callback) => void = () => {};
+    private playSongDebounced: (callback: Callback, id: number, user: User | null) => void = () => {};
     /**
      * Constructs a new instance of the class.
      *
@@ -38,6 +40,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('logout', this.logout.bind(this));
         EventDispatcher.subscribe('search', this.search.bind(this));
         this.searchDebounced = debounce(this.model.ContentModel.requestSearch, 300);
+        this.playSongDebounced = debounce(this.model.ContentModel.isLiked, 500);
+        this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist, 300);
     }
 
     /**
@@ -179,7 +183,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 e.preventDefault();
                 this.songId = parseInt(target.getAttribute('data-url')!);
                 this.model.ContentModel.nowPlaying();
-                this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+                this.playSongDebounced(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
                 this.Playing = true;
                 this.isActive = true;
                 return;
@@ -213,7 +217,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'innerlink':
                 e.preventDefault();
-                // this.view.makeActiveInnerLink(e.target as HTMLElement);
                 router.goToPage(target.getAttribute('data-url')!);
                 return;
             case 'searchlink':
@@ -283,7 +286,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'createPlaylist':
                 e.preventDefault();
-                this.model.ContentModel.createPlaylist(router.goToPage.bind(router));
+                this.addPlaylistDebounced(router.goToPage.bind(router));
                 return;
             case 'deletePlaylist':
                 e.preventDefault();
@@ -381,8 +384,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-artist-share'});
                 return;
             case 'playerTrackShare':
-                this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
-                EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-player-track-share'});
+                if (this.isActive) {
+                    this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
+                    EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-player-track-share'});
+                }
                 return;
             case 'mobilePlayerTrackShare':
                 this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
