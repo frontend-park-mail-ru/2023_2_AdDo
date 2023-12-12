@@ -765,7 +765,7 @@ export default class ContentModel extends IModel {
     }
 
     public sendArtists(artists: Array<OnboardArtist>): void {
-        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/genres', {'Content-Type': 'application/json'}, {Artists: artists})
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/artists', {'Content-Type': 'application/json'}, {Artists: artists})
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 return;
