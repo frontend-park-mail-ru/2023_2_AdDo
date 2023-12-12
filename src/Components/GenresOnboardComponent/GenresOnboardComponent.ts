@@ -61,15 +61,17 @@ export class GenresOnboardComponent extends IComponent {
     public getActives(): Array<OnboardGenre> {
         const result: Array<OnboardGenre> = [];
         const activeGenres = this.parent.querySelectorAll('.active-genre');
-        const error = this.element.querySelector('.onboard__error')! as HTMLElement;
+        const error: HTMLElement = this.element.querySelector('.onboard__error')!;
         if(activeGenres.length > 2) {
-            error.style.display = 'none';
+			if(error.classList.contains('onboard__error__active')) {
+            	error.classList.remove('onboard__error__active');
+			}
             activeGenres.forEach((el) => {
                 el.getAttribute('data-id');
                 result.push(this.genres.find((genre) => genre.Id === parseInt(el.getAttribute('data-id')!))!);
             });
         } else {
-            error.style.display = 'block';
+			error.classList.add('onboard__error__active');
         }
         return result;
     }

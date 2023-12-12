@@ -52,8 +52,8 @@ export class ArtistsOnboardComponent extends IComponent {
     public getActives(): Array<OnboardArtist> {
         const result: Array<OnboardArtist> = [];
         const activeArtists = this.parent.querySelectorAll('.active-genre');
-        const error = this.element.querySelector('.onboard__error')! as HTMLElement;
-        if(activeArtists.length > 3) {
+        const error: HTMLElement = this.element.querySelector('.onboard__error')!;
+        if(activeArtists.length > 2) {
             error.style.display = 'none';
             activeArtists.forEach((el) => {
                 el.getAttribute('data-id');

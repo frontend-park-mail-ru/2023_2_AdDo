@@ -13,6 +13,12 @@
     }
     &__error {
         color: red !important;
+        &__active {
+            display: block;
+        }
+        &__disabled {
+            display: none;
+        }
     }
 }
 
