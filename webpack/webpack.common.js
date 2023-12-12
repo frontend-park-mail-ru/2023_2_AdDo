@@ -19,30 +19,30 @@ module.exports = {
 		filename: `${defines.assets}js/[name]-[hash].js`
 	},
 
-	performance: {
-		hints: false,
-		maxEntrypointSize: 512000,
-		maxAssetSize: 512000
-	},
+	// performance: {
+	// 	hints: false,
+	// 	maxEntrypointSize: 512000,
+	// 	maxAssetSize: 512000
+	// },
 
 	optimization: {
 		chunkIds: 'named',
 		mergeDuplicateChunks: true,
-		minimize: true,
-		minimizer: [
-			new JsonMinimizerPlugin(),
-			new TerserPlugin(),
-			new CssMinimizerPlugin({
-				minimizerOptions: {
-					preset: [
-						'default',
-						{
-							discardComments: { removeAll: true }
-						}
-					]
-				}
-			})
-		],
+		// minimize: true,
+		// minimizer: [
+		// 	new JsonMinimizerPlugin(),
+		// 	new TerserPlugin(),
+		// 	new CssMinimizerPlugin({
+		// 		minimizerOptions: {
+		// 			preset: [
+		// 				'default',
+		// 				{
+		// 					discardComments: { removeAll: true }
+		// 				}
+		// 			]
+		// 		}
+		// 	})
+		// ],
 		splitChunks: {
 			chunks: 'async',
 			minSize: 20000,
