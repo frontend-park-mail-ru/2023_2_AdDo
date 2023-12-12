@@ -12,11 +12,12 @@
         top: 35%;
     }
     &__error {
-        color: red;
+        color: red !important;
         display: none;
     }
 }
 
 .active-genre {
-    
+    border: 2px solid white;
+    border-radius: 100px;
 }

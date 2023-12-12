@@ -250,6 +250,7 @@
             margin-top: 5px;
             size: 160px;
             cursor: pointer;
+            border-radius: 100px;
         }
     
         &__name {
