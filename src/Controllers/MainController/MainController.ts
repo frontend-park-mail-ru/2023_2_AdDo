@@ -62,9 +62,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public updateTrack(): void {
         this.view.renderAlbum();
-        this.model.ContentModel.requestAlbum(this.view.fillTrack.bind(this.view), 
-                                            location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1], 
-                                            parseInt(location.href.split('/')[location.href.split('/').length - 1]));
+        this.model.ContentModel.requestAlbum(this.view.fillTrack.bind(this.view), location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1], parseInt(location.href.split('/')[location.href.split('/').length - 1]));
+        this.isActive = true;
     }
     
     /**
