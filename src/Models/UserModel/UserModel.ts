@@ -88,7 +88,7 @@ class UserModel extends IModel {
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
                     this.getUser();
-                    routerCallback(paths.onboardGenres);
+                    routerCallback(paths.feedAll);
                     errorCallback('ok');
                     return;
                 } else if (status === 400) {
