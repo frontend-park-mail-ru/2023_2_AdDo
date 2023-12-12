@@ -177,7 +177,6 @@ export class PlayerComponent extends IComponent {
 			} else {
 				if (parseInt(volumeSlider.value) === 0) {
 					volumeSlider.value = '50';
-					mobileVolumeSlider.value = '50';
 					audio.volume = 0.5;
 				} else {
 					audio.volume = (parseInt(volumeSlider.value) / 100);
