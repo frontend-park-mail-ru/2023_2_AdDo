@@ -13,7 +13,6 @@
     }
     &__error {
         color: red !important;
-        display: none;
     }
 }
 
