@@ -360,7 +360,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'onboardGenres':
                 e.preventDefault();
                 const genres = this.view.getActiveGenres();
-                if(genres.length > 3) {
+                if(genres.length > 2) {
                     this.model.ContentModel.sendGenres(genres);
                     router.goToPage(paths.onboardArtists);
                 }
@@ -368,7 +368,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'onboardArtists':
                 e.preventDefault();
                 const artists = this.view.getActiveArtists();
-                if(artists.length > 3) {
+                if(artists.length > 2) {
                     this.model.ContentModel.sendArtists(artists);
                     router.goToPage(paths.feedAll);
                 } 
