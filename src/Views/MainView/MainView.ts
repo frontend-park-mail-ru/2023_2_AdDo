@@ -205,10 +205,11 @@ class MainView extends IView {
         albumComponent.Album = album;
     }
 
-    public fillTrack(album: Album, song: Song, isLiked: boolean): void {
+    public fillTrack(album: Album, id: number, isLiked: boolean): void {
         const albumComponent = this.components.get('album') as AlbumComponent;
         albumComponent.Album = album;
         const player = this.components.get('footer') as PlayerComponent;
+        const song: Song = album.Tracks.find((track) => track.Id === id)!;
         player.setSong(song, isLiked);
     }
 
