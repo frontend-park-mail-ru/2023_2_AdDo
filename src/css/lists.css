@@ -31,7 +31,7 @@
     &__playbutton {
         transform: translate(-50%, -50%);
         size: 60px;
-        background-image: url(../../static/img/playButton.png);
+        background-image: url(../../static/img/playButton.webp);
         background-size: cover;
         opacity: 0;
         transition: opacity 0.3s;
@@ -126,7 +126,7 @@
     &__playbutton {
         size: 30px;
         transform: translate(-50%, -50%);
-        background-image: url(../../static/img/playButton.png);
+        background-image: url(../../static/img/playButton.webp);
         background-size: cover;
         opacity: 0;
         transition: opacity 0.3s;

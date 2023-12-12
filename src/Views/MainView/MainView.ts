@@ -25,6 +25,8 @@ class MainView extends IView {
 
     private components: Map<string, IComponent> = new Map();
     public isMobile: boolean = false;
+    public totalListningTime: number = 0;
+	public currentListningTime: number = 0;
 
     /**
      * Constructor for initializing the class.
@@ -281,8 +283,10 @@ class MainView extends IView {
         const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
         const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
-        mobileImg.src = '/static/img/pauseBtn.png';
+        mobileImg.src = '/static/img/pauseBtn.webp';
         footer.playSong(song, isLiked);
+        this.totalListningTime = 0;
+        this.currentListningTime = Date.now();
     }
 
     /**
@@ -293,10 +297,11 @@ class MainView extends IView {
     public resume(): void {
         const footer = this.components.get('footer') as PlayerComponent;
         const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
-        mobileImg.src = '/static/img/pauseBtn.png';
+        mobileImg.src = '/static/img/pauseBtn.webp';
         const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
         footer.resumeSong();
+        this.currentListningTime = Date.now();
     }
     /**
      * Pauses the audio player and updates the play button image.
@@ -306,10 +311,12 @@ class MainView extends IView {
     public pause(): void {
         const footer = this.components.get('footer') as PlayerComponent;
         const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
-        mobileImg.src = '/static/img/playButton.png';
+        mobileImg.src = '/static/img/playButton.webp';
         const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Play.svg';
         footer.pauseSong();
+		this.currentListningTime = Date.now() - this.currentListningTime;
+		this.totalListningTime += this.currentListningTime;
     }
 
     /**
@@ -636,9 +643,9 @@ class MainView extends IView {
     }
 
     public listen(callback: Callback): void {
+        this.totalListningTime += Date.now() - this.currentListningTime;
         const player = this.components.get('footer')! as PlayerComponent;
-        const audio = player.querySelector('audio')! as HTMLAudioElement;
-        callback(audio.currentTime, player.currentSong.Id);
+        callback(this.totalListningTime, player.currentSong.Id);
     }
 
     public getActiveGenres(): Array<OnboardGenre> {

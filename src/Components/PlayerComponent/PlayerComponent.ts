@@ -118,7 +118,7 @@ export class PlayerComponent extends IComponent {
 	 */
 	public playSong(song: Song, isLiked: boolean): void {
 		this.setSong(song, isLiked);
-		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
 	}
 

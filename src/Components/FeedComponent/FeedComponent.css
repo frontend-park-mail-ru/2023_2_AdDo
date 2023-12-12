@@ -17,9 +17,9 @@
         gap: 25px;
         justify-content: center;
         cursor: pointer;
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.1s ease-in-out;
         margin-bottom: 15vh;
-        margin-top: 8vh
+        margin-top: 8vh;
     }
     &__my-wave:hover {
         transform: scale(1.2);
