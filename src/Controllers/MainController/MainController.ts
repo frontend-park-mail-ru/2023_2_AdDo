@@ -320,8 +320,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 EventDispatcher.emit('show-options', target.getAttribute('data-id')!);
                 return;
             case 'playerTrackOptions':
-                e.preventDefault();
-                EventDispatcher.emit('player-show-options', target.getAttribute('data-id')!);
+                if (this.isActive) {
+                    e.preventDefault();
+                    EventDispatcher.emit('player-show-options', target.getAttribute('data-id')!);
+                }
                 return;
             case 'mobilePlayerTrackOptions':
                 e.preventDefault();
