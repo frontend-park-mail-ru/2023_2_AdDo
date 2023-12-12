@@ -55,7 +55,7 @@ export default class ContentModel extends IModel {
      */
     public requestAlbum(callback: Callback, url: string, id?: number): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/' + url, {})
-		.then(({ ok, status, responseBody }) => {
+		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.album = responseBody;
                 this.songs = this.album.Tracks.slice(0);
@@ -67,6 +67,7 @@ export default class ContentModel extends IModel {
                             Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/track/' + id + '/is_like', {})
                             .then(({ status, responseBody }) => {
                                 if (status >= 200 && status < 300) {
+                                    this.nowPlaying();
                                     callback(this.album, id, responseBody.IsLiked);
                                     return;
                                 }
@@ -81,6 +82,7 @@ export default class ContentModel extends IModel {
                     }
                     if (status === 401) {
                         if(id) {
+                            this.nowPlaying();
                             callback(this.album, id, false);
                         } else {
                             callback(this.album, id);
