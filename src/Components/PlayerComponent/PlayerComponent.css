@@ -95,6 +95,12 @@
   .footer {
     height: 50px;
   }
+  .volume-btn {
+    display: block;
+  }
+  .volume-bar {
+    display: block;
+  }
 }
 
 /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
@@ -118,7 +124,13 @@
     display: none;
   }
   .footer {
-    height: 110px;  
+    height: 100px;  
+  }
+  .volume-btn {
+    display: none;
+  }
+  .volume-bar {
+    display: none;
   }
 }
 

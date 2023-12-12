@@ -6,21 +6,14 @@ import ProfileView from './Views/ProfileView/ProfileView';
 import MainController from './Controllers/MainController/MainController';
 import LoginController from './Controllers/LoginController/LoginController';
 import SignUpController from './Controllers/SignUpController/SignUpController';
-import ProfileController from './Controllers/ProfileController/ProfileController';
 
 import ContentModel from './Models/ContentModel/ContentModel';
 import UserModel from './Models/UserModel/UserModel';
-
 
 import EventDispatcher from './Modules/EventDispatcher/EventDispatcher';
 import router from './Modules/Router/Router';
 import paths from './Modules/Router/RouterPaths';
 import './index.css';
-
-import { Album } from './types';
-
-
-
 
 /** Class representing an App. */
 class App {
@@ -32,12 +25,9 @@ class App {
 	public maincontroller: MainController;
 	public logincontroller: LoginController;
 	public signupcontroller: SignUpController;
-	public profilecontroller: ProfileController;
 
 	public contentmodel: ContentModel;
 	public usermodel: UserModel;
-
-	private isOnline: boolean = navigator.onLine;
 
 	/**
 	 * Initializes the class by setting up the necessary components and controllers.
@@ -60,10 +50,8 @@ class App {
 		this.maincontroller = new MainController(this.mainview, { ContentModel: this.contentmodel, UserModel: this.usermodel });
 		this.logincontroller = new LoginController(this.loginview, this.usermodel);
 		this.signupcontroller = new SignUpController(this.signupview, this.usermodel);
-		this.profilecontroller = new ProfileController(this.profileview, this.usermodel);
 
 		this.initRoutes();
-		this.cacheCollection();
 	}
 
 	/**
@@ -106,7 +94,6 @@ class App {
 			{ path: paths.onboardGenres, handler: this.renderOnboardGenres },
 			{ path: paths.onboardArtists, handler: this.renderOnboardArtists },
 		];
-
 		routes.forEach(({ path, handler }) => {
 			router.addRule(path, handler.bind(this));
 		});
@@ -134,6 +121,11 @@ class App {
 		this.signupcontroller.mountComponent();
 	}
 
+	/**
+	 * Renders the entire feed.
+	 *
+	 * @return {void} 
+	 */	
 	public renderFeedAll(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateFeed();
@@ -221,54 +213,78 @@ class App {
 		this.maincontroller.mountComponent();
 	}
 
+	/**
+	 * Render favorite tracks.
+	 *
+	 * @return {void}
+	 */
 	public renderfavTracks(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatefavTracks();
 		this.maincontroller.mountComponent();
 	}
 
+	/**
+	 * Renders the favorite albums.
+	 *
+	 * @return {void}
+	 */
 	public renderfavAlbums(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatefavAlbums();
 		this.maincontroller.mountComponent();
 	}
 
+	/**
+	 * Renders the favorite artists.
+	 *
+	 * @return {void} 
+	 */
 	public renderfavArtists(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatefavArtists();
 		this.maincontroller.mountComponent();
 	}
-
+	/**
+	 * Renders the search by emitting an 'unmount-all' event,
+	 * updating the search, and mounting the component.
+	 */
 	public renderSearch(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateSearch();
 		this.maincontroller.mountComponent();
 	}
-
+	/**
+	 * Renders the playlist.
+	 *
+	 * @return {void} No return value.
+	 */
 	public renderPlaylist(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatePlaylist();
 		this.maincontroller.mountComponent();
 	}
-
+	/**
+	 * Renders the onboard genres by emitting the 'unmount-all' event,
+	 * updating the onboard genres in the main controller, and mounting
+	 * the component.
+	 */
 	public renderOnboardGenres(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateOnboardGenres();
 		this.maincontroller.mountComponent();
 	}
+	/**
+	 * Renders the onboard artists by emitting the 'unmount-all' event,
+	 * updating the onboard artists in the main controller, and mounting
+	 * the component.
+	 *
+	 * @return {void}
+	 */
 	public renderOnboardArtists(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateOnboardArtists();
 		this.maincontroller.mountComponent();
-	}
-
-	/**
-	 * Renders the podcasts.
-	 *
-	 * @return {void} 
-	 */
-	public cacheCollection(): void {
-		
 	}
 }
 

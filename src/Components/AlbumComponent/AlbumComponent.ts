@@ -56,7 +56,6 @@ export class AlbumComponent extends IComponent {
 						avaliablePlaylists.appendChild(div);
 					});
 				}
-				
 			}
 		});
 		EventDispatcher.subscribe('add-track-to-playlist', (id: string) => {

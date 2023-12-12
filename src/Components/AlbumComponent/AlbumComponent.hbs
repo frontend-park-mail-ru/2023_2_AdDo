@@ -3,7 +3,7 @@
         {{#if album.Preview}}
             <img class="info__photo" style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
         {{/if}}
-        <div style="display: inline-block;">
+        <div style="display: flex; flex-direction: column; gap: 15px;">
             <div class="large-text">{{album.Name}}</div>
             <a class="big-text albumlist-item__name" href="/artist/{{album.ArtistId}}" data-section="link"
                 data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}

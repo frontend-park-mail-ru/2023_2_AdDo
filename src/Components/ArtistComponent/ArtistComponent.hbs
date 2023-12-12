@@ -18,7 +18,7 @@
                     </div>
                 {{/if}}
                 <div class="medium-text album__share" data-section="artistShare" data-id="{{Artist.Id}}">
-                    <img src="/static/img/Share.svg" alt="" data-section="artistShare" data-id="{{Artist.Id}}">
+                    <img class="album__share-btn" src="/static/img/Share.svg" alt="" data-section="artistShare" data-id="{{Artist.Id}}">
                     <div class="medium-text album__share__copied" data-artist-share="{{Artist.Id}}">Ссылка скопирована</div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton"
                         data-url="{{@index}}"></div>
                 </div>
-                <div style="display:inline-block">
+                <div style="display: flex; flex-direction: column; gap: 15px;">
                     <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
                 </div>
                 <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}"
