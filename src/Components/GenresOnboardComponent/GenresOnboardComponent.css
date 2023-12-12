@@ -2,6 +2,11 @@
     display: flex;
     align-items: center;
     margin-top: 10vh;
+    gap: 35px;
     &__info {
+        min-width: 270px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
     }
 }

@@ -238,6 +238,7 @@
     padding: 0px;
     margin-bottom: 100px;
     gap: 30px;
+    flex-wrap: wrap;
     position: relative;
     &__item {
         display: grid;
@@ -253,10 +254,11 @@
     &__photo {
         margin-top: 5px;
         size: 160px;
+        cursor: pointer;
     }
 
     &__name {
-
+        cursor: pointer;
     }
     
     &__error {

@@ -7,8 +7,8 @@
     <ul class="onboard__list">
         {{#each Genres}}
             <li class="onboard__list__item">
-                <img class="onboard__list__item__photo" src="{{port}}{{this.Preview}}" alt="" data-section="makeActive" data-id="{{this.Id}}">
-                <div class="medium-text onboard__list__item__name">
+                <img class="onboard__list__item__photo" src="{{../port}}{{this.Preview}}" alt="" data-section="makeActive" data-id="{{this.Id}}">
+                <div class="medium-text onboard__list__item__name" data-section="makeActive" data-id="{{this.Id}}">
                     {{this.Name}}
                 </div>
             </li>
