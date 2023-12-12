@@ -3,10 +3,16 @@
     align-items: center;
     margin-top: 10vh;
     gap: 35px;
+    position: fixed;
+    top: 35%;
     &__info {
-        min-width: 270px;
+        max-width: 270px;
         display: flex;
         flex-direction: column;
         gap: 25px;
+    }
+    &__error {
+        color: red;
+        display: none;
     }
 }

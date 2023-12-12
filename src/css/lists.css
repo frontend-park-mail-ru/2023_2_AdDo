@@ -240,10 +240,22 @@
     gap: 30px;
     flex-wrap: wrap;
     position: relative;
+    margin-left: 320px;
     &__item {
         display: grid;
         gap: 20px;
-        padding: 10px;  
+        padding: 10px; 
+        width: min-content; 
+        &__photo {
+            margin-top: 5px;
+            size: 160px;
+            cursor: pointer;
+        }
+    
+        &__name {
+            cursor: pointer;
+            text-align: center;
+        }
     }
     &__item:hover {
         &__photo {
@@ -251,18 +263,5 @@
         }
     }
 
-    &__photo {
-        margin-top: 5px;
-        size: 160px;
-        cursor: pointer;
-    }
-
-    &__name {
-        cursor: pointer;
-    }
     
-    &__error {
-        color: red;
-        display: none;
-    }
 }

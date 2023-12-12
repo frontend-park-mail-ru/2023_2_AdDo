@@ -15,6 +15,7 @@ export class GenresOnboardComponent extends IComponent {
 	constructor(parent: HTMLElement, genres: Array<OnboardGenre>) {
 		super(parent, template({ genres, port: hosts.s3HOST }));
 		this.genres = genres;
+		this.bindClickEvent(this.handleClick.bind(this));
 	}
 
 	/**
@@ -43,8 +44,8 @@ export class GenresOnboardComponent extends IComponent {
 		const target: HTMLElement = e.target as HTMLElement;
 		const value: string = target.getAttribute('data-section')!
 		switch (value) {
-			case 'onboardGenres':
-
+			case 'makeActive':
+				this.makeActive(target);
                 return;
 		}
 	}

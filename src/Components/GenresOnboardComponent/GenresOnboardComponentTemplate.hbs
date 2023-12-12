@@ -3,6 +3,9 @@
         <h1>Выберите любимых исполнителей</h1>
         <div class="medium-text">Это поможет нам составить для вас интересные рекомендации</div>
         <button class="default-button" data-section="onboardGenres">Готово</button>
+        <div class="medium-text onboard__error">
+                Выберите как минимум 3 жанра
+        </div>
     </div>
     <ul class="onboard__list">
         {{#each Genres}}
@@ -13,10 +16,5 @@
                 </div>
             </li>
         {{/each}}
-        <li class="onboard__list__item">
-            <div class="medium-text onboard__list__item__error">
-                   Выберите как минимум 3 жанра
-            </div>
-        </li>
     </ul>
 </div>
