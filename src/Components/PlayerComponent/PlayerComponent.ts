@@ -38,8 +38,6 @@ export class PlayerComponent extends IComponent {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked}, event.data.isLiked);
 				audio.currentTime = event.data.currentTime;
-				this.pauseSong();
-
 			}
 		  });
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
