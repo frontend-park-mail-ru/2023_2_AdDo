@@ -63,6 +63,12 @@ export class HeaderComponent extends IComponent {
 				e.preventDefault();
 				let searchInput: HTMLElement = this.parent.querySelector('[data-section="inputSearch"]')!;
 				searchInput.classList.toggle('search-active');
+				const img = this.parent.querySelector('.magnifying-glass')! as HTMLImageElement;
+				if(img.src === '/static/img/Loupe.svg') {
+					img.src = '/static/img/krestik.svg';
+				} else {
+					img.src = '/static/img/Loupe.svg';
+				}
 				const menu: HTMLElement = this.parent.querySelector('.menu__links')!;
 				const menuu: HTMLElement =	this.parent.querySelector('.mobile-menu')!;
 				menu.style.display === 'none' ? menu.style.display = 'flex' : menu.style.display = 'none';
