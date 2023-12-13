@@ -169,7 +169,7 @@ export class PlayerComponent extends IComponent {
 		this.setSong(song, isLiked);
 		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
-		this.syncDebounced(audio.currentTime);
+		this.syncPlayerState(audio.currentTime);
 	}
 
 	public setSong(song: Song, isLiked: boolean): void {
@@ -243,7 +243,7 @@ export class PlayerComponent extends IComponent {
 	public resumeSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
-		this.syncDebounced(audio.currentTime);
+		this.syncPlayerState(audio.currentTime);
 	}
 	/**
 	 * Pauses the currently playing song.
@@ -253,7 +253,7 @@ export class PlayerComponent extends IComponent {
 	public pauseSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.pause();
-		this.syncDebounced(audio.currentTime);
+		this.syncPlayerState(audio.currentTime);
 	}
 
 	/**
