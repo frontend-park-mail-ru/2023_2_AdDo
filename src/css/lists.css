@@ -251,6 +251,11 @@
             size: 160px;
             cursor: pointer;
             border-radius: 100px;
+            box-sizing: border-box;
+        }
+
+        &__photo:hover {
+            border: 2px solid white;
         }
     
         &__name {
@@ -258,11 +263,4 @@
             text-align: center;
         }
     }
-    &__item:hover {
-        &__photo {
-            border: 2px solid blue;
-        }
-    }
-
-    
 }

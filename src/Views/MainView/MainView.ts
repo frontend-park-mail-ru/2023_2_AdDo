@@ -645,7 +645,7 @@ class MainView extends IView {
     public listen(callback: Callback): void {
         this.totalListningTime += Date.now() - this.currentListningTime;
         const player = this.components.get('footer')! as PlayerComponent;
-        callback(this.totalListningTime, player.currentSong.Id);
+        callback(this.totalListningTime / 1000, player.currentSong.Id);
     }
 
     public getActiveGenres(): Array<OnboardGenre> {

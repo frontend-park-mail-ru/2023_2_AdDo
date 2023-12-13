@@ -61,7 +61,7 @@ export class GenresOnboardComponent extends IComponent {
     public getActives(): Array<OnboardGenre> {
         const result: Array<OnboardGenre> = [];
         const activeGenres = this.parent.querySelectorAll('.active-genre');
-        const error: HTMLElement = this.element.querySelector('.onboard__error')!;
+        const error: HTMLElement = document.querySelector('.onboard__error')!;
         if(activeGenres.length > 2) {
 			if(error.classList.contains('onboard__error__active')) {
             	error.classList.remove('onboard__error__active');

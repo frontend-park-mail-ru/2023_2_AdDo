@@ -69,7 +69,7 @@ class SignUpView extends IView {
             case 'password too short':
                 this.signup.querySelector('[data-section="lengthPassword"]').className = 'authlist__error__active';
                 this.signup.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
-                this.signup.querySelector('[data-section="passcheck"]').textContent = 'Имя пользователя должно содержать только буквы латинского алфавита и цифры';
+                this.signup.querySelector('[data-section="passcheck"]').textContent = 'Имя пользователя должно содержать только буквы латинского алфавита и цифры (минимум 2 символа)';
                 return;
             case 'ok':
                 this.signup.querySelector('[data-section="lengthPassword"]').className = 'authlist__error__disabled';

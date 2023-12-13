@@ -52,15 +52,17 @@ export class ArtistsOnboardComponent extends IComponent {
     public getActives(): Array<OnboardArtist> {
         const result: Array<OnboardArtist> = [];
         const activeArtists = this.parent.querySelectorAll('.active-genre');
-        const error: HTMLElement = this.element.querySelector('.onboard__error')!;
+        const error: HTMLElement = document.querySelector('.onboard__error')!;
         if(activeArtists.length > 2) {
-            error.style.display = 'none';
+			if(error.classList.contains('onboard__error__active')) {
+            	error.classList.remove('onboard__error__active');
+			}
             activeArtists.forEach((el) => {
                 el.getAttribute('data-id');
                 result.push(this.artists.find((artist) => artist.Id === parseInt(el.getAttribute('data-id')!))!);
             });
         } else {
-            error.style.display = 'block';
+			error.classList.add('onboard__error__active');
         }
         return result;
     }
