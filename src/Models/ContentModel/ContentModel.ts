@@ -378,7 +378,7 @@ export default class ContentModel extends IModel {
             Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/track/' + songId + '/like', {'Content-Type': 'application/json',}, { })
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
-                    this.currentsongs[songId].isLiked = true;
+                    this.songs[songId].isLiked = true;
                     callback(songId);
                     return;
                 }
@@ -399,7 +399,7 @@ export default class ContentModel extends IModel {
             Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/track/' + songId + '/unlike', {'Content-Type': 'application/json',}, { })
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
-                    this.currentsongs[songId].isLiked = false;
+                    this.songs[songId].isLiked = false;
                     callback(songId);
                     return;
                 }
