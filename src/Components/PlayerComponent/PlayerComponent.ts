@@ -34,11 +34,12 @@ export class PlayerComponent extends IComponent {
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
 		this.syncDebounced = debounce(this.syncPlayerState.bind(this), 50);
 		this.channel.addEventListener('message', event => {
-			if (event.data.type === 'playerSync') {
+			if (event.data.type === 'playerSync' && event.source !== self) {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked}, event.data.isLiked);
 				audio.currentTime = event.data.currentTime;
 				this.pauseSong();
+
 			}
 		  });
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
