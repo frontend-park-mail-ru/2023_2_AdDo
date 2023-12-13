@@ -23,7 +23,7 @@ import { GenresOnboardComponent } from '../../Components/GenresOnboardComponent/
 /** Class representing a MainView. */
 class MainView extends IView {
 
-    private components: Map<string, IComponent> = new Map();
+    public components: Map<string, IComponent> = new Map();
     public isMobile: boolean = false;
     public totalListningTime: number = 0;
 	public currentListningTime: number = 0;

@@ -8,6 +8,7 @@ import router from "../../Modules/Router/Router";
 import paths from "../../Modules/Router/RouterPaths";
 import { debounce } from "../../Modules/lib/Debounce";
 import hosts from "../../HostConsts";
+import { PlayerComponent } from "../../Components/PlayerComponent/PlayerComponent";
 
 
 /** Class representing an MainController. */
@@ -42,6 +43,13 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.searchDebounced = debounce(this.model.ContentModel.requestSearch.bind(this.model.ContentModel), 300);
         this.playSongDebounced = debounce(this.model.ContentModel.isLiked.bind(this.model.ContentModel), 150);
         this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist.bind(this.model.ContentModel), 300);
+        const player = this.view.components.get('footer')! as PlayerComponent;
+        player.channel.addEventListener('message', event => {
+			if (event.data.type === 'playerSync' && event.source !== self) {
+				this.isActive = true;
+                this.Playing = false;
+			}
+		  });
     }
 
     /**

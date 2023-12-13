@@ -10,7 +10,7 @@ import { debounce } from '../../Modules/lib/Debounce';
 export class PlayerComponent extends IComponent {
 	public currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 };
 	private cardShown : boolean = false;
-	private channel: BroadcastChannel;
+	public channel: BroadcastChannel;
 	private syncDebounced: (currenttime: number) => void = () => {};
 	/**
 	 * Constructs a new instance of the class.
