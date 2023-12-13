@@ -857,21 +857,26 @@ export default class ContentModel extends IModel {
         this.socket = new WebSocket('wss://backend.musicon.space' + '/api/v1/wave');
         this.socket.onopen = () => {
             console.log('connected');
+            const cookie = document.cookie;
+            const authenticationData = {
+                SessionId: cookie,
+            };
+            this.socket!.send(JSON.stringify(authenticationData));
             this.requestSocketTracks();
             this.isSocketConnected = true;
+            this.isWaveStarted = false;
         }
         this.socket.onclose = (event) => {
             console.log('disconnected', event.reason);
             this.isSocketConnected = false;
         }
-        this.socket.onmessage = (event) => { 
+        this.socket.onmessage = (event) => {
             this.songs = JSON.parse(event.data);
             this.currentsongs = this.songs.slice(0);
             if(!this.isWaveStarted) {
                 this.isLiked(callback, songId, user);
                 this.isWaveStarted = true;
             }
-            
         }
     }
 
