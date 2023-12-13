@@ -374,6 +374,47 @@ export default class ContentModel extends IModel {
      * @param {Callback} callback - The callback function to be called after the like operation is complete.
      * @return {void} 
      */
+        public trackLike(songId: number, callback: Callback): void {
+            Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/track/' + songId + '/like', {'Content-Type': 'application/json',}, { })
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    this.currentsongs[songId].isLiked = true;
+                    callback(songId);
+                    return;
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
+        }
+    
+        /**
+         * Dislikes a song.
+         *
+         * @param {number} songId - The ID of the song to dislike.
+         * @param {Callback} callback - The callback function to be called after disliking the song.
+         * @return {void}
+         */
+        public trackDislike(songId: number, callback: Callback): void {
+            Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/track/' + songId + '/unlike', {'Content-Type': 'application/json',}, { })
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    this.currentsongs[songId].isLiked = false;
+                    callback(songId);
+                    return;
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
+        }
+        /**
+     * Like a song.
+     *
+     * @param {number} songId - The ID of the song to like.
+     * @param {Callback} callback - The callback function to be called after the like operation is complete.
+     * @return {void} 
+     */
     public albumLike(callback: Callback): void {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/album/' + this.album.Id + '/like', {'Content-Type': 'application/json',}, { })
         .then(({ status }) => {
