@@ -87,6 +87,9 @@
         & .playlist-item__options__img {
             opacity: 1;
         }
+        & .playlist-item__options__like {
+            opacity: 1;
+        }
     }
 
     &__image-container {
@@ -167,14 +170,16 @@
                 border: 1px solid white;
             }
             &__like {
-                position: absolute;
-                top: -80%;
-                right: 150%;
-                cursor: pointer;
-                padding: 10px;
+
             }
         }
-
+        &__like {
+            position: absolute;
+            top: -80%;
+            right: 150%;
+            cursor: pointer;
+            padding: 10px;
+        }
     }
 }
 
