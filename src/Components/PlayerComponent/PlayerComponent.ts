@@ -32,7 +32,7 @@ export class PlayerComponent extends IComponent {
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
-		this.syncDebounced = debounce(this.syncDebounced.bind(this), 500);
+		this.syncDebounced = debounce(this.syncPlayerState.bind(this), 500);
 		this.channel.addEventListener('message', event => {
 			if (event.data.type === 'playerSync') {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
