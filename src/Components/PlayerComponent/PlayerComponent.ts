@@ -241,7 +241,7 @@ export class PlayerComponent extends IComponent {
 	public resumeSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
-		this.syncPlayerState(audio.currentTime);
+		this.syncDebounced(audio.currentTime);
 	}
 	/**
 	 * Pauses the currently playing song.
@@ -251,7 +251,7 @@ export class PlayerComponent extends IComponent {
 	public pauseSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.pause();
-		this.syncPlayerState(audio.currentTime);
+		this.syncDebounced(audio.currentTime);
 	}
 
 	/**
@@ -266,7 +266,7 @@ export class PlayerComponent extends IComponent {
 		const progressPercent = (currentTime / duration) * 100;
 		const progress: HTMLElement = this.querySelector('.progress-bar__progress')!;
 		progress.style.width = `${progressPercent}%`;
-		this.syncPlayerState(currentTime);
+		this.syncDebounced(currentTime);
 	}
 
 	/**
@@ -328,7 +328,7 @@ export class PlayerComponent extends IComponent {
 		} else {
 			remainingTimeDiv.textContent = minutes.toString() + ':' + Math.floor(seconds).toString();
 		}
-		this.syncPlayerState(currentTime);
+		this.syncDebounced(currentTime);
 	}
 
 	/**
