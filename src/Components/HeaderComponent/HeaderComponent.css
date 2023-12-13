@@ -88,6 +88,8 @@
 
 .magnifying-glass {
     cursor: pointer;
+    width: 52px;
+    
 }
 
 .mobile-menu {

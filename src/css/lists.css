@@ -160,6 +160,12 @@
             right: 10%;
             cursor: pointer;
             opacity: 0;
+            &__photo {
+                box-sizing: border-box;
+                padding: 10px;
+                border-radius: 100px;
+                border: 1px solid white;
+            }
         }
     }
 }

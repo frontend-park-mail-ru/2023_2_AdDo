@@ -61,6 +61,7 @@ class App {
 	 */
 	public run(url: string) {
 		this.usermodel.authUserByCookie();
+		this.usermodel.getCSRFToken();
 		if(url === paths.root) {
 			url = paths.feedAll;
 		}
