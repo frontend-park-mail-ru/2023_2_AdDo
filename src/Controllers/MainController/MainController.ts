@@ -276,7 +276,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'trackLike':
                 e.preventDefault();
-                this.model.ContentModel.getSongById(parseInt(target.getAttribute('data-id')!)).isLiked ? this.trackDislike(parseInt(target.getAttribute('data-id')!)) : this.trackLike(parseInt(target.getAttribute('data-id')!));
+                this.model.ContentModel.getSongByIdFromSongs(parseInt(target.getAttribute('data-id')!)).isLiked ? this.trackDislike(parseInt(target.getAttribute('data-id')!)) : this.trackLike(parseInt(target.getAttribute('data-id')!));
                 return;
             case 'albumlike':
                 e.preventDefault();

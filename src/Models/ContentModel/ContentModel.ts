@@ -261,6 +261,10 @@ export default class ContentModel extends IModel {
         return this.currentsongs[songId];
     }
 
+    public getSongByIdFromSongs(songId: number): Song {
+        return this.songs[songId];
+    }
+
     /**
      * Retrieves a song from the collection by its ID.
      *
