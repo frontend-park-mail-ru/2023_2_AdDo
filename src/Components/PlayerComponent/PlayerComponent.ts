@@ -32,12 +32,13 @@ export class PlayerComponent extends IComponent {
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
-		this.syncDebounced = debounce(this.syncPlayerState.bind(this), 500);
+		this.syncDebounced = debounce(this.syncPlayerState.bind(this), 50);
 		this.channel.addEventListener('message', event => {
 			if (event.data.type === 'playerSync') {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked}, event.data.isLiked);
 				audio.currentTime = event.data.currentTime;
+				this.pauseSong();
 			}
 		  });
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
@@ -266,7 +267,6 @@ export class PlayerComponent extends IComponent {
 		const progressPercent = (currentTime / duration) * 100;
 		const progress: HTMLElement = this.querySelector('.progress-bar__progress')!;
 		progress.style.width = `${progressPercent}%`;
-		this.syncDebounced(currentTime);
 	}
 
 	/**
@@ -328,7 +328,6 @@ export class PlayerComponent extends IComponent {
 		} else {
 			remainingTimeDiv.textContent = minutes.toString() + ':' + Math.floor(seconds).toString();
 		}
-		this.syncDebounced(currentTime);
 	}
 
 	/**
