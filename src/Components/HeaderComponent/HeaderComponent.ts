@@ -69,6 +69,8 @@ export class HeaderComponent extends IComponent {
 				} else {
 					img.src = 'https://musicon.space/static/img/Loupe.svg';
 				}
+				const arrow = this.parent.querySelector('.arrow')! as HTMLImageElement;
+				arrow.style.display === 'none' ? arrow.style.display = 'block' : arrow.style.display = 'none';
 				const menu: HTMLElement = this.parent.querySelector('.menu__links')!;
 				const menuu: HTMLElement =	this.parent.querySelector('.mobile-menu')!;
 				menu.style.display === 'none' ? menu.style.display = 'flex' : menu.style.display = 'none';
@@ -279,5 +281,15 @@ export class HeaderComponent extends IComponent {
 		menuRest.appendChild(li);
 		const logo = this.parent.querySelector('.logo__photo')!;
 		logo.setAttribute('src', randomlogo);
+		let searchInput: HTMLElement = this.parent.querySelector('[data-section="inputSearch"]')!;
+		searchInput.classList.toggle('search-active');
+		const img = this.parent.querySelector('.magnifying-glass')! as HTMLImageElement;
+		img.src = 'https://musicon.space/static/img/Loupe.svg';
+		const arrow = this.parent.querySelector('.arrow')! as HTMLImageElement;
+		arrow.style.display = 'none';
+		const menu: HTMLElement = this.parent.querySelector('.menu__links')!;
+		const menuu: HTMLElement =	this.parent.querySelector('.mobile-menu')!;
+		menu.style.display = 'flex';
+		menuu.style.display = 'flex';
 	}
 }
