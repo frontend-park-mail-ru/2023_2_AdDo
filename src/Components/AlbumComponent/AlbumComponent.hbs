@@ -46,7 +46,7 @@
                     <div class="playlist-item__options__img">
                         <img src="/static/img/Options.svg" class="playlist-item__options__img__photo" data-section="trackOptions" data-id="{{this.Id}}" alt="">
                     </div>
-                    {{#if user}}
+                    {{#if ../user}}
                     <div class="playlist-item__options__img">
                         {{#if this.isLiked}}
                         <img src="/static/img/LikePressed.svg" class="playlist-item__options__img__photo" data-section="trackLike" data-id="{{this.Id}}" data-track="{{this.Id}}" alt="">
