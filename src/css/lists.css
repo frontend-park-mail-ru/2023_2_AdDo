@@ -172,8 +172,6 @@
             &__like {
                 box-sizing: border-box;
                 padding: 5px;
-                border-radius: 100px;
-                border: 1px solid white;
             }
         }
         &__like {
