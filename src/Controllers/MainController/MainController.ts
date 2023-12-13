@@ -39,9 +39,9 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
         EventDispatcher.subscribe('logout', this.logout.bind(this));
         EventDispatcher.subscribe('search', this.search.bind(this));
-        this.searchDebounced = debounce(this.model.ContentModel.requestSearch, 300);
-        this.playSongDebounced = debounce(this.model.ContentModel.isLiked, 500);
-        this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist, 300);
+        this.searchDebounced = debounce(this.model.ContentModel.requestSearch.bind(this.model.ContentModel), 300);
+        this.playSongDebounced = debounce(this.model.ContentModel.isLiked.bind(this.model.ContentModel), 500);
+        this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist.bind(this.model.ContentModel), 300);
     }
 
     /**
