@@ -4,12 +4,14 @@ import { Callback, Playlist, Song, User } from '../../types';
 import { PlayerComponentConfig } from './PlayerComponentConfig';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
+import { debounce } from '../../Modules/lib/Debounce';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
 	public currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 };
 	private cardShown : boolean = false;
 	private channel: BroadcastChannel;
+	private syncDebounced: (currenttime: number) => void = () => {};
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -30,6 +32,7 @@ export class PlayerComponent extends IComponent {
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
+		this.syncDebounced = debounce(this.syncDebounced.bind(this), 500);
 		this.channel.addEventListener('message', event => {
 			if (event.data.type === 'playerSync') {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
@@ -150,7 +153,7 @@ export class PlayerComponent extends IComponent {
 			isLiked: this.currentSong.isLiked,
 			ArtistId: this.currentSong.ArtistId,
 			Id: this.currentSong.Id,
-			Preview: this.currentSong.Preview
+			Preview: this.currentSong.Preview,
 		});
 	}
 
@@ -164,7 +167,7 @@ export class PlayerComponent extends IComponent {
 		this.setSong(song, isLiked);
 		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
-		this.syncPlayerState(audio.currentTime);
+		this.syncDebounced(audio.currentTime);
 	}
 
 	public setSong(song: Song, isLiked: boolean): void {
