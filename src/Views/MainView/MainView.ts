@@ -400,6 +400,11 @@ class MainView extends IView {
         mobileimg.src = '/static/img/LikePressed.svg';
     }
 
+    public trackLike(songId: number): void {
+        let img = document.querySelector(`[data-track="${songId}"]`) as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+    }
+
     public albumLike(): void {
         const album = this.components.get('album') as AlbumComponent;
         let img = album.querySelector('.big-like-btn__like') as HTMLImageElement;
@@ -429,6 +434,11 @@ class MainView extends IView {
         img.src = '/static/img/Like.svg';
         let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
         mobileimg.src = '/static/img/Like.svg';
+    }
+
+    public trackDislike(songId: number): void {
+        let img = document.querySelector(`[data-track="${songId}"]`) as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
     }
 
     public albumDislike(): void {

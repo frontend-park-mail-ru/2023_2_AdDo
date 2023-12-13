@@ -274,6 +274,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     this.model.ContentModel.getSongById(this.songId).isLiked ? this.dislike() : this.like();
                 }
                 return;
+            case 'artistlike':
+                e.preventDefault();
+                this.model.ContentModel.getSongById(parseInt(target.getAttribute('data-id')!)).isLiked ? this.trackDislike(parseInt(target.getAttribute('data-id')!)) : this.trackLike(parseInt(target.getAttribute('data-id')!));
+                return;
             case 'albumlike':
                 e.preventDefault();
                 this.model.ContentModel.getAlbum().isLiked ? this.albumDislike() : this.albumLike();
@@ -492,6 +496,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         return;
     }
 
+    public trackLike(songId: number): void {
+        this.model.ContentModel.like(songId, this.view.trackLike.bind(this.view));
+        return;
+    }
+
     public artistLike(): void {
         this.model.ContentModel.artistLike(this.view.artistLike.bind(this.view));
         return;
@@ -514,6 +523,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
      */
     public dislike(): void {
         this.model.ContentModel.dislike(this.songId, this.view.dislike.bind(this.view));
+        return;
+    }
+
+    public trackDislike(songId: number): void {
+        this.model.ContentModel.dislike(songId, this.view.trackLike.bind(this.view));
         return;
     }
 

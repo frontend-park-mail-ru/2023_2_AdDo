@@ -333,7 +333,7 @@ export default class ContentModel extends IModel {
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 this.currentsongs[songId].isLiked = true;
-                callback();
+                callback(songId);
                 return;
             }
         })
@@ -354,7 +354,7 @@ export default class ContentModel extends IModel {
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 this.currentsongs[songId].isLiked = false;
-                callback();
+                callback(songId);
                 return;
             }
         })
