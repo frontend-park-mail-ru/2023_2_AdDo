@@ -38,6 +38,11 @@ export class PlayerComponent extends IComponent {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked}, event.data.isLiked);
 				audio.currentTime = event.data.currentTime;
+				audio.pause();
+				const mobileImg: HTMLImageElement = this.element.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+				mobileImg.src = '/static/img/playButton.webp';
+				const img: HTMLImageElement = this.element.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+				img.src = '/static/img/Play.svg';
 			}
 		  });
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
