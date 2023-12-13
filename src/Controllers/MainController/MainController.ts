@@ -40,7 +40,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('logout', this.logout.bind(this));
         EventDispatcher.subscribe('search', this.search.bind(this));
         this.searchDebounced = debounce(this.model.ContentModel.requestSearch.bind(this.model.ContentModel), 300);
-        this.playSongDebounced = debounce(this.model.ContentModel.isLiked.bind(this.model.ContentModel), 500);
+        this.playSongDebounced = debounce(this.model.ContentModel.isLiked.bind(this.model.ContentModel), 200);
         this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist.bind(this.model.ContentModel), 300);
     }
 
