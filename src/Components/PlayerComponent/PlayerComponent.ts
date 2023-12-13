@@ -9,6 +9,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 export class PlayerComponent extends IComponent {
 	public currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 };
 	private cardShown : boolean = false;
+	private channel: BroadcastChannel;
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -22,12 +23,20 @@ export class PlayerComponent extends IComponent {
 		super(parent, template({ PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, isMobile}));
 		const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
 		like.classList.add('disabled');
+		this.channel = new BroadcastChannel('playerChannel');
 		this.bindClickEvent(this.handleClick.bind(this));
 		this.bindTimeUpdateEvent(this.updateProgressSlider.bind(this));
 		this.element.querySelector('.mobile-player__progress')!.addEventListener('input', this.setProgressMobile.bind(this));
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
+		this.channel.addEventListener('message', event => {
+			if (event.data.type === 'playerSync') {
+				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
+				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked}, event.data.isLiked);
+				audio.currentTime = event.data.currentTime;
+			}
+		  });
 		EventDispatcher.subscribe('user-changed', this.userChanged.bind(this));
 		EventDispatcher.subscribe('player-show-options', (id: string) => {
 			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
@@ -130,6 +139,21 @@ export class PlayerComponent extends IComponent {
 		});
 	}
 
+	// Синхронизация состояния музыкального плеера между вкладками
+	public syncPlayerState(currentTime: number): void {
+		this.channel.postMessage({
+			type: 'playerSync',
+			currentTime,
+			src: this.currentSong.Content,
+			Artistname: this.currentSong.ArtistName,
+			Title: this.currentSong.Name,
+			isLiked: this.currentSong.isLiked,
+			ArtistId: this.currentSong.ArtistId,
+			Id: this.currentSong.Id,
+			Preview: this.currentSong.Preview
+		});
+	}
+
 	/**
 	 * Plays a song.
 	 *
@@ -140,6 +164,7 @@ export class PlayerComponent extends IComponent {
 		this.setSong(song, isLiked);
 		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
+		this.syncPlayerState(audio.currentTime);
 	}
 
 	public setSong(song: Song, isLiked: boolean): void {
@@ -213,6 +238,7 @@ export class PlayerComponent extends IComponent {
 	public resumeSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
+		this.syncPlayerState(audio.currentTime);
 	}
 	/**
 	 * Pauses the currently playing song.
@@ -222,6 +248,7 @@ export class PlayerComponent extends IComponent {
 	public pauseSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.pause();
+		this.syncPlayerState(audio.currentTime);
 	}
 
 	/**
@@ -232,9 +259,11 @@ export class PlayerComponent extends IComponent {
 	 */
 	private updateProgress(e: Event): void {
 		const { duration, currentTime } = e.target as HTMLAudioElement;
+		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		const progressPercent = (currentTime / duration) * 100;
 		const progress: HTMLElement = this.querySelector('.progress-bar__progress')!;
 		progress.style.width = `${progressPercent}%`;
+		this.syncPlayerState(currentTime);
 	}
 
 	/**
@@ -271,6 +300,7 @@ export class PlayerComponent extends IComponent {
 	}
 
 	private updateProgressSlider(e: Event): void {
+		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		const { duration, currentTime } = e.target as HTMLAudioElement;
 		const progressPercent = (currentTime / duration) * 100;
 		const slider = this.querySelector('.mobile-player__progress') as HTMLInputElement;
@@ -295,7 +325,7 @@ export class PlayerComponent extends IComponent {
 		} else {
 			remainingTimeDiv.textContent = minutes.toString() + ':' + Math.floor(seconds).toString();
 		}
-		
+		this.syncPlayerState(currentTime);
 	}
 
 	/**
