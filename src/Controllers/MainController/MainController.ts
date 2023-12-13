@@ -199,7 +199,9 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 e.preventDefault();
                 this.songId = 0;
                 this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
-                this.model.ContentModel.requestSocketTracks();
+                if(this.model.ContentModel.isSocketConnected){
+                    this.model.ContentModel.requestSocketTracks();
+                }
                 this.Playing = true;
                 this.isActive = true;
                 return;

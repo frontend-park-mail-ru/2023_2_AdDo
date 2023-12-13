@@ -807,9 +807,10 @@ export default class ContentModel extends IModel {
         this.socket.onopen = () => {
             console.log('connected');
             this.isSocketConnected = true;
+            this.requestSocketTracks();
         }
-        this.socket.onclose = () => {
-            console.log('disconnected');
+        this.socket.onclose = (event) => {
+            console.log('disconnected', event.reason);
             this.isSocketConnected = false;
         }
         this.socket.onmessage = (event) => { 
