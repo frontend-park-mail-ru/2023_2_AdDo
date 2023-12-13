@@ -441,9 +441,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         } else {
             this.isShuffled ? this.songId = Math.floor(Math.random() * this.model.ContentModel.getSongsLength()) :
             this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
-            this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
         }
-        
+        this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
     }
     
     /**
