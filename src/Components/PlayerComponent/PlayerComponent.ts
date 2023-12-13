@@ -147,9 +147,9 @@ export class PlayerComponent extends IComponent {
 		this.channel.postMessage({
 			type: 'playerSync',
 			currentTime,
-			src: this.currentSong.Content,
-			Artistname: this.currentSong.ArtistName,
-			Title: this.currentSong.Name,
+			Content: this.currentSong.Content,
+			ArtistName: this.currentSong.ArtistName,
+			Name: this.currentSong.Name,
 			isLiked: this.currentSong.isLiked,
 			ArtistId: this.currentSong.ArtistId,
 			Id: this.currentSong.Id,
