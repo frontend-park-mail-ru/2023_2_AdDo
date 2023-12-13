@@ -170,12 +170,15 @@
                 border: 1px solid white;
             }
             &__like {
-
+                box-sizing: border-box;
+                padding: 5px;
+                border-radius: 100px;
+                border: 1px solid white;
             }
         }
         &__like {
             position: absolute;
-            top: -80%;
+            top: -100%;
             cursor: pointer;
             padding: 10px;
             right: 0;

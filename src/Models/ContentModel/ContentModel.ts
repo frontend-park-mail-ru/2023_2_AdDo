@@ -262,7 +262,12 @@ export default class ContentModel extends IModel {
     }
 
     public getSongByIdFromSongs(songId: number): Song {
-        return this.songs[songId];
+        const song = this.songs.find((song) => {
+            if (song.Id === songId) {
+                return song;
+            }
+        })
+        return song!;
     }
 
     /**
