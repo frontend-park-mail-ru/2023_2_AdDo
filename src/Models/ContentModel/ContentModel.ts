@@ -859,7 +859,6 @@ export default class ContentModel extends IModel {
             console.log('connected');
             this.requestSocketTracks();
             this.isSocketConnected = true;
-            this.isWaveStarted = false;
         }
         this.socket.onclose = (event) => {
             console.log('disconnected', event.reason);
@@ -876,6 +875,7 @@ export default class ContentModel extends IModel {
     }
 
     public requestSocketTracks(): void {
+        this.isWaveStarted = false;
         this.socket?.send('1');
     }
 }
