@@ -857,11 +857,6 @@ export default class ContentModel extends IModel {
         this.socket = new WebSocket('wss://musicon.space' + '/api/v1/wave');
         this.socket.onopen = () => {
             console.log('connected');
-            const cookie = document.cookie;
-            const authenticationData = {
-                SessionId: cookie,
-            };
-            this.socket!.send(JSON.stringify(authenticationData));
             this.requestSocketTracks();
             this.isSocketConnected = true;
             this.isWaveStarted = false;
