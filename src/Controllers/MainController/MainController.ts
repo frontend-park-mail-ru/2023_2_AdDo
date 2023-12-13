@@ -527,7 +527,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
     public trackDislike(songId: number): void {
-        this.model.ContentModel.trackDislike(songId, this.view.trackLike.bind(this.view));
+        this.model.ContentModel.trackDislike(songId, this.view.trackDislike.bind(this.view));
         return;
     }
 

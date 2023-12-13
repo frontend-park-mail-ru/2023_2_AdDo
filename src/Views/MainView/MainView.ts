@@ -398,11 +398,20 @@ class MainView extends IView {
         img.src = '/static/img/LikePressed.svg';
         let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
         mobileimg.src = '/static/img/LikePressed.svg';
+        const trackLike: HTMLImageElement | null = document.querySelector(`[data-track="${footer.currentSong.Id}"]`);
+        if(trackLike) {
+            trackLike.src = '/static/img/LikePressed.svg';
+        }
     }
 
     public trackLike(songId: number): void {
         let img = document.querySelector(`[data-track="${songId}"]`) as HTMLImageElement;
         img.src = '/static/img/LikePressed.svg';
+        const footer = this.components.get('footer') as PlayerComponent;
+        let playerimg = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        playerimg.src = '/static/img/LikePressed.svg';
+        let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+        mobileimg.src = '/static/img/LikePressed.svg';
     }
 
     public albumLike(): void {
@@ -434,9 +443,18 @@ class MainView extends IView {
         img.src = '/static/img/Like.svg';
         let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
         mobileimg.src = '/static/img/Like.svg';
+        const trackLike: HTMLImageElement | null = document.querySelector(`[data-track="${footer.currentSong.Id}"]`);
+        if(trackLike) {
+            trackLike.src = '/static/img/Like.svg';
+        }
     }
 
     public trackDislike(songId: number): void {
+        const footer = this.components.get('footer') as PlayerComponent;
+        let playerimg = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        playerimg.src = '/static/img/Like.svg';
+        let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+        mobileimg.src = '/static/img/Like.svg';
         let img = document.querySelector(`[data-track="${songId}"]`) as HTMLImageElement;
         img.src = '/static/img/Like.svg';
     }
