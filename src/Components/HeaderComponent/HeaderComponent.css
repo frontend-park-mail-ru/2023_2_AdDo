@@ -88,7 +88,7 @@
 
 .magnifying-glass {
     cursor: pointer;
-    width: 52px;
+    width: 40px;
     
 }
 
@@ -187,12 +187,17 @@
     .menu__links {
       display: flex;
     }
-    
+    .arrow {
+      left: 25%;
+    }
   }
   
   @media only screen and (min-width: 767px) and (max-width: 1200px) {
     .mobile-logo {
       left: 5%;
+    }
+    .arrow {
+      left: 25%;
     }
   }
 
@@ -221,6 +226,9 @@
     }
     .mobile-logo {
       left:4%;
+    }
+    .arrow {
+      left: 10%;
     }
   }
 
@@ -292,4 +300,8 @@
   &__link:hover {
     color: #C15DF3;
   }
+}
+
+.arrow {
+  position: absolute;
 }

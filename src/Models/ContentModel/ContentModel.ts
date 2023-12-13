@@ -18,6 +18,7 @@ export default class ContentModel extends IModel {
     private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [], isLiked: false };
     private socket: WebSocket | null = null;
     public isSocketConnected: boolean = false;
+    public isWaveStarted: boolean = false;
     constructor () {
         super();
         EventDispatcher.subscribe('logout', (user: User) => {
@@ -856,8 +857,8 @@ export default class ContentModel extends IModel {
         this.socket = new WebSocket('wss://backend.musicon.space' + '/api/v1/wave');
         this.socket.onopen = () => {
             console.log('connected');
-            this.isSocketConnected = true;
             this.requestSocketTracks();
+            this.isSocketConnected = true;
         }
         this.socket.onclose = (event) => {
             console.log('disconnected', event.reason);
@@ -865,8 +866,12 @@ export default class ContentModel extends IModel {
         }
         this.socket.onmessage = (event) => { 
             this.songs = JSON.parse(event.data);
-            this.nowPlaying();
-            this.isLiked(callback, songId, user);
+            this.currentsongs = this.songs.slice(0);
+            if(!this.isWaveStarted) {
+                this.isLiked(callback, songId, user);
+                this.isWaveStarted = true;
+            }
+            
         }
     }
 

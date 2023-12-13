@@ -42,7 +42,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('search', this.search.bind(this));
         this.searchDebounced = debounce(this.model.ContentModel.requestSearch.bind(this.model.ContentModel), 300);
         this.playSongDebounced = debounce(this.model.ContentModel.isLiked.bind(this.model.ContentModel), 150);
-        this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist.bind(this.model.ContentModel), 300);
+        this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist.bind(this.model.ContentModel), 100);
         const player = this.view.components.get('footer')! as PlayerComponent;
         player.channel.addEventListener('message', event => {
 			if (event.data.type === 'playerSync' && event.source !== self) {
