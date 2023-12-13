@@ -436,6 +436,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             if(this.songId < this.model.ContentModel.getSongsLength() - 1) {
                 this.songId++;
             } else {
+                this.songId = 0;
                 this.model.ContentModel.requestSocketTracks();
                 return;
             }
