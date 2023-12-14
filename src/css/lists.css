@@ -258,8 +258,9 @@
     display: flex;
     margin-top: 20px;
     padding: 0px;
-    margin-bottom: 100px;
-    gap: 30px;
+    margin-bottom: 150px;
+    gap: 35px;
+    justify-content: center;
     flex-wrap: wrap;
     position: relative;
     margin-left: 320px;
@@ -279,6 +280,7 @@
         &__item {
             &__photo {
                 size: 160px;
+                border-radius: 50px;
             }
         }
     }
@@ -293,6 +295,7 @@
             &__photo {
                 margin-top: 5px;
                 size: 160px;
+                border-radius: 50px;
             }
         }
     }
@@ -302,13 +305,13 @@
 @media screen and (max-width: 767px) {
     .onboard__list {
         flex-wrap: wrap;
-        flex-direction: column;
         margin-left: auto;
         margin-right: auto;
         &__item {
             width: 110px;
             &__photo {
                 size: 110px;
+                border-radius: 50px;
             }
         }
     }
