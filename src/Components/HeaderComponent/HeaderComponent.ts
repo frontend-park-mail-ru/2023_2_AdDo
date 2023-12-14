@@ -7,7 +7,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 /** Class representing a HeaderComponent. */
 export class HeaderComponent extends IComponent {
 	private user: User | null = null;
-
+	private isFocused: boolean = false;
 	/**
 	 * Constructs a new instance of the constructor.
 	 *
@@ -19,6 +19,20 @@ export class HeaderComponent extends IComponent {
 		this.bindInputEvent(this.handleInput.bind(this));
 		this.bindFocusEvent(this.handleFocus.bind(this));
 		this.bindBlurEvent(this.handleBlur.bind(this));
+		this.parent.addEventListener('keydown', (e: Event) => {
+			const keyboardevent = e as KeyboardEvent;
+			if ((keyboardevent.code === 'Enter' || keyboardevent.key === 'Enter') && this.isFocused) {
+				e.preventDefault();
+				const input: HTMLInputElement = document.querySelector('.input-search')!;
+				const link: HTMLElement = document.querySelector('.menu__search-results__link')!;
+				const loupe: HTMLElement = document.querySelector('.menu__search-results__loupe')!;
+				const text: HTMLElement = document.querySelector('.menu__search-results__text')!;
+				link.setAttribute('data-url', '/search?query=' + input.value);
+				loupe.setAttribute('data-url', '/search?query=' + input.value);
+				text.setAttribute('data-url', '/search?query=' + input.value);
+				EventDispatcher.emit('enter-search', '/search?query=' + input.value);
+			  }
+		});
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
 		});
@@ -102,11 +116,13 @@ export class HeaderComponent extends IComponent {
 	private handleBlur(e: Event): void {
 		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-results')!;
 		searchresults.style.display = 'none';
+		this.isFocused = false;
 	}
 
 	private handleFocus(e: Event): void {
 		const searchresults: HTMLElement = this.parent.querySelector('.menu__search-results')!;
 		searchresults.style.display = 'flex';
+		this.isFocused = true;
 	}
 
 	private handleInput(e: Event): void {
@@ -279,17 +295,5 @@ export class HeaderComponent extends IComponent {
 			li.appendChild(button);
 		}
 		menuRest.appendChild(li);
-		const logo = this.parent.querySelector('.logo__photo')!;
-		logo.setAttribute('src', randomlogo);
-		let searchInput: HTMLElement = this.parent.querySelector('[data-section="inputSearch"]')!;
-		searchInput.classList.toggle('search-active');
-		const img = this.parent.querySelector('.magnifying-glass')! as HTMLImageElement;
-		img.src = 'https://musicon.space/static/img/Loupe.svg';
-		const arrow = this.parent.querySelector('.arrow')! as HTMLImageElement;
-		arrow.style.display = 'none';
-		const menu: HTMLElement = this.parent.querySelector('.menu__links')!;
-		const menuu: HTMLElement =	this.parent.querySelector('.mobile-menu')!;
-		menu.style.display = 'flex';
-		menuu.style.display = 'flex';
 	}
 }

@@ -265,8 +265,10 @@
     position: relative;
     margin-left: 320px;
     &__item {
+        width: min-content;
         &__photo {
             size: 160px;
+            border-radius: 50px;
         }
     }
 }
@@ -280,7 +282,7 @@
         &__item {
             &__photo {
                 size: 160px;
-                border-radius: 50px;
+                border-radius: 100px;
             }
         }
     }
@@ -295,7 +297,7 @@
             &__photo {
                 margin-top: 5px;
                 size: 160px;
-                border-radius: 50px;
+                border-radius: 100px;
             }
         }
     }

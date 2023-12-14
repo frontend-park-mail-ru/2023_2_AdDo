@@ -218,22 +218,12 @@ export class PlayerComponent extends IComponent {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
-		const mobileVolumeSlider = this.querySelector('.mobile-player__volume')! as HTMLInputElement;
 		if (!audio.muted) {
-			if(this.cardShown) {
-				if (parseInt(mobileVolumeSlider.value) === 0) {
-					mobileVolumeSlider.value = '50';
-					audio.volume = 0.5;
-				} else {
-					audio.volume = (parseInt(mobileVolumeSlider.value) / 100);
-				}
+			if (parseInt(volumeSlider.value) === 0) {
+				volumeSlider.value = '50';
+				audio.volume = 0.5;
 			} else {
-				if (parseInt(volumeSlider.value) === 0) {
-					volumeSlider.value = '50';
-					audio.volume = 0.5;
-				} else {
-					audio.volume = (parseInt(volumeSlider.value) / 100);
-				}
+				audio.volume = (parseInt(volumeSlider.value) / 100);
 			}
 		}
 	}

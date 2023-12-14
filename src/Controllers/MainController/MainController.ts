@@ -50,6 +50,9 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.Playing = false;
 			}
 		  });
+        EventDispatcher.subscribe('enter-search', (url: string) => {
+            router.goToPage(url);
+        });
     }
 
     /**
