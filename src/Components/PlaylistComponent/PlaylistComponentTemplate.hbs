@@ -66,7 +66,17 @@
                     </div>
                 </div>
                 <div class="options" style="display: none;" data-section="{{this.Id}}">
-                    <div class="medium-text options__add-to-playlist" data-section="deleteTrackFromPlaylist" data-id="{{this.Id}}" data-playlist-id="{{../Playlist.Id}}">Удалить из плейлиста</div>
+                    <div class="medium-text options__share" data-section="trackShare" data-id="{{this.Id}}" >
+                        Поделиться
+                        <div class="medium-text options__share__copied" data-track-share="{{this.Id}}" style="color: black;">Ссылка скопирована</div>
+                    </div>
+                    {{#if isMine}}
+                        <div class="medium-text options__add-to-playlist" data-section="deleteTrackFromPlaylist" data-id="{{this.Id}}" data-playlist-id="{{../Playlist.Id}}">Удалить из плейлиста</div>
+                    {{else}}
+                        <div class="medium-text options__add-to-playlist" data-section="showAvaliblePlaylists" data-id="{{this.Id}}">Добавить в плейлист</div>
+                        <div class="options__avaliablePlaylists" style="display: none;" data-list="{{this.Id}}">
+                        </div>
+                    {{/if}}
                 </div>
             </li>
         {{/each}}

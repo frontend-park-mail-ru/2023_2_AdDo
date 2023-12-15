@@ -665,7 +665,7 @@ export default class ContentModel extends IModel {
                 return;
             }
             if (status === 400) {
-                errorCallback();
+                errorCallback('no spaces');
                 return;
             }
         })

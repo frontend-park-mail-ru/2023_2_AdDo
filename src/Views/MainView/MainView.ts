@@ -326,12 +326,7 @@ class MainView extends IView {
      * @return {void} 
      */
     public bindClickEvent(listener: Callback): void {
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            this.element.addEventListener('click', listener);
-        } else {
-            this.element.addEventListener('click', listener);
-        }
-        
+        this.element.addEventListener('click', listener);
     }
 
     public bindTouchEvent(listener: Callback): void {
@@ -645,6 +640,7 @@ class MainView extends IView {
      */
     public renderError(err: string): void {
         const profile = this.components.get('profile')! as ProfileComponent;
+        const playlist = this.components.get('playlist')! as PlaylistComponent;
         switch (err) {
             case 'bad request':
                 profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
@@ -663,9 +659,13 @@ class MainView extends IView {
                 profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
                 profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 return;
-            case 'only english': 
-                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
-                profile.querySelector('[data-section="passcheck"]').textContent = 'Название плейлиста может быть только латиницей) Извините!';
+            case 'not an image playlist':
+                playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                playlist.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
+                return;
+            case 'no spaces': 
+                playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                playlist.querySelector('[data-section="passcheck"]').textContent = 'Название плейлиста может быть только без пробелов. Извините!';
                 return;
         }
     }

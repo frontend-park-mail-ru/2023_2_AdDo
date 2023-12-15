@@ -322,7 +322,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                         const img: HTMLImageElement = document.querySelector('.info__photo')!
                         img.src = URL.createObjectURL(avatar);
                     } else {
-                        this.view.renderError('not an image');
+                        this.view.renderError('not an image playlist');
                     }
                 }
                 this.model.ContentModel.updatePlaylistData(name, id, router.goToPage.bind(router), this.view.renderError.bind(this.view));
@@ -571,15 +571,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.isActive = false;
     }
 
-    /**
-     * Binds the events for the current instance.
-     *
-     * @return {void} 
-     */
-    public bindEvents(): void {
-        this.view.bindEvents();
-    }
-
     public bindSearchEvents(): void {
         this.view.bindSearchEvents();
     }
@@ -644,7 +635,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
     public bindProfileEvents(): void {
-        this.view.bindClickEvent(this.handleClick.bind(this));
         this.view.bindSubmitEvent(this.handleSubmit.bind(this));
         this.view.bindUploadEvent(this.handleUpload.bind(this));
     }

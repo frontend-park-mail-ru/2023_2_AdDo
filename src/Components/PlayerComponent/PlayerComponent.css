@@ -114,13 +114,13 @@
     display: none;
   }
   .nextBtn {
-    display: none;
+    display: block;
   }
   .loopBtn {
     display: none;
   }
   .prev-btn {
-    display: none;
+    display: block;
   }
   .footer {
     height: 100px;  
