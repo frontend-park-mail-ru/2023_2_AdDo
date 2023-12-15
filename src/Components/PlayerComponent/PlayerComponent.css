@@ -19,7 +19,7 @@
   align-items: center;
   cursor: pointer;
   &__progress {
-    background: #453b77;
+    background: #c15df3;
     height: 8px;
   }
 }
@@ -37,7 +37,7 @@
   display: inline-block;
   background: #666f7a;
   border-radius: 8px;
-  accent-color: #453b77;
+  accent-color: #c15df3;
 }
 
 .volume-btn {
@@ -60,7 +60,7 @@
   width: 50px;
   height: 50px;
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   color: #1e1e1e;
 }
 
@@ -170,7 +170,7 @@
   height: 100vh;
   position: fixed;
   top: 0;
-  gap: 80px;
+  gap: 60px;
   transition: transform 0.3s ease-in-out;
   &__controls {
     display: flex;
@@ -179,14 +179,14 @@
     gap: 50px;
   }
   &__photo {
-    width: 250px;
-    height: 250px;
-    margin: 40px;
-    border-radius: 20px;
+    width: 380px;
+    height: 380px;
+    margin: 10px;
+    border-radius: 15px;
   }
   &__playbutton {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     cursor: pointer;
   }
   &__progress {
@@ -223,27 +223,30 @@
   }
   &__prev-img {
     margin-top: 5px;
-    width: 35px;
+    width: 30px;
   }
   &__next-img {
+    margin-top: 5px;
+    width: 30px;
+  }
+  &__like-img {
     margin-top: 5px;
     width: 35px;
   }
   &__info {
     &__name {
         color: #FFF;
-        font-size: 46px;
+        font-size: 40px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
     }
     &__artist {
         color: #c2c0c0;
-        font-size: 36px;
+        font-size: 30px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 400;
     }
   }
-
 }
 
 .close-btn {

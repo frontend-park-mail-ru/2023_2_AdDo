@@ -1,13 +1,12 @@
 
 .feed {
-    margin-top: 6vh;
+    margin-top: 3vh;
     display: grid;
     gap: 10px;
     position: relative;
     &__list {
         display: flex;
-        gap: 20px;
-
+        gap: 40px;
     }
     &__title {
         margin: 10px 0 10px 0; 
@@ -18,8 +17,8 @@
         justify-content: center;
         cursor: pointer;
         transition: transform 0.1s ease-in-out;
-        margin-bottom: 15vh;
-        margin-top: 8vh;
+        margin-bottom: 10vh;
+        margin-top: 6vh;
     }
     &__my-wave:hover {
         transform: scale(1.2);
@@ -28,7 +27,7 @@
 
 .feed-list__item {
     display: inline-flex;
-    margin: 10px;
+    /* margin: 10px; */
     width: fit-content;
     &__name {
         text-decoration: none;
