@@ -281,6 +281,9 @@ export class PlayerComponent extends IComponent {
 	private setVolumeSlider(e: Event): void {
 		const slider = this.querySelector('.volume-bar') as HTMLInputElement;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		if(audio.muted) {
+			audio.muted = false;
+		}
 		audio.volume = parseInt(slider.value) / 100 as number;
 	}
 
