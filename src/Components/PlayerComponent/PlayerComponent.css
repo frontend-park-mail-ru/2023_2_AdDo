@@ -1,5 +1,5 @@
 .player {
-  background-color: #1e1e1e;
+  background-color: #121123;
   position: absolute;
   width: 75%;
   min-width: 800px;
@@ -14,24 +14,24 @@
 .progress-bar {
   background-color: #c0c0c0;
   width: 100%;
-  height: 10px;
+  height: 8px;
   display: flex;
   align-items: center;
   cursor: pointer;
   &__progress {
     background: #453b77;
-    height: 6px;
+    height: 8px;
   }
 }
 
 .volume-bar {
   border: none;
   height: 8px;
-  width: 85px;
+  width: 120px;
   position: absolute;
   right: 0;
   margin-top: 15px;
-  margin-right: 15px;
+  margin-right: 30px;
   font-size: 14px;
   cursor: pointer;
   display: inline-block;
@@ -42,7 +42,7 @@
 
 .volume-btn {
   position: absolute;
-  right: 110px;
+  right: 160px;
 }
 
 .player-btns {
