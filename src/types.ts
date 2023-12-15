@@ -15,6 +15,15 @@ export type Album = {
     ArtistId: number,
     ArtistName: string,
     Tracks: Array<Song>,
+    isLiked: boolean,
+}
+
+export type Playlist = {
+    Id: number,
+    Name: string,
+    Preview: string,
+    Tracks: Array<Song>,
+    isLiked: boolean,
 }
 
 export type Artist = {
@@ -23,6 +32,7 @@ export type Artist = {
     Avatar: string,
     Albums: Array<Album>,
     Tracks: Array<Song>,
+    isLiked: boolean,
 }
 
 export type Song = {
@@ -32,6 +42,19 @@ export type Song = {
     Content: string,
     ArtistName: string,
     isLiked: boolean,
+    ArtistId: number,
+}
+
+export type OnboardGenre = {
+    Id: number,
+    Name: string,
+    Preview: string,
+}
+
+export type OnboardArtist = {
+    Id: number,
+    Name: string,
+    Avatar: string,
 }
 
 

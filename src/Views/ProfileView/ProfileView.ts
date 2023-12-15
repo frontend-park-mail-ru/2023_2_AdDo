@@ -38,7 +38,7 @@ class ProfileView extends IView {
      * @param {User} user - The user to fill the content with.
      * @return {void}
      */  
-    public fillContent(user: User): void {
+    public fillProfile(user: User): void {
         this.header.User = user;
         this.profile.User = user;
     }

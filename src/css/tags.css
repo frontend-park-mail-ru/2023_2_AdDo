@@ -8,12 +8,22 @@ body {
 
 main {
     grid-area: content;
-    min-width: 810px;
     max-width: 60%;
     margin-left: auto;
     margin-right: auto;
 }
-
+@media screen and (min-width: 768px) {
+    main {
+        min-width: 810px;
+    }
+  }
+  
+  /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+  @media screen and (max-width: 767px) {
+    main {
+        min-width: 450px;
+    }
+  }
 h1 {
     color: #FFF;
     font-family: 'Lato', sans-serif;
@@ -62,15 +72,4 @@ a {
     font-size: 18px;
     font-weight: 400;
     word-wrap: break-word;
-}
-
-footer {
-    display: flex;
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    height: 50px;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
 }

@@ -1,0 +1,84 @@
+<div class="album">
+    {{#if isMine}}
+        <div class="info album__info">
+            {{#if Playlist.Preview}}
+                <img class="info__photo" style="display: inline-block;" src="{{port}}{{Playlist.Preview}}" alt="">
+            {{else}}
+                <img class="info__photo" style="display: inline-block;" src="/static/img/worm.webp" alt="">
+            {{/if}}
+            <div style="display: inline-block;">
+                <div class="large-text">{{Playlist.Name}}</div>
+                {{#if user}}
+                    <div class="big-like-btn" data-section="playlistlike" data-url="{{Playlist.Id}}">
+                        {{#if Playlist.isLiked}}
+                        <div class=""><img class="big-like-btn__like" data-section="playlistlike" src="/static/img/LikePressed.svg"></div>
+                        {{else}}
+                        <div class=""><img class="big-like-btn__like" data-section="playlistlike" src="/static/img/Like.svg"></div>
+                        {{/if}}
+                        <div class="medium-text" data-section="playlistlike">Нравится</div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    {{else}}
+        <form method="post">
+            <div class="info album__info">
+                <label class="upload-button">
+                    {{#if Playlist.Preview}}
+                        <img class="info__photo" src="{{port}}{{Playlist.Preview}}" alt="">
+                    {{else}}
+                        <img class="info__photo" src="/static/img/worm.webp" alt="">
+                    {{/if}}
+                    <input type="file" name="file" data-section="fileInput">
+                </label>
+                <div class="info album__info" style="display: grid; gap: 25px;">
+                    <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
+                    <div class="album__info__buttons" style="display: flex; gap: 25px; justify-content: right;">
+                        <button class="default-button" style="width: fit-content;" data-id="{{Playlist.Id}}" data-section="deletePlaylist">Удалить</button>
+                        <button class="default-button" style="width: fit-content;" data-section="updatePlaylist" type="submit">Сохранить</button>
+                    </div>
+                    <div style="display: block;">
+                        <div class="authlist__error__disabled" data-section="passcheck">Выбранный файл не является картинкой</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {{/if}}
+    
+     <ul class="playlist album__list">
+        {{#each Playlist.Tracks}}
+            <li class="playlist__item" data-section="miniPlayButton" data-url="{{@index}}">
+                <div class="playlist__image-container" style="display: inline-block;">
+                    <div class="medium-text playlist__index playlist__index__position"></div>
+                    <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton"
+                        data-url="{{@index}}"></div>
+                </div>
+                <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}"
+                    style="display: inline-block;">
+                    {{this.Name}}
+                </div>
+                <div class="playlist-item__options" style="display: inline-block;">
+                    <div class="medium-text playlist-item__options__duration">
+                        {{this.Duration}}
+                    </div>
+                    <div class="playlist-item__options__img">
+                        <img src="/static/img/Options.svg" class="" data-section="trackOptions" data-id="{{this.Id}}" alt="">
+                    </div>
+                </div>
+                <div class="options" style="display: none;" data-section="{{this.Id}}">
+                    <div class="medium-text options__share" data-section="trackShare" data-id="{{this.Id}}" >
+                        Поделиться
+                        <div class="medium-text options__share__copied" data-track-share="{{this.Id}}" style="color: black;">Ссылка скопирована</div>
+                    </div>
+                    {{#if isMine}}
+                        <div class="medium-text options__add-to-playlist" data-section="deleteTrackFromPlaylist" data-id="{{this.Id}}" data-playlist-id="{{../Playlist.Id}}">Удалить из плейлиста</div>
+                    {{else}}
+                        <div class="medium-text options__add-to-playlist" data-section="showAvaliblePlaylists" data-id="{{this.Id}}">Добавить в плейлист</div>
+                        <div class="options__avaliablePlaylists" style="display: none;" data-list="{{this.Id}}">
+                        </div>
+                    {{/if}}
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+</div>

@@ -1,21 +1,30 @@
 import IModel from "../IModel/IModel";
-import { Album, Artist, Callback, Song, User } from "../../types";
+import { Album, Artist, Callback, OnboardArtist, OnboardGenre, Playlist, Song, User } from "../../types";
 import Ajax from '../../Modules/Ajax/Ajax';
 import hosts from "../../HostConsts";
 import EventDispatcher from "../../Modules/EventDispatcher/EventDispatcher";
+import paths from "../../Modules/Router/RouterPaths";
 
 
 /** Class representing an ContentModel. */
 export default class ContentModel extends IModel {
     private albums: Array<Album> = [];
+    private artists: Array<Artist> = [];
     private songs: Array<Song> = [];
     private currentsongs: Array<Song> = [];
     private collectionSongs: Array<Song> = [];
-    private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [] };
-    private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [] };
-
+    private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false };
+    private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false };
+    private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [], isLiked: false };
+    private socket: WebSocket | null = null;
+    public isSocketConnected: boolean = false;
+    public isWaveStarted: boolean = false;
     constructor () {
         super();
+        EventDispatcher.subscribe('logout', (user: User) => {
+            this.socket?.close();
+            this.socket = null;
+        })
     }
 
     /**
@@ -45,13 +54,46 @@ export default class ContentModel extends IModel {
      * @param {number} albumId - The ID of the album to request.
      * @return {void} This function does not return anything.
      */
-    public requestAlbum(callback: Callback, albumId: number): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + albumId, {})
-		.then(({ ok, status, responseBody }) => {
+    public requestAlbum(callback: Callback, url: string, id?: number): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/' + url, {})
+		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.album = responseBody;
                 this.songs = this.album.Tracks.slice(0);
-                callback(this.album);
+                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + responseBody.Id + '/is_like', {})
+                .then(({ status, responseBody }) => {
+                    if (status >= 200 && status < 300) {
+                        this.album.isLiked = responseBody.IsLiked;
+                        if(id) {
+                            Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/track/' + id + '/is_like', {})
+                            .then(({ status, responseBody }) => {
+                                if (status >= 200 && status < 300) {
+                                    this.nowPlaying();
+                                    callback(this.album, id, responseBody.IsLiked);
+                                    return;
+                                }
+                            })
+                            .catch((error) => {
+                                throw error;
+                            });
+                        } else {
+                            callback(this.album, id);
+                        }
+                        return;
+                    }
+                    if (status === 401) {
+                        if(id) {
+                            this.nowPlaying();
+                            callback(this.album, id, false);
+                        } else {
+                            callback(this.album, id);
+                        }
+                        return;
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
                 return;
 			}
 		})
@@ -73,7 +115,21 @@ export default class ContentModel extends IModel {
 			if (status === 200) {
                 this.artist = responseBody;
                 this.songs = this.artist.Tracks.slice(0);
-                callback(this.artist);
+                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artist/' + artistId + '/is_like', {})
+                .then(({ status, responseBody }) => {
+                    if (status >= 200 && status < 300) {
+                        this.artist.isLiked = responseBody.IsLiked;
+                        callback(this.artist);
+                        return;
+                    }
+                    if (status === 401) {
+                        callback(this.artist);
+                        return;
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
                 return;
 			}
 		})
@@ -89,11 +145,11 @@ export default class ContentModel extends IModel {
      * @return {void}
      */
     public requestChart(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/chart', {})
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/popular', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
-                callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
+                callback(this.albums); 
                 return;
 			}
 		})
@@ -109,7 +165,7 @@ export default class ContentModel extends IModel {
      * @return {void} 
      */
     public requestPlaylists(callback: Callback): void {
-        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlists', {})
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/most_liked', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.slice(0);
@@ -171,7 +227,22 @@ export default class ContentModel extends IModel {
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.songs = responseBody.Tracks.slice(0);
-                this.currentsongs = this.songs.slice(0); 
+                this.nowPlaying();
+                this.isLiked(callback, 0, user);
+                return;
+			}
+		})
+		.catch((error) => {
+			throw error;
+		});
+    }
+
+    public getPlaylistSongs(callback: Callback, PlaylistId: number, user: User | null = null): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + PlaylistId, {})
+		.then(({ status, responseBody }) => {
+			if (status === 200) {
+                this.songs = responseBody.Tracks.slice(0);
+                this.nowPlaying();
                 this.isLiked(callback, 0, user);
                 return;
 			}
@@ -191,6 +262,15 @@ export default class ContentModel extends IModel {
         return this.currentsongs[songId];
     }
 
+    public getSongByIdFromSongs(songId: number): Song {
+        const song = this.songs.find((song) => {
+            if (song.Id === songId) {
+                return song;
+            }
+        })
+        return song!;
+    }
+
     /**
      * Retrieves a song from the collection by its ID.
      *
@@ -198,8 +278,15 @@ export default class ContentModel extends IModel {
      * @return {Song} The song object corresponding to the given ID.
      */
     public getSongByCollectionId(songId: number): Song {
-
         return this.collectionSongs[songId];
+    }
+
+    public getAlbum(): Album {
+        return this.album;
+    }
+
+    public getArtist(): Artist {
+        return this.artist;
     }
 
     /**
@@ -219,6 +306,9 @@ export default class ContentModel extends IModel {
      */
     public nowPlaying(): void {
         this.currentsongs = this.songs.slice(0);
+        if(this.isSocketConnected) {
+            this.socket?.close();
+        }
     }
 
     /**
@@ -253,7 +343,7 @@ export default class ContentModel extends IModel {
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 this.currentsongs[songId].isLiked = true;
-                callback();
+                callback(songId);
                 return;
             }
         })
@@ -274,6 +364,167 @@ export default class ContentModel extends IModel {
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
                 this.currentsongs[songId].isLiked = false;
+                callback(songId);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+        /**
+     * Like a song.
+     *
+     * @param {number} songId - The ID of the song to like.
+     * @param {Callback} callback - The callback function to be called after the like operation is complete.
+     * @return {void} 
+     */
+        public trackLike(songId: number, callback: Callback): void {
+            Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/track/' + songId + '/like', {'Content-Type': 'application/json',}, { })
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    this.songs.find(song => song.Id === songId)!.isLiked = true;
+                    callback(songId);
+                    return;
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
+        }
+    
+        /**
+         * Dislikes a song.
+         *
+         * @param {number} songId - The ID of the song to dislike.
+         * @param {Callback} callback - The callback function to be called after disliking the song.
+         * @return {void}
+         */
+        public trackDislike(songId: number, callback: Callback): void {
+            Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/track/' + songId + '/unlike', {'Content-Type': 'application/json',}, { })
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    this.songs.find(song => song.Id === songId)!.isLiked = false;
+                    callback(songId);
+                    return;
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
+        }
+        /**
+     * Like a song.
+     *
+     * @param {number} songId - The ID of the song to like.
+     * @param {Callback} callback - The callback function to be called after the like operation is complete.
+     * @return {void} 
+     */
+    public albumLike(callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/album/' + this.album.Id + '/like', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.album.isLiked = true;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    /**
+     * Dislikes a song.
+     *
+     * @param {number} songId - The ID of the song to dislike.
+     * @param {Callback} callback - The callback function to be called after disliking the song.
+     * @return {void}
+     */
+    public albumDislike(callback: Callback): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/album/' + this.album.Id + '/unlike', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.album.isLiked = false;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+
+    public playlistLike(callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/like', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.album.isLiked = true;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    /**
+     * Dislikes a song.
+     *
+     * @param {number} songId - The ID of the song to dislike.
+     * @param {Callback} callback - The callback function to be called after disliking the song.
+     * @return {void}
+     */
+    public playlistDislike(callback: Callback): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/unlike', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.album.isLiked = false;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    /**
+     * Like a song.
+     *
+     * @param {number} songId - The ID of the song to like.
+     * @param {Callback} callback - The callback function to be called after the like operation is complete.
+     * @return {void} 
+     */
+    public artistLike(callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/artist/' + this.artist.Id + '/like', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.artist.isLiked = true;
+                callback();
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    /**
+     * Dislikes a song.
+     *
+     * @param {number} songId - The ID of the song to dislike.
+     * @param {Callback} callback - The callback function to be called after disliking the song.
+     * @return {void}
+     */
+    public artistDislike(callback: Callback): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/artist/' + this.artist.Id + '/unlike', {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                this.artist.isLiked = false;
                 callback();
                 return;
             }
@@ -299,10 +550,23 @@ export default class ContentModel extends IModel {
      * @param {Callback} callback - The callback function to be executed after the request is completed.
      * @return {void}
      */
-    public requestCollection(callback: Callback): void {
+    public requestfavAlbums(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/albums', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                this.albums = responseBody.Albums.slice(0);
+                callback(this.albums); 
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+    public requestfavTracks(callback: Callback): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/tracks', {})
         .then(({ status, responseBody }) => {
-            if (status === 200) {
+            if (status >= 200 && status < 300) {
                 this.songs = responseBody.Tracks.slice(0);
                 this.songs.forEach((song) => {
                     song.isLiked = true;
@@ -314,5 +578,304 @@ export default class ContentModel extends IModel {
         .catch((error) => {
             throw error;
         });
+    }
+    public requestfavPlaylists(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/playlists', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                this.albums = responseBody.slice(0);
+                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
+                .then(({ status, responseBody }) => {
+                    if (status >= 200 && status < 300) {
+                        callback(this.albums, responseBody.slice(0)); 
+                        return;
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+    public requestfavArtists(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/artists', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                this.artists = responseBody.Artists.slice(0);
+                callback(this.artists); 
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestSearch(term: string, callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/search?query=' + term, {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                const tracks: Array<Song> = responseBody.Tracks.slice(0);
+                const albums: Array<Album> = responseBody.Albums.slice(0);
+                const artists: Array<Artist> = responseBody.Artists.slice(0);
+                const playlists: Array<Playlist> = responseBody.Playlists.slice(0);
+                callback(playlists, tracks, artists, albums);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public createPlaylist(callback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist', {}, {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                callback('/playlist/' + responseBody.Id);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public deletePlaylist(playlistId: number): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId, {'Content-Type': 'application/json',}, { })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public updatePlaylistData(name: string, playlistId: number, callback: Callback, errorCallback: Callback): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/update_name', {}, { Name: name })
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                callback(paths.favPlaylists);
+                return;
+            }
+            if (status === 400) {
+                errorCallback('no spaces');
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public updatePlaylistAvatar (playlistId: number, photo: FormData): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' +  playlistId  + '/update_preview', {}, photo, true)
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestPlaylist(callback: Callback, playlistId: number): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId, {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                this.album = responseBody;
+                this.songs = this.album.Tracks.slice(0);
+                Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
+                .then(({ status, responseBody }) => {
+                    if (status >= 200 && status < 300) {
+                        if(responseBody.find((playlist: Playlist) => playlist.Id === this.album.Id)) {
+                            Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/is_like', {})
+                            .then(({ status, responseBody }) => {
+                                if (status >= 200 && status < 300) {
+                                    this.album.isLiked = responseBody.IsLiked;
+                                    callback({playlist: this.album, isMine: false});
+                                    return;
+                                }
+                            })
+                            .catch((error) => {
+                                throw error;
+                            });
+                        } else {
+                            Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/is_like', {})
+                            .then(({ status, responseBody }) => {
+                                if (status >= 200 && status < 300) {
+                                    this.album.isLiked = responseBody.IsLiked;
+                                    callback({playlist: this.album, isMine: true});
+                                    return;
+                                }
+                            })
+                            .catch((error) => {
+                                throw error;
+                            });
+                        }
+                        return;
+                    }
+                    if (status === 401) {
+                        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/is_like', {})
+                        .then(({ status, responseBody }) => {
+                            if (status >= 200 && status < 300) {
+                                this.album.isLiked = responseBody.IsLiked;
+                                callback({playlist: this.album, isMine: true});
+                                return;
+                            }
+                        })
+                        .catch((error) => {
+                            throw error;
+                        });
+                        return;
+                    }
+                })
+                .catch((error) => {
+                    throw error;
+                });
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestUserPlaylists(id: string, type: string): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                EventDispatcher.emit(type, {id, playlists: responseBody});
+                return;
+            }
+            if (status === 401) {
+                EventDispatcher.emit(type, {id, playlists: []});
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public addTrackToPlaylist(trackId: string, playlistId: string, type: string): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/add_track', {'Content-Type': 'application/json'}, {Id:  parseInt(trackId)})
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                EventDispatcher.emit(type,trackId);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public deleteTrackFromPlaylist(trackId: string, playlistId: string, callback: Callback): void {
+        Ajax.delete(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/remove_track', {'Content-Type': 'application/json'}, {Id:  parseInt(trackId)})
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                EventDispatcher.emit('delete-track-from-playlist', trackId);
+                callback('/playlist/' + playlistId);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public listenCount(duration: number, id: number): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/listen/' + id, {'Content-Type': 'application/json',}, { Duration: Math.floor(duration) }, )
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public sendGenres(genres: Array<OnboardGenre>): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/genres', {'Content-Type': 'application/json'}, {Genres: genres})
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public sendArtists(artists: Array<OnboardArtist>): void {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/artists', {'Content-Type': 'application/json'}, {Artists: artists})
+        .then(({ status }) => {
+            if (status >= 200 && status < 300) {
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestOnboardGenres(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/genres', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                callback(responseBody);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public requestOnboardArtists(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artists', {})
+        .then(({ status, responseBody }) => {
+            if (status >= 200 && status < 300) {
+                callback(responseBody);
+                return;
+            }
+        })
+        .catch((error) => {
+            throw error;
+        });
+    }
+
+    public openSocket(callback: Callback, songId: number, user: User | null = null): void {
+        this.socket = new WebSocket('wss://musicon.space' + '/api/v1/wave');
+        this.socket.onopen = () => {
+            console.log('connected');
+            this.requestSocketTracks();
+            this.isSocketConnected = true;
+        }
+        this.socket.onclose = (event) => {
+            console.log('disconnected', event.reason);
+            this.isSocketConnected = false;
+        }
+        this.socket.onmessage = (event) => {
+            this.songs = JSON.parse(event.data);
+            this.currentsongs = this.songs.slice(0);
+            if(!this.isWaveStarted) {
+                this.isLiked(callback, songId, user);
+                this.isWaveStarted = true;
+            }
+        }
+    }
+
+    public requestSocketTracks(): void {
+        this.isWaveStarted = false;
+        this.socket?.send('1');
     }
 }

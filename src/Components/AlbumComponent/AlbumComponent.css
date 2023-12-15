@@ -4,9 +4,87 @@
     gap: 10px;
     position: relative;
     &__info {
-
+        &__options {
+            display: flex;
+            gap: 15px;
+        }
     }
     &__list {
         
+    }
+    &__share-btn {
+        border: 1px solid white;
+        padding-left: 5px;
+        padding-top: 5px;
+        align-items: center;
+        display: flex;
+        border-radius: 50px;
+        cursor: pointer;
+        size: 40px;
+    }
+    &__share {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        &__copied {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            color: black;
+            width: fit-content;
+            height: fit-content;
+            display: none;
+            width: fit-content;
+        }
+    }
+}
+
+.options {
+    display: none;
+    grid-gap: 10px;
+    gap: 10px;
+    max-width: 200px;
+    background: #0D0B18;
+    position: absolute;
+    right: 7%;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 1;
+    &__avaliablePlaylists {
+        display: none;
+        gap: 10px;
+        &__name {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        &__name:hover {
+            color: #C15DF3;
+        }
+    }
+
+    &__share {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        &__copied {
+            display: none;
+            margin-left: 10px;
+            color: black;   
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    }
+
+    &__share:hover {
+        color: #C15DF3;
+    }
+
+    &__add-to-playlist {
+        cursor: pointer;
+    }
+    &__add-to-playlist:hover {
+        color: #C15DF3;
     }
 }

@@ -1,5 +1,5 @@
 <div class="menu">
-    <ul class="menu__links">
+    <ul class="menu__links" data-section="menu-links">
         <li class="menu__item">
             <div class="logo">
                 <img class="logo__photo" data-url="/feed/all" data-section="link" src="{{logo}}" alt="">
@@ -11,46 +11,67 @@
                 Главное
             </a>
         </li>
-        {{#each HeaderConfig}}
+        <li class="menu__item">
+            <a class="menu-item__link" href="/collection/tracks" data-section="link" data-url="/collection/tracks">
+                Коллекция
+            </a>
+        </li>
+    </ul>
+
+    <div class="mobile-menu" data-section="menu-links">
+         <div class="menu-icon" data-section="menu-icon">
+            <div class="bar" data-section="menu-icon"></div>
+            <div class="bar" data-section="menu-icon"></div>
+            <div class="bar" data-section="menu-icon"></div>
+        </div>
+
+        <ul class="mobile-menu__links" data-section="mobile-menu">
             <li class="menu__item">
-                <a class="menu-item__link">
-                    {{this.name}}
+                <a class="mobile-menu-item__link medium-text" href="/feed/all" data-section="link" data-url="/feed/all">
+                    Главное
                 </a>
             </li>
-        {{/each}}
-        {{#if user}}
             <li class="menu__item">
-                <a class="menu-item__link" href="/collection" data-section="link" data-url="/collection">
+                <a class="mobile-menu-item__link medium-text" href="/collection/tracks" data-section="link" data-url="/collection/tracks">
                     Коллекция
                 </a>
             </li>
-        {{/if}}
-    </ul>
+        </ul>
+    </div>
+   
+
     <ul class="menu__rest">
         <li class="menu__item">
-            <img class="magnifying-glass" src="/static/img/Loupe.svg" alt="">
-            <input type="text" data-section="text" class="input-search"
+            <img class="arrow" src="/static/img/arrowLeft.svg" data-section="search" style="display: none;">
+            <input type="text" data-section="inputSearch" class="input-search"
                 placeholder="Введите название песни или альбома">
         </li>
-        {{#if user}}
-            <li class="menu__item">
-                <div class="mini-profile">
-                    {{#if user.avatar}}
-                        <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="{{port}}{{user.avatar}}"
-                            alt="">
-                    {{else}}
-                        <img class="mini-profile__avatar" data-url="/profile" data-section="link" src="/static/img/worm.webp"
-                            alt="">
-                    {{/if}}
-                    <h2 class="menu-item__link" data-section="signout">
-                        Выйти
-                    </h2>
-                </div>
-            </li>
-        {{else}}
-            <li class="menu__item">
-                <button class="default-button" data-url="/login" data-section="link">Войти</button>
-            </li>
-        {{/if}}
+        <li class="menu__item">
+            <img class="magnifying-glass" src="/static/img/Loupe.svg" data-section="search">
+        </li>
+        <li class="menu__item" data-section="user">
+            <button class="default-button" data-url="/login" data-section="link">Войти</button>
+        </li>
     </ul>
+
+    <div class="menu__logout-confirmation" data-section="logout-confirmation">
+        <div class="medium-text">Вы уверены, что хотите выйти из аккаунта?</div>
+        <div class="logout-confirmation__btn-bar">
+            <button class="logout-button" data-section="cancel">Отмена</button>
+             <button class="logout-button" data-section="confirm">Да</button>
+        </div>
+    </div>
+
+    <div class="menu__search-results menu__search-results__position">
+        <div class="menu__search-results__link" data-section="searchlink" data-url="/search">
+            <img class="menu__search-results__loupe" data-section="searchlink" data-url="/search" src="/static/img/Loupe.svg" alt="">
+            <div data-section="searchlink" data-url="/search" class="menu__search-results__text medium-text">Искать</div>
+        </div>
+        <div class="medium-text">Предложения</div>
+        <div class="results">
+            <ul class="search-list">
+
+            </ul>
+        </div>
+    </div>
 </div>

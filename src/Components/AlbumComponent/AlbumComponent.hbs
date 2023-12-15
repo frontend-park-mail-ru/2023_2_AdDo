@@ -1,13 +1,30 @@
 <div class="album">
     <div class="info album__info">
         {{#if album.Preview}}
-            <img style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
+            <img class="info__photo" style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
         {{/if}}
-        <div style="display: inline-block;">
+        <div style="display: flex; flex-direction: column; gap: 15px;">
             <div class="large-text">{{album.Name}}</div>
             <a class="big-text albumlist-item__name" href="/artist/{{album.ArtistId}}" data-section="link"
-                data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}</a>
-            <h2>{{album.ReleaseDate}}</h2>
+                data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}
+            </a>
+            <div class="album__info__options">
+                {{#if user}}
+                    <div class="big-like-btn" data-section="albumlike" data-url="{{album.Id}}">
+                        {{#if album.isLiked}}
+                        <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/LikePressed.svg"></div>
+                        {{else}}
+                        <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/Like.svg"></div>
+                        {{/if}}
+                        <div class="medium-text" data-section="albumlike">Нравится</div>
+                    </div>
+                {{/if}}
+                <div class="medium-text album__share" data-section="albumShare" data-id="{{album.Id}}">
+                    <img class="album__share-btn" src="/static/img/Share.svg" alt="" data-section="albumShare" data-id="{{album.Id}}">
+                    <div class="medium-text album__share__copied" data-album-share="{{album.Id}}" style="color: black;">Ссылка скопирована</div>
+                </div>
+            </div>
+            
         </div>
     </div>
     <ul class="playlist album__list">
@@ -22,8 +39,30 @@
                     style="display: inline-block;">
                     {{this.Name}}
                 </div>
-                <div class="medium-text playlist-item__duration" style="display: inline-block;">
-                    {{this.Duration}}
+                <div class="playlist-item__options" style="display: inline-block;">
+                    <div class="medium-text playlist-item__options__duration">
+                        {{this.Duration}}
+                    </div>
+                    <div class="playlist-item__options__img">
+                        <img src="/static/img/Options.svg" class="playlist-item__options__img__photo" data-section="trackOptions" data-id="{{this.Id}}" alt="">
+                    </div>
+                    {{#if ../user}}
+                        <div class="playlist-item__options__like">
+                            {{#if this.isLiked}}
+                                <img src="/static/img/LikePressed.svg" class="playlist-item__options__img__like" data-section="trackLike" data-id="{{this.Id}}" data-track="{{this.Id}}" alt="">
+                            {{else}}
+                                <img src="/static/img/Like.svg" class="playlist-item__options__img__like" data-section="trackLike" data-id="{{this.Id}}" data-track="{{this.Id}}" alt="">
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="options" style="display: none;" data-section="{{this.Id}}">
+                    <div class="medium-text options__share" data-section="trackShare" data-id="{{this.Id}}">
+                        Поделиться
+                        <div class="medium-text options__share__copied" data-track-share="{{this.Id}}" style="color: black;">Ссылка скопирована</div>
+                    </div>
+                    <div class="medium-text options__add-to-playlist" data-section="showAvaliblePlaylists" data-id="{{this.Id}}">Добавить в плейлист</div>
+                    <div class="options__avaliablePlaylists" style="display: none;" data-list="{{this.Id}}"></div>
                 </div>
             </li>
         {{/each}}

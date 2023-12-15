@@ -6,21 +6,14 @@ import ProfileView from './Views/ProfileView/ProfileView';
 import MainController from './Controllers/MainController/MainController';
 import LoginController from './Controllers/LoginController/LoginController';
 import SignUpController from './Controllers/SignUpController/SignUpController';
-import ProfileController from './Controllers/ProfileController/ProfileController';
 
 import ContentModel from './Models/ContentModel/ContentModel';
 import UserModel from './Models/UserModel/UserModel';
-
 
 import EventDispatcher from './Modules/EventDispatcher/EventDispatcher';
 import router from './Modules/Router/Router';
 import paths from './Modules/Router/RouterPaths';
 import './index.css';
-
-import { Album } from './types';
-
-
-
 
 /** Class representing an App. */
 class App {
@@ -32,12 +25,9 @@ class App {
 	public maincontroller: MainController;
 	public logincontroller: LoginController;
 	public signupcontroller: SignUpController;
-	public profilecontroller: ProfileController;
 
 	public contentmodel: ContentModel;
 	public usermodel: UserModel;
-
-	private isOnline: boolean = navigator.onLine;
 
 	/**
 	 * Initializes the class by setting up the necessary components and controllers.
@@ -60,10 +50,8 @@ class App {
 		this.maincontroller = new MainController(this.mainview, { ContentModel: this.contentmodel, UserModel: this.usermodel });
 		this.logincontroller = new LoginController(this.loginview, this.usermodel);
 		this.signupcontroller = new SignUpController(this.signupview, this.usermodel);
-		this.profilecontroller = new ProfileController(this.profileview, this.usermodel);
 
 		this.initRoutes();
-		this.cacheCollection();
 	}
 
 	/**
@@ -73,6 +61,7 @@ class App {
 	 */
 	public run(url: string) {
 		this.usermodel.authUserByCookie();
+		this.usermodel.getCSRFToken();
 		if(url === paths.root) {
 			url = paths.feedAll;
 		}
@@ -85,7 +74,6 @@ class App {
 	 * @return {void} 
 	 */
 	public initRoutes() {
-
 		const routes = [
 			{ path: paths.root, handler: this.renderFeedAll },
 			{ path: paths.login, handler: this.renderLogin },
@@ -96,11 +84,17 @@ class App {
 			{ path: paths.feedNew, handler: this.renderFeedNew },
 			{ path: paths.album, handler: this.renderAlbum },
 			{ path: paths.artist, handler: this.renderArtist },
-			{ path: paths.collection, handler: this.renderCollection },
-			{ path: paths.podcasts, handler: this.renderPodcasts },
 			{ path: paths.profile, handler: this.renderProfile },
+			{ path: paths.favAlbums, handler: this.renderfavAlbums },
+			{ path: paths.favArtists, handler: this.renderfavArtists },
+			{ path: paths.favPlaylists, handler: this.renderfavPlaylists },
+			{ path: paths.favTracks, handler: this.renderfavTracks },
+			{ path: paths.track, handler: this.renderTrack },
+			{ path: paths.search, handler: this.renderSearch },
+			{ path: paths.playlist, handler: this.renderPlaylist },
+			{ path: paths.onboardGenres, handler: this.renderOnboardGenres },
+			{ path: paths.onboardArtists, handler: this.renderOnboardArtists },
 		];
-
 		routes.forEach(({ path, handler }) => {
 			router.addRule(path, handler.bind(this));
 		});
@@ -128,11 +122,15 @@ class App {
 		this.signupcontroller.mountComponent();
 	}
 
+	/**
+	 * Renders the entire feed.
+	 *
+	 * @return {void} 
+	 */	
 	public renderFeedAll(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateFeed();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -144,7 +142,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateChart();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -156,7 +153,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updatePlaylists();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -168,7 +164,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateNew();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -178,10 +173,10 @@ class App {
 	 */
 	public renderProfile(): void {
 		EventDispatcher.emit('unmount-all');
-		this.usermodel.getCSRFToken();
-		this.profilecontroller.mountComponent();
-		this.profilecontroller.bindEvents();
-		EventDispatcher.subscribe('user-changed', this.profilecontroller.bindEvents.bind(this.profilecontroller));
+		this.maincontroller.updateProfile();
+		this.maincontroller.mountComponent();
+		this.maincontroller.bindProfileEvents();
+		EventDispatcher.subscribe('user-changed', this.maincontroller.bindProfileEvents.bind(this.maincontroller));
 	}
 
 	/**
@@ -193,7 +188,12 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateAlbum();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
+	}
+
+	public renderTrack(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateTrack();
+		this.maincontroller.mountComponent();
 	}
 
 	/**
@@ -207,7 +207,6 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateArtist();
 		this.maincontroller.mountComponent();
-		this.maincontroller.bindEvents();
 	}
 
 	/**
@@ -215,27 +214,84 @@ class App {
 	 *
 	 * @return {void} 
 	 */
-	public renderCollection(): void {
+	public renderfavPlaylists(): void {
 		EventDispatcher.emit('unmount-all');
-		this.isOnline ? this.maincontroller.updateCollection() : this.maincontroller.updateOffline();
+		this.maincontroller.updatefavPlaylists();
 		this.maincontroller.mountComponent();
 	}
 
 	/**
-	 * Renders the podcasts.
+	 * Render favorite tracks.
+	 *
+	 * @return {void}
+	 */
+	public renderfavTracks(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatefavTracks();
+		this.maincontroller.mountComponent();
+	}
+
+	/**
+	 * Renders the favorite albums.
+	 *
+	 * @return {void}
+	 */
+	public renderfavAlbums(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatefavAlbums();
+		this.maincontroller.mountComponent();
+	}
+
+	/**
+	 * Renders the favorite artists.
 	 *
 	 * @return {void} 
 	 */
-	public renderPodcasts(): void {
+	public renderfavArtists(): void {
 		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatefavArtists();
+		this.maincontroller.mountComponent();
 	}
-
-	public cacheCollection(): void {
-		if(this.usermodel.getCurrentUser() !== null) {
-			this.contentmodel.requestCollection((album: Album) => {
-				localStorage.setItem('collection', JSON.stringify(album));
-			});
-		}
+	/**
+	 * Renders the search by emitting an 'unmount-all' event,
+	 * updating the search, and mounting the component.
+	 */
+	public renderSearch(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateSearch();
+		this.maincontroller.mountComponent();
+	}
+	/**
+	 * Renders the playlist.
+	 *
+	 * @return {void} No return value.
+	 */
+	public renderPlaylist(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updatePlaylist();
+		this.maincontroller.mountComponent();
+	}
+	/**
+	 * Renders the onboard genres by emitting the 'unmount-all' event,
+	 * updating the onboard genres in the main controller, and mounting
+	 * the component.
+	 */
+	public renderOnboardGenres(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateOnboardGenres();
+		this.maincontroller.mountComponent();
+	}
+	/**
+	 * Renders the onboard artists by emitting the 'unmount-all' event,
+	 * updating the onboard artists in the main controller, and mounting
+	 * the component.
+	 *
+	 * @return {void}
+	 */
+	public renderOnboardArtists(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateOnboardArtists();
+		this.maincontroller.mountComponent();
 	}
 }
 

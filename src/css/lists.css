@@ -3,8 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     padding: 0px;
-    gap: 70px;
-    margin-bottom: 10vh;
+    gap: 50px;
+    margin-bottom: 20vh;
     &__item {
         list-style-type: none;
         width: 200px;
@@ -31,7 +31,7 @@
     &__playbutton {
         transform: translate(-50%, -50%);
         size: 60px;
-        background-image: url(../../static/img/playButton.png);
+        background-image: url(../../static/img/playButton.webp);
         background-size: cover;
         opacity: 0;
         transition: opacity 0.3s;
@@ -65,10 +65,9 @@
     margin-top: 20px;
     display: grid;
     flex-wrap: wrap;
-    padding: 0px;
-    margin-bottom: 100px;
+    padding-bottom: 100px;
     gap: 30px;
-
+    position: relative;
     &__item {
         display: flex;
         gap: 20px;
@@ -81,6 +80,15 @@
         }
         & .playlist-item__name {
             color: #C15DF3;
+        }
+        & .playlist-item__options__duration {
+            opacity: 0;
+        }
+        & .playlist-item__options__img {
+            opacity: 1;
+        }
+        & .playlist-item__options__like {
+            opacity: 1;
         }
     }
 
@@ -109,6 +117,7 @@
         &__position {
             margin-top: 10px;
             margin-bottom: 10px;
+            margin-left: 10px;
         }
     }
 
@@ -120,14 +129,14 @@
     &__playbutton {
         size: 30px;
         transform: translate(-50%, -50%);
-        background-image: url(../../static/img/playButton.png);
+        background-image: url(../../static/img/playButton.webp);
         background-size: cover;
         opacity: 0;
         transition: opacity 0.3s;
         cursor: pointer;
         &__position {
             position: absolute;
-            left: 25%;
+            left: 50%;
             top: 50%;
         }
     }
@@ -144,11 +153,36 @@
         margin: 10px 0 10px 0;
         cursor: pointer;
     }
-
-    &__duration {
+    &__options {
         margin: 10px 10px 10px 0;
         position: absolute;
         right: 0;
+        &__img {
+            position: absolute;
+            top: -20%;
+            right: 10%;
+            cursor: pointer;
+            opacity: 0;
+            &__photo {
+                box-sizing: border-box;
+                padding: 10px;
+                border-radius: 100px;
+                border: 1px solid white;
+            }
+            &__like {
+                box-sizing: border-box;
+                padding: 5px;
+            }
+        }
+        &__like {
+            position: absolute;
+            top: -100%;
+            cursor: pointer;
+            padding: 10px;
+            right: 0;
+            margin-right: 50px;
+            opacity: 0;
+        }
     }
 }
 
@@ -202,3 +236,85 @@
     }
 }
 
+
+
+.collection__list {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    gap: 35px;
+}
+
+.collection-list__item {
+    cursor: pointer;
+}
+
+.collection-list__item:hover {
+    color: #C15DF3;
+}
+
+.onboard__list {
+    display: flex;
+    margin-top: 20px;
+    padding: 0px;
+    margin-bottom: 150px;
+    gap: 35px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    margin-left: 320px;
+    &__item {
+        width: min-content;
+        &__photo {
+            size: 160px;
+            border-radius: 50px;
+        }
+    }
+}
+
+/* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
+@media screen and (min-width: 768px) {
+    .onboard__list {
+        flex-wrap: wrap;
+        position: relative;
+        margin-left: 320px;
+        &__item {
+            &__photo {
+                size: 160px;
+                border-radius: 100px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 767px) and (max-width: 1200px) {
+    .onboard__list {
+        flex-wrap: wrap;
+        position: relative;
+        margin-left: 320px;
+        &__item {
+            &__photo {
+                margin-top: 5px;
+                size: 160px;
+                border-radius: 100px;
+            }
+        }
+    }
+}
+
+/* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+@media screen and (max-width: 767px) {
+    .onboard__list {
+        flex-wrap: wrap;
+        margin-left: auto;
+        margin-right: auto;
+        &__item {
+            width: 110px;
+            &__photo {
+                size: 110px;
+                border-radius: 50px;
+            }
+        }
+    }
+}

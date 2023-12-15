@@ -1,0 +1,84 @@
+<div>
+    <div class="collection">
+    {{#if user}}
+    <div class="big-text collection__title">Коллекция</div>
+    <ul class="collection__list">
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/tracks" data-section="innerlink" data-url="/collection/tracks">
+                Треки
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/albums" data-section="innerlink" data-url="/collection/albums">
+                Альбомы
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/playlists" data-section="innerlink" data-url="/collection/playlists">
+                Плейлисты
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/artists" data-section="innerlink" data-url="/collection/artists">
+                Исполнители
+            </a>
+        </li>
+    </ul>
+    {{else}}
+    <h1 class="artist__title">Авторизуйтесь чтобы добавлять песни и альбомы в коллекцию</h1>
+    {{/if}}
+    </div>
+    {{#if user}}
+    <div class="favTracks">
+        <div class="big-text artist__title">Треки</div>
+        <ul class="playlist">
+            {{#if Tracks}}
+            {{#each Tracks}}
+                <li class="playlist__item" data-section="miniCollectionPlayButton" data-url="{{@index}}">
+                    <div class="playlist__image-container" style="display: inline-block;">
+                        <div class="medium-text playlist__index playlist__index__position"></div>
+                        <div class="playlist__playbutton playlist__playbutton__position" data-section="miniCollectionPlayButton"
+                            data-url="{{@index}}"></div>
+                    </div>
+                    <div style="display:inline-block">
+                        <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
+                    </div>
+                    <div class="medium-text playlist-item__name" data-section="miniCollectionPlayButton" data-url="{{@index}}"
+                        style="display: inline-block;">
+                        {{this.Name}}
+                    </div>
+                    <div class="playlist-item__options" style="display: inline-block;">
+                    <div class="medium-text playlist-item__options__duration">
+                        {{this.Duration}}
+                    </div>
+                    <div class="playlist-item__options__img">
+                        <img src="/static/img/Options.svg" class="playlist-item__options__img__photo" data-section="trackOptions" data-id="{{this.Id}}" alt="">
+                    </div>
+                    {{#if ../user}}
+                        <div class="playlist-item__options__like">
+                            {{#if this.isLiked}}
+                                <img src="/static/img/LikePressed.svg" class="playlist-item__options__img__like" data-section="trackLike" data-id="{{this.Id}}" data-track="{{this.Id}}" alt="">
+                            {{else}}
+                                <img src="/static/img/Like.svg" class="playlist-item__options__img__like" data-section="trackLike" data-id="{{this.Id}}" data-track="{{this.Id}}" alt="">
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="options" style="display: none;" data-section="{{this.Id}}">
+                    <div class="medium-text options__share" data-section="trackShare" data-id="{{this.Id}}" >
+                        Поделиться
+                        <div class="medium-text options__share__copied" data-track-share="{{this.Id}}" style="color: black;">Ссылка скопирована</div>
+                    </div>
+                    <div class="medium-text options__add-to-playlist" data-section="showAvaliblePlaylists" data-id="{{this.Id}}">Добавить в плейлист</div>
+                    <div class="options__avaliablePlaylists" style="display: none;" data-list="{{this.Id}}">
+                    </div>
+                </div>
+                </li>
+            {{/each}}
+            {{else}}
+                <h1>Добавьте любимые треки</h1>
+            {{/if}}
+        </ul>
+    </div>
+    {{/if}}
+</div>

@@ -1,0 +1,20 @@
+{
+    "name": "MusicOn",
+    "short_name": "MusicOn",
+    "lang": "ru-RU",
+    "start_url": "/",
+    "display": "standalone", 
+    "orientation": "natural",
+    "background_color": "#0D0B18",
+    "theme_color": "#0D0B18",
+    "prefer_related_applications": false,
+    "categories": ["music"],
+    "description": "Плейлисты на любой случай, подкасты обо всём на свете и музыкальные новинки — с MusicOn всегда есть что послушать!",
+    "icons": [
+        {
+          "src": "/static/img/Logo.svg",
+          "sizes": "58x58",
+          "type": "image/svg+xml"
+        }
+    ]
+}

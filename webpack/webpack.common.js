@@ -15,7 +15,7 @@ module.exports = {
   output: {
     path: defines.dist,
     publicPath: '/',
-    filename: `${defines.assets}js/[name].js`
+    filename: `${defines.assets}js/[name]-[hash].js`
   },
   // optimization (chunks)
   optimization: {
@@ -86,7 +86,7 @@ module.exports = {
               postcssOptions: {
                 plugins: [
                   [
-                    'postcss-preset-env'
+                    'postcss-preset-env',
                   ]
                 ],
                 postcssOptions: {
@@ -96,12 +96,6 @@ module.exports = {
               }
             }
           },
-        //   {
-        //     loader: 'sass-loader',
-        //     options: {
-        //       sourceMap: isDev
-        //     }
-        //   }
         ]
       },
 
@@ -135,7 +129,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: `${defines.assets}css/[name].css`,
+      filename: `${defines.assets}css/[name]-[hash].css`,
       chunkFilename: '[id].css'
     }),
 
@@ -153,6 +147,11 @@ module.exports = {
 
         {
           from: `${defines.src}/shared/misc`,
+          to: `${defines.dist}`
+        },
+
+        {
+          from: `${defines.src}/shared/manifest/webmanifest.json`,
           to: `${defines.dist}`
         }
       ]

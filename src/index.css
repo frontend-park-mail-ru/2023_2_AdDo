@@ -3,15 +3,21 @@
 @import './css/buttons.css';
 @import './css/inputs.css';
 @import './css/lists.css';
+@import './css/media.css';
 @import './Components/HeaderComponent/HeaderComponent.css';
 @import './Components/PlayerComponent/PlayerComponent.css';
 @import './Components/FeedComponent/FeedComponent.css';
 @import './Components/LoginComponent/LoginComponent.css';
 @import './Components/SignUpComponent/SignUpComponent.css';
+@import './Components/FavArtistsComponent/FavArtistsComponent.css';
+@import './Components/FavAlbumsComponent/FavAlbumsComponent.css'; 
+@import './Components/FavTracksComponent/FavTracksComponent.css';
+@import './Components/FavPlaylistsComponent/FavPlaylistsComponent.css';
 @import './Components/AlbumComponent/AlbumComponent.css';
 @import './Components/ArtistComponent/ArtistComponent.css';
 @import './Components/ProfileComponent/ProfileComponent.css';
-@import './Components/CollectionComponent/CollectionComponent.css';
+@import './Components/SearchComponent/SearchComponent.css';
+@import './Components/GenresOnboardComponent/GenresOnboardComponent.css';
 @import url('https://fonts.cdnfonts.com/css/source-sans-pro');
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;500&display=swap');
 
@@ -24,6 +30,10 @@
 }
 
 .active {
+    color: #C15DF3;
+}
+
+.activeinnerlink {
     color: #C15DF3;
 }
 
@@ -57,13 +67,59 @@
     font-weight: 700;
 }
 
+/* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
+@media only screen and (min-width: 768px) {
+    .small-text {
+        font-size: 14px;
+    }
+    
+    .medium-text {
+        font-size: 16px;
+    }
+    
+    .big-text {
+        font-size: 36px;
+    }
+    
+    .large-text {
+        font-size: 52px;
+    }
+  }
+  
+  /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+  @media only screen and (min-width: 481px) and (max-width: 767px) {
+  }
+  
+  /* Стили для мобильных устройств (ширина экрана до 480 пикселей) */
+  @media only screen and (max-width: 480px) {
+    .playButton {
+        display: none;
+    }
+    .small-text {
+        font-size: 18px;
+    }
+    
+    .medium-text {
+        font-size: 22px;
+    }
+    
+    .big-text {
+        font-size: 36px;
+    }
+    
+    .large-text {
+        font-size: 52px;
+    }
+  }
+
 .info {
     display: flex;
     gap: 30px;
-
-    img {
-        border-radius: 100px;
+    align-items: center;
+    &__photo {
+        border-radius: 15px;
         size: 190px;
+        object-fit: cover;
     }
 
     &__name {
@@ -71,4 +127,43 @@
         display: inline;
     }
 }
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+
+
+@media screen and (min-width: 768px) {
+    .info {
+        display: flex;
+    }
+    .playlist-item__options__img {
+        opacity: 0;
+    }
+    .playlist-item__options__duration {
+        opacity: 1;
+    }
+  }
+  
+/* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+@media screen and (max-width: 767px) {
+    .info {
+        display: grid;
+        justify-content: center;
+    }
+    .playlist-item__options__img {
+        opacity: 1;
+    }
+    .playlist-item__options__duration {
+        opacity: 0;
+    }
+}
+
 

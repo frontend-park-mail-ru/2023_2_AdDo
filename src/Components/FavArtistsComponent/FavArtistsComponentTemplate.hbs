@@ -1,0 +1,48 @@
+<div>
+    <div class="collection">
+    <div class="big-text collection__title">Коллекция</div>
+    <ul class="collection__list">
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/tracks" data-section="innerlink" data-url="/collection/tracks">
+                Треки
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/albums" data-section="innerlink" data-url="/collection/albums">
+                Альбомы
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/playlists" data-section="innerlink" data-url="/collection/playlists">
+                Плейлисты
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/artists" data-section="innerlink" data-url="/collection/artists">
+                Исполнители
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="favArtists">
+    <div class="big-text artist__title">Исполнители</div>
+    <ul class="albumlist">
+        {{#if Artists}}
+            {{#each Artists}}
+                <li class="albumlist__item">
+                    <div class="albumlist__image-container">
+                        <img class="albumlist__photo" data-section="link" data-url="/artist/{{this.Id}}" data-id="{{this.Id}}"
+                            src="{{../port}}{{this.Avatar}}" alt="">
+                    </div>
+                    <a href="/artist/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
+                        data-id="{{this.Id}}" data-url="/artist/{{this.Id}}">
+                        {{this.Name}}
+                    </a>
+                </li>
+            {{/each}}
+        {{else}}
+            <h1>Добавьте любимых артистов</h1>
+        {{/if}}
+    </ul>
+</div>
+</div>

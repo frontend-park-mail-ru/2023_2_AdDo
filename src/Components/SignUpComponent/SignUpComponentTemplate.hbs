@@ -16,6 +16,10 @@
                 </li>
             {{/each}}
             <li class="authlist__item">
+                <input class="auth-input" type="date" data-section="date" placeholder="" min="1901-01-01" max="{{Date}}"
+                        required>
+            </li>
+            <li class="authlist__item">
                 <div style="display: block;">
                     <div class="authlist__error__disabled" data-section="passcheck">Пароли не совпадают!</div>
                     <div class="authlist__error__disabled" data-section="lengthPassword">Пароль (от 6 до 30 символов)
@@ -23,7 +27,7 @@
                 </div>
             </li>
             <li class="authlist__item">
-                <button class="submit-big-button" data-section="/feed" type="submit">Зарегистрироваться</button>
+                <button class="submit-big-button" data-section="/onboard/genres" type="submit">Зарегистрироваться</button>
             </li>
         </form>
         <li class="authlist__item">

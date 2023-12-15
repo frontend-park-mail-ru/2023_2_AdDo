@@ -3,23 +3,30 @@ import template from './MainView.hbs';
 import { HeaderComponent } from '../../Components/HeaderComponent/HeaderComponent';
 import { PlayerComponent } from '../../Components/PlayerComponent/PlayerComponent';
 import { FeedComponent } from '../../Components/FeedComponent/FeedComponent';
-import type { Album, Song, User, Artist, Callback } from '../../types';
+import type { Album, Song, User, Artist, Callback, Playlist, OnboardArtist, OnboardGenre } from '../../types';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { AlbumComponent } from '../../Components/AlbumComponent/AlbumComponent';
 import { ArtistComponent } from '../../Components/ArtistComponent/ArtistComponent';
-import { CollectionComponent } from '../../Components/CollectionComponent/CollectionComponent';
+import { favArtistsComponent } from '../../Components/FavArtistsComponent/FavArtistsComponent';
+import { favTracksComponent } from '../../Components/FavTracksComponent/FavTracksComponent';
+import { favAlbumsComponent } from '../../Components/FavAlbumsComponent/FavAlbumsComponent';
+import { favPlaylistsComponent } from '../../Components/FavPlaylistsComponent/FavPlaylistsComponent';
+import IComponent from '../../Components/IComponent/IComponent';
+import { SearchComponent } from '../../Components/SearchComponent/SearchComponent';
+import { ProfileComponent } from '../../Components/ProfileComponent/ProfileComponent';
+import { PlaylistComponent } from '../../Components/PlaylistComponent/PlaylistComponent';
+import { ArtistsOnboardComponent } from '../../Components/ArtistsOnboardComponent/ArtistsOnboardComponent';
+import { GenresOnboardComponent } from '../../Components/GenresOnboardComponent/GenresOnboardComponent';
+
 
 
 /** Class representing a MainView. */
 class MainView extends IView {
 
-    private header: HeaderComponent; 
-    private feed: FeedComponent;
-    private album: AlbumComponent;
-    private artist: ArtistComponent;
-    private collection: CollectionComponent;
-    private footer: PlayerComponent;
-
+    public components: Map<string, IComponent> = new Map();
+    public isMobile: boolean = false;
+    public totalListningTime: number = 0;
+	public currentListningTime: number = 0;
 
     /**
      * Constructor for initializing the class.
@@ -28,19 +35,37 @@ class MainView extends IView {
      */
     public constructor(parent: HTMLElement) {
         super(parent, template({}));
-
-        this.header = new HeaderComponent(this.element.querySelector('header')!);
-        this.feed = new FeedComponent(this.element.querySelector('main')!);
-        this.album = new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: []});
-        this.artist = new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: []});
-        this.collection = new CollectionComponent(this.element.querySelector('main')!, []);
-        this.footer = new PlayerComponent(this.element.querySelector('footer')!);
-        this.header.append();
-        this.footer.append();
-
+        this.initComponents();
+        this.components.get('header')!.append();
+        this.components.get('footer')!.append();
+        
         EventDispatcher.subscribe('user-changed', (user: User | null = null) => {
-            this.header.User = user;
+            const header = this.components.get('header') as HeaderComponent;
+            header.User = user;
         });
+
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            this.isMobile = true;
+        } else {
+            this.isMobile = false;
+        }
+    }
+
+    private initComponents(): void {
+        this.components.set('header', new HeaderComponent(this.element.querySelector('header')!));
+        this.components.set('feed', new FeedComponent(this.element.querySelector('main')!));
+        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false}));
+        this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false}));
+        this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!, this.isMobile));
+        this.components.set('favArtists', new favArtistsComponent(this.element.querySelector('main')!, []));
+        this.components.set('favTracks', new favTracksComponent(this.element.querySelector('main')!, []));
+        this.components.set('favAlbums', new favAlbumsComponent(this.element.querySelector('main')!, []));
+        this.components.set('favPlaylists', new favPlaylistsComponent(this.element.querySelector('main')!, []));
+        this.components.set('search', new SearchComponent(this.element.querySelector('main')!));
+        this.components.set('profile', new ProfileComponent(this.element.querySelector('main')!));
+        this.components.set('playlist', new PlaylistComponent(this.element.querySelector('main')!));
+        this.components.set('onboardArtists', new ArtistsOnboardComponent(this.element.querySelector('main')!, []));
+        this.components.set('onboardGenres', new GenresOnboardComponent(this.element.querySelector('main')!, []));
     }
 
     /**
@@ -50,8 +75,15 @@ class MainView extends IView {
      * @return {void}
      */
     public renderFeed(): void {
+        const header = this.element.querySelector('header')!;
+        if (header.style.display === 'none') {
+            header.style.display = 'block';
+        }
         this.element.querySelector('main')!.innerHTML = '';
-        this.feed.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('feed')!.append();
     }
 
     /**
@@ -62,7 +94,10 @@ class MainView extends IView {
      */
     public renderAlbum(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.album.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('album')!.append();
     }
 
     /**
@@ -72,22 +107,83 @@ class MainView extends IView {
      */
     public renderArtist(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.artist.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('artist')!.append();
     }
 
-    public renderCollection(): void {
+    public renderFavTracks(): void {
         this.element.querySelector('main')!.innerHTML = '';
-        this.collection.append();
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('favTracks')!.append();
     }
-    /**
-     * Sets the user object in the header.
-     *
-     * @param {User} user - The user to be set in the header.
-     * @return {void} 
-     */
-    public fillHeader(user: User): void {
-        this.header.User = user;
+    public renderFavAlbums(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('favAlbums')!.append();
     }
+    public renderFavArtists(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('favArtists')!.append();
+    }
+    public renderFavPlaylists(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('favPlaylists')!.append();
+    }
+
+    public renderSearch(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('search')!.append();
+    }
+
+    public renderProfile(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('profile')!.append();
+    }
+
+    public renderPlaylist(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('playlist')!.append();
+    }
+
+    public renderArtistsOnboard(): void {
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('onboardArtists')!.append();
+    }
+
+    public renderGenresOnboard(): void {
+        this.element.querySelector('header')!.style.display = 'none';
+        this.element.querySelector('main')!.innerHTML = '';
+        this.components.forEach((component: IComponent) => {
+            component.hide();
+        });
+        this.components.get('onboardGenres')!.append();
+    }
+
+
 
     /**
      * Sets the content of the feed with the given array of albums.
@@ -96,7 +192,8 @@ class MainView extends IView {
      * @return {void} 
      */    
     public fillContent(content: Array<Album>): void {
-        this.feed.Content = content;
+        const feed = this.components.get('feed') as FeedComponent;
+        feed.Content = content;
     }
 
     /**
@@ -106,7 +203,16 @@ class MainView extends IView {
      * @return {void}
      */
     public fillAlbum(album: Album): void {
-        this.album.Album = album;
+        const albumComponent = this.components.get('album') as AlbumComponent;
+        albumComponent.Album = album;
+    }
+
+    public fillTrack(album: Album, id: number, isLiked: boolean): void {
+        const albumComponent = this.components.get('album') as AlbumComponent;
+        albumComponent.Album = album;
+        const player = this.components.get('footer') as PlayerComponent;
+        const song: Song = album.Tracks.find((track) => track.Id === id)!;
+        player.setSong(song, isLiked);
     }
 
     /**
@@ -116,7 +222,8 @@ class MainView extends IView {
      * @return {void} 
      */
     public fillArtist(artist: Artist): void {
-        this.artist.Artist = artist;
+        const artistComponent = this.components.get('artist') as ArtistComponent;
+        artistComponent.Artist = artist;
     }
 
     /**
@@ -125,8 +232,44 @@ class MainView extends IView {
      * @param {Array<Song>} songs - The array of songs to fill the collection with.
      * @return {void} 
      */
-    public fillCollection(songs: Array<Song>): void {
-        this.collection.Songs = songs;
+    public fillFavArtists(artists: Array<Artist>): void {
+        const favArtists = this.components.get('favArtists') as favArtistsComponent;
+        favArtists.Artists = artists;
+    }
+
+    public fillFavTracks(songs: Array<Song>): void {
+        const favTracks = this.components.get('favTracks') as favTracksComponent;
+        favTracks.Songs = songs;
+    }
+
+    public fillFavAlbums(albums: Array<Album>): void {
+        const favAlbums = this.components.get('favAlbums') as favAlbumsComponent;
+        favAlbums.Albums = albums;
+    }
+
+    public fillFavPlaylists(liked_playlists: Array<Album>, user_playlists: Array<Album>): void {
+        const favPlaylists = this.components.get('favPlaylists') as favPlaylistsComponent;
+        favPlaylists.Playlists = {likedPlaylists: liked_playlists, userPlaylist: user_playlists};
+    }
+
+    public fillSearch(playlists: Array<Album>, songs: Array<Song>, artists: Array<Artist>, albums: Array<Album>): void {
+        const search = this.components.get('search') as SearchComponent;
+        search.Content = {Playlists: playlists, Tracks: songs, Artists: artists, Albums: albums};
+    }
+
+    public fillPlaylist({playlist, isMine}: {playlist: Playlist, isMine: boolean}): void {
+        const playlistComponent = this.components.get('playlist') as PlaylistComponent;
+        playlistComponent.Playlist = {playlist, isMine};
+    }
+
+    public fillOnboardArtists(artists: Array<OnboardArtist>): void {
+        const onboardArtists = this.components.get('onboardArtists') as ArtistsOnboardComponent;
+        onboardArtists.Artists = artists;
+    }
+
+    public fillOnboardGenres(genres: Array<OnboardGenre>): void {
+        const onboardGenres = this.components.get('onboardGenres') as GenresOnboardComponent;
+        onboardGenres.Genres = genres;
     }
 
     /**
@@ -136,9 +279,14 @@ class MainView extends IView {
      * @return {void}
      */
     public play(song: Song, isLiked: boolean): void {
-        let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
-        this.footer.playSong(song, isLiked);
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/pauseBtn.webp';
+        footer.playSong(song, isLiked);
+        this.totalListningTime = 0;
+        this.currentListningTime = Date.now();
     }
 
     /**
@@ -147,9 +295,13 @@ class MainView extends IView {
      * @return {void}
      */
     public resume(): void {
-        let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/pauseBtn.webp';
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
-        this.footer.resumeSong();
+        footer.resumeSong();
+        this.currentListningTime = Date.now();
     }
     /**
      * Pauses the audio player and updates the play button image.
@@ -157,9 +309,14 @@ class MainView extends IView {
      * @return {void}
      */
     public pause(): void {
-        let img: HTMLImageElement = this.footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/playButton.webp';
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Play.svg';
-        this.footer.pauseSong();
+        footer.pauseSong();
+		this.currentListningTime = Date.now() - this.currentListningTime;
+		this.totalListningTime += this.currentListningTime;
     }
 
     /**
@@ -172,6 +329,12 @@ class MainView extends IView {
         this.element.addEventListener('click', listener);
     }
 
+    public bindTouchEvent(listener: Callback): void {
+        this.element.addEventListener('touchstart', listener);
+    }
+
+    
+
     /**
      * Binds an event listener to the 'ended' event of the audio element
      * in the footer.
@@ -180,7 +343,8 @@ class MainView extends IView {
      * @return {void}
      */
     public bindEndedEvent(listener: Callback): void {
-        this.footer.querySelector('audio')!.addEventListener('ended', listener);
+        const footer = this.components.get('footer') as PlayerComponent;
+        footer.querySelector('audio')!.addEventListener('ended', listener);
     }
 
     /**
@@ -190,7 +354,8 @@ class MainView extends IView {
      * @return {void}
      */
     public removeEndedEvent(listener: Callback): void {
-        this.footer.querySelector('audio')!.removeEventListener('ended', listener)
+        const footer = this.components.get('footer') as PlayerComponent;
+        footer.querySelector('audio')!.removeEventListener('ended', listener)
     }
 
     /**
@@ -208,13 +373,57 @@ class MainView extends IView {
         }
     }
 
+    public makeActiveInnerLink(element: HTMLElement): void {
+        if (!(element instanceof HTMLButtonElement || element.classList.contains('logo__text')) ) {
+            this.element.querySelectorAll('.activeinnerlink').forEach(el => {
+                el.classList.remove('activeinnerlink');
+            });
+            element.classList.add('activeinnerlink');
+        }
+    }
+    
     /**
      * A function that performs the action of liking.
      *
      * @return {void}
      */
     public like(): void {
-        let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        let img = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+        let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+        mobileimg.src = '/static/img/LikePressed.svg';
+        const trackLike: HTMLImageElement | null = document.querySelector(`[data-track="${footer.currentSong.Id}"]`);
+        if(trackLike) {
+            trackLike.src = '/static/img/LikePressed.svg';
+        }
+    }
+
+    public trackLike(songId: number): void {
+        let img = document.querySelector(`[data-track="${songId}"]`) as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+        const footer = this.components.get('footer') as PlayerComponent;
+        let playerimg = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        playerimg.src = '/static/img/LikePressed.svg';
+        let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+        mobileimg.src = '/static/img/LikePressed.svg';
+    }
+
+    public albumLike(): void {
+        const album = this.components.get('album') as AlbumComponent;
+        let img = album.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+    }
+
+    public artistLike(): void {
+        const artist = this.components.get('artist') as ArtistComponent;
+        let img = artist.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/LikePressed.svg';
+    }
+
+    public playlistLike(): void {
+        const playlist = this.components.get('playlist') as PlaylistComponent;
+        let img = playlist.querySelector('.big-like-btn__like') as HTMLImageElement;
         img.src = '/static/img/LikePressed.svg';
     }
 
@@ -224,7 +433,42 @@ class MainView extends IView {
      * @return {void}
      */
     public dislike(): void {
-        let img = this.footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        let img = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
+        let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+        mobileimg.src = '/static/img/Like.svg';
+        const trackLike: HTMLImageElement | null = document.querySelector(`[data-track="${footer.currentSong.Id}"]`);
+        if(trackLike) {
+            trackLike.src = '/static/img/Like.svg';
+        }
+    }
+
+    public trackDislike(songId: number): void {
+        const footer = this.components.get('footer') as PlayerComponent;
+        let playerimg = footer.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+        playerimg.src = '/static/img/Like.svg';
+        let mobileimg = footer.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+        mobileimg.src = '/static/img/Like.svg';
+        let img = document.querySelector(`[data-track="${songId}"]`) as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
+    }
+
+    public albumDislike(): void {
+        const album = this.components.get('album') as AlbumComponent;
+        let img = album.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
+    }
+
+    public artistDislike(): void {
+        const artist = this.components.get('artist') as ArtistComponent;
+        let img = artist.querySelector('.big-like-btn__like') as HTMLImageElement;
+        img.src = '/static/img/Like.svg';
+    }
+
+    public playlistDislike(): void {
+        const playlist = this.components.get('playlist') as PlaylistComponent;
+        let img = playlist.querySelector('.big-like-btn__like') as HTMLImageElement;
         img.src = '/static/img/Like.svg';
     }
 
@@ -234,7 +478,13 @@ class MainView extends IView {
      * @return {void} 
      */    
     public bindEvents(): void {
-        this.footer.bindEvents();
+        const footer = this.components.get('footer') as PlayerComponent;
+        footer.bindEvents();
+    }
+
+    public bindSearchEvents(): void {
+        const header = this.components.get('hedaer') as HeaderComponent;
+        header.bindSearchEvents();
     }
 
     /**
@@ -243,7 +493,8 @@ class MainView extends IView {
      * @return {void}
      */
     public loop(): void {
-        const img = this.footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img = footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
         img.src = '/static/img/RepeatActive.svg';
     }
 
@@ -253,7 +504,8 @@ class MainView extends IView {
      * @return {void} 
      */
     public unloop(): void {
-        const img = this.footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img = footer.querySelector('[data-section="loopBtn"]') as HTMLImageElement;
         img.src = '/static/img/Repeat.svg';
     }
 
@@ -263,7 +515,8 @@ class MainView extends IView {
      * @return {void}
      */
     public shuffle(): void {
-        const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img = footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
         img.src = '/static/img/RandomActive.svg';
     }
 
@@ -273,7 +526,8 @@ class MainView extends IView {
      * @return {void} 
      */
     public unshuffle(): void {
-        const img = this.footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const img = footer.querySelector('[data-section="shuffleBtn"]') as HTMLImageElement;
         img.src = '/static/img/Random.svg';
     }
 
@@ -283,20 +537,153 @@ class MainView extends IView {
      * @return {void}
      */
     public volume(): void {
-        const audio = this.footer.querySelector('audio')! as HTMLAudioElement;
+        const footer = this.components.get('footer') as PlayerComponent;
+        const audio = footer.querySelector('audio')! as HTMLAudioElement;
         if (audio.muted) {
-            const img =  this.footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
+            const img =  footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
             img.src = '/static/img/SoundOn.svg';
-            const volume = this.footer.querySelector('.volume-bar') as HTMLInputElement;
+            const volume = footer.querySelector('.volume-bar') as HTMLInputElement;
             volume.value = (audio.volume * 100).toString();
             audio.muted = false;
         } else {
-            const img =  this.footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
+            const img = footer.querySelector('[data-section="volumeBtn"]')! as HTMLImageElement;
             img.src = '/static/img/SoundOff.svg';
-            const volume = this.footer.querySelector('.volume-bar') as HTMLInputElement;
+            const volume = footer.querySelector('.volume-bar') as HTMLInputElement;
             volume.value = '0';
             audio.muted = true;
         }
+    }
+
+    public searchResults(playlists: Array<Playlist>, tracks: Array<Song>, artists: Array<Artist>, albums: Array<Album> ): void {
+        const header = this.components.get('header')! as HeaderComponent;
+        header.searchResults(playlists, tracks, artists, albums);
+    }
+
+    /**
+     * Fills the content of the function with the specified user.
+     *
+     * @param {User} user - The user to fill the content with.
+     * @return {void}
+     */  
+    public fillProfile(user: User): void {
+        const header = this.components.get('header')! as HeaderComponent;
+        header.User = user;
+        const profile = this.components.get('profile')! as ProfileComponent;
+        profile.User = user;
+    }
+
+
+    /**
+     * Binds a submit event listener to the form element within the profile element.
+     *
+     * @param {Callback} listener - The callback function to be executed when the submit event is triggered.
+     * @return {void}
+     */
+    public bindSubmitEvent(listener: Callback): void {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        profile.querySelector('form')!.addEventListener('submit', listener);
+    }
+
+    /**
+     * Binds an upload event listener to the 'change' event of the file input element in the profile section.
+     *
+     * @param {Callback} listener - The callback function to be executed when the 'change' event is triggered.
+     * @return {void} 
+     */
+    public bindUploadEvent(listener: Callback): void {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        profile.querySelector('[data-section="fileInput"]')?.addEventListener('change', listener);
+    }
+
+    /**
+     * Retrieves data from a form.
+     *
+     * @return {{email: string, username: string, birthdate: string}} The data from the form.
+     */
+    public getDataFromForm(): {email: string, username: string, birthdate: string} {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        const emailInput = profile.querySelector('[data-section="email"]') as HTMLInputElement;
+        const birthdateInput = profile.querySelector('[data-section="birthdate"]') as HTMLInputElement;
+        const usernameInput = profile.querySelector('[data-section="username"]') as HTMLInputElement;
+        return {email: emailInput.value!, username: usernameInput.value!, birthdate: birthdateInput.value!};
+    }
+
+    public getDataFromPlaylistForm(): {name: string, id: number} {
+        const playlist = this.components.get('playlist')! as PlaylistComponent;
+        const nameInput = playlist.querySelector('[data-section="playlistName"]') as HTMLInputElement;
+        return {name: nameInput.value, id: parseInt(nameInput.getAttribute('data-id')!)};
+    }
+
+    /**
+     * 
+     * Retrieves the avatar file from the form.
+     * 
+     * @return {File} The avatar file selected in the form.
+     */
+    public getAvatarFromForm(): File {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        const avatarInput = profile.querySelector('[data-section="fileInput"]') as HTMLInputElement;
+        return avatarInput.files![0];
+    }
+
+    public getAvatarFromPlaylistForm(): File {
+        const playlist = this.components.get('playlist')! as ProfileComponent;
+        const avatarInput = playlist.querySelector('[data-section="fileInput"]') as HTMLInputElement;
+        return avatarInput.files![0];
+    }
+    
+    /**
+     * Renders an error message based on the given error.
+     *
+     * @param {string} err - The error message.
+     * @return {void}
+     */
+    public renderError(err: string): void {
+        const profile = this.components.get('profile')! as ProfileComponent;
+        const playlist = this.components.get('playlist')! as PlaylistComponent;
+        switch (err) {
+            case 'bad request':
+                profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                profile.querySelector('[data-section="passcheck"]').textContent = 'Некорретное имя пользователя или email!';
+                return;
+            case 'ok':
+                profile.querySelector('[data-section="username"]').className = 'auth-input';
+                profile.querySelector('[data-section="email"]').className = 'auth-input';
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__disabled';
+                return;
+            case 'not an image':
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                profile.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
+                profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
+                return;
+            case 'not an image playlist':
+                playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                playlist.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
+                return;
+            case 'no spaces': 
+                playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                playlist.querySelector('[data-section="passcheck"]').textContent = 'Название плейлиста может быть только без пробелов. Извините!';
+                return;
+        }
+    }
+
+    public listen(callback: Callback): void {
+        this.totalListningTime += Date.now() - this.currentListningTime;
+        const player = this.components.get('footer')! as PlayerComponent;
+        callback(this.totalListningTime / 1000, player.currentSong.Id);
+    }
+
+    public getActiveGenres(): Array<OnboardGenre> {
+        const onboardGenres = this.components.get('onboardGenres')! as GenresOnboardComponent;
+        return onboardGenres.getActives();
+    }
+
+    public getActiveArtists(): Array<OnboardArtist> {
+        const onboardArtists = this.components.get('onboardArtists')! as ArtistsOnboardComponent;
+        return onboardArtists.getActives();
     }
 }
 

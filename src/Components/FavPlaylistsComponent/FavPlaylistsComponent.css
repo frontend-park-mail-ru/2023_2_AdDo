@@ -1,0 +1,29 @@
+.favPlaylists__create {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    right: 0;
+    position: absolute;
+    border: 2px solid white;
+    width: fit-content;
+    padding: 10px;
+    top: 0;
+    border-radius: 25px;
+    margin-top: 10px;
+    margin-left: 10px;
+    &__text {
+        cursor: pointer;
+    }
+    &__img {
+        margin-top: 5px;
+        cursor: pointer;
+    }
+}
+
+.favPlaylists {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    padding: 0px;
+    position: relative;
+    margin-bottom: 20vh;
+}

@@ -1,5 +1,6 @@
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
+import formatDate from '../../Modules/lib/FormatDate';
 import { User } from '../../types';
 import IComponent from '../IComponent/IComponent';
 import template from './ProfileComponentTemplate.hbs';
@@ -13,7 +14,7 @@ export class ProfileComponent extends IComponent {
 	 * @param {HTMLElement} parent - The parent element.
 	 */
 	constructor(parent: HTMLElement) {
-		super(parent, template({ port: hosts.s3HOST }));
+		super(parent, template({ port: hosts.s3HOST, Date: formatDate(new Date()) }));
 
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
@@ -46,9 +47,10 @@ export class ProfileComponent extends IComponent {
 	 * @return {void} 
 	 */
 	public renderProfile(): void {
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST });
+		if (this.isMounted) {
+			this.parent.innerHTML = '';
+			this.parent.innerHTML = template({ user: this.user, port: hosts.s3HOST, Date: formatDate(new Date()) });
+		}
+		
 	}
-
-
 }

@@ -3,7 +3,7 @@
     "target": "es2021",
     "module": "ESNext", 
     "moduleResolution": "node10",                   
-    "types": ["handlebars"],                            
+    "types": ["handlebars", "./node_modules/user-agent-data-types"],                            
     "allowJs": true,
     "sourceMap": true,                          
     "outDir": "./dist/",                             

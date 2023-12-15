@@ -1,0 +1,92 @@
+<div>
+    <div class="collection">
+    <div class="big-text collection__title">Коллекция</div>
+    <ul class="collection__list">
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/tracks" data-section="innerlink" data-url="/collection/tracks">
+                Треки
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/albums" data-section="innerlink" data-url="/collection/albums">
+                Альбомы
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/playlists" data-section="innerlink" data-url="/collection/playlists">
+                Плейлисты
+            </a>
+        </li>
+        <li class="collection-list__item">
+            <a class="collection-list__item__name" href="/collection/artists" data-section="innerlink" data-url="/collection/artists">
+                Исполнители
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="favPlaylists">
+    <div class="big-text artist__title">Плейлисты</div>
+    <div class="favPlaylists__create" data-section="createPlaylist" data-url="/create_playlist">
+        <div><img class="favPlaylists__create__img" src="/static/img/plus.svg" data-section="createPlaylist" data-url="/create_playlist"></div>
+        <div class="favPlaylists__create__text medium-text" data-section="createPlaylist" data-url="/create_playlist">Создать</div>
+    </div>
+    <h1>Любимые плейлисты</h1>
+    <ul class="albumlist">
+        {{#if LikedPlaylists}}
+            {{#each LikedPlaylists}}
+                <li class="albumlist__item">
+                    <div class="albumlist__image-container">
+                        {{#if this.Preview}}
+                        <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}" src="{{../port}}{{this.Preview}}" alt="">
+                        {{else}}
+                        <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}" src="/static/img/worm.webp" alt="">
+                        {{/if}}
+                        <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playlistPlayButton"
+                            data-url="{{this.Id}}"></div>
+                    </div>
+                    <a href="/playlist/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
+                        data-id="{{this.Id}}" data-url="/playlist/{{this.Id}}">
+                        {{this.Name}}
+                    </a>
+                    <a href="/artist/{{this.ArtistId}}" class="small-text albumlist-item__name" data-section="link"
+                        data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
+                        {{this.ArtistName}}
+                    </a>
+                </li>
+            {{/each}}
+        {{else}}
+            <h1>Добавьте любимые плейлисты</h1>
+        {{/if}}
+    </ul>
+    <h1>Созданные плейлисты</h1>
+    <ul class="albumlist" style="padding-bottom: 15vh;">
+        {{#if UserPlaylists}}
+            {{#each UserPlaylists}}
+                <li class="albumlist__item">
+                    <div class="albumlist__image-container">
+                        {{#if this.Preview}}
+                        <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}"
+                            src="{{../port}}{{this.Preview}}" alt="">
+                        {{else}}
+                        <img class="albumlist__photo" data-section="link" data-url="/playlist/{{this.Id}}" data-id="{{this.Id}}"
+                            src="/static/img/worm.webp" alt="">
+                        {{/if}}
+                        <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playlistPlayButton"
+                            data-url="{{this.Id}}"></div>
+                    </div>
+                    <a href="/playlist/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
+                        data-id="{{this.Id}}" data-url="/playlist/{{this.Id}}">
+                        {{this.Name}}
+                    </a>
+                    <a href="/artist/{{this.ArtistId}}" class="small-text albumlist-item__name" data-section="link"
+                        data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
+                        {{this.ArtistName}}
+                    </a>
+                </li>
+            {{/each}}
+        {{else}}
+            <h1>Создайте плейлисты</h1>
+        {{/if}}
+    </ul>
+</div>
+</div>
