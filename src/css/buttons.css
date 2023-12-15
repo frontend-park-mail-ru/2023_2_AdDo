@@ -1,6 +1,5 @@
 .submit-big-button {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     border: none; 
     outline: none;
     display: flex;
@@ -153,17 +152,17 @@
 .big-like-btn {
     border-radius: 35px;
     background: transparent;
-    border: 2px solid white;
+    border: 1px solid white;
     display: flex;
     width: fit-content;
     height: 50px;
     align-items: center;
     padding-right: 10px;
-    gap: 15px;
+    gap: 5px;
     padding-left: 10px;
     cursor: pointer;
     &__like {
-        margin-top: 10px;
+        margin-top: 5px;
         width: 35px;
         height: 25px;
         cursor: pointer;
