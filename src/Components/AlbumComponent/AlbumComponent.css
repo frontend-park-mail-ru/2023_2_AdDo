@@ -13,13 +13,14 @@
         
     }
     &__share-btn {
-        border: 2px solid white;
-        padding: 5px;
+        border: 1px solid white;
+        padding-left: 5px;
+        padding-top: 5px;
         align-items: center;
         display: flex;
         border-radius: 50px;
         cursor: pointer;
-        size: 45px;
+        size: 40px;
     }
     &__share {
         display: flex;

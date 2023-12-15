@@ -19,7 +19,7 @@
     padding: 0px;
     display: flex;
     grid-area: rest;
-    gap: 15px;
+    gap: 20px;
   }
   &__item {
     font-size: 24px;
@@ -79,10 +79,9 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  margin-left: 10px;
   &__avatar {
     border-radius: 50px;
-    size: 70px;
+    size: 60px;
     cursor: pointer;
     object-fit: cover;
   }
