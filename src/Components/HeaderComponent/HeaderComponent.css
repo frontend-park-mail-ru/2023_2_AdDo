@@ -19,7 +19,7 @@
     padding: 0px;
     display: flex;
     grid-area: rest;
-    gap: 100px;
+    gap: 20px;
   }
   &__item {
     font-size: 24px;
