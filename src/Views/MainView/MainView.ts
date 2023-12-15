@@ -303,6 +303,45 @@ class MainView extends IView {
         footer.resumeSong();
         this.currentListningTime = Date.now();
     }
+
+    /**
+     * Resumes playback of the audio.
+     *
+     * @return {void}
+     */
+    public waveResume(): void {
+        const footer = this.components.get('footer') as PlayerComponent;
+        const feed = this.components.get('feed') as FeedComponent;
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/pauseBtn.webp';
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Pause.svg';
+        const waveImg: HTMLImageElement = feed.querySelector('[data-section="myWavePlayButton"]') as HTMLImageElement;
+        waveImg.src = '/static/img/Pause.svg';
+        footer.resumeSong();
+        this.currentListningTime = Date.now();
+    }
+
+    /**
+     * Resumes playback of the audio.
+     *
+     * @return {void}
+     */
+    public wavePause(): void {
+        const footer = this.components.get('footer') as PlayerComponent;
+        const feed = this.components.get('feed') as FeedComponent;
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/playButton.webp';
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Play.svg';
+        const waveImg: HTMLImageElement = feed.querySelector('[data-section="myWavePlayButton"]') as HTMLImageElement;
+        waveImg.src = '/static/img/Play.svg';
+        footer.pauseSong();
+		this.currentListningTime = Date.now() - this.currentListningTime;
+		this.totalListningTime += this.currentListningTime;
+    }
+
+
     /**
      * Pauses the audio player and updates the play button image.
      * 

@@ -208,13 +208,20 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'myWavePlayButton':
                 e.preventDefault();
-                this.songId = 0;
-                this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
-                if(this.model.ContentModel.isSocketConnected){
-                    this.model.ContentModel.requestSocketTracks();
+                if(this.model.ContentModel.isSocketConnected) {
+                    if(this.Playing) {
+                        this.view.wavePause();
+                        this.Playing = false
+                    }  else {
+                        this.view.waveResume();
+                        this.Playing = true
+                    }
+                } else {
+                    this.songId = 0;
+                    this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+                    this.Playing = true;
+                    this.isActive = true;
                 }
-                this.Playing = true;
-                this.isActive = true;
                 return;
             case 'link':
                 e.preventDefault();
