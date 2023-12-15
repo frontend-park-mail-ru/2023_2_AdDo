@@ -211,14 +211,15 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 if(this.model.ContentModel.isSocketConnected) {
                     if(this.Playing) {
                         this.view.wavePause();
-                        this.Playing = false
+                        this.Playing = false;
                     }  else {
                         this.view.waveResume();
-                        this.Playing = true
+                        this.Playing = true;
                     }
                 } else {
                     this.songId = 0;
                     this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+                    this.view.waveResume();
                     this.Playing = true;
                     this.isActive = true;
                 }
