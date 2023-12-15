@@ -15,7 +15,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: normal;
     cursor: pointer;
 }
@@ -30,6 +30,17 @@
     transform: translateY(2px);
 }
 
+@media screen and (min-width: 768px) {
+    .submit-big-button {
+        width: 368px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .submit-big-button {
+        width: 65vw;
+    }
+}
 
 .default-button {
     border: none; 

@@ -47,11 +47,12 @@
 .logo {
   display: contents;
   &__photo {
-    size: 80px;
+    size: 90px;
+    margin-bottom: 10px;
     cursor: pointer;
   }
   &__text {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-right: 10px;
     padding-left: 10px;
     color: #fff;
