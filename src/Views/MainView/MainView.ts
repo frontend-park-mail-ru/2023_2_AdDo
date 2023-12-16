@@ -330,6 +330,19 @@ class MainView extends IView {
      *
      * @return {void}
      */
+    public waveResumePhoto(): void {
+        const feed = this.components.get('feed') as FeedComponent;
+        const waveImg: HTMLImageElement = feed.querySelector('.feed__my-wave__img') as HTMLImageElement;
+        if(waveImg) {
+            waveImg.src = '/static/img/Pause.svg';
+        }
+    }
+
+    /**
+     * Resumes playback of the audio.
+     *
+     * @return {void}
+     */
     public wavePause(): void {
         const footer = this.components.get('footer') as PlayerComponent;
         const feed = this.components.get('feed') as FeedComponent;

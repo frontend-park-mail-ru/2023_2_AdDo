@@ -219,7 +219,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     }
                 } else {
                     this.songId = 0;
-                    this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser(), this.view.waveResume.bind(this.view));
+                    this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser(), this.view.waveResumePhoto.bind(this.view));
                     this.Playing = true;
                     this.isActive = true;
                 }
