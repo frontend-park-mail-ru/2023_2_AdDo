@@ -645,7 +645,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         const selectedFile = target.files![0];
         if (selectedFile && selectedFile.type.startsWith('image/') && !selectedFile.type.startsWith('image/gif')) {
             const img: HTMLImageElement = document.querySelector('.info__photo')!
-            img.src = URL.createObjectURL(selectedFile);
+            img.src = '/' + URL.createObjectURL(selectedFile);
         } else {
             if(!(selectedFile === undefined)) {
                 this.view.renderError('not an image');
