@@ -647,7 +647,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             const img: HTMLImageElement = document.querySelector('.info__photo')!
             const reader = new FileReader();
             reader.onload = () => {
-                img.src = '/' + reader.result as string;
+                img.src =  reader.result as string;
             }
             reader.readAsDataURL(selectedFile); 
             //img.src = URL.createObjectURL(selectedFile);
