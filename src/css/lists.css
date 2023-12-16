@@ -194,6 +194,13 @@
         justify-content: center;
     }
     &__item {
+        &__auth {
+            gap: 20px;
+            vertical-align: middle;
+            margin: 15px;
+            display: flex;
+            flex-direction: column;
+        }
         vertical-align: middle;
         margin: 15px;
         align-items: center;

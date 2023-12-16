@@ -333,6 +333,7 @@ class MainView extends IView {
     public waveResumePhoto(): void {
         const feed = this.components.get('feed') as FeedComponent;
         const waveImg: HTMLImageElement = feed.querySelector('.feed__my-wave__img') as HTMLImageElement;
+        feed.isWavePlaying = true;
         if(waveImg) {
             waveImg.src = '/static/img/Pause.svg';
         }
