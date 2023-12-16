@@ -871,7 +871,6 @@ export default class ContentModel extends IModel {
                 this.isLiked(callback, songId, user);
                 this.isWaveStarted = true;
             }
-            resumeCallback();
         }
     }
 
