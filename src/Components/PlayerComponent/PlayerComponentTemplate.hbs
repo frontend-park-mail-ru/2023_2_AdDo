@@ -22,7 +22,7 @@
 
             <div>
                 {{#if song.Preview}}
-                <img class="avatar" src="{{port}}{{song.Preview}}" alt="">
+                <img class="avatar" src="{{port}}{{song.Preview}}" alt="" data-section="player">
                 {{else}}
                 <img class="avatar" src="/static/img/grey.png" alt="">
                 {{/if}}
@@ -32,7 +32,7 @@
                 <a href="/artist/{{song.ArtistId}}" class="artistname small-text" data-section="link"
                     data-url="/artist/{{song.ArtistId}}" data-Id="{{song.ArtistId}}">{{song.ArtistName}}</a>
             </div>
-            {{#if song.isLiked}}
+            {{#if song.IsLiked}}
             <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/LikePressed.svg"
                     alt="">
             </div>

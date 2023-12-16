@@ -260,11 +260,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'playBtn':
                 if (this.isActive) {
                     if(this.Playing) {
+                        this.model.ContentModel.isSocketConnected ? this.view.wavePause() : this.view.pause();
                         this.Playing = false;
-                        this.view.pause();
                     } else {
+                        this.model.ContentModel.isSocketConnected ? this.view.waveResume() : this.view.resume();
                         this.Playing = true;
-                        this.view.resume();
                     }
                 }
                 return;
