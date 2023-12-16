@@ -85,7 +85,7 @@ export class FeedComponent extends IComponent {
 			this.parent.innerHTML = '';
 			this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.Content, user: this.user});
 			if(this.isWavePlaying) {
-				const img = this.element.querySelector('.feed__my-wave__img')! as HTMLImageElement;
+				const img = document.querySelector('.feed__my-wave__img')! as HTMLImageElement;
 				img.src = '/static/img/Pause.svg';
 			}
 		}

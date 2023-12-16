@@ -342,6 +342,7 @@ class MainView extends IView {
             waveImg.src = '/static/img/Play.svg';
         }
         footer.pauseSong();
+        feed.isWavePlaying = false;
 		this.currentListningTime = Date.now() - this.currentListningTime;
 		this.totalListningTime += this.currentListningTime;
     }
