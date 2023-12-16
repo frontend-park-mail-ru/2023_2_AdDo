@@ -9,6 +9,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 export class FeedComponent extends IComponent {
 	private content: Array<Album> = [];
 	private user: User | null = null;
+	public isWavePlaying: boolean = false;
 	/**
 	 * Constructor for the class.
 	 *
@@ -83,6 +84,10 @@ export class FeedComponent extends IComponent {
 		if(this.isMounted) {
 			this.parent.innerHTML = '';
 			this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.Content, user: this.user});
+			if(this.isWavePlaying) {
+				const img = this.element.querySelector('.feed__my-wave__img')! as HTMLImageElement;
+				img.src = '/static/img/Pause.svg';
+			}
 		}
 	}
 }

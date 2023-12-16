@@ -317,7 +317,10 @@ class MainView extends IView {
         const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Pause.svg';
         const waveImg: HTMLImageElement = feed.querySelector('.feed__my-wave__img') as HTMLImageElement;
-        waveImg.src = '/static/img/Pause.svg';
+        if(waveImg) {
+            waveImg.src = '/static/img/Pause.svg';
+        }
+        feed.isWavePlaying = true;
         footer.resumeSong();
         this.currentListningTime = Date.now();
     }
@@ -335,7 +338,9 @@ class MainView extends IView {
         const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
         img.src = '/static/img/Play.svg';
         const waveImg: HTMLImageElement = feed.querySelector('.feed__my-wave__img') as HTMLImageElement;
-        waveImg.src = '/static/img/Play.svg';
+        if(waveImg) {
+            waveImg.src = '/static/img/Play.svg';
+        }
         footer.pauseSong();
 		this.currentListningTime = Date.now() - this.currentListningTime;
 		this.totalListningTime += this.currentListningTime;
