@@ -456,6 +456,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
         }
         this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+        this.Playing = true;
+        return;
     }
     
     /**
@@ -467,6 +469,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.view.listen(this.model.ContentModel.listenCount.bind(this.model.ContentModel));
         this.songId <= 0 ? this.songId = 0 : this.songId--;
         this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+        this.Playing = true;
         return;
     }
 
