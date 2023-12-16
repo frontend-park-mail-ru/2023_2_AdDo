@@ -420,9 +420,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
                 EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-mobile-player-track-share'});
                 return;
-            default:
-                EventDispatcher.emit('close-all-options');
-                break;
         }
     }
 
