@@ -81,6 +81,22 @@ export class AlbumComponent extends IComponent {
 				}, 2000);
 			}
 		});
+		EventDispatcher.subscribe('close-all-options', () => {
+			if(this.isMounted) {
+				const alloptions = document.querySelectorAll('.options')! as NodeListOf<HTMLElement>;
+				const mobilePlayerOptions = document.querySelectorAll('.mobile-player__options')! as NodeListOf<HTMLElement>;
+				const playerOptions = document.querySelectorAll('.player__options')! as NodeListOf<HTMLElement>;
+				alloptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+				mobilePlayerOptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+				playerOptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+			}
+		});
 	}
 
 

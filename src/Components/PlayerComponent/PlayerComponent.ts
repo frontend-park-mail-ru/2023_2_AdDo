@@ -172,6 +172,8 @@ export class PlayerComponent extends IComponent {
 		this.setSong(song, isLiked);
 		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
+		const player = this.element.querySelector('.player')! as HTMLElement;
+		player.style.display = 'block';
 		this.syncPlayerState(audio.currentTime);
 	}
 
@@ -180,6 +182,7 @@ export class PlayerComponent extends IComponent {
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
 		const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
 		img.src = hosts.s3HOST + song.Preview;
+		img.setAttribute('data-section', 'player');
 		mobileImg.src = hosts.s3HOST + song.Preview;
 		const like = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
 		const mobileLike = this.querySelector('[data-section="mobileLikeBtn"]')! as HTMLImageElement;

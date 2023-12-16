@@ -2,6 +2,7 @@
   background-color: #222129;
   position: absolute;
   width: 75%;
+  height: 120px;
   min-width: 800px;
   &__container {
     display: inline-flex;
@@ -239,12 +240,14 @@
         font-size: 40px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
+        text-align: center;
     }
     &__artist {
         color: #c2c0c0;
         font-size: 30px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 400;
+        text-align: center;
     }
   }
 }
