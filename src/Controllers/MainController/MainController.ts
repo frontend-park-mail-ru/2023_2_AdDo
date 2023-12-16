@@ -219,8 +219,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     }
                 } else {
                     this.songId = 0;
-                    this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
-                    this.view.waveResume();
+                    this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser(), this.view.waveResume.bind(this.view));
                     this.Playing = true;
                     this.isActive = true;
                 }
@@ -648,7 +647,9 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             const img: HTMLImageElement = document.querySelector('.info__photo')!
             img.src = URL.createObjectURL(selectedFile);
         } else {
-            this.view.renderError('not an image');
+            if(!(selectedFile === undefined)) {
+                this.view.renderError('not an image');
+            }
         }
     }
 

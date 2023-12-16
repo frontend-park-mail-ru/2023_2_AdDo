@@ -853,7 +853,7 @@ export default class ContentModel extends IModel {
         });
     }
 
-    public openSocket(callback: Callback, songId: number, user: User | null = null): void {
+    public openSocket(callback: Callback, songId: number, user: User | null = null, resumeCallback: Callback): void {
         this.socket = new WebSocket('wss://musicon.space' + '/api/v1/wave');
         this.socket.onopen = () => {
             console.log('connected');
@@ -871,6 +871,7 @@ export default class ContentModel extends IModel {
                 this.isLiked(callback, songId, user);
                 this.isWaveStarted = true;
             }
+            resumeCallback();
         }
     }
 

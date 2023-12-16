@@ -80,7 +80,9 @@ export class FeedComponent extends IComponent {
 	 * @return {void} 
 	 */
 	public renderContent(): void {
-		this.parent.innerHTML = '';
-		this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.Content, user: this.user});
+		if(this.isMounted) {
+			this.parent.innerHTML = '';
+			this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.Content, user: this.user});
+		}
 	}
 }

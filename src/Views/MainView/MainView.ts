@@ -695,8 +695,6 @@ class MainView extends IView {
             case 'not an image':
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 profile.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
-                profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
-                profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 return;
             case 'not an image playlist':
                 playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
