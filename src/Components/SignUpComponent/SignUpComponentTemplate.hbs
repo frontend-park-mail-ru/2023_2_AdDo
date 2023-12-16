@@ -11,11 +11,13 @@
         <form method="post">
             {{#each SignUpConfig}}
                 <li class="authlist__item">
+                    <div class="medium-text">{{this.text}}</div>
                     <input class="auth-input" type="{{this.type}}" data-section="{{this.name}}" placeholder="{{this.text}}"
                         required>
                 </li>
             {{/each}}
             <li class="authlist__item">
+                <div class="medium-text">Дата рождения</div>
                 <input class="auth-input" type="date" data-section="date" placeholder="" min="1901-01-01" max="{{Date}}"
                         required>
             </li>

@@ -399,7 +399,7 @@ export class PlayerComponent extends IComponent {
 	}
 
 	public userChanged(user: User): void {
-		if (user !== null) {
+		if (user === null) {
 			const audio = this.element.querySelector('audio') as HTMLAudioElement;
 			audio.src = '';
 			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
@@ -416,23 +416,23 @@ export class PlayerComponent extends IComponent {
 			this.element.querySelector('.title')!.textContent = '';
 			this.element.querySelector('.mobile-player__info__name')!.textContent = '';
 			this.element.querySelector('.mobile-player__info__artist')!.textContent = '';
-		} else {
-			const audio = this.element.querySelector('audio') as HTMLAudioElement;
-			audio.src = '';
-			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
-			const mobilelike = this.element.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
-			like.src = '/static/img/Like.svg';
-			like.classList.add('disabled');
-			mobilelike.src = '/static/img/Like.svg';
-			mobilelike.classList.add('disabled');
-			const img = this.element.querySelector('.avatar') as HTMLImageElement;
-			const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
-			img.src = '/static/img/grey.png';
-			mobileImg.src = '/static/img/violet.png';
-			this.element.querySelector('.artistname')!.textContent = '';
-			this.element.querySelector('.title')!.textContent = '';
-			this.element.querySelector('.mobile-player__info__name')!.textContent = '';
-			this.element.querySelector('.mobile-player__info__artist')!.textContent = '';
+		// } else {
+		// 	const audio = this.element.querySelector('audio') as HTMLAudioElement;
+		// 	audio.src = '';
+		// 	const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+		// 	const mobilelike = this.element.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+		// 	like.src = '/static/img/Like.svg';
+		// 	like.classList.add('disabled');
+		// 	mobilelike.src = '/static/img/Like.svg';
+		// 	mobilelike.classList.add('disabled');
+		// 	const img = this.element.querySelector('.avatar') as HTMLImageElement;
+		// 	const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
+		// 	img.src = '/static/img/grey.png';
+		// 	mobileImg.src = '/static/img/violet.png';
+		// 	this.element.querySelector('.artistname')!.textContent = '';
+		// 	this.element.querySelector('.title')!.textContent = '';
+		// 	this.element.querySelector('.mobile-player__info__name')!.textContent = '';
+		// 	this.element.querySelector('.mobile-player__info__artist')!.textContent = '';
 		}
 	}
 }

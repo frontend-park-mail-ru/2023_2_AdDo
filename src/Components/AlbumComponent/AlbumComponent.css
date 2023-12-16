@@ -43,6 +43,7 @@
     display: none;
     grid-gap: 10px;
     gap: 10px;
+    border: 1px solid white;
     max-width: 200px;
     background: #0D0B18;
     position: absolute;

@@ -53,6 +53,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('enter-search', (url: string) => {
             router.goToPage(url);
         });
+        
     }
 
     /**
@@ -420,6 +421,12 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
                 EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-mobile-player-track-share'});
                 return;
+            case 'updateUser':
+                this.handleSubmit(e);
+                return;
+            default:
+                EventDispatcher.emit('close-all-options');
+                break;
         }
     }
 
@@ -646,7 +653,6 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
     }
 
     public bindProfileEvents(): void {
-        this.view.bindSubmitEvent(this.handleSubmit.bind(this));
         this.view.bindUploadEvent(this.handleUpload.bind(this));
     }
 

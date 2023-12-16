@@ -278,6 +278,7 @@
   padding: 10px;
   border-radius: 10px;
   z-index: 1;
+  border: 1px solid white;
   bottom: 110px;
     &__avaliablePlaylists {
         display: none;
