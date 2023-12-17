@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
-    margin-bottom: 20vh;
+    margin-bottom: 14vh;
     &__item {
         list-style-type: none;
         width: 200px;
