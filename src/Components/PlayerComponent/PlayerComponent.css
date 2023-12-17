@@ -362,16 +362,7 @@
 }
 }
 
-#output {
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 100px;
-  text-align: center;
-  width: 80vw;
-  color: #676767;
-  font-size: 45px;
-}
+
 
 .karaoke {
   display: none;
@@ -379,4 +370,50 @@
   align-items: center;
   background-color: #0D0B18;
   height: 100vh;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  z-index: 20000;
+  &__output {
+    &__item {
+      font-family: 'Lato', sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 65px;
+      text-align: center;
+      width: 65vw;
+      color: #676767;
+      font-size: 35px;
+      transition: opacity 0.5s ease-in-out;
+      &__main {
+        font-size: 55px;
+      font-weight: bold;
+      color: white;
+      transition: opacity 0.5s ease-in-out;
+      }
+    }
+  }
+}
+
+
+/* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
+@media screen and (min-width: 767px) {
+  .karaoke {
+    bottom: 85px;
+    &__output {
+      line-height: 65px;
+    }
+  }
+
+}
+
+
+/* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+@media screen and (max-width: 767px) {
+  .karaoke {
+    bottom: 110px;
+    &__output {
+      line-height: 65px;
+    }
+  }
 }

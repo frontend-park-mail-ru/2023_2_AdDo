@@ -518,32 +518,38 @@ export class PlayerComponent extends IComponent {
 	public printDynamicText(text: string) {
         const lines = text.split('\n');
         this.printInitialText(lines);
-        lines.forEach((line, index) => {
+        lines.forEach((line: string, index: number) => {
             const delay = this.getTimeInSeconds(line);
-
+			const mainIndex = index;
             setTimeout(() => {
-                let outputLines = this.outputElement!.innerHTML.split('<br>');
+                let outputLines = this.outputElement!.innerHTML.split('<div>');
                 outputLines.shift();
-                outputLines[0] = `<span style="font-size: 75px; font-weight: bold; color: white">${outputLines[0]}</span>`;
 
-                if (index + this.nextLinesCount >= lines.length) {
-                    outputLines.push('');
-                } else {
-                    outputLines.push(this.getText(lines[index + this.nextLinesCount]));
-                }
-                this.outputElement!.innerHTML = outputLines.join('<br>');
+				const firstLine = this.element.querySelector('.output__item__main')! as HTMLElement;
+				this.changeTextSmoothly(firstLine, outputLines[0]);
+				// firstLine.textContent = outputLines[0];
+
+				const initialLines = this.element.querySelectorAll('.output__item')! as NodeListOf<HTMLElement>;
+				initialLines.forEach((line: HTMLElement, index: number) => {
+					index === 2 
+					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '') : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount]))
+					: this.changeTextSmoothly(line, outputLines[index + 1]);
+					//line.textContent = outputLines[index + 1];
+					//line.textContent = this.getText(lines[mainIndex + this.nextLinesCount])
+				});
             }, delay * 1000);
         });
     }
 
     public printInitialText(lines: string[]) {
-        const initialFirstLine = '...';
-        let initialLines = [initialFirstLine];
+		const initialFirstLine = this.element.querySelector('.output__item__main')! as HTMLElement;
+		initialFirstLine.textContent = '...';
 
-        lines.slice(0, this.nextLinesCount).forEach((line: string) => {
-            initialLines.push(this.getText(line));
-        });
-        this.outputElement!.innerHTML = initialLines.join('<br>');
+		const initialLines = this.element.querySelectorAll('.output__item')! as NodeListOf<HTMLElement>;
+		initialLines.forEach((line: HTMLElement, index: number) => {
+			line.textContent = this.getText(lines[index]);
+		});
+
     }
 
     public getText(line: string) {
@@ -564,5 +570,13 @@ export class PlayerComponent extends IComponent {
             return minutes * 60 + seconds;
         }
         return 0;
+    }
+
+	public changeTextSmoothly(element: HTMLElement, newText: string) {
+        element.style.opacity = '0'; // Устанавливаем нулевую непрозрачность
+        setTimeout(function() {
+            element.textContent = newText; // Изменяем текст
+            element.style.opacity = '1'; // Устанавливаем полную непрозрачность
+        }, 500); // Задержка в миллисекундах, соответствующая времени анимации (0.5 секунды в данном случае)
     }
 }
