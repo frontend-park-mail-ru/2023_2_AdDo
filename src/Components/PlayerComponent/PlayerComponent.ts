@@ -534,12 +534,12 @@ export class PlayerComponent extends IComponent {
 					return;
 				}
 				const firstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
-				this.changeTextSmoothly(firstLine, this.element.querySelector('.karaoke__output__item')!.textContent!);
+				this.changeTextSmoothly(firstLine, this.element.querySelector('.karaoke__output__item')!.textContent!, 150);
 				const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
 				initialLines.forEach((line: HTMLElement, index: number) => {
 					index === 2 
-					? mainIndex + this.nextLinesCount >= lines.length ? line.textContent = '' : line.textContent = this.getText(lines[mainIndex + this.nextLinesCount])
-					: line.textContent = initialLines[index + 1]!.textContent!;
+					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '', 50) : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount]), 50)
+					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!, 50);
 				});
             }, delay * 1000);
         });
@@ -576,11 +576,11 @@ export class PlayerComponent extends IComponent {
         return 0;
     }
 
-	public changeTextSmoothly(element: HTMLElement, newText: string) {
+	public changeTextSmoothly(element: HTMLElement, newText: string, time: number) {
         element.style.opacity = '0'; // Устанавливаем нулевую непрозрачность
         setTimeout(function() {
             element.textContent = newText; // Изменяем текст
             element.style.opacity = '1'; // Устанавливаем полную непрозрачность
-        }, 200); // Задержка в миллисекундах, соответствующая времени анимации (0.5 секунды в данном случае)
+        }, time); // Задержка в миллисекундах, соответствующая времени анимации (0.5 секунды в данном случае)
     }
 }

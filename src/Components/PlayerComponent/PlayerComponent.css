@@ -102,6 +102,9 @@
   .volume-bar {
     display: block;
   }
+  .text-btn {
+    display: block;
+  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -125,6 +128,9 @@
   }
   .footer {
     height: 100px;  
+  }
+  .text-btn {
+    display: none;
   }
 }
 
@@ -155,6 +161,9 @@
     display: none;
   }
   .volume-bar {
+    display: none;
+  }
+  .text-btn {
     display: none;
   }
 }
@@ -386,13 +395,14 @@
       width: 65vw;
       color: #676767;
       font-size: 35px;
+      transition: opacity 0.05s ease-in-out;
       &__main {
           font-size: 55px;
           width: 65vw;
           font-weight: bold;
           text-align: center;
           color: white;
-          transition: opacity 0.2s ease-in-out;
+          transition: opacity 0.15s ease-in-out;
       }
     }
   }
@@ -418,5 +428,15 @@
     &__output {
       line-height: 65px;
     }
+  }
+}
+
+
+@keyframes karaokeAnimation {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+      transform: translateY(0);
   }
 }
