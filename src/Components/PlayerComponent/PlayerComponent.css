@@ -361,3 +361,22 @@
         color: #C15DF3;
 }
 }
+
+#output {
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 100px;
+  text-align: center;
+  width: 80vw;
+  color: #676767;
+  font-size: 45px;
+}
+
+.karaoke {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #0D0B18;
+  height: 100vh;
+}

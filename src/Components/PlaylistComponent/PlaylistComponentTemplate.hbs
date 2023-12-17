@@ -31,7 +31,7 @@
                     {{/if}}
                     <input type="file" name="file" data-section="fileInput">
                 </label>
-                <div class="info album__info" style="display: grid; gap: 25px;">
+                <div class="info album__info" style="display: grid; gap: 25px; width: min-content;">
                     <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
                     <div class="album__info__buttons" style="display: flex; gap: 25px; justify-content: right;">
                         <button class="default-button" style="width: fit-content;" data-id="{{Playlist.Id}}" data-section="deletePlaylist">Удалить</button>

@@ -213,9 +213,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     if(this.Playing) {
                         this.view.wavePause();
                         this.Playing = false;
+                        EventDispatcher.emit('pause-text');
                     }  else {
                         this.view.waveResume();
                         this.Playing = true;
+                        EventDispatcher.emit('resume-text');
                     }
                 } else {
                     this.songId = 0;
@@ -262,9 +264,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                     if(this.Playing) {
                         this.model.ContentModel.isSocketConnected ? this.view.wavePause() : this.view.pause();
                         this.Playing = false;
+                        EventDispatcher.emit('pause-text');
                     } else {
                         this.model.ContentModel.isSocketConnected ? this.view.waveResume() : this.view.resume();
                         this.Playing = true;
+                        EventDispatcher.emit('resume-text');
                     }
                 }
                 return;
@@ -422,6 +426,12 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'updateUser':
                 this.handleSubmit(e);
+                return;
+            case 'textBtn':
+                EventDispatcher.emit('show-text');
+                return;
+            case 'closeText':
+                EventDispatcher.emit('close-text');
                 return;
             default:
                 EventDispatcher.emit('close-all-options');

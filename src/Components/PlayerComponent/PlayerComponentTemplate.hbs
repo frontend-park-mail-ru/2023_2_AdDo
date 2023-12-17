@@ -1,5 +1,13 @@
 <div class="footer">
     <div class="player" data-section="player" style="display: none;">
+        <div class="karaoke">
+            <div class="close-btn"><img data-section="closeText" src="/static/img/arrowDown.svg" alt=""></div>
+            <div id="output">
+                фывфывфцвфцвфцвфцвфцвфывф
+                фывфывфывфывфыв
+                фывфывфывф
+            </div>
+        </div>
         <audio preload="meta" src=""></audio>
         <div class="progress-bar">
             <div class="progress-bar__progress"></div>
@@ -19,7 +27,6 @@
             <div class="{{this.key}}"><img class="player-btns" data-section="{{this.key}}" src="{{this.href}}" alt="">
             </div>
             {{/each}}
-
             <div>
                 {{#if song.Preview}}
                 <img class="avatar" src="{{port}}{{song.Preview}}" alt="" data-section="player">
@@ -55,6 +62,9 @@
                         data-player-list="{{song.Id}}">
                     </div>
                 </div>
+            </div>
+            <div class="text-btn"><img class="player-btns" data-section="textBtn" src="/static/img/Text.svg"
+                    alt="">
             </div>
             <div class="volume-btn"><img class="player-btns" data-section="volumeBtn" src="/static/img/SoundOn.svg"
                     alt="">
@@ -122,10 +132,9 @@
             <div class="mobile-player__controls__like"><img class="mobile-player__like-img disabled" data-section="mobileLikeBtn"
                     src="/static/img/Like.svg" alt=""></div>
         </div>
-        {{!-- <div class="mobile-player__volume-bar">
-            <div><img class="mobile-player__volume-img" src="/static/img/SoundOff.svg" alt=""></div>
-            <input class="mobile-player__volume" type="range" min="0" max="100" value="0" step="1">
-            <div><img class="mobile-player__volume-img" src="/static/img/SoundOn.svg" alt=""></div>
-        </div> --}}
+        <div class="mobile-player__controls__text"><img class="mobile-player__text-img" data-section="textBtn"
+                    src="/static/img/Text.svg" alt=""></div>
     </div>
+
+
 </div>

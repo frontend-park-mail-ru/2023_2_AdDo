@@ -8,10 +8,11 @@ import { debounce } from '../../Modules/lib/Debounce';
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
-	public currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 };
+	public currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0, Text: '' };
 	private cardShown : boolean = false;
 	public channel: BroadcastChannel;
-	private syncDebounced: (currenttime: number) => void = () => {};
+	public outputElement: HTMLElement | null = null;
+	public nextLinesCount: number = 4;
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -20,7 +21,7 @@ export class PlayerComponent extends IComponent {
 	 * @param {boolean} Playing - The initial playing state.
 	 */
 	constructor(parent: HTMLElement, isMobile: boolean = false,
-		song: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 },
+		song: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0, Text: '' },
 		Playing: boolean = false) {
 		super(parent, template({ PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, isMobile}));
 		const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
@@ -32,11 +33,10 @@ export class PlayerComponent extends IComponent {
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
-		this.syncDebounced = debounce(this.syncPlayerState.bind(this), 50);
 		this.channel.addEventListener('message', event => {
 			if (event.data.type === 'playerSync' && event.source !== self) {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
-				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked}, event.data.isLiked);
+				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked, Text: event.data.Text}, event.data.isLiked);
 				audio.currentTime = event.data.currentTime;
 				audio.pause();
 				const mobileImg: HTMLImageElement = this.element.querySelector('.mobile-player__playbutton') as HTMLImageElement;
@@ -145,6 +145,20 @@ export class PlayerComponent extends IComponent {
 				copied.style.display = 'none';
 			}, 2000);
 		});
+		EventDispatcher.subscribe('show-text', () => {
+			const karaoke = document.querySelector('.karaoke')! as HTMLElement;
+			karaoke.style.display = 'flex';
+		});
+		EventDispatcher.subscribe('close-text', () => {
+			const karaoke = document.querySelector('.karaoke')! as HTMLElement;
+			karaoke.style.display = 'none';
+		});
+		EventDispatcher.subscribe('pause-text', () => {
+			// todo
+		});
+		EventDispatcher.subscribe('resume-text', () => {
+			//todo
+		});
 	}
 
 	// Синхронизация состояния музыкального плеера между вкладками
@@ -159,6 +173,7 @@ export class PlayerComponent extends IComponent {
 			ArtistId: this.currentSong.ArtistId,
 			Id: this.currentSong.Id,
 			Preview: this.currentSong.Preview,
+			Text: this.currentSong.Text,
 		});
 	}
 
@@ -219,6 +234,7 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="mobilePlayerTrackShare"]')!.setAttribute('data-id', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayerTrackShareCopied"]')!.setAttribute('data-mobile-player-track-share', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		this.printDynamicText(song.Text);
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
 		if (!audio.muted) {
@@ -425,4 +441,55 @@ export class PlayerComponent extends IComponent {
 			mobilelike.classList.remove('disabled');
 		}
 	}
+
+	public printDynamicText(text: string) {
+        const lines = text.split('\n');
+        this.printInitialText(lines);
+        lines.forEach((line, index) => {
+            const delay = this.getTimeInSeconds(line);
+
+            setTimeout(() => {
+                let outputLines = this.outputElement!.innerHTML.split('<br>');
+                outputLines.shift();
+                outputLines[0] = `<span style="font-size: 75px; font-weight: bold; color: white">${outputLines[0]}</span>`;
+
+                if (index + this.nextLinesCount >= lines.length) {
+                    outputLines.push('');
+                } else {
+                    outputLines.push(this.getText(lines[index + this.nextLinesCount]));
+                }
+                this.outputElement!.innerHTML = outputLines.join('<br>');
+            }, delay * 1000);
+        });
+    }
+
+    public printInitialText(lines: string[]) {
+        const initialFirstLine = '...';
+        let initialLines = [initialFirstLine];
+
+        lines.slice(0, this.nextLinesCount).forEach((line: string) => {
+            initialLines.push(this.getText(line));
+        });
+        this.outputElement!.innerHTML = initialLines.join('<br>');
+    }
+
+    public getText(line: string) {
+        const regex = /\[(\d+:\d+\.\d+)\]\s(.+)/;
+        const match = line.match(regex);
+        if (match) {
+            return match[2];
+        }
+        return '';
+    }
+
+    public getTimeInSeconds(line: string) {
+        const regex = /(\d+):(\d+\.\d+)/;
+        const match = line.match(regex);
+        if (match) {
+            const minutes = parseInt(match[1]);
+            const seconds = parseFloat(match[2]);
+            return minutes * 60 + seconds;
+        }
+        return 0;
+    }
 }
