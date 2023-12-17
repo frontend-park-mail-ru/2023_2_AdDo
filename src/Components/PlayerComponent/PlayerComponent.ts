@@ -6,6 +6,77 @@ import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import { debounce } from '../../Modules/lib/Debounce';
 
+const songText = `[00:01.06] Too late for the other side
+[00:06.31] Caught in a chase, 25 to life
+[00:13.07] Too late for the other side
+[00:18.13] Caught in a chase, 25 to life (yeah, yeah)
+[00:25.08] Too late (I can't keep chasing you)
+[00:29.41] (I'm taking my life back) Caught in a chase, 25 to life
+[00:35.94] I don't think she understands the sacrifices that I've made
+[00:39.12] Maybe if this bitch had acted right I woulda stayed
+[00:41.71] But I've already wasted over half my life, I woulda laid
+[00:44.96] Down and died for you, I no longer cry for you, no more pain
+[00:47.96] Bitch, you took me for granted, took my heart and ran it straight into the planet
+[00:51.95] Into the dirt, I can no longer stand it, now my respect, I demand it
+[00:55.31] I'ma take control of this relationship, command it
+[00:57.97] And I'ma be the boss of you now, goddamn it
+[00:59.92] And what I mean is that I will no longer let you control me
+[01:03.19] So you better hear me out, this much you owe me
+[01:05.63] I gave up my life for you, totally devoted to you, I have stayed
+[01:08.82] Faithful all the way, this is how I fucking get repaid?
+[01:11.97] Look at how I dress, fucking baggy sweats, go to work a mess
+[01:15.39] Always in a rush to get back to you, I ain't heard you yet
+[01:18.20] Not even once say you appreciate me, I deserve respect
+[01:21.31] I've done my best to give you nothin' less than perfectness
+[01:24.22] And I know that if I end this I'll no longer have nothin' left
+[01:27.12] But you keep treatin' me like a staircase, it's time to fuck step
+[01:30.40] And I won't be comin' back, so don't hold your fuck breath
+[01:33.49] You know what you've done, no need to go in-depth
+[01:35.56] I told you, you'd be sorry if I fucking left, I laughed while you wept
+[01:38.86] How's it feel now? Yeah, funny, ain't it? You neglected me
+[01:42.44] Did me a favor though, my spirit free you've set
+[01:44.81] But a special place for you in my heart I have kept
+[01:47.57] It's unfortunate, but it's
+[01:48.81] Too late for the other side (yeah, yeah)
+[01:54.32] Caught in a chase, 25 to life
+[01:58.74] (Can't take no more, can't take no more)
+[02:01.04] Too late for the other side
+[02:06.21] Caught in a chase, 25 to life
+[02:11.55] I feel like when I bend over backwards (too late), for you, all you do is laugh
+[02:14.99] 'Cause that ain't good enough, you expect me to fold myself in half 'til I snap
+[02:18.74] Don't think I'm loyal, all I do is rap
+[02:20.76] How can I moonlight on the side? I have no life outside of that
+[02:23.75] Don't I give you enough of my time? You don't think so, do you?
+[02:27.00] Jealous when I spend time with the girls, why I'm married to you still?
+[02:30.22] Man, I don't know, but tonight I'm serving you with papers
+[02:32.86] I'm divorcing you, go marry someone else and make 'em famous
+[02:36.18] And take away their freedom like you did to me
+[02:38.55] Treat 'em like you don't need 'em, and they ain't worthy of you
+[02:41.47] Feed 'em the same shit that you made me eat, I'm moving on, forget you
+[02:44.80] Oh, now I'm special? I ain't feel special when I was with you
+[02:47.97] All I ever felt was this helplessness, imprisoned by a selfish bitch
+[02:52.03] Chew me up and spit me out, I fell for this
+[02:54.10] So many times it's ridiculous and still I stick with this, I'm sick of this
+[02:57.57] But in my sickness and addiction, you're addictive as they get
+[03:00.55] Evil as they come, vindictive as they make 'em
+[03:03.32] My friends keep askin' me why I can't just walk away from
+[03:05.90] I'm addicted to the pain, the stress, the drama, I'm drawn to
+[03:09.25] I guess I'm a mess, cursed and blessed, but this time I
+[03:12.41] Ain't changin' my mind, I'm climbin' out this abyss
+[03:15.17] You're screamin' as I walk out that I'll be missed
+[03:17.21] But when you spoke of people who meant the most to you
+[03:19.66] You left me off your list
+[03:20.88] Fuck you hip hop, I'm leavin' you, my life sentence is served bitch
+[03:24.29] And it's just
+[03:24.87] Too late for the other side
+[03:30.30] Caught in a chase, 25 to life (I'm gone, man)
+[03:37.03] Too late for the other side
+[03:42.31] Caught in a chase, 25 to life
+[03:49.01] Too late
+[03:51.98] 
+[03:54.18] Caught in a chase, 25 to life
+[03:57.89] `;
+
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
 	public currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0, Text: '' };
@@ -234,7 +305,8 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="mobilePlayerTrackShare"]')!.setAttribute('data-id', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayerTrackShareCopied"]')!.setAttribute('data-mobile-player-track-share', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
-		this.printDynamicText(song.Text);
+		// this.printDynamicText(song.Text);
+		this.printDynamicText(songText);
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
 		if (!audio.muted) {
