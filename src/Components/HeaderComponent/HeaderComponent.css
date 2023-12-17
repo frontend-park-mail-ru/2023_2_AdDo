@@ -49,11 +49,10 @@
   display: contents;
   &__photo {
     size: 90px;
-    margin-bottom: 10px;
     cursor: pointer;
   }
   &__text {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     padding-right: 10px;
     padding-left: 10px;
     color: #fff;

@@ -114,10 +114,11 @@
 
 .info {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     align-items: center;
     &__photo {
         border-radius: 15px;
+        margin-bottom: 10px;
         size: 190px;
         object-fit: cover;
     }
