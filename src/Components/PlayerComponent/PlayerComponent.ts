@@ -522,11 +522,11 @@ export class PlayerComponent extends IComponent {
             const delay = this.getTimeInSeconds(line);
 			const mainIndex = index;
             setTimeout(() => {
-				const firstLine = this.element.querySelector('.output__item__main')! as HTMLElement;
-				this.changeTextSmoothly(firstLine, this.element.querySelector('.output__item__main')!.textContent!);
+				const firstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
+				this.changeTextSmoothly(firstLine, this.element.querySelector('.karaoke__output__item__main')!.textContent!);
 				// firstLine.textContent = outputLines[0];
 
-				const initialLines = this.element.querySelectorAll('.output__item')! as NodeListOf<HTMLElement>;
+				const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
 				initialLines.forEach((line: HTMLElement, index: number) => {
 					index === 2 
 					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '') : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount]))
@@ -539,10 +539,10 @@ export class PlayerComponent extends IComponent {
     }
 
     public printInitialText(lines: string[]) {
-		const initialFirstLine = this.element.querySelector('.output__item__main')! as HTMLElement;
+		const initialFirstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
 		initialFirstLine.textContent = '...';
 
-		const initialLines = this.element.querySelectorAll('.output__item')! as NodeListOf<HTMLElement>;
+		const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
 		initialLines.forEach((line: HTMLElement, index: number) => {
 			line.textContent = this.getText(lines[index]);
 		});
