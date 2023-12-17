@@ -171,7 +171,7 @@
   height: 100vh;
   position: fixed;
   top: 0;
-  gap: 60px;
+  gap: 50px;
   transition: transform 0.3s ease-in-out;
   &__controls {
     display: flex;
@@ -180,9 +180,8 @@
     gap: 50px;
   }
   &__photo {
-    width: 380px;
-    height: 380px;
-    margin: 10px;
+    width: 440px;
+    height: 440px;
     border-radius: 15px;
   }
   &__playbutton {
@@ -237,14 +236,14 @@
   &__info {
     &__name {
         color: #FFF;
-        font-size: 40px;
+        font-size: 35px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
         text-align: center;
     }
     &__artist {
         color: #c2c0c0;
-        font-size: 30px;
+        font-size: 25px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 400;
         text-align: center;
