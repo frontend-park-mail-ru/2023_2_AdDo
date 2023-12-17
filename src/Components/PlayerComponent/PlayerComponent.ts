@@ -84,6 +84,7 @@ export class PlayerComponent extends IComponent {
 	public channel: BroadcastChannel;
 	public outputElement: HTMLElement | null = null;
 	public nextLinesCount: number = 4;
+	public isRunning: boolean = false;
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -220,10 +221,12 @@ export class PlayerComponent extends IComponent {
 		EventDispatcher.subscribe('show-text', () => {
 			const karaoke = document.querySelector('.karaoke')! as HTMLElement;
 			karaoke.style.display = 'flex';
+			document.body.style.overflow = 'hidden';
 		});
 		EventDispatcher.subscribe('close-text', () => {
 			const karaoke = document.querySelector('.karaoke')! as HTMLElement;
 			karaoke.style.display = 'none';
+			document.body.style.overflow = 'visible';
 		});
 		EventDispatcher.subscribe('pause-text', () => {
 			// todo
@@ -261,6 +264,7 @@ export class PlayerComponent extends IComponent {
 		audio.play();
 		const player = this.element.querySelector('.player')! as HTMLElement;
 		player.style.display = 'block';
+		this.isRunning = true;
 		this.syncPlayerState(audio.currentTime);
 	}
 
@@ -329,6 +333,7 @@ export class PlayerComponent extends IComponent {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
 		this.syncPlayerState(audio.currentTime);
+		this.isRunning = true;
 	}
 	/**
 	 * Pauses the currently playing song.
@@ -338,6 +343,7 @@ export class PlayerComponent extends IComponent {
 	public pauseSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.pause();
+		this.isRunning = false;
 		this.syncPlayerState(audio.currentTime);
 	}
 
@@ -441,6 +447,7 @@ export class PlayerComponent extends IComponent {
 			case 'closeBtn':
 				this.cardShown = false;
 				mobilePlayer.style.display = 'none';
+				document.body.style.overflow = 'visible';
 				break;
 			case 'closeButton':
 				EventDispatcher.emit('mobile-player-show-options', target.getAttribute('data-id')!);
@@ -449,6 +456,7 @@ export class PlayerComponent extends IComponent {
 				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 					this.cardShown = true;
 					mobilePlayer.style.display = 'flex';
+					document.body.style.overflow = 'hidden';
 				}
 				break;
 		}
@@ -522,17 +530,16 @@ export class PlayerComponent extends IComponent {
             const delay = this.getTimeInSeconds(line);
 			const mainIndex = index;
             setTimeout(() => {
+				if (!this.isRunning) {
+					return;
+				}
 				const firstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
-				this.changeTextSmoothly(firstLine, this.element.querySelector('.karaoke__output__item__main')!.textContent!);
-				// firstLine.textContent = outputLines[0];
-
+				this.changeTextSmoothly(firstLine, this.element.querySelector('.karaoke__output__item')!.textContent!);
 				const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
 				initialLines.forEach((line: HTMLElement, index: number) => {
 					index === 2 
 					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '') : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount]))
 					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!);
-					//line.textContent = outputLines[index + 1];
-					//line.textContent = this.getText(lines[mainIndex + this.nextLinesCount])
 				});
             }, delay * 1000);
         });

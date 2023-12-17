@@ -388,10 +388,11 @@
       font-size: 35px;
       transition: opacity 0.5s ease-in-out;
       &__main {
-        font-size: 55px;
-      font-weight: bold;
-      color: white;
-      transition: opacity 0.5s ease-in-out;
+          font-size: 55px;
+          font-weight: bold;
+          text-align: center;
+          color: white;
+          transition: opacity 0.5s ease-in-out;
       }
     }
   }
