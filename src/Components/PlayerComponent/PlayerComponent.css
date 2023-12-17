@@ -256,6 +256,7 @@
   position: absolute;
   top: 5%;
   left: 5%;
+  cursor: pointer;
 }
 
 .footer {
@@ -346,6 +347,7 @@
   position: absolute;
   top: 25px;
   left: 5%;
+  cursor: pointer;
 }
 
 .mobile-options__avaliablePlaylists {

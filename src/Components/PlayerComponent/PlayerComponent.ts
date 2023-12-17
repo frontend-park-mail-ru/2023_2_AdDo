@@ -522,18 +522,15 @@ export class PlayerComponent extends IComponent {
             const delay = this.getTimeInSeconds(line);
 			const mainIndex = index;
             setTimeout(() => {
-                let outputLines = this.outputElement!.innerHTML.split('<div>');
-                outputLines.shift();
-
 				const firstLine = this.element.querySelector('.output__item__main')! as HTMLElement;
-				this.changeTextSmoothly(firstLine, outputLines[0]);
+				this.changeTextSmoothly(firstLine, this.element.querySelector('.output__item__main')!.textContent!);
 				// firstLine.textContent = outputLines[0];
 
 				const initialLines = this.element.querySelectorAll('.output__item')! as NodeListOf<HTMLElement>;
 				initialLines.forEach((line: HTMLElement, index: number) => {
 					index === 2 
 					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '') : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount]))
-					: this.changeTextSmoothly(line, outputLines[index + 1]);
+					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!);
 					//line.textContent = outputLines[index + 1];
 					//line.textContent = this.getText(lines[mainIndex + this.nextLinesCount])
 				});
