@@ -538,8 +538,8 @@ export class PlayerComponent extends IComponent {
 				const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
 				initialLines.forEach((line: HTMLElement, index: number) => {
 					index === 2 
-					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '') : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount]))
-					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!);
+					? mainIndex + this.nextLinesCount >= lines.length ? line.textContent = '' : line.textContent = this.getText(lines[mainIndex + this.nextLinesCount])
+					: line.textContent = initialLines[index + 1]!.textContent!;
 				});
             }, delay * 1000);
         });
@@ -581,6 +581,6 @@ export class PlayerComponent extends IComponent {
         setTimeout(function() {
             element.textContent = newText; // Изменяем текст
             element.style.opacity = '1'; // Устанавливаем полную непрозрачность
-        }, 500); // Задержка в миллисекундах, соответствующая времени анимации (0.5 секунды в данном случае)
+        }, 200); // Задержка в миллисекундах, соответствующая времени анимации (0.5 секунды в данном случае)
     }
 }

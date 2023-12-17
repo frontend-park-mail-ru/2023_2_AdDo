@@ -386,13 +386,13 @@
       width: 65vw;
       color: #676767;
       font-size: 35px;
-      transition: opacity 0.5s ease-in-out;
       &__main {
           font-size: 55px;
+          width: 65vw;
           font-weight: bold;
           text-align: center;
           color: white;
-          transition: opacity 0.5s ease-in-out;
+          transition: opacity 0.2s ease-in-out;
       }
     }
   }
