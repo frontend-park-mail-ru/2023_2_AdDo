@@ -75,7 +75,9 @@ export class PlaylistComponent extends IComponent {
 					added.style.display = 'none';
 				}, 2000);
 				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
-				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+				setTimeout(() => {
+					options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+				}, 2000);
 			}	
 		});
 		EventDispatcher.subscribe('copied-to-clipboard', ({id, type} : { id: string, type: string }) => {
