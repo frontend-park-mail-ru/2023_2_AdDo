@@ -161,7 +161,7 @@ export class PlayerComponent extends IComponent {
 				});
 			}
 		});
-		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
+		EventDispatcher.subscribe('player-add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
 			if(this.isMounted) {
 				const added = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
 				added.style.display = 'flex';
