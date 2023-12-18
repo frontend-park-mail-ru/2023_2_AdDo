@@ -161,9 +161,16 @@ export class PlayerComponent extends IComponent {
 				});
 			}
 		});
-		EventDispatcher.subscribe('player-add-track-to-playlist', (id: string) => {
-			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
-			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
+			if(this.isMounted) {
+				const added = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+				added.style.display = 'flex';
+				setTimeout(() => {
+					added.style.display = 'none';
+				}, 2000);
+				const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
+				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}	
 		});
 		EventDispatcher.subscribe('mobile-player-show-options', (id: string) => {
 			const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
@@ -207,9 +214,16 @@ export class PlayerComponent extends IComponent {
 				});
 			}
 		});
-		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', (id: string) => {
-			const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
-			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
+			if(this.isMounted) {
+				const added = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+				added.style.display = 'flex';
+				setTimeout(() => {
+					added.style.display = 'none';
+				}, 2000);
+				const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
+				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}	
 		});
 		EventDispatcher.subscribe('copied-to-clipboard', ({id, type} : { id: string, type: string }) => {
 			const copied = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;

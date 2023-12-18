@@ -74,6 +74,7 @@
                         <div class="medium-text options__add-to-playlist" data-section="deleteTrackFromPlaylist" data-id="{{this.Id}}" data-playlist-id="{{../Playlist.Id}}">Удалить из плейлиста</div>
                     {{else}}
                         <div class="medium-text options__add-to-playlist" data-section="showAvaliblePlaylists" data-id="{{this.Id}}">Добавить в плейлист</div>
+                        <div class="medium-text options__share__added" add-track-to-playlist="{{this.Id}}" style="color: black;">Трек добавлен в плейлист</div>
                         <div class="options__avaliablePlaylists" style="display: none;" data-list="{{this.Id}}">
                         </div>
                     {{/if}}

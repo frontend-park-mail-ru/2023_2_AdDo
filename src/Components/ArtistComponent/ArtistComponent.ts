@@ -84,8 +84,13 @@ export class ArtistComponent extends IComponent {
 				
 			}
 		});
-		EventDispatcher.subscribe('add-track-to-playlist', (id: string) => {
+		EventDispatcher.subscribe('add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
 			if(this.isMounted) {
+				const added = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+				added.style.display = 'flex';
+				setTimeout(() => {
+					added.style.display = 'none';
+				}, 2000);
 				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
 				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
 			}	
