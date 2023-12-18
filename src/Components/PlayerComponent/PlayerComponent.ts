@@ -319,6 +319,8 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="playerTrackShareCopied"]')!.setAttribute('data-player-track-share', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayerTrackShare"]')!.setAttribute('data-id', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayerTrackShareCopied"]')!.setAttribute('data-mobile-player-track-share', song.Id.toString());
+		this.element.querySelector('[data-section="playertrackAdded"]')!.setAttribute('player-add-track-to-playlist', song.Id.toString());
+		this.element.querySelector('[data-section="mobilePlayertrackAdded"]')!.setAttribute('mobile-player-add-track-to-playlist', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		// this.printDynamicText(song.Text);
 		this.printDynamicText(songText);
