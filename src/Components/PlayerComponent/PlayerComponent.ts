@@ -220,7 +220,7 @@ export class PlayerComponent extends IComponent {
 		});
 		EventDispatcher.subscribe('show-text', () => {
 			const karaoke = document.querySelector('.karaoke')! as HTMLElement;
-			karaoke.style.display = 'flex';
+			karaoke.style.display === 'none' ? karaoke.style.display = 'flex' : karaoke.style.display = 'none';
 			document.body.style.overflow = 'hidden';
 		});
 		EventDispatcher.subscribe('close-text', () => {
