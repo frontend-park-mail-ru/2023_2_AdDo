@@ -831,7 +831,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/genres', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                callback(responseBody);
+                callback(responseBody.Genres);
                 return;
             }
         })
@@ -844,7 +844,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                callback(responseBody);
+                callback(responseBody.Artists);
                 return;
             }
         })

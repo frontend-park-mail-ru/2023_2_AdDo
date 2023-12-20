@@ -40,15 +40,15 @@ self.addEventListener('activate', event => {
 self.addEventListener('message', event => {
 	if (event.data.type === 'playerSync') {
 	  self.clients.matchAll().then(clients => {
-		clients.forEach(client => {
+			clients.forEach(client => {
 		  client.postMessage({
-			type: 'playerSync',
-			currentTime: event.data.currentTime,
-			isPlaying: event.data.isPlaying,
+					type: 'playerSync',
+					currentTime: event.data.currentTime,
+					isPlaying: event.data.isPlaying,
 		  });
-		});
+			});
 	  });
 	}
-  });
+});
 
 workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);

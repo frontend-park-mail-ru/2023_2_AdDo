@@ -43,7 +43,7 @@ class UserModel extends IModel {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/login',
             { 'Content-Type': 'application/json', },
-            { email, password },
+            { Email: email, Password: password },
         )
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
@@ -78,7 +78,7 @@ class UserModel extends IModel {
         username: string,
         password: string,
         birthDate: string,
-        routerCallback: Callback,
+        routerCallback: Callback,   
         errorCallback: Callback): void {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/sign_up',
