@@ -84,10 +84,15 @@
                     <div class="albumlist__playbutton albumlist__playbutton__position" data-section="playButton"
                         data-url="{{this.Id}}"></div>
                 </div>
-                <a href="/album/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
-                    data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
-                    {{this.Name}}
-                </a>
+                <div style="display: flex; gap: 10px">
+                    <a href="/album/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
+                        data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
+                        {{this.Name}}
+                    </a>
+                    {{#if this.Single}}
+                        <div class="small-text albumlist-item__single">Single</div>
+                    {{/if}}
+                </div>
             </li>
         {{/each}}
     </ul>

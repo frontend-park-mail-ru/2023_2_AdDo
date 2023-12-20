@@ -30,15 +30,7 @@ export class FeedComponent extends IComponent {
 	 * @return {Array<Album>} - The content of the object as an array of Album objects.
 	 */
 	public get Content(): Array<Album> {
-		return Object.entries(this.content).map(([key, { Id, Name, Preview, ArtistId, ArtistName, Tracks, isLiked }]) => ({
-			Id,
-			Name,
-			Preview,
-			ArtistId,
-			ArtistName,
-			Tracks,
-			isLiked
-		}));
+		return this.content;
 	}
 
 	/**
@@ -83,7 +75,7 @@ export class FeedComponent extends IComponent {
 	public renderContent(): void {
 		if(this.isMounted) {
 			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.Content, user: this.user});
+			this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.content, user: this.user});
 			if(this.isWavePlaying) {
 				const img = document.querySelector('.feed__my-wave__img')! as HTMLImageElement;
 				img.src = '/static/img/Pause.svg';

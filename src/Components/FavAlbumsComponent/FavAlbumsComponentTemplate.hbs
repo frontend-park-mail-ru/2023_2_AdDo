@@ -40,10 +40,15 @@
                         data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
                         {{this.Name}}
                     </a>
-                    <a href="/artist/{{this.ArtistId}}" class="small-text albumlist-item__name" data-section="link"
+                    <div style="display: flex; gap: 10px">
+                        <a href="/artist/{{this.ArtistId}}" class="small-text albumlist-item__name" data-section="link"
                         data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
-                        {{this.ArtistName}}
-                    </a>
+                            {{this.ArtistName}}
+                        </a>
+                        {{#if this.Single}}
+                            <div class="small-text albumlist-item__single">Single</div>
+                        {{/if}}
+                    </div>
                 </li>
             {{/each}}
         {{else}}
