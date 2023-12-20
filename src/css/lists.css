@@ -212,11 +212,13 @@
             color: #EF5858;
             visibility: visible;
             display: block;
+            max-width: 400px;
         }
         &__disabled {
             color: #EF5858;
             visibility: hidden;
             display: block;
+            max-width: 400px;
         }
     }
 }

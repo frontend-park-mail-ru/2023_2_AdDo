@@ -37,7 +37,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/feed', {})
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
-                this.albums = responseBody.slice(0);
+                this.albums = responseBody.Albums.slice(0);
                 callback(this.albums);
                 return;
 			}
@@ -148,7 +148,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/popular', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
-                this.albums = responseBody.slice(0);
+                this.albums = responseBody.Albums.slice(0);
                 callback(this.albums); 
                 return;
 			}
@@ -168,7 +168,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/most_liked', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
-                this.albums = responseBody.slice(0);
+                this.albums = responseBody.Albums.slice(0);
                 callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
                 return;
 			}
@@ -188,7 +188,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/new', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
-                this.albums = responseBody.slice(0);
+                this.albums = responseBody.Albums.slice(0);
                 callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
                 return;
 			}
@@ -583,11 +583,11 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/playlists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                this.albums = responseBody.slice(0);
+                this.albums = responseBody.Playlists.slice(0);
                 Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
-                        callback(this.albums, responseBody.slice(0)); 
+                        callback(this.albums, responseBody.Playlists.slice(0)); 
                         return;
                     }
                 })
@@ -695,7 +695,7 @@ export default class ContentModel extends IModel {
                 Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
-                        if(responseBody.find((playlist: Playlist) => playlist.Id === this.album.Id)) {
+                        if(responseBody.Playlists.find((playlist: Playlist) => playlist.Id === this.album.Id)) {
                             Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/is_like', {})
                             .then(({ status, responseBody }) => {
                                 if (status >= 200 && status < 300) {
@@ -751,7 +751,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                EventDispatcher.emit(type, {id, playlists: responseBody});
+                EventDispatcher.emit(type, {id, playlists: responseBody.Playlists});
                 return;
             }
             if (status === 401) {

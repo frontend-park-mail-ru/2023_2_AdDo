@@ -83,7 +83,7 @@ class UserModel extends IModel {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/sign_up',
             { 'Content-Type': 'application/json', },
-            { email, username, password, birthDate },
+            { Email: email, Username: username , Password: password, BirthDate: birthDate },
         )
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
@@ -192,7 +192,7 @@ class UserModel extends IModel {
     public updateUser(user: User, errorCallback: Callback) {
         this.setCurrentUser(user);
         Ajax.put(hosts.HOST + hosts.PORT + '/api/v1/update_info', {'Content-Type': 'application/json',},
-        {email: user.email, username: user.username, birthdate: user.birthdate})
+        {Email: user.email, Username: user.username, BirthDate: user.birthdate})
             .then(({ ok, status, responseBody }) => {
                 if (status >= 200 && status < 300) {
                     errorCallback('ok');
