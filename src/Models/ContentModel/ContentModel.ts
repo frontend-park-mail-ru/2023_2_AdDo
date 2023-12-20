@@ -38,9 +38,9 @@ export default class ContentModel extends IModel {
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.Albums.slice(0);
-                this.albums.forEach((album: Album) => {
-                    album.Tracks.length === 1 ? album.Single = true : album.Single = false;
-                });
+                // this.albums.forEach((album: Album) => {
+                //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
+                // });
                 callback(this.albums);
                 return;
 			}
@@ -118,9 +118,9 @@ export default class ContentModel extends IModel {
 			if (status === 200) {
                 this.artist = responseBody;
                 this.songs = this.artist.Tracks.slice(0);
-                this.artist.Albums.forEach((album: Album) => {
-                    album.Tracks.length === 1 ? album.Single = true : album.Single = false;
-                });
+                // this.artist.Albums.forEach((album: Album) => {
+                //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
+                // });
                 Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artist/' + artistId + '/is_like', {})
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
@@ -155,9 +155,9 @@ export default class ContentModel extends IModel {
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.Albums.slice(0);
-                this.albums.forEach((album: Album) => {
-                    album.Tracks.length === 1 ? album.Single = true : album.Single = false;
-                });
+                // this.albums.forEach((album: Album) => {
+                //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
+                // });
                 callback(this.albums); 
                 return;
 			}
@@ -178,9 +178,9 @@ export default class ContentModel extends IModel {
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.Albums.slice(0);
-                this.albums.forEach((album: Album) => {
-                    album.Tracks.length === 1 ? album.Single = true : album.Single = false;
-                });
+                // this.albums.forEach((album: Album) => {
+                //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
+                // });
                 callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
                 return;
 			}
@@ -201,9 +201,9 @@ export default class ContentModel extends IModel {
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.albums = responseBody.Albums.slice(0);
-                this.albums.forEach((album: Album) => {
-                    album.Tracks.length === 1 ? album.Single = true : album.Single = false;
-                });
+                // this.albums.forEach((album: Album) => {
+                //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
+                // });
                 callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
                 return;
 			}
@@ -570,9 +570,9 @@ export default class ContentModel extends IModel {
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
                 this.albums = responseBody.Albums.slice(0);
-                this.albums.forEach((album: Album) => {
-                    album.Tracks.length === 1 ? album.Single = true : album.Single = false;
-                });
+                // this.albums.forEach((album: Album) => {
+                //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
+                // });
                 callback(this.albums); 
                 return;
             }
@@ -639,9 +639,9 @@ export default class ContentModel extends IModel {
             if (status >= 200 && status < 300) {
                 const tracks: Array<Song> = responseBody.Tracks.slice(0);
                 const albums: Array<Album> = responseBody.Albums.slice(0);
-                albums.forEach((album: Album) => {
-                    album.Tracks.length === 1 ? album.Single = true : album.Single = false;
-                });
+                // albums.forEach((album: Album) => {
+                //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
+                // });
                 const artists: Array<Artist> = responseBody.Artists.slice(0);
                 const playlists: Array<Playlist> = responseBody.Playlists.slice(0);
                 callback(playlists, tracks, artists, albums);
