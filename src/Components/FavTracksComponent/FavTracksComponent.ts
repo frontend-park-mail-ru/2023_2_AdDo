@@ -15,7 +15,7 @@ export class favTracksComponent extends IComponent {
 	 * @param {Array<Song>} songs - The array of songs.
 	 */
 	constructor(parent: HTMLElement, songs: Array<Song>) {
-		super(parent, '');
+		super(parent, '<div></div>');
 		this.songs = songs;
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;

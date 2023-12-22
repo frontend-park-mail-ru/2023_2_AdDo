@@ -18,7 +18,7 @@ export class FeedComponent extends IComponent {
 	 * @param {Array<Album>} content - An array of albums. Default value is an empty array.
 	 */
 	constructor(parent: HTMLElement, content: Array<Album> = []) {
-		super(parent, '');
+		super(parent, '<div></div>');
 		this.content = content;
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
