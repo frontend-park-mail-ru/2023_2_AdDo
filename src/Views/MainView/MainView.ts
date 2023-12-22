@@ -191,9 +191,10 @@ class MainView extends IView {
      * @param {Array<Album>} content - The array of albums to set as the content of the feed.
      * @return {void} 
      */    
-    public fillContent(content: Array<Album>): void {
+    public fillContent(content: Array<Album>, title: string): void {
         const feed = this.components.get('feed') as FeedComponent;
         feed.Content = content;
+        feed.title = title;
     }
 
     /**
