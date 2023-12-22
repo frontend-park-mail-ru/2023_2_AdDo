@@ -26,6 +26,7 @@ class Router {
         if(path === this.currentUrl) {
             return;
         }
+        this.currentUrl = path;
         history.pushState({ path: path }, '', path);
         this.route();
     }
