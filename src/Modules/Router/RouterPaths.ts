@@ -24,6 +24,8 @@ const paths = {
     search: '/search\?.*/',
     onboardGenres: '/onboard/genres',
     onboardArtists: '/onboard/artists',
+    forgotPassword: '/auth/forgot_password',
+    resetPassword: '/auth/reset_password/{:token}',
 };
 
 export default paths;

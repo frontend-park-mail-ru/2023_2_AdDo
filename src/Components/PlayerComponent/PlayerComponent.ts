@@ -276,8 +276,6 @@ export class PlayerComponent extends IComponent {
 		this.setSong(song, isLiked);
 		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
-		const player = this.element.querySelector('.player')! as HTMLElement;
-		player.style.display = 'block';
 		this.isRunning = true;
 		this.syncPlayerState(audio.currentTime);
 	}
@@ -338,6 +336,8 @@ export class PlayerComponent extends IComponent {
 				audio.volume = (parseInt(volumeSlider.value) / 100);
 			}
 		}
+		const player = this.element.querySelector('.player')! as HTMLElement;
+		player.style.display = 'block';
 	}
 
 	/**
@@ -513,6 +513,8 @@ export class PlayerComponent extends IComponent {
 
 	public userChanged(user: User): void {
 		if (user === null) {
+			const player = this.element.querySelector('.player') as HTMLElement;
+			player.style.display = 'none';
 			const audio = this.element.querySelector('audio') as HTMLAudioElement;
 			audio.src = '';
 			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;

@@ -210,6 +210,11 @@ class MainView extends IView {
     public fillTrack(album: Album, id: number, isLiked: boolean): void {
         const albumComponent = this.components.get('album') as AlbumComponent;
         albumComponent.Album = album;
+    }
+
+    public fillTrackPlaying(album: Album, id: number, isLiked: boolean): void {
+        const albumComponent = this.components.get('album') as AlbumComponent;
+        albumComponent.Album = album;
         const player = this.components.get('footer') as PlayerComponent;
         const song: Song = album.Tracks.find((track) => track.Id === id)!;
         player.setSong(song, isLiked);
@@ -706,15 +711,18 @@ class MainView extends IView {
                 profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 profile.querySelector('[data-section="passcheck"]').textContent = 'Некорретное имя пользователя или email!';
+                profile.querySelector('[data-section="passcheck"]').style.color = 'red';
                 return;
             case 'ok':
                 profile.querySelector('[data-section="username"]').className = 'auth-input';
                 profile.querySelector('[data-section="email"]').className = 'auth-input';
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__disabled';
+                profile.querySelector('[data-section="passcheck"]').style.color = 'red';
                 return;
             case 'not an image':
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 profile.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
+                profile.querySelector('[data-section="passcheck"]').style.color = 'red';
                 return;
             case 'not an image playlist':
                 playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
@@ -723,6 +731,11 @@ class MainView extends IView {
             case 'no spaces': 
                 playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 playlist.querySelector('[data-section="passcheck"]').textContent = 'Название плейлиста может быть только без пробелов. Извините!';
+                return;
+            case 'user-profile-changed':
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                profile.querySelector('[data-section="passcheck"]').textContent = 'Профиль успешно обновлен';
+                profile.querySelector('[data-section="passcheck"]').style.color = 'white';
                 return;
         }
     }

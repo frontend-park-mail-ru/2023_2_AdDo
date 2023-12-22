@@ -41,7 +41,7 @@ export default class ContentModel extends IModel {
                 // this.albums.forEach((album: Album) => {
                 //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
                 // });
-                callback(this.albums);
+                callback(this.albums, 'Попробуйте новое');
                 return;
 			}
 		})
@@ -158,7 +158,7 @@ export default class ContentModel extends IModel {
                 // this.albums.forEach((album: Album) => {
                 //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
                 // });
-                callback(this.albums); 
+                callback(this.albums, 'Популярные альбомы'); 
                 return;
 			}
 		})
@@ -181,7 +181,7 @@ export default class ContentModel extends IModel {
                 // this.albums.forEach((album: Album) => {
                 //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
                 // });
-                callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
+                callback(this.albums, 'Понравилось другим'); // надо чтоб копировалось и чтобы responsebody был массивом album
                 return;
 			}
 		})
@@ -204,7 +204,7 @@ export default class ContentModel extends IModel {
                 // this.albums.forEach((album: Album) => {
                 //     album.Tracks.length === 1 ? album.Single = true : album.Single = false;
                 // });
-                callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
+                callback(this.albums, 'Новые релизы'); // надо чтоб копировалось и чтобы responsebody был массивом album
                 return;
 			}
 		})

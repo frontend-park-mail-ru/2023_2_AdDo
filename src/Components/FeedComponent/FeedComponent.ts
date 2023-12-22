@@ -10,6 +10,7 @@ export class FeedComponent extends IComponent {
 	private content: Array<Album> = [];
 	private user: User | null = null;
 	public isWavePlaying: boolean = false;
+	public title: string = '';
 	/**
 	 * Constructor for the class.
 	 *
@@ -17,7 +18,7 @@ export class FeedComponent extends IComponent {
 	 * @param {Array<Album>} content - An array of albums. Default value is an empty array.
 	 */
 	constructor(parent: HTMLElement, content: Array<Album> = []) {
-		super(parent, template({ FeedComponentConfig, content }));
+		super(parent, '');
 		this.content = content;
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
@@ -75,7 +76,7 @@ export class FeedComponent extends IComponent {
 	public renderContent(): void {
 		if(this.isMounted) {
 			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.content, user: this.user});
+			this.parent.innerHTML = template({ FeedComponentConfig, host: hosts.s3HOST, content: this.content, user: this.user, title: this.title});
 			if(this.isWavePlaying) {
 				const img = document.querySelector('.feed__my-wave__img')! as HTMLImageElement;
 				img.src = '/static/img/Pause.svg';

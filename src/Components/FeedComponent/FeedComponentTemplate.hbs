@@ -5,7 +5,7 @@
             <div class="big-text feed__my-wave__text" data-section="myWavePlayButton">Для Меня</div>
         </div>
     {{/if}}
-    <div class="big-text feed__title">Главное</div>
+    <div class="big-text feed__title">{{title}}</div>
     <ul class="feed__list">
         {{#each FeedComponentConfig}}
             <li class="feed-list__item">
@@ -15,7 +15,6 @@
             </li>
         {{/each}}
     </ul>
-    <h1 class="feed__title">Новые треки, альбомы и сборники</h1>
     <ul class="albumlist">
         {{#each content}}
             <li class="albumlist__item">
