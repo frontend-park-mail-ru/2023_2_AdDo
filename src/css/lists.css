@@ -5,7 +5,7 @@
     padding: 0px;
     gap: 50px;
     padding-bottom: 150px;
-    margin-bottom: 20vh;
+    /*margin-bottom: 20vh;*/
     &__item {
         list-style-type: none;
         width: 200px;
@@ -67,12 +67,13 @@
     display: grid;
     flex-wrap: wrap;
     padding-bottom: 100px;
-    gap: 30px;
+    gap: 10px;
     position: relative;
     &__item {
         display: flex;
         gap: 20px;
-        padding: 10px;  
+        padding: 8px;
+        align-items: center;
     }
     &__item:hover {
         background: #484848;

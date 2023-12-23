@@ -2,7 +2,7 @@
   background-color: #222129;
   position: absolute;
   width: 75%;
-  height: 120px;
+  height: 110px;
   min-width: 800px;
   &__container {
     display: inline-flex;
@@ -189,9 +189,8 @@
     gap: 50px;
   }
   &__photo {
-    width: 380px;
-    height: 380px;
-    margin: 10px;
+    width: 420px;
+    height: 420px;
     border-radius: 15px;
   }
   &__playbutton {
