@@ -193,8 +193,8 @@ class MainView extends IView {
      */    
     public fillContent(content: Array<Album>, title: string): void {
         const feed = this.components.get('feed') as FeedComponent;
-        feed.Content = content;
         feed.title = title;
+        feed.Content = content;
     }
 
     /**
