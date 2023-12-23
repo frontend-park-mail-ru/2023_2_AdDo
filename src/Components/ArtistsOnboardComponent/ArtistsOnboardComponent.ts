@@ -7,6 +7,7 @@ import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 /** Class representing a ArtistComponent. */
 export class ArtistsOnboardComponent extends IComponent {
 	private artists: Array<OnboardArtist>;
+	private picked: Array<OnboardArtist> = [];
 	/**
 	 * Create a new instance of the constructor.
 	 *
@@ -17,6 +18,7 @@ export class ArtistsOnboardComponent extends IComponent {
 		super(parent, template({ artists, port: hosts.s3HOST }));
 		this.artists = artists;
 		this.bindInputEvent(this.handleInput.bind(this));
+		this.bindClickEvent(this.handleClick.bind(this));
 	}
 
 	private handleInput(e: Event): void {
@@ -53,21 +55,11 @@ export class ArtistsOnboardComponent extends IComponent {
 		const target: HTMLElement = e.target as HTMLElement;
 		const value: string = target.getAttribute('data-section')!
 		switch (value) {
-			case 'onboardArtists':
-
+			case 'makeArtistActive':
+				this.makeActive(target);
                 return;
 		}
 	}
-
-	private getActivesArtists(): Array<OnboardArtist> {
-        const result: Array<OnboardArtist> = [];
-        const activeArtists = this.parent.querySelectorAll('.active-genre');
-		activeArtists.forEach((el) => {
-			el.getAttribute('data-id');
-			result.push(this.artists.find((artist) => artist.Id === parseInt(el.getAttribute('data-id')!))!);
-		});
-        return result;
-    }
 
     public getActives(): Array<OnboardArtist> {
         const result: Array<OnboardArtist> = [];
@@ -90,9 +82,15 @@ export class ArtistsOnboardComponent extends IComponent {
     public makeActive(el: HTMLElement): void {
         if(el.classList.contains('active-artist')) {
             el.classList.remove('active-artist');
+			this.picked.filter((artist) => artist.Id !== parseInt(el.getAttribute('data-id')!));
             return;
         }
         el.classList.add('active-artist');
+		this.picked.push({
+			Id: parseInt(el.getAttribute('data-id')!),
+			Name: el.getAttribute('data-name')!,
+			Avatar: el.getAttribute('data-src')!
+		});
     }
 
 	/**
@@ -102,14 +100,14 @@ export class ArtistsOnboardComponent extends IComponent {
 	 */
 	public renderContent(): void {
 		if (this.isMounted) {
-			const picked = this.getActivesArtists();
 			const list = this.element.querySelector('.onboard__list')! as HTMLElement;
 			list.innerHTML = '';
-			picked.forEach((artist) => {
+			this.picked.forEach((artist) => {
 				const li = document.createElement('li');
 				li.classList.add('onboard__list__item');
 				const img = document.createElement('img');
 				img.classList.add('onboard__list__item__photo');
+				img.classList.add('active-artist');
 				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
 				img.setAttribute('data-section', 'makeActive');
 				img.setAttribute('data-id', artist.Id.toString());
@@ -121,7 +119,8 @@ export class ArtistsOnboardComponent extends IComponent {
 				li.appendChild(div);
 				list.appendChild(li);
 			});
-			this.artists.forEach((artist) => {
+			let filteredArtists = this.artists.filter(element => !this.picked.includes(element));
+			filteredArtists.forEach((artist) => {
 				const li = document.createElement('li');
 				li.classList.add('onboard__list__item');
 				const img = document.createElement('img');
