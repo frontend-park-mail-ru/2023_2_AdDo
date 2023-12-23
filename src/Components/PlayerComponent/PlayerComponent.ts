@@ -14,6 +14,7 @@ export class PlayerComponent extends IComponent {
 	public outputElement: HTMLElement | null = null;
 	public nextLinesCount: number = 4;
 	public isRunning: boolean = false;
+	private timeoutIds: number[] = [];
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -253,6 +254,7 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="playertrackAdded"]')!.setAttribute('player-add-track-to-playlist', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayertrackAdded"]')!.setAttribute('mobile-player-add-track-to-playlist', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		this.clearTimeouts();
 		if(song.Lyrics) {
 			this.printDynamicText(song.Lyrics);
 		}
@@ -489,7 +491,7 @@ export class PlayerComponent extends IComponent {
 					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '', 50) : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount - 1]), 50)
 					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!, 50);
 				});
-				clearTimeout(timerid);
+				this.timeoutIds.push(timerid);
             }, delay * 1000);
         });
     }
@@ -532,4 +534,9 @@ export class PlayerComponent extends IComponent {
             element.style.opacity = '1'; // Устанавливаем полную непрозрачность
         }, time); // Задержка в миллисекундах, соответствующая времени анимации (0.5 секунды в данном случае)
     }
+
+	clearTimeouts() {
+		this.timeoutIds.forEach(id => clearTimeout(id));
+		this.timeoutIds = [];
+	}
 }
