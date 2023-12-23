@@ -624,6 +624,11 @@ class MainView extends IView {
         header.searchResults(playlists, tracks, artists, albums);
     }
 
+    public onboardSearchResults(artists: Array<Artist>): void {
+        const onboardArtists = this.components.get('onboardArtists')! as ArtistsOnboardComponent;
+        onboardArtists.Artists = artists;
+    }
+
     /**
      * Fills the content of the function with the specified user.
      *

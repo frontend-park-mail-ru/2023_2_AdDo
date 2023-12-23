@@ -40,6 +40,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
         EventDispatcher.subscribe('logout', this.logout.bind(this));
         EventDispatcher.subscribe('search', this.search.bind(this));
+        EventDispatcher.subscribe('onboard-search', this.onboardSearch.bind(this));
         this.searchDebounced = debounce(this.model.ContentModel.requestSearch.bind(this.model.ContentModel), 300);
         this.playSongDebounced = debounce(this.model.ContentModel.isLiked.bind(this.model.ContentModel), 150);
         this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist.bind(this.model.ContentModel), 100);
@@ -448,6 +449,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public search(value: string): void {
         this.searchDebounced(value, this.view.searchResults.bind(this.view));
+    }
+
+    public onboardSearch(value: string): void {
+        this.searchDebounced(value, this.view.onboardSearchResults.bind(this.view));
     }
 
     public copyToClipboard(text: string): void {

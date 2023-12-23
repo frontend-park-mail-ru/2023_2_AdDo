@@ -245,11 +245,11 @@ class UserModel extends IModel {
     }
 
     public resetPassword(password: string, token: string, errorCallback: Callback) {
-        Ajax.put(hosts.HOST + hosts.PORT + '/api/v1/auth/reset_password/' + token, {'Content-Type': 'application/json',}, {Password: password})
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/auth/reset_password/' + token, {'Content-Type': 'application/json',}, {Password: password})
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
                     router.goToPage(paths.feedAll);
-                }
+                } 
             })
             .catch((error) => {
                 throw error;

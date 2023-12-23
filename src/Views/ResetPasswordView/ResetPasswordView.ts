@@ -63,6 +63,9 @@ class ResetPasswordView extends IView {
                 this.resetpassword.querySelector('[data-section="passwordcheck"]').className = 'auth-wrong-input';
                 this.resetpassword.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 return;
+            case 'password too short':
+                this.resetpassword.querySelector('[data-section="lengthPassword"]').className = 'authlist__error__active';
+                return;
         }
     }
 }

@@ -2,6 +2,7 @@ import { Callback, OnboardArtist } from '../../types';
 import template from './ArtistsOnboardComponentTemplate.hbs';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
+import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a ArtistComponent. */
 export class ArtistsOnboardComponent extends IComponent {
@@ -15,6 +16,15 @@ export class ArtistsOnboardComponent extends IComponent {
 	constructor(parent: HTMLElement, artists: Array<OnboardArtist>) {
 		super(parent, template({ artists, port: hosts.s3HOST }));
 		this.artists = artists;
+		this.bindInputEvent(this.handleInput.bind(this));
+	}
+
+	private handleInput(e: Event): void {
+		EventDispatcher.emit('onboard-search', (e.target as HTMLInputElement).value);
+	}
+
+	private bindInputEvent(listener: Callback): void {
+		this.parent.addEventListener('input', listener);
 	}
 
 	/**
@@ -82,8 +92,22 @@ export class ArtistsOnboardComponent extends IComponent {
 	 */
 	public renderContent(): void {
 		if (this.isMounted) {
-			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ Artists: this.artists, port: hosts.s3HOST});
+			const list = this.element.querySelector('.onboard__list')! as HTMLElement;
+			list.innerHTML = '';
+			this.artists.forEach((artist) => {
+				const li = document.createElement('li');
+				li.classList.add('onboard__item');
+				const img = document.createElement('img');
+				img.classList.add('onboard__item__photo');
+				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
+				li.appendChild(img);
+				const div = document.createElement('div');
+				div.classList.add('medium-text');
+				div.classList.add('onboard__item__name');
+				div.textContent = artist.Name;
+				li.appendChild(div);
+				list.appendChild(li);
+			});
 		}
 	}
 }
