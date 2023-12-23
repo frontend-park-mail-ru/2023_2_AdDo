@@ -31,7 +31,7 @@
                     {{/if}}
                     <input type="file" name="file" data-section="fileInput">
                 </label>
-                <div class="info album__info" style="display: grid; gap: 25px;">
+                <div class="info album__info" style="display: grid; gap: 25px; width: min-content;">
                     <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
                     <div class="album__info__buttons" style="display: flex; gap: 25px; justify-content: right;">
                         <button class="default-button" style="width: fit-content;" data-id="{{Playlist.Id}}" data-section="deletePlaylist">Удалить</button>
@@ -74,6 +74,7 @@
                         <div class="medium-text options__add-to-playlist" data-section="deleteTrackFromPlaylist" data-id="{{this.Id}}" data-playlist-id="{{../Playlist.Id}}">Удалить из плейлиста</div>
                     {{else}}
                         <div class="medium-text options__add-to-playlist" data-section="showAvaliblePlaylists" data-id="{{this.Id}}">Добавить в плейлист</div>
+                        <div class="medium-text options__share__added" add-track-to-playlist="{{this.Id}}" style="color: black;">Трек добавлен в плейлист</div>
                         <div class="options__avaliablePlaylists" style="display: none;" data-list="{{this.Id}}">
                         </div>
                     {{/if}}

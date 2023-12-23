@@ -73,6 +73,7 @@
 .upload-button {
     position: relative;
     display: flex;
+    justify-content: center;
     cursor: pointer;
     &__input {
         background-color: #0F0F0F;

@@ -15,7 +15,7 @@ export class favTracksComponent extends IComponent {
 	 * @param {Array<Song>} songs - The array of songs.
 	 */
 	constructor(parent: HTMLElement, songs: Array<Song>) {
-		super(parent, template({ Tracks: songs, port: hosts.s3HOST }));
+		super(parent, template({ Songs: songs, port: hosts.s3HOST }));
 		this.songs = songs;
 		EventDispatcher.subscribe('user-changed', (user: User) => {
 			this.User = user;
@@ -67,11 +67,34 @@ export class favTracksComponent extends IComponent {
 				
 			}
 		});
-		EventDispatcher.subscribe('add-track-to-playlist', (id: string) => {
+		EventDispatcher.subscribe('add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
 			if(this.isMounted) {
+				const added = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+				added.style.display = 'flex';
+				setTimeout(() => {
+					added.style.display = 'none';
+				}, 2000);
 				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
-				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+				setTimeout(() => {
+					options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+				}, 2000);
 			}	
+		});
+		EventDispatcher.subscribe('close-all-options', () => {
+			if(this.isMounted) {
+				const alloptions = document.querySelectorAll('.options')! as NodeListOf<HTMLElement>;
+				const mobilePlayerOptions = document.querySelectorAll('.mobile-player__options')! as NodeListOf<HTMLElement>;
+				const playerOptions = document.querySelectorAll('.player__options')! as NodeListOf<HTMLElement>;
+				alloptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+				mobilePlayerOptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+				playerOptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+			}
 		});
 	}
 	/**

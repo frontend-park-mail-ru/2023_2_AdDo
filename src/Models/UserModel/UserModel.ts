@@ -4,6 +4,7 @@ import { Callback, User } from '../../types';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 import paths from '../../Modules/Router/RouterPaths';
+import router from '../../Modules/Router/Router';
 
 
 /** Class representing an UserModel. */
@@ -43,7 +44,7 @@ class UserModel extends IModel {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/login',
             { 'Content-Type': 'application/json', },
-            { email, password },
+            { Email: email, Password: password },
         )
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
@@ -78,12 +79,12 @@ class UserModel extends IModel {
         username: string,
         password: string,
         birthDate: string,
-        routerCallback: Callback,
+        routerCallback: Callback,   
         errorCallback: Callback): void {
         Ajax.post(
             hosts.HOST + hosts.PORT + '/api/v1/sign_up',
             { 'Content-Type': 'application/json', },
-            { email, username, password, birthDate },
+            { Email: email, Username: username , Password: password, BirthDate: birthDate },
         )
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
@@ -192,10 +193,10 @@ class UserModel extends IModel {
     public updateUser(user: User, errorCallback: Callback) {
         this.setCurrentUser(user);
         Ajax.put(hosts.HOST + hosts.PORT + '/api/v1/update_info', {'Content-Type': 'application/json',},
-        {email: user.email, username: user.username, birthdate: user.birthdate})
+        {Email: user.email, Username: user.username, BirthDate: user.birthdate})
             .then(({ ok, status, responseBody }) => {
                 if (status >= 200 && status < 300) {
-                    errorCallback('ok');
+                    errorCallback('user-profile-changed');
                     EventDispatcher.emit('user-changed', this.currentUser);
                 } else if (status === 400) {
                     errorCallback('bad request');
@@ -225,6 +226,36 @@ class UserModel extends IModel {
         .catch((error) => {
             throw error;
         });
+    }
+
+    
+
+    public forgotPassword(email: string, errorCallback: Callback) {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/auth/forgot_password', {'Content-Type': 'application/json',}, {Email: email})
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    errorCallback('code sent');
+                } else if (status === 400) {
+                    errorCallback('user does not exist');
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
+    }
+
+    public resetPassword(password: string, token: string, errorCallback: Callback) {
+        Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/auth/reset_password/' + token, {'Content-Type': 'application/json',}, {Password: password})
+            .then(({ status }) => {
+                if (status >= 200 && status < 300) {
+                    router.goToPage(paths.feedAll);
+                } else if (status === 400) {
+                    errorCallback('password too short');
+                }
+            })
+            .catch((error) => {
+                throw error;
+            });
     }
 }
 

@@ -2,10 +2,12 @@ import { Callback, OnboardArtist } from '../../types';
 import template from './ArtistsOnboardComponentTemplate.hbs';
 import IComponent from '../IComponent/IComponent';
 import hosts from '../../HostConsts';
+import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
 
 /** Class representing a ArtistComponent. */
 export class ArtistsOnboardComponent extends IComponent {
 	private artists: Array<OnboardArtist>;
+	private picked: Array<OnboardArtist> = [];
 	/**
 	 * Create a new instance of the constructor.
 	 *
@@ -15,6 +17,16 @@ export class ArtistsOnboardComponent extends IComponent {
 	constructor(parent: HTMLElement, artists: Array<OnboardArtist>) {
 		super(parent, template({ artists, port: hosts.s3HOST }));
 		this.artists = artists;
+		this.bindInputEvent(this.handleInput.bind(this));
+		this.bindClickEvent(this.handleClick.bind(this));
+	}
+
+	private handleInput(e: Event): void {
+		EventDispatcher.emit('onboard-search', (e.target as HTMLInputElement).value);
+	}
+
+	private bindInputEvent(listener: Callback): void {
+		this.parent.addEventListener('input', listener);
 	}
 
 	/**
@@ -43,8 +55,8 @@ export class ArtistsOnboardComponent extends IComponent {
 		const target: HTMLElement = e.target as HTMLElement;
 		const value: string = target.getAttribute('data-section')!
 		switch (value) {
-			case 'onboardArtists':
-
+			case 'makeArtistActive':
+				this.makeActive(target);
                 return;
 		}
 	}
@@ -70,9 +82,15 @@ export class ArtistsOnboardComponent extends IComponent {
     public makeActive(el: HTMLElement): void {
         if(el.classList.contains('active-artist')) {
             el.classList.remove('active-artist');
+			this.picked = this.picked.filter((artist) => artist.Id !== parseInt(el.getAttribute('data-id')!));
             return;
         }
         el.classList.add('active-artist');
+		this.picked.push({
+			Id: parseInt(el.getAttribute('data-id')!),
+			Name: el.getAttribute('data-name')!,
+			Avatar: el.getAttribute('data-src')!
+		});
     }
 
 	/**
@@ -82,8 +100,46 @@ export class ArtistsOnboardComponent extends IComponent {
 	 */
 	public renderContent(): void {
 		if (this.isMounted) {
-			this.parent.innerHTML = '';
-			this.parent.innerHTML = template({ Artists: this.artists, port: hosts.s3HOST});
+			const list = this.element.querySelector('.onboard__list')! as HTMLElement;
+			list.innerHTML = '';
+			this.picked.forEach((artist) => {
+				const li = document.createElement('li');
+				li.classList.add('onboard__list__item');
+				const img = document.createElement('img');
+				img.classList.add('onboard__list__item__photo');
+				img.classList.add('active-artist');
+				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
+				img.setAttribute('data-section', 'makeArtistActive');
+				img.setAttribute('data-id', artist.Id.toString());
+				img.setAttribute('data-src', artist.Avatar);
+				img.setAttribute('data-name', artist.Name);
+				li.appendChild(img);
+				const div = document.createElement('div');
+				div.classList.add('medium-text');
+				div.classList.add('onboard__list__item__name');
+				div.textContent = artist.Name;
+				li.appendChild(div);
+				list.appendChild(li);
+			});
+			let filteredArtists = this.artists.filter((artist) => !this.picked.find((picked) => picked.Id === artist.Id));
+			filteredArtists.forEach((artist) => {
+				const li = document.createElement('li');
+				li.classList.add('onboard__list__item');
+				const img = document.createElement('img');
+				img.classList.add('onboard__list__item__photo');
+				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
+				img.setAttribute('data-section', 'makeArtistActive');
+				img.setAttribute('data-id', artist.Id.toString());
+				img.setAttribute('data-src', artist.Avatar);
+				img.setAttribute('data-name', artist.Name);
+				li.appendChild(img);
+				const div = document.createElement('div');
+				div.classList.add('medium-text');
+				div.classList.add('onboard__list__item__name');
+				div.textContent = artist.Name;
+				li.appendChild(div);
+				list.appendChild(li);
+			});
 		}
 	}
 }

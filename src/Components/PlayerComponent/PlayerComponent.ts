@@ -4,14 +4,17 @@ import { Callback, Playlist, Song, User } from '../../types';
 import { PlayerComponentConfig } from './PlayerComponentConfig';
 import hosts from '../../HostConsts';
 import EventDispatcher from '../../Modules/EventDispatcher/EventDispatcher';
-import { debounce } from '../../Modules/lib/Debounce';
+
 
 /** Class representing a PlayerComponent. */
 export class PlayerComponent extends IComponent {
-	public currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 };
+	public currentSong: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0, Lyrics: '' };
 	private cardShown : boolean = false;
 	public channel: BroadcastChannel;
-	private syncDebounced: (currenttime: number) => void = () => {};
+	public outputElement: HTMLElement | null = null;
+	public nextLinesCount: number = 4;
+	public isRunning: boolean = false;
+	private timeoutIds: number[] = [];
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -20,7 +23,7 @@ export class PlayerComponent extends IComponent {
 	 * @param {boolean} Playing - The initial playing state.
 	 */
 	constructor(parent: HTMLElement, isMobile: boolean = false,
-		song: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0 },
+		song: Song = { Id: 0, Name: '', Preview: '', Content: '', ArtistName: '', isLiked: false, ArtistId: 0, Lyrics: '' },
 		Playing: boolean = false) {
 		super(parent, template({ PlayerComponentConfig, song: song, port: hosts.s3HOST, Playing, isLiked: false, isMobile}));
 		const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
@@ -32,11 +35,11 @@ export class PlayerComponent extends IComponent {
 		this.bindTimeUpdateEvent(this.updateProgress.bind(this));
 		this.bindSetProgressEvent(this.setProgress.bind(this));
 		this.bindVolumeSliderEvent(this.setVolumeSlider.bind(this));
-		this.syncDebounced = debounce(this.syncPlayerState.bind(this), 50);
+		this.outputElement = this.element.querySelector('[data-section="output"]');
 		this.channel.addEventListener('message', event => {
 			if (event.data.type === 'playerSync' && event.source !== self) {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
-				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked}, event.data.isLiked);
+				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked, Lyrics: event.data.Text}, event.data.isLiked);
 				audio.currentTime = event.data.currentTime;
 				audio.pause();
 				const mobileImg: HTMLImageElement = this.element.querySelector('.mobile-player__playbutton') as HTMLImageElement;
@@ -88,9 +91,16 @@ export class PlayerComponent extends IComponent {
 				});
 			}
 		});
-		EventDispatcher.subscribe('player-add-track-to-playlist', (id: string) => {
+		EventDispatcher.subscribe('player-add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
+			const added = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+			added.style.display = 'flex';
+			setTimeout(() => {
+				added.style.display = 'none';
+			}, 2000);
 			const options = document.querySelector(`[data-player="${id}"]`)! as HTMLElement;
-			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			setTimeout(() => {
+				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}, 2000);
 		});
 		EventDispatcher.subscribe('mobile-player-show-options', (id: string) => {
 			const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
@@ -134,9 +144,16 @@ export class PlayerComponent extends IComponent {
 				});
 			}
 		});
-		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', (id: string) => {
+		EventDispatcher.subscribe('mobile-player-add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
+			const added = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+			added.style.display = 'flex';
+			setTimeout(() => {
+				added.style.display = 'none';
+			}, 2000);
 			const options = document.querySelector(`[data-mobile-player="${id}"]`)! as HTMLElement;
-			options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			setTimeout(() => {
+				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+			}, 2000);
 		});
 		EventDispatcher.subscribe('copied-to-clipboard', ({id, type} : { id: string, type: string }) => {
 			const copied = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
@@ -144,6 +161,22 @@ export class PlayerComponent extends IComponent {
 			setTimeout(() => {
 				copied.style.display = 'none';
 			}, 2000);
+		});
+		EventDispatcher.subscribe('show-text', () => {
+			const karaoke = document.querySelector('.karaoke')! as HTMLElement;
+			karaoke.style.display === 'none' ? karaoke.style.display = 'flex' : karaoke.style.display = 'none';
+			document.body.style.overflow = 'hidden';
+		});
+		EventDispatcher.subscribe('close-text', () => {
+			const karaoke = document.querySelector('.karaoke')! as HTMLElement;
+			karaoke.style.display = 'none';
+			document.body.style.overflow = 'visible';
+		});
+		EventDispatcher.subscribe('pause-text', () => {
+			// todo
+		});
+		EventDispatcher.subscribe('resume-text', () => {
+			//todo
 		});
 	}
 
@@ -159,6 +192,7 @@ export class PlayerComponent extends IComponent {
 			ArtistId: this.currentSong.ArtistId,
 			Id: this.currentSong.Id,
 			Preview: this.currentSong.Preview,
+			Lyrics: this.currentSong.Lyrics,
 		});
 	}
 
@@ -172,6 +206,7 @@ export class PlayerComponent extends IComponent {
 		this.setSong(song, isLiked);
 		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
+		this.isRunning = true;
 		this.syncPlayerState(audio.currentTime);
 	}
 
@@ -180,6 +215,7 @@ export class PlayerComponent extends IComponent {
 		const img = this.querySelector('.avatar')! as HTMLImageElement;
 		const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
 		img.src = hosts.s3HOST + song.Preview;
+		img.setAttribute('data-section', 'player');
 		mobileImg.src = hosts.s3HOST + song.Preview;
 		const like = this.querySelector('[data-section="likeBtn"]')! as HTMLImageElement;
 		const mobileLike = this.querySelector('[data-section="mobileLikeBtn"]')! as HTMLImageElement;
@@ -215,7 +251,15 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="playerTrackShareCopied"]')!.setAttribute('data-player-track-share', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayerTrackShare"]')!.setAttribute('data-id', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayerTrackShareCopied"]')!.setAttribute('data-mobile-player-track-share', song.Id.toString());
+		this.element.querySelector('[data-section="playertrackAdded"]')!.setAttribute('player-add-track-to-playlist', song.Id.toString());
+		this.element.querySelector('[data-section="mobilePlayertrackAdded"]')!.setAttribute('mobile-player-add-track-to-playlist', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		this.clearTimeouts();
+		if(song.Lyrics) {
+			this.printDynamicText(song.Lyrics);
+		} else {
+			this.outputElement!.innerHTML = '';
+		}
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
 		if (!audio.muted) {
@@ -226,6 +270,8 @@ export class PlayerComponent extends IComponent {
 				audio.volume = (parseInt(volumeSlider.value) / 100);
 			}
 		}
+		const player = this.element.querySelector('.player')! as HTMLElement;
+		player.style.display = 'block';
 	}
 
 	/**
@@ -237,6 +283,7 @@ export class PlayerComponent extends IComponent {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
 		this.syncPlayerState(audio.currentTime);
+		this.isRunning = true;
 	}
 	/**
 	 * Pauses the currently playing song.
@@ -246,6 +293,7 @@ export class PlayerComponent extends IComponent {
 	public pauseSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.pause();
+		this.isRunning = false;
 		this.syncPlayerState(audio.currentTime);
 	}
 
@@ -349,6 +397,7 @@ export class PlayerComponent extends IComponent {
 			case 'closeBtn':
 				this.cardShown = false;
 				mobilePlayer.style.display = 'none';
+				document.body.style.overflow = 'visible';
 				break;
 			case 'closeButton':
 				EventDispatcher.emit('mobile-player-show-options', target.getAttribute('data-id')!);
@@ -357,6 +406,7 @@ export class PlayerComponent extends IComponent {
 				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 					this.cardShown = true;
 					mobilePlayer.style.display = 'flex';
+					document.body.style.overflow = 'hidden';
 				}
 				break;
 		}
@@ -396,24 +446,9 @@ export class PlayerComponent extends IComponent {
 	}
 
 	public userChanged(user: User): void {
-		if (user !== null) {
-			const audio = this.element.querySelector('audio') as HTMLAudioElement;
-			audio.src = '';
-			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
-			const mobilelike = this.element.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
-			like.src = '/static/img/Like.svg';
-			like.classList.remove('disabled');
-			mobilelike.src = '/static/img/Like.svg';
-			mobilelike.classList.remove('disabled');
-			const img = this.element.querySelector('.avatar') as HTMLImageElement;
-			const mobileImg = this.element.querySelector('.mobile-player__photo') as HTMLImageElement;
-			img.src = '/static/img/grey.png';
-			mobileImg.src = '/static/img/violet.png';
-			this.element.querySelector('.artistname')!.textContent = '';
-			this.element.querySelector('.title')!.textContent = '';
-			this.element.querySelector('.mobile-player__info__name')!.textContent = '';
-			this.element.querySelector('.mobile-player__info__artist')!.textContent = '';
-		} else {
+		if (user === null) {
+			const player = this.element.querySelector('.player') as HTMLElement;
+			player.style.display = 'none';
 			const audio = this.element.querySelector('audio') as HTMLAudioElement;
 			audio.src = '';
 			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
@@ -430,6 +465,80 @@ export class PlayerComponent extends IComponent {
 			this.element.querySelector('.title')!.textContent = '';
 			this.element.querySelector('.mobile-player__info__name')!.textContent = '';
 			this.element.querySelector('.mobile-player__info__artist')!.textContent = '';
+		} else {
+			const like = this.element.querySelector('[data-section="likeBtn"]') as HTMLImageElement;
+			const mobilelike = this.element.querySelector('[data-section="mobileLikeBtn"]') as HTMLImageElement;
+			like.src = '/static/img/Like.svg';
+			like.classList.remove('disabled');
+			mobilelike.src = '/static/img/Like.svg';
+			mobilelike.classList.remove('disabled');
 		}
+	}
+
+	public printDynamicText(text: string) {
+        const lines = text.split('\n');
+        this.printInitialText(lines);
+        lines.forEach((line: string, index: number) => {
+            const delay = this.getTimeInSeconds(line);
+			const mainIndex = index;
+            const timerid = setTimeout(() => {
+				if (!this.isRunning) {
+					return;
+				}
+				const firstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
+				this.changeTextSmoothly(firstLine, this.element.querySelector('.karaoke__output__item')!.textContent!, 150);
+				const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
+				initialLines.forEach((line: HTMLElement, index: number) => {
+					index === 2 
+					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '', 50) : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount - 1]), 50)
+					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!, 50);
+				});
+            }, delay * 1000);
+			this.timeoutIds.push(timerid);
+        });
+    }
+
+    public printInitialText(lines: string[]) {
+		const initialFirstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
+		initialFirstLine.textContent = '...';
+
+		const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
+		initialLines.forEach((line: HTMLElement, index: number) => {
+			line.textContent = this.getText(lines[index]);
+		});
+
+    }
+
+    public getText(line: string) {
+        const regex = /\[(\d+:\d+\.\d+)\]\s(.+)/;
+        const match = line.match(regex);
+        if (match) {
+            return match[2];
+        }
+        return '';
+    }
+
+    public getTimeInSeconds(line: string) {
+        const regex = /(\d+):(\d+\.\d+)/;
+        const match = line.match(regex);
+        if (match) {
+            const minutes = parseInt(match[1]);
+            const seconds = parseFloat(match[2]);
+            return minutes * 60 + seconds;
+        }
+        return 0;
+    }
+
+	public changeTextSmoothly(element: HTMLElement, newText: string, time: number) {
+        element.style.opacity = '0'; // Устанавливаем нулевую непрозрачность
+        setTimeout(function() {
+            element.textContent = newText; // Изменяем текст
+            element.style.opacity = '1'; // Устанавливаем полную непрозрачность
+        }, time); // Задержка в миллисекундах, соответствующая времени анимации (0.5 секунды в данном случае)
+    }
+
+	clearTimeouts() {
+		this.timeoutIds.forEach(id => clearTimeout(id));
+		this.timeoutIds = [];
 	}
 }

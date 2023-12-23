@@ -53,7 +53,7 @@
                     </div>
                     {{#if ../user}}
                         <div class="playlist-item__options__like">
-                            {{#if this.isLiked}}
+                            {{#if this.IsLiked}}
                                 <img src="/static/img/LikePressed.svg" class="playlist-item__options__img__like" data-section="trackLike" data-id="{{this.Id}}" data-track="{{this.Id}}" alt="">
                             {{else}}
                                 <img src="/static/img/Like.svg" class="playlist-item__options__img__like" data-section="trackLike" data-id="{{this.Id}}" data-track="{{this.Id}}" alt="">
@@ -67,6 +67,7 @@
                         <div class="medium-text options__share__copied" data-track-share="{{this.Id}}" style="color: black;">Ссылка скопирована</div>
                     </div>
                     <div class="medium-text options__add-to-playlist" data-section="showAvaliblePlaylists" data-id="{{this.Id}}">Добавить в плейлист</div>
+                    <div class="medium-text options__share__added" add-track-to-playlist="{{this.Id}}" style="color: black;">Трек добавлен в плейлист</div>
                     <div class="options__avaliablePlaylists" style="display: none;" data-list="{{this.Id}}">
                     </div>
                 </div>
@@ -84,9 +85,14 @@
                         data-url="{{this.Id}}"></div>
                 </div>
                 <a href="/album/{{this.Id}}" class="medium-text albumlist-item__name" data-section="link"
-                    data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
-                    {{this.Name}}
+                        data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
+                        {{this.Name}}
                 </a>
+                <div style="display: flex; gap: 10px">
+                    {{#if this.IsSingle}}
+                        <div class="small-text albumlist-item__single"> • Single</div>
+                    {{/if}}
+                </div>
             </li>
         {{/each}}
     </ul>

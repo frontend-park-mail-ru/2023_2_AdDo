@@ -1,4 +1,5 @@
 <div class="onboard">
+    <div class="medium-text skipOnboard" data-section="link" data-url="/feed/all">Пропустить</div>
     <div class="onboard__info">
         <h1>Выберите любимых исполнителей</h1>
         <div class="medium-text">Это поможет нам составить для вас интересные рекомендации</div>
@@ -7,14 +8,19 @@
             Выберите как минимум 3 исполнителя
         </div>
     </div>
-    <ul class="onboard__list">
-        {{#each Artists}}
-            <li class="onboard__list__item">
-                <img class="onboard__list__item__photo" src="{{../port}}{{this.Avatar}}" alt="" data-section="makeActive" data-id="{{this.Id}}">
-                <div class="medium-text onboard__list__item__name" style="text-align: center; word-wrap: break-word">
-                    {{this.Name}}
-                </div>
-            </li>
-        {{/each}}
-    </ul>
+    <div>
+        <input type="text" data-section="inputSearch" class="onboard-input-search"
+        placeholder="Введите название исполнителя">
+        <ul class="onboard__list">
+            {{#each Artists}}
+                <li class="onboard__list__item">
+                    <img class="onboard__list__item__photo" src="{{../port}}{{this.Avatar}}" alt="" data-section="makeArtistActive" data-id="{{this.Id}}" data-name="{{this.Name}}" data-src="{{this.Avatar}}">
+                    <div class="medium-text onboard__list__item__name" style="text-align: center; word-wrap: break-word">
+                        {{this.Name}}
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    
 </div>

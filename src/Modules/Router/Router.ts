@@ -4,6 +4,7 @@ import { IRoute, RouteHandler, AnyHandler, UnknownHandler } from './RouterTypes'
 class Router {
     private routes: IRoute[];
     private nearestUrl: string;
+    private currentUrl: string = '';
 
     public constructor() {
         this.routes = [];
@@ -12,7 +13,7 @@ class Router {
 
     public start(entryPath: string): void {
         history.replaceState({ path: entryPath }, '', entryPath);
-
+        this.currentUrl = entryPath;
         window.addEventListener('popstate', e => {
             e.preventDefault();
             this.route();
@@ -22,6 +23,10 @@ class Router {
     }
 
     public goToPage(path: string): void {
+        if(path === this.currentUrl) {
+            return;
+        }
+        this.currentUrl = path;
         history.pushState({ path: path }, '', path);
         this.route();
     }

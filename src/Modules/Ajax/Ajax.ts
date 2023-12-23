@@ -25,9 +25,9 @@ export default class Ajax {
      */
     private static async fetch(params: requestParamsType, body?: any): Promise<responseType> {
         const headers = new Headers(params.headers);
-        if (this.csrfToken) {
-            headers.append('X-Csrf-Token', this.csrfToken);
-        }
+        // if (this.csrfToken) {
+        //     headers.append('X-Csrf-Token', this.csrfToken);
+        // }
         const response = await fetch(params.url, {
             method: params.method,
             headers,
@@ -36,9 +36,9 @@ export default class Ajax {
             mode: 'cors',
         });
 
-        if(params.url === 'https://musicon.space/api/v1/get_csrf' || params.url === 'https://musicon.space/api/v1/auth') {
-            this.csrfToken = response.headers.get('X-Csrf-Token')!;
-        }
+        // if(params.url === 'https://musicon.space/api/v1/get_csrf' || params.url === 'https://musicon.space/api/v1/auth') {
+        //     this.csrfToken = response.headers.get('X-Csrf-Token')!;
+        // }
 
         if (!response.ok) {
             return {

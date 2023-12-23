@@ -1,11 +1,11 @@
 <div class="feed">
     {{#if user}}
-        <div class="feed__my-wave">
-            <img src="/static/img/Play.svg" alt="" data-section="myWavePlayButton">
-            <div class="big-text feed__my-wave__text" data-section="myWavePlayButton">Плюс вайб</div>
+        <div class="feed__my-wave" data-section="myWavePlayButton">
+            <img src="/static/img/Play.svg" style="width: 25px;" alt="" class="feed__my-wave__img" data-section="myWavePlayButton">
+            <div class="big-text feed__my-wave__text" data-section="myWavePlayButton">Для Меня</div>
         </div>
     {{/if}}
-    <div class="big-text feed__title">Главное</div>
+    <div class="big-text feed__title">{{title}}</div>
     <ul class="feed__list">
         {{#each FeedComponentConfig}}
             <li class="feed-list__item">
@@ -15,7 +15,6 @@
             </li>
         {{/each}}
     </ul>
-    <h1 class="feed__title">Новые треки, альбомы и сборники</h1>
     <ul class="albumlist">
         {{#each content}}
             <li class="albumlist__item">
@@ -29,10 +28,15 @@
                     data-id="{{this.Id}}" data-url="/album/{{this.Id}}">
                     {{this.Name}}
                 </a>
-                <a href="/artist/{{this.ArtistId}}" class="small-text albumlist-item__name" data-section="link"
+                <div style="display: flex; gap: 10px">
+                    <a href="/artist/{{this.ArtistId}}" class="small-text albumlist-item__name" data-section="link"
                     data-url="/artist/{{this.ArtistId}}" data-Id="{{this.ArtistId}}">
-                    {{this.ArtistName}}
-                </a>
+                        {{this.ArtistName}}
+                    </a>
+                    {{#if this.IsSingle}}
+                        <div class="small-text albumlist-item__single">• Single</div>
+                    {{/if}}
+                </div>
             </li>
         {{/each}}
     </ul>

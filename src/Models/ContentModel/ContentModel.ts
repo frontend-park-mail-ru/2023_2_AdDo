@@ -14,7 +14,7 @@ export default class ContentModel extends IModel {
     private currentsongs: Array<Song> = [];
     private collectionSongs: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false };
-    private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false };
+    private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false, IsSingle: false };
     private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [], isLiked: false };
     private socket: WebSocket | null = null;
     public isSocketConnected: boolean = false;
@@ -37,8 +37,8 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/feed', {})
 		.then(({ ok, status, responseBody }) => {
 			if (status === 200) {
-                this.albums = responseBody.slice(0);
-                callback(this.albums);
+                this.albums = responseBody.Albums.slice(0);
+                callback(this.albums, 'Попробуйте новое');
                 return;
 			}
 		})
@@ -148,8 +148,8 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/popular', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
-                this.albums = responseBody.slice(0);
-                callback(this.albums); 
+                this.albums = responseBody.Albums.slice(0);
+                callback(this.albums, 'Популярные альбомы'); 
                 return;
 			}
 		})
@@ -168,8 +168,8 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/most_liked', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
-                this.albums = responseBody.slice(0);
-                callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
+                this.albums = responseBody.Albums.slice(0);
+                callback(this.albums, 'Понравилось другим'); // надо чтоб копировалось и чтобы responsebody был массивом album
                 return;
 			}
 		})
@@ -188,8 +188,8 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/new', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
-                this.albums = responseBody.slice(0);
-                callback(this.albums); // надо чтоб копировалось и чтобы responsebody был массивом album
+                this.albums = responseBody.Albums.slice(0);
+                callback(this.albums, 'Новые релизы'); // надо чтоб копировалось и чтобы responsebody был массивом album
                 return;
 			}
 		})
@@ -583,11 +583,11 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/collection/playlists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                this.albums = responseBody.slice(0);
+                this.albums = responseBody.Playlists.slice(0);
                 Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
-                        callback(this.albums, responseBody.slice(0)); 
+                        callback(this.albums, responseBody.Playlists.slice(0)); 
                         return;
                     }
                 })
@@ -695,7 +695,7 @@ export default class ContentModel extends IModel {
                 Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
                 .then(({ status, responseBody }) => {
                     if (status >= 200 && status < 300) {
-                        if(responseBody.find((playlist: Playlist) => playlist.Id === this.album.Id)) {
+                        if(responseBody.Playlists.find((playlist: Playlist) => playlist.Id === this.album.Id)) {
                             Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + this.album.Id + '/is_like', {})
                             .then(({ status, responseBody }) => {
                                 if (status >= 200 && status < 300) {
@@ -751,7 +751,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/my_playlists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                EventDispatcher.emit(type, {id, playlists: responseBody});
+                EventDispatcher.emit(type, {id, playlists: responseBody.Playlists});
                 return;
             }
             if (status === 401) {
@@ -768,7 +768,7 @@ export default class ContentModel extends IModel {
         Ajax.post(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + playlistId + '/add_track', {'Content-Type': 'application/json'}, {Id:  parseInt(trackId)})
         .then(({ status }) => {
             if (status >= 200 && status < 300) {
-                EventDispatcher.emit(type,trackId);
+                EventDispatcher.emit(type, {type, id: trackId});
                 return;
             }
         })
@@ -831,7 +831,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/genres', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                callback(responseBody);
+                callback(responseBody.Genres);
                 return;
             }
         })
@@ -844,7 +844,7 @@ export default class ContentModel extends IModel {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/artists', {})
         .then(({ status, responseBody }) => {
             if (status >= 200 && status < 300) {
-                callback(responseBody);
+                callback(responseBody.Artists);
                 return;
             }
         })
@@ -853,7 +853,7 @@ export default class ContentModel extends IModel {
         });
     }
 
-    public openSocket(callback: Callback, songId: number, user: User | null = null): void {
+    public openSocket(callback: Callback, songId: number, user: User | null = null, resumeCallback: Callback): void {
         this.socket = new WebSocket('wss://musicon.space' + '/api/v1/wave');
         this.socket.onopen = () => {
             console.log('connected');
@@ -870,6 +870,7 @@ export default class ContentModel extends IModel {
             if(!this.isWaveStarted) {
                 this.isLiked(callback, songId, user);
                 this.isWaveStarted = true;
+                resumeCallback();
             }
         }
     }

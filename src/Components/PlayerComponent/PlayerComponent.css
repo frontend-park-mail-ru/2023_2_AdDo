@@ -2,6 +2,7 @@
   background-color: #222129;
   position: absolute;
   width: 75%;
+  height: 110px;
   min-width: 800px;
   &__container {
     display: inline-flex;
@@ -101,6 +102,9 @@
   .volume-bar {
     display: block;
   }
+  .text-btn {
+    display: block;
+  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -124,6 +128,9 @@
   }
   .footer {
     height: 100px;  
+  }
+  .text-btn {
+    display: none;
   }
 }
 
@@ -156,6 +163,9 @@
   .volume-bar {
     display: none;
   }
+  .text-btn {
+    display: none;
+  }
 }
 
 .mobile-player {
@@ -179,9 +189,8 @@
     gap: 50px;
   }
   &__photo {
-    width: 380px;
-    height: 380px;
-    margin: 10px;
+    width: 420px;
+    height: 420px;
     border-radius: 15px;
   }
   &__playbutton {
@@ -239,12 +248,14 @@
         font-size: 40px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
+        text-align: center;
     }
     &__artist {
         color: #c2c0c0;
         font-size: 30px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 400;
+        text-align: center;
     }
   }
 }
@@ -253,6 +264,7 @@
   position: absolute;
   top: 5%;
   left: 5%;
+  cursor: pointer;
 }
 
 .footer {
@@ -275,6 +287,7 @@
   padding: 10px;
   border-radius: 10px;
   z-index: 1;
+  border: 1px solid white;
   bottom: 110px;
     &__avaliablePlaylists {
         display: none;
@@ -335,6 +348,14 @@
       border-radius: 15px;
       width: fit-content;
     }
+    &__added {
+      display: none; 
+      margin-left: 10px;
+      padding: 10px;
+      border-radius: 20px;
+      width: fit-content;
+      border: 2px solid;
+    }
   }
 }
 
@@ -342,6 +363,7 @@
   position: absolute;
   top: 25px;
   left: 5%;
+  cursor: pointer;
 }
 
 .mobile-options__avaliablePlaylists {
@@ -356,4 +378,72 @@
     &__name:hover {
         color: #C15DF3;
 }
+}
+
+
+
+.karaoke {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #0D0B18;
+  width: 100vw;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  z-index: 20000;
+  &__output {
+    &__item {
+      font-family: 'Lato', sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 65px;
+      text-align: center;
+      width: 65vw;
+      color: #676767;
+      font-size: 35px;
+      transition: opacity 0.05s ease-in-out;
+      &__main {
+          font-size: 55px;
+          width: 65vw;
+          font-weight: bold;
+          text-align: center;
+          color: white;
+          transition: opacity 0.15s ease-in-out;
+      }
+    }
+  }
+}
+
+
+/* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
+@media screen and (min-width: 767px) {
+  .karaoke {
+    bottom: 85px;
+    &__output {
+      line-height: 65px;
+    }
+  }
+
+}
+
+
+/* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
+@media screen and (max-width: 767px) {
+  .karaoke {
+    bottom: 110px;
+    &__output {
+      line-height: 65px;
+    }
+  }
+}
+
+
+@keyframes karaokeAnimation {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+      transform: translateY(0);
+  }
 }

@@ -14,6 +14,10 @@ import EventDispatcher from './Modules/EventDispatcher/EventDispatcher';
 import router from './Modules/Router/Router';
 import paths from './Modules/Router/RouterPaths';
 import './index.css';
+import ForgotPasswordController from './Controllers/ForgotPasswordController/ForgotPasswordController';
+import ForgotPasswordView from './Views/ForgotPasswordView/ForgotPasswordView';
+import ResetPasswordView from './Views/ResetPasswordView/ResetPasswordView';
+import ResetPasswordController from './Controllers/ResetPasswordController/ResetPasswordController';
 
 /** Class representing an App. */
 class App {
@@ -21,10 +25,14 @@ class App {
 	public loginview: LoginView;
 	public signupview: SignUpView;
 	public profileview: ProfileView;
+	public forgotpasswordview: ForgotPasswordView;
+	public resetpasswordview: ResetPasswordView;
 
 	public maincontroller: MainController;
 	public logincontroller: LoginController;
 	public signupcontroller: SignUpController;
+	public forgotpasswordcontroller: ForgotPasswordController;
+	public resetpasswordcontroller: ResetPasswordController;
 
 	public contentmodel: ContentModel;
 	public usermodel: UserModel;
@@ -46,10 +54,14 @@ class App {
 		this.loginview = new LoginView(root);
 		this.signupview = new SignUpView(root);
 		this.profileview = new ProfileView(root);
+		this.forgotpasswordview = new ForgotPasswordView(root);
+		this.resetpasswordview = new ResetPasswordView(root);
 
 		this.maincontroller = new MainController(this.mainview, { ContentModel: this.contentmodel, UserModel: this.usermodel });
 		this.logincontroller = new LoginController(this.loginview, this.usermodel);
 		this.signupcontroller = new SignUpController(this.signupview, this.usermodel);
+		this.forgotpasswordcontroller = new ForgotPasswordController(this.forgotpasswordview, this.usermodel);
+		this.resetpasswordcontroller = new ResetPasswordController(this.resetpasswordview, this.usermodel);
 
 		this.initRoutes();
 	}
@@ -94,6 +106,8 @@ class App {
 			{ path: paths.playlist, handler: this.renderPlaylist },
 			{ path: paths.onboardGenres, handler: this.renderOnboardGenres },
 			{ path: paths.onboardArtists, handler: this.renderOnboardArtists },
+			{ path: paths.forgotPassword, handler: this.renderForgotPassword },
+			{ path: paths.resetPassword, handler: this.renderResetPassword },
 		];
 		routes.forEach(({ path, handler }) => {
 			router.addRule(path, handler.bind(this));
@@ -120,6 +134,16 @@ class App {
 		EventDispatcher.emit('unmount-all');
 		this.usermodel.getCSRFToken();
 		this.signupcontroller.mountComponent();
+	}
+
+	public renderForgotPassword(): void {
+		EventDispatcher.emit('unmount-all');
+		this.forgotpasswordcontroller.mountComponent();
+	}
+
+	public renderResetPassword(): void {
+		EventDispatcher.emit('unmount-all');
+		this.resetpasswordcontroller.mountComponent();
 	}
 
 	/**

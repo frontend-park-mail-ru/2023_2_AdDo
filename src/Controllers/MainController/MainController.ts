@@ -40,6 +40,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('unmount-all', this.unmountComponent.bind(this));
         EventDispatcher.subscribe('logout', this.logout.bind(this));
         EventDispatcher.subscribe('search', this.search.bind(this));
+        EventDispatcher.subscribe('onboard-search', this.onboardSearch.bind(this));
         this.searchDebounced = debounce(this.model.ContentModel.requestSearch.bind(this.model.ContentModel), 300);
         this.playSongDebounced = debounce(this.model.ContentModel.isLiked.bind(this.model.ContentModel), 150);
         this.addPlaylistDebounced = debounce(this.model.ContentModel.createPlaylist.bind(this.model.ContentModel), 100);
@@ -53,6 +54,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         EventDispatcher.subscribe('enter-search', (url: string) => {
             router.goToPage(url);
         });
+        
     }
 
     /**
@@ -77,7 +79,9 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public updateTrack(): void {
         this.view.renderAlbum();
-        this.model.ContentModel.requestAlbum(this.view.fillTrack.bind(this.view), location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1], parseInt(location.href.split('/')[location.href.split('/').length - 1]));
+        this.Playing 
+        ? this.model.ContentModel.requestAlbum(this.view.fillTrack.bind(this.view), location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1], parseInt(location.href.split('/')[location.href.split('/').length - 1]))
+        : this.model.ContentModel.requestAlbum(this.view.fillTrackPlaying.bind(this.view), location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1], parseInt(location.href.split('/')[location.href.split('/').length - 1]));
         this.isActive = true;
     }
     
@@ -208,13 +212,22 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 return;
             case 'myWavePlayButton':
                 e.preventDefault();
-                this.songId = 0;
-                this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
-                if(this.model.ContentModel.isSocketConnected){
-                    this.model.ContentModel.requestSocketTracks();
+                if(this.model.ContentModel.isSocketConnected) {
+                    if(this.Playing) {
+                        this.view.wavePause();
+                        this.Playing = false;
+                        EventDispatcher.emit('pause-text');
+                    }  else {
+                        this.view.waveResume();
+                        this.Playing = true;
+                        EventDispatcher.emit('resume-text');
+                    }
+                } else {
+                    this.songId = 0;
+                    this.model.ContentModel.openSocket(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser(), this.view.waveResumePhoto.bind(this.view));
+                    this.Playing = true;
+                    this.isActive = true;
                 }
-                this.Playing = true;
-                this.isActive = true;
                 return;
             case 'link':
                 e.preventDefault();
@@ -252,11 +265,13 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             case 'playBtn':
                 if (this.isActive) {
                     if(this.Playing) {
+                        this.model.ContentModel.isSocketConnected ? this.view.wavePause() : this.view.pause();
                         this.Playing = false;
-                        this.view.pause();
+                        EventDispatcher.emit('pause-text');
                     } else {
+                        this.model.ContentModel.isSocketConnected ? this.view.waveResume() : this.view.resume();
                         this.Playing = true;
-                        this.view.resume();
+                        EventDispatcher.emit('resume-text');
                     }
                 }
                 return;
@@ -412,6 +427,18 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.copyToClipboard(hosts.HOST + '/track/' + target.getAttribute('data-id')!);
                 EventDispatcher.emit('copied-to-clipboard', {id: target.getAttribute('data-id')!, type: 'data-mobile-player-track-share'});
                 return;
+            case 'updateUser':
+                this.handleSubmit(e);
+                return;
+            case 'textBtn':
+                EventDispatcher.emit('show-text');
+                return;
+            case 'closeText':
+                EventDispatcher.emit('close-text');
+                return;
+            default:
+                EventDispatcher.emit('close-all-options');
+                break;
         }
     }
 
@@ -422,6 +449,10 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
 
     public search(value: string): void {
         this.searchDebounced(value, this.view.searchResults.bind(this.view));
+    }
+
+    public onboardSearch(value: string): void {
+        this.searchDebounced(value, this.view.onboardSearchResults.bind(this.view));
     }
 
     public copyToClipboard(text: string): void {
@@ -448,6 +479,8 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
             this.songId >= this.model.ContentModel.getSongsLength() - 1 ? this.songId = 0 : this.songId++;
         }
         this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+        this.Playing = true;
+        return;
     }
     
     /**
@@ -459,6 +492,7 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.view.listen(this.model.ContentModel.listenCount.bind(this.model.ContentModel));
         this.songId <= 0 ? this.songId = 0 : this.songId--;
         this.model.ContentModel.isLiked(this.view.play.bind(this.view), this.songId, this.model.UserModel.getCurrentUser());
+        this.Playing = true;
         return;
     }
 
@@ -628,14 +662,19 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         const selectedFile = target.files![0];
         if (selectedFile && selectedFile.type.startsWith('image/') && !selectedFile.type.startsWith('image/gif')) {
             const img: HTMLImageElement = document.querySelector('.info__photo')!
-            img.src = URL.createObjectURL(selectedFile);
+            const reader = new FileReader();
+            reader.onload = () => {
+                img.src =  reader.result as string;
+            }
+            reader.readAsDataURL(selectedFile);
         } else {
-            this.view.renderError('not an image');
+            if(!(selectedFile === undefined)) {
+                this.view.renderError('not an image');
+            }
         }
     }
 
     public bindProfileEvents(): void {
-        this.view.bindSubmitEvent(this.handleSubmit.bind(this));
         this.view.bindUploadEvent(this.handleUpload.bind(this));
     }
 

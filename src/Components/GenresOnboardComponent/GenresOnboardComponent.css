@@ -18,6 +18,18 @@
     border-radius: 100px;
 }
 
+.active-artist {
+    border: 3px solid white;
+    border-radius: 100px;
+}
+
+.skipOnboard {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    cursor: pointer;
+}
+
 
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 768px) {

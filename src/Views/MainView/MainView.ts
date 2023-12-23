@@ -54,7 +54,7 @@ class MainView extends IView {
     private initComponents(): void {
         this.components.set('header', new HeaderComponent(this.element.querySelector('header')!));
         this.components.set('feed', new FeedComponent(this.element.querySelector('main')!));
-        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false}));
+        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false, IsSingle: false}));
         this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false}));
         this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!, this.isMobile));
         this.components.set('favArtists', new favArtistsComponent(this.element.querySelector('main')!, []));
@@ -191,8 +191,9 @@ class MainView extends IView {
      * @param {Array<Album>} content - The array of albums to set as the content of the feed.
      * @return {void} 
      */    
-    public fillContent(content: Array<Album>): void {
+    public fillContent(content: Array<Album>, title: string): void {
         const feed = this.components.get('feed') as FeedComponent;
+        feed.title = title;
         feed.Content = content;
     }
 
@@ -208,6 +209,11 @@ class MainView extends IView {
     }
 
     public fillTrack(album: Album, id: number, isLiked: boolean): void {
+        const albumComponent = this.components.get('album') as AlbumComponent;
+        albumComponent.Album = album;
+    }
+
+    public fillTrackPlaying(album: Album, id: number, isLiked: boolean): void {
         const albumComponent = this.components.get('album') as AlbumComponent;
         albumComponent.Album = album;
         const player = this.components.get('footer') as PlayerComponent;
@@ -303,6 +309,65 @@ class MainView extends IView {
         footer.resumeSong();
         this.currentListningTime = Date.now();
     }
+
+    /**
+     * Resumes playback of the audio.
+     *
+     * @return {void}
+     */
+    public waveResume(): void {
+        const footer = this.components.get('footer') as PlayerComponent;
+        const feed = this.components.get('feed') as FeedComponent;
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/pauseBtn.webp';
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Pause.svg';
+        const waveImg: HTMLImageElement = feed.querySelector('.feed__my-wave__img') as HTMLImageElement;
+        if(waveImg) {
+            waveImg.src = '/static/img/Pause.svg';
+        }
+        feed.isWavePlaying = true;
+        footer.resumeSong();
+        this.currentListningTime = Date.now();
+    }
+
+    /**
+     * Resumes playback of the audio.
+     *
+     * @return {void}
+     */
+    public waveResumePhoto(): void {
+        const feed = this.components.get('feed') as FeedComponent;
+        const waveImg: HTMLImageElement = feed.querySelector('.feed__my-wave__img') as HTMLImageElement;
+        feed.isWavePlaying = true;
+        if(waveImg) {
+            waveImg.src = '/static/img/Pause.svg';
+        }
+    }
+
+    /**
+     * Resumes playback of the audio.
+     *
+     * @return {void}
+     */
+    public wavePause(): void {
+        const footer = this.components.get('footer') as PlayerComponent;
+        const feed = this.components.get('feed') as FeedComponent;
+        const mobileImg: HTMLImageElement = footer.querySelector('.mobile-player__playbutton') as HTMLImageElement;
+        mobileImg.src = '/static/img/playButton.webp';
+        const img: HTMLImageElement = footer.querySelector('[data-section="playBtn"]') as HTMLImageElement;
+        img.src = '/static/img/Play.svg';
+        const waveImg: HTMLImageElement = feed.querySelector('.feed__my-wave__img') as HTMLImageElement;
+        if(waveImg) {
+            waveImg.src = '/static/img/Play.svg';
+        }
+        footer.pauseSong();
+        feed.isWavePlaying = false;
+		this.currentListningTime = Date.now() - this.currentListningTime;
+		this.totalListningTime += this.currentListningTime;
+    }
+
+
     /**
      * Pauses the audio player and updates the play button image.
      * 
@@ -559,6 +624,11 @@ class MainView extends IView {
         header.searchResults(playlists, tracks, artists, albums);
     }
 
+    public onboardSearchResults(playlists: Array<Playlist>, tracks: Array<Song>, artists: Array<Artist>, albums: Array<Album>): void {
+        const onboardArtists = this.components.get('onboardArtists')! as ArtistsOnboardComponent;
+        onboardArtists.Artists = artists;
+    }
+
     /**
      * Fills the content of the function with the specified user.
      *
@@ -647,17 +717,18 @@ class MainView extends IView {
                 profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 profile.querySelector('[data-section="passcheck"]').textContent = 'Некорретное имя пользователя или email!';
+                profile.querySelector('[data-section="passcheck"]').style.color = 'red';
                 return;
             case 'ok':
                 profile.querySelector('[data-section="username"]').className = 'auth-input';
                 profile.querySelector('[data-section="email"]').className = 'auth-input';
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__disabled';
+                profile.querySelector('[data-section="passcheck"]').style.color = 'red';
                 return;
             case 'not an image':
                 profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 profile.querySelector('[data-section="passcheck"]').textContent = 'Выбранный файл не является изображением!';
-                profile.querySelector('[data-section="username"]').className = 'auth-wrong-input';
-                profile.querySelector('[data-section="email"]').className = 'auth-wrong-input';
+                profile.querySelector('[data-section="passcheck"]').style.color = 'red';
                 return;
             case 'not an image playlist':
                 playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
@@ -666,6 +737,11 @@ class MainView extends IView {
             case 'no spaces': 
                 playlist.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
                 playlist.querySelector('[data-section="passcheck"]').textContent = 'Название плейлиста может быть только без пробелов. Извините!';
+                return;
+            case 'user-profile-changed':
+                profile.querySelector('[data-section="passcheck"]').className = 'authlist__error__active';
+                profile.querySelector('[data-section="passcheck"]').textContent = 'Профиль успешно обновлен';
+                profile.querySelector('[data-section="passcheck"]').style.color = 'white';
                 return;
         }
     }

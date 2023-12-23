@@ -69,10 +69,17 @@ export class SearchComponent extends IComponent {
 				
 			}
 		});
-		EventDispatcher.subscribe('add-track-to-playlist', (id: string) => {
+		EventDispatcher.subscribe('add-track-to-playlist', ({id, type} : { id: string, type: string }) => {
 			if(this.isMounted) {
+				const added = document.querySelector(`[${type}="${id}"]`)! as HTMLElement;
+				added.style.display = 'flex';
+				setTimeout(() => {
+					added.style.display = 'none';
+				}, 2000);
 				const options = document.querySelector(`[data-section="${id}"]`)! as HTMLElement;
-				options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+				setTimeout(() => {
+					options.style.display === 'none' ? options.style.display = 'grid' : options.style.display = 'none';
+				}, 2000);
 			}	
 		});
 		EventDispatcher.subscribe('copied-to-clipboard', ({id, type} : { id: string, type: string }) => {
@@ -82,6 +89,22 @@ export class SearchComponent extends IComponent {
 				setTimeout(() => {
 					copied.style.display = 'none';
 				}, 2000);
+			}
+		});
+		EventDispatcher.subscribe('close-all-options', () => {
+			if(this.isMounted) {
+				const alloptions = document.querySelectorAll('.options')! as NodeListOf<HTMLElement>;
+				const mobilePlayerOptions = document.querySelectorAll('.mobile-player__options')! as NodeListOf<HTMLElement>;
+				const playerOptions = document.querySelectorAll('.player__options')! as NodeListOf<HTMLElement>;
+				alloptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+				mobilePlayerOptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
+				playerOptions.forEach((option: HTMLElement) => {
+					option.style.display = 'none';
+				});
 			}
 		});
 	}
