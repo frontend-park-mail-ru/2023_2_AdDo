@@ -82,7 +82,7 @@ export class ArtistsOnboardComponent extends IComponent {
     public makeActive(el: HTMLElement): void {
         if(el.classList.contains('active-artist')) {
             el.classList.remove('active-artist');
-			this.picked.filter((artist) => artist.Id !== parseInt(el.getAttribute('data-id')!));
+			this.picked = this.picked.filter((artist) => artist.Id !== parseInt(el.getAttribute('data-id')!));
             return;
         }
         el.classList.add('active-artist');

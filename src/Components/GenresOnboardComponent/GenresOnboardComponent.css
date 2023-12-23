@@ -18,6 +18,11 @@
     border-radius: 100px;
 }
 
+.active-artist {
+    border: 3px solid white;
+    border-radius: 100px;
+}
+
 .skipOnboard {
     position: fixed;
     top: 10%;
