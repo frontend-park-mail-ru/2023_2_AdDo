@@ -491,8 +491,8 @@ export class PlayerComponent extends IComponent {
 					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '', 50) : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount - 1]), 50)
 					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!, 50);
 				});
-				this.timeoutIds.push(timerid);
             }, delay * 1000);
+			this.timeoutIds.push(timerid);
         });
     }
 
