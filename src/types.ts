@@ -16,7 +16,7 @@ export type Album = {
     ArtistName: string,
     Tracks: Array<Song>,
     isLiked: boolean,
-    Single: boolean,
+    IsSingle: boolean,
 }
 
 export type Playlist = {
