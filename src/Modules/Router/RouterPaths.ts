@@ -25,7 +25,7 @@ const paths = {
     onboardGenres: '/onboard/genres',
     onboardArtists: '/onboard/artists',
     forgotPassword: '/auth/forgot_password',
-    resetPassword: '/auth/reset_password/{:token}',
+    resetPassword: '/auth/reset_password/.*',
 };
 
 export default paths;
