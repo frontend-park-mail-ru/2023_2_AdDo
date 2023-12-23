@@ -477,7 +477,7 @@ export class PlayerComponent extends IComponent {
         lines.forEach((line: string, index: number) => {
             const delay = this.getTimeInSeconds(line);
 			const mainIndex = index;
-            setTimeout(() => {
+            const timerid = setTimeout(() => {
 				if (!this.isRunning) {
 					return;
 				}
@@ -486,9 +486,10 @@ export class PlayerComponent extends IComponent {
 				const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
 				initialLines.forEach((line: HTMLElement, index: number) => {
 					index === 2 
-					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '', 50) : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount]), 50)
+					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '', 50) : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount - 1]), 50)
 					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!, 50);
 				});
+				clearTimeout(timerid);
             }, delay * 1000);
         });
     }
