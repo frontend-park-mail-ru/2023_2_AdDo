@@ -249,7 +249,9 @@ class UserModel extends IModel {
             .then(({ status }) => {
                 if (status >= 200 && status < 300) {
                     router.goToPage(paths.feedAll);
-                } 
+                } else if (status === 400) {
+                    errorCallback('password too short');
+                }
             })
             .catch((error) => {
                 throw error;
