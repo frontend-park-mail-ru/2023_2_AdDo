@@ -121,7 +121,7 @@ export class ArtistsOnboardComponent extends IComponent {
 				li.appendChild(div);
 				list.appendChild(li);
 			});
-			let filteredArtists = this.artists.filter(element => !this.picked.includes(element));
+			let filteredArtists = this.artists.filter((artist) => !this.picked.find((picked) => picked.Id === artist.Id));
 			filteredArtists.forEach((artist) => {
 				const li = document.createElement('li');
 				li.classList.add('onboard__list__item');
