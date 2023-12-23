@@ -55,6 +55,10 @@
     &__name:hover {
         color:#C15DF3;
     }
+    &__single {
+        margin: 10px 0 10px 0;
+        display: block;
+    }
 }
 
 .albumlist-item:hover {
