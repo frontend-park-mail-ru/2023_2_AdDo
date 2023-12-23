@@ -44,7 +44,7 @@ export type Song = {
     ArtistName: string,
     isLiked: boolean,
     ArtistId: number,
-    Text: string,
+    Lyrics: string,
 }
 
 export type OnboardGenre = {
