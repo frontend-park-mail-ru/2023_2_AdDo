@@ -109,7 +109,7 @@ export class ArtistsOnboardComponent extends IComponent {
 				img.classList.add('onboard__list__item__photo');
 				img.classList.add('active-artist');
 				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
-				img.setAttribute('data-section', 'makeActive');
+				img.setAttribute('data-section', 'makeArtistActive');
 				img.setAttribute('data-id', artist.Id.toString());
 				li.appendChild(img);
 				const div = document.createElement('div');
@@ -126,7 +126,7 @@ export class ArtistsOnboardComponent extends IComponent {
 				const img = document.createElement('img');
 				img.classList.add('onboard__list__item__photo');
 				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
-				img.setAttribute('data-section', 'makeActive');
+				img.setAttribute('data-section', 'makeArtistActive');
 				img.setAttribute('data-id', artist.Id.toString());
 				li.appendChild(img);
 				const div = document.createElement('div');

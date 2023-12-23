@@ -278,6 +278,7 @@
         width: min-content;
         &__photo {
             size: 160px;
+            cursor:pointer;
             border-radius: 50px;
         }
     }
