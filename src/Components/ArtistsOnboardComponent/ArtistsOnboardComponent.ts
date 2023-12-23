@@ -59,6 +59,16 @@ export class ArtistsOnboardComponent extends IComponent {
 		}
 	}
 
+	private getActivesArtists(): Array<OnboardArtist> {
+        const result: Array<OnboardArtist> = [];
+        const activeArtists = this.parent.querySelectorAll('.active-genre');
+		activeArtists.forEach((el) => {
+			el.getAttribute('data-id');
+			result.push(this.artists.find((artist) => artist.Id === parseInt(el.getAttribute('data-id')!))!);
+		});
+        return result;
+    }
+
     public getActives(): Array<OnboardArtist> {
         const result: Array<OnboardArtist> = [];
         const activeArtists = this.parent.querySelectorAll('.active-genre');
@@ -92,7 +102,7 @@ export class ArtistsOnboardComponent extends IComponent {
 	 */
 	public renderContent(): void {
 		if (this.isMounted) {
-			const picked = this.getActives();
+			const picked = this.getActivesArtists();
 			const list = this.element.querySelector('.onboard__list')! as HTMLElement;
 			list.innerHTML = '';
 			picked.forEach((artist) => {
@@ -101,6 +111,8 @@ export class ArtistsOnboardComponent extends IComponent {
 				const img = document.createElement('img');
 				img.classList.add('onboard__list__item__photo');
 				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
+				img.setAttribute('data-section', 'makeActive');
+				img.setAttribute('data-id', artist.Id.toString());
 				li.appendChild(img);
 				const div = document.createElement('div');
 				div.classList.add('medium-text');
@@ -115,6 +127,8 @@ export class ArtistsOnboardComponent extends IComponent {
 				const img = document.createElement('img');
 				img.classList.add('onboard__list__item__photo');
 				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
+				img.setAttribute('data-section', 'makeActive');
+				img.setAttribute('data-id', artist.Id.toString());
 				li.appendChild(img);
 				const div = document.createElement('div');
 				div.classList.add('medium-text');

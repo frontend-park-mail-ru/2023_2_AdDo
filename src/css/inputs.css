@@ -53,12 +53,32 @@
     left: 30%;
 }
 
+.onboard-input-search {
+    background-color: #0F0F0F;
+    height: 48px;
+    width: 30vw;
+    padding: 0px 16px;
+    gap: 10px;
+    display: none;
+    border-radius: 12px;
+    border: 1px solid #FFF;
+    color: rgba(255, 255, 255, 0.40);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
 @media screen and (min-width: 768px) {
     .auth-input {
         width: 368px;
     }
     .auth-wrong-input {
         width: 368px;
+    }
+    .onboard-input-search {
+        margin-left: 400px;
     }
   }
   
@@ -76,5 +96,8 @@
     .input-search {
         width: 20vw;
         left: 15%;
+    }
+    .onboard-input-search {
+        margin-left: 100px;
     }
 }
