@@ -92,8 +92,23 @@ export class ArtistsOnboardComponent extends IComponent {
 	 */
 	public renderContent(): void {
 		if (this.isMounted) {
+			const picked = this.getActives();
 			const list = this.element.querySelector('.onboard__list')! as HTMLElement;
 			list.innerHTML = '';
+			picked.forEach((artist) => {
+				const li = document.createElement('li');
+				li.classList.add('onboard__item');
+				const img = document.createElement('img');
+				img.classList.add('onboard__item__photo');
+				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
+				li.appendChild(img);
+				const div = document.createElement('div');
+				div.classList.add('medium-text');
+				div.classList.add('onboard__item__name');
+				div.textContent = artist.Name;
+				li.appendChild(div);
+				list.appendChild(li);
+			});
 			this.artists.forEach((artist) => {
 				const li = document.createElement('li');
 				li.classList.add('onboard__item');
