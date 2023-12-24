@@ -503,13 +503,18 @@ export class PlayerComponent extends IComponent {
 
     public printInitialText(lines: string[]) {
 		const initialFirstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
-		initialFirstLine.textContent = '...';
+		if(initialFirstLine) {
+			initialFirstLine.textContent = '...';
+		}
+
 
 		const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
-		initialLines.forEach((line: HTMLElement, index: number) => {
-			line.textContent = this.getText(lines[index]);
-		});
-
+		if(initialLines) {
+			initialLines.forEach((line: HTMLElement, index: number) => {
+				line.textContent = this.getText(lines[index]);
+			});
+		}
+	
     }
 
     public getText(line: string) {
