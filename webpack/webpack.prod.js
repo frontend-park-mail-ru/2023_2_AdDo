@@ -12,15 +12,6 @@ const commonConfig = require('./webpack.common.js');
 module.exports = merge(commonConfig, {
 	mode: 'production',
 	devtool: false,
-	output: {
-		path: defines.dist
-	},
-	plugins: [
-
-	],
-	module: {
-		rules: []
-	},
 	performance: {
 		hints: false,
 		maxEntrypointSize: 512000,
@@ -33,7 +24,6 @@ module.exports = merge(commonConfig, {
 			new TerserPlugin(),
 			new CssMinimizerPlugin({
 				minimizerOptions: {
-
 					preset: [
 						'default',
 						{
