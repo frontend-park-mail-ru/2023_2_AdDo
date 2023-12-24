@@ -63,6 +63,7 @@
 }
 
 .track-info {
+  display: flex;
   gap: 15px;
 }
 
@@ -188,7 +189,7 @@
   height: 100vh;
   position: fixed;
   top: 0;
-  gap: 40px;
+  gap: 50px;
   transition: transform 0.3s ease-in-out;
   &__controls {
     display: flex;
