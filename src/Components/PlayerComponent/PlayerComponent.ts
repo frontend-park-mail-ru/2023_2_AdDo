@@ -476,6 +476,9 @@ export class PlayerComponent extends IComponent {
 	}
 
 	public printDynamicText(text: string) {
+		if(text) {
+			return;
+		}
         const lines = text.split('\n');
         this.printInitialText(lines);
         lines.forEach((line: string, index: number) => {
