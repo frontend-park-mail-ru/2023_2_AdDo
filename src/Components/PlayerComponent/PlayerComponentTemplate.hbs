@@ -28,17 +28,19 @@
             <div class="{{this.key}}"><img class="player-btns" data-section="{{this.key}}" src="{{this.href}}" alt="">
             </div>
             {{/each}}
-            <div>
-                {{#if song.Preview}}
-                <img class="avatar" src="{{port}}{{song.Preview}}" alt="" data-section="player">
-                {{else}}
-                <img class="avatar" src="/static/img/grey.png" alt="" data-section="player">
-                {{/if}}
-            </div>
-            <div>
-                <div class="title medium-text">{{song.Name}}</div>
-                <a href="/artist/{{song.ArtistId}}" class="artistname small-text" data-section="link"
-                    data-url="/artist/{{song.ArtistId}}" data-Id="{{song.ArtistId}}">{{song.ArtistName}}</a>
+            <div class="track-info">
+                <div>
+                    {{#if song.Preview}}
+                    <img class="avatar" src="{{port}}{{song.Preview}}" alt="" data-section="player">
+                    {{else}}
+                    <img class="avatar" src="/static/img/grey.png" alt="" data-section="player">
+                    {{/if}}
+                </div>
+                <div>
+                    <div class="title medium-text">{{song.Name}}</div>
+                    <a href="/artist/{{song.ArtistId}}" class="artistname small-text" data-section="link"
+                        data-url="/artist/{{song.ArtistId}}" data-Id="{{song.ArtistId}}">{{song.ArtistName}}</a>
+                </div>
             </div>
             {{#if song.IsLiked}}
             <div class="like-btn"><img class="player-btns" data-section="likeBtn" src="/static/img/LikePressed.svg"
@@ -68,7 +70,7 @@
             <div class="text-btn"><img class="player-btns" data-section="textBtn" src="/static/img/Lyrics.svg"
                     alt="">
             </div>
-            <div class="volume-btn"><img class="player-btns" data-section="volumeBtn" src="/static/img/SoundOn.svg"
+            <div class="volume-btn"><img class="player-btns__volume-img" data-section="volumeBtn" src="/static/img/SoundOn.svg"
                     alt="">
             </div>
             <input class="volume-bar" type='range' min="0" max="100" value="0" step="1">

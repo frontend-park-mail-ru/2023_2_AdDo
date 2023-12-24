@@ -51,10 +51,19 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+  &__volume-img {
+    margin-top: 6px;
+    width: 28px;
+    height: 28px;
+  }
 }
 
 .title {
   margin-bottom: 10px;
+}
+
+.track-info {
+  gap: 15px;
 }
 
 .avatar {
@@ -155,7 +164,7 @@
     display: none;
   }
   .footer {
-    height: 100px;  
+    height: 80px;
   }
   .volume-btn {
     display: none;
@@ -175,12 +184,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
   width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
-  gap: 60px;
+  gap: 40px;
   transition: transform 0.3s ease-in-out;
   &__controls {
     display: flex;
@@ -189,9 +197,9 @@
     gap: 50px;
   }
   &__photo {
-    width: 420px;
-    height: 420px;
-    border-radius: 15px;
+    width: 440px;
+    height: 440px;
+    border-radius: 10px;
   }
   &__playbutton {
     width: 90px;
@@ -245,14 +253,14 @@
   &__info {
     &__name {
         color: #FFF;
-        font-size: 40px;
+        font-size: 32px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
         text-align: center;
     }
     &__artist {
         color: #c2c0c0;
-        font-size: 30px;
+        font-size: 26px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 400;
         text-align: center;
