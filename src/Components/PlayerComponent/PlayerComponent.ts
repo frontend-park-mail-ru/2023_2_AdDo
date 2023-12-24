@@ -258,7 +258,10 @@ export class PlayerComponent extends IComponent {
 		if(song.Lyrics) {
 			this.printDynamicText(song.Lyrics);
 		} else {
-			this.outputElement!.innerHTML = '';
+			this.outputElement!.querySelector('.karaoke__output__item__main')!.textContent = '';
+			this.outputElement!.querySelectorAll('.karaoke__output__item')!.forEach((line: Element) => {
+				line.textContent = '';
+			});
 		}
 		audio.src = hosts.s3HOST + song.Content;
 		const volumeSlider = this.querySelector('.volume-bar')! as HTMLInputElement;
