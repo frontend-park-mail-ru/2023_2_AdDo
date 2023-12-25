@@ -41,6 +41,9 @@ export class PlayerComponent extends IComponent {
 				const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 				this.setSong({Id: event.data.Id, ArtistId: event.data.ArtistId, Name: event.data.Name, Preview: event.data.Preview, Content: event.data.Content, ArtistName: event.data.ArtistName, isLiked: event.data.isLiked, Lyrics: event.data.Text}, event.data.isLiked);
 				audio.currentTime = event.data.currentTime;
+				const slider = this.querySelector('.volume-bar') as HTMLInputElement;
+				audio.volume = event.data.Volume;
+				slider.value = (event.data.Volume * 100).toString();
 				audio.pause();
 				const mobileImg: HTMLImageElement = this.element.querySelector('.mobile-player__playbutton') as HTMLImageElement;
 				mobileImg.src = '/static/img/playButton.webp';
@@ -181,7 +184,7 @@ export class PlayerComponent extends IComponent {
 	}
 
 	// Синхронизация состояния музыкального плеера между вкладками
-	public syncPlayerState(currentTime: number): void {
+	public syncPlayerState(currentTime: number, currentVolume: number): void {
 		this.channel.postMessage({
 			type: 'playerSync',
 			currentTime,
@@ -193,6 +196,7 @@ export class PlayerComponent extends IComponent {
 			Id: this.currentSong.Id,
 			Preview: this.currentSong.Preview,
 			Lyrics: this.currentSong.Lyrics,
+			Volume: currentVolume,
 		});
 	}
 
@@ -207,7 +211,7 @@ export class PlayerComponent extends IComponent {
 		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
 		this.isRunning = true;
-		this.syncPlayerState(audio.currentTime);
+		this.syncPlayerState(audio.currentTime, audio.volume);
 	}
 
 	public setSong(song: Song, isLiked: boolean): void {
@@ -285,7 +289,7 @@ export class PlayerComponent extends IComponent {
 	public resumeSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
-		this.syncPlayerState(audio.currentTime);
+		this.syncPlayerState(audio.currentTime, audio.volume);
 		this.isRunning = true;
 	}
 	/**
@@ -297,7 +301,7 @@ export class PlayerComponent extends IComponent {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.pause();
 		this.isRunning = false;
-		this.syncPlayerState(audio.currentTime);
+		this.syncPlayerState(audio.currentTime, audio.volume);
 	}
 
 	/**
