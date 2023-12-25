@@ -262,9 +262,11 @@
 }
 
 .menu__search-results {
-  background: rgb(21 18 31 / 80%);
+  background: rgb(21 18 31 / 70%);
   backdrop-filter: blur(40px);
-  border: 1px solid rgb(255 255 255 / 15%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  margin-top: 10px;
   display: none;
   gap: 10px;
   z-index: 1;
@@ -299,7 +301,7 @@
   gap: 5px;
   &__item {
     padding: 20px;
-    border-top: 2px solid white;
+    border-top: 1px solid rgb(255 255 255 / 10%);
   }
 
   &__link {
