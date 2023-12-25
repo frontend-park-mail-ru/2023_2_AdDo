@@ -262,7 +262,9 @@
 }
 
 .menu__search-results {
-  background: #090909;
+  background: rgb(21 18 31 / 80%);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgb(255 255 255 / 15%);
   display: none;
   gap: 10px;
   z-index: 1;
@@ -279,6 +281,12 @@
     position: absolute;
     top: 10%;
     flex-direction: column;
+  }
+  &__loupe {
+    size: 24px;
+  }
+  &__text {
+    margin-top: 3px;
   }
 }
 

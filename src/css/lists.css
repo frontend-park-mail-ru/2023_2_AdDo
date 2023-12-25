@@ -70,8 +70,8 @@
     margin-top: 20px;
     display: grid;
     flex-wrap: wrap;
-    padding-bottom: 100px;
-    gap: 10px;
+    padding-bottom: 60px;
+    gap: 15px;
     position: relative;
     &__item {
         display: flex;
@@ -148,8 +148,8 @@
     }
 
     &__photo {
-        margin-top: 5px;
-        size: 40px;
+        size: 60px;
+        border-radius: 6px;
     }
 }
 

@@ -1,5 +1,5 @@
 .album {
-    margin-top: 6vh;
+    margin-top: 2vh;
     display: grid;
     gap: 10px;
     position: relative;
@@ -43,13 +43,13 @@
     display: none;
     grid-gap: 10px;
     gap: 10px;
-    border: 1px solid white;
+    border: 1px solid rgb(255 255 255 / 15%);
+    border-radius: 10px;
     max-width: 200px;
-    background: #0D0B18;
+    background: #1f182b;
     position: absolute;
     right: 7%;
     padding: 10px;
-    border-radius: 10px;
     z-index: 1;
     &__avaliablePlaylists {
         display: none;
@@ -70,8 +70,7 @@
         gap: 5px;
         &__copied {
             display: none;
-            margin-left: 10px;
-            color: black;   
+            color: black;
             background: white;
             padding: 5px;
             border-radius: 5px;
