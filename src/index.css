@@ -62,7 +62,7 @@
 
 .large-text {
     color: #FFF;
-    font-size: 52px;
+    font-size: 48px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
 }
@@ -117,8 +117,8 @@
     gap: 30px;
     align-items: center;
     &__photo {
-        border-radius: 15px;
-        size: 190px;
+        border-radius: 10px;
+        size: 230px;
         object-fit: cover;
     }
 

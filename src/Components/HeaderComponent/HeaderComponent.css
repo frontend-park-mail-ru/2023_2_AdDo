@@ -170,12 +170,21 @@
       display: none;
     }
     .menu__search-results {
+      background: rgb(21 18 31 / 80%);
+      backdrop-filter: blur(40px);
       padding: 25px;
       min-width: 200px;
       max-width: 650px;
       height: fit-content;
+      border: 1px solid rgb(255 255 255 / 15%);
       left: 28%;
       right: 20%;
+      &__loupe {
+        size: 24px;
+      }
+      &__text {
+        margin-top: 3px;
+      }
     }
     .mobile-menu__links {
       display: none;
