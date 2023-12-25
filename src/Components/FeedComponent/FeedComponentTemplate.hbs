@@ -2,8 +2,22 @@
     {{#if user}}
         <div class="feed__my-wave" data-section="myWavePlayButton">
             <img src="/static/img/Play.svg" style="width: 25px;" alt="" class="feed__my-wave__img" data-section="myWavePlayButton">
-            <div class="big-text feed__my-wave__text" data-section="myWavePlayButton">Для Меня</div>
+            <div class="big-text feed__my-wave__text" data-section="myWavePlayButton">Моя волна</div>
         </div>
+        <ul class="albumlist">
+            <li class="albumlist__item">
+                <div class="albumlist__image-container">
+                    <img class="albumlist__photo" data-section="link" data-url="/daily"
+                        src="/static/img/daily.webp" alt="">
+                    <div class="albumlist__playbutton albumlist__playbutton__position" data-section="dailyPlayButton"
+                        data-url="{{this.Id}}"></div>
+                </div>
+                <a href="/daily" class="medium-text albumlist-item__name" data-section="link"
+                    data-url="/daily">
+                    Плейлист дня
+                </a>
+            </li>
+        </ul>
     {{/if}}
     <div class="big-text feed__title">{{title}}</div>
     <ul class="feed__list">

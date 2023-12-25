@@ -108,6 +108,7 @@ class App {
 			{ path: paths.onboardArtists, handler: this.renderOnboardArtists },
 			{ path: paths.forgotPassword, handler: this.renderForgotPassword },
 			{ path: paths.resetPassword, handler: this.renderResetPassword },
+			{ path: paths.daily, handler: this.renderDaily },
 		];
 		routes.forEach(({ path, handler }) => {
 			router.addRule(path, handler.bind(this));
@@ -211,6 +212,12 @@ class App {
 	public renderAlbum(): void {
 		EventDispatcher.emit('unmount-all');
 		this.maincontroller.updateAlbum();
+		this.maincontroller.mountComponent();
+	}
+
+	public renderDaily(): void {
+		EventDispatcher.emit('unmount-all');
+		this.maincontroller.updateDaily();
 		this.maincontroller.mountComponent();
 	}
 

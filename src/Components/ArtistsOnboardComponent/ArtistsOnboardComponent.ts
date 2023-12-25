@@ -63,7 +63,7 @@ export class ArtistsOnboardComponent extends IComponent {
 
     public getActives(): Array<OnboardArtist> {
         const result: Array<OnboardArtist> = [];
-        const activeArtists = this.parent.querySelectorAll('.active-genre');
+        const activeArtists = this.parent.querySelectorAll('.active-artist');
         const error: HTMLElement = document.querySelector('.onboard__error')!;
         if(activeArtists.length > 2) {
 			if(error.classList.contains('onboard__error__active')) {
@@ -102,12 +102,12 @@ export class ArtistsOnboardComponent extends IComponent {
 		if (this.isMounted) {
 			const list = this.element.querySelector('.onboard__list')! as HTMLElement;
 			list.innerHTML = '';
-			this.picked.forEach((artist) => {
+			let filteredArtists = this.artists.filter((artist) => !this.picked.find((picked) => picked.Id === artist.Id));
+			filteredArtists.forEach((artist) => {
 				const li = document.createElement('li');
 				li.classList.add('onboard__list__item');
 				const img = document.createElement('img');
 				img.classList.add('onboard__list__item__photo');
-				img.classList.add('active-artist');
 				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
 				img.setAttribute('data-section', 'makeArtistActive');
 				img.setAttribute('data-id', artist.Id.toString());
@@ -121,12 +121,12 @@ export class ArtistsOnboardComponent extends IComponent {
 				li.appendChild(div);
 				list.appendChild(li);
 			});
-			let filteredArtists = this.artists.filter((artist) => !this.picked.find((picked) => picked.Id === artist.Id));
-			filteredArtists.forEach((artist) => {
+			this.picked.forEach((artist) => {
 				const li = document.createElement('li');
 				li.classList.add('onboard__list__item');
 				const img = document.createElement('img');
 				img.classList.add('onboard__list__item__photo');
+				img.classList.add('active-artist');
 				img.setAttribute('src', hosts.s3HOST + artist.Avatar);
 				img.setAttribute('data-section', 'makeArtistActive');
 				img.setAttribute('data-id', artist.Id.toString());

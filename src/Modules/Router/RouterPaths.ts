@@ -26,6 +26,7 @@ const paths = {
     onboardArtists: '/onboard/artists',
     forgotPassword: '/auth/forgot_password',
     resetPassword: '/auth/reset_password/.*',
+    daily: '/daily'
 };
 
 export default paths;

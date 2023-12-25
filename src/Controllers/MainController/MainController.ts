@@ -77,6 +77,11 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
         this.model.ContentModel.requestAlbum(this.view.fillAlbum.bind(this.view), location.href.split('/')[location.href.split('/').length - 2] + '/' + location.href.split('/')[location.href.split('/').length - 1]);
     }
 
+    public updateDaily(): void {
+        this.view.renderAlbum();
+        this.model.ContentModel.requestDaily(this.view.fillAlbum.bind(this.view));
+    }
+
     public updateTrack(): void {
         this.view.renderAlbum();
         this.Playing 
@@ -191,6 +196,13 @@ class MainController extends IController<MainView, {ContentModel: ContentModel, 
                 this.albumId = parseInt(target.getAttribute('data-url')!);
                 this.songId = 0;
                 this.model.ContentModel.getPlaylistSongs(this.view.play.bind(this.view), this.albumId, this.model.UserModel.getCurrentUser());
+                this.Playing = true;
+                this.isActive = true;
+                return;
+            case 'dailyPlayButton':
+                e.preventDefault();
+                this.songId = 0;
+                this.model.ContentModel.getDailySongs(this.view.play.bind(this.view), this.model.UserModel.getCurrentUser());
                 this.Playing = true;
                 this.isActive = true;
                 return;

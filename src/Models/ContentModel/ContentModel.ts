@@ -102,6 +102,31 @@ export default class ContentModel extends IModel {
 		});
     }
 
+    public requestDaily(callback: Callback): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/daily', {})
+		.then(({ status, responseBody }) => {
+			if (status === 200) {
+                this.songs = responseBody.Tracks.slice(0);
+                callback(this.songs);
+                const album = {
+                    Tracks: this.songs,
+                    Id: undefined,
+                    Name: 'Плейлист Дня',
+                    Preview: '/static/img/daily.webp',
+                    ArtistId: undefined,
+                    ArtistName: undefined,
+                    isLiked: false,
+                    IsSingle: false,
+                }
+                callback(album); 
+                return;
+			}
+		})
+		.catch((error) => {
+			throw error;
+		});
+    }
+
     /**
      * Requests an artist from the API.
      *
@@ -239,6 +264,21 @@ export default class ContentModel extends IModel {
 
     public getPlaylistSongs(callback: Callback, PlaylistId: number, user: User | null = null): void {
         Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/playlist/' + PlaylistId, {})
+		.then(({ status, responseBody }) => {
+			if (status === 200) {
+                this.songs = responseBody.Tracks.slice(0);
+                this.nowPlaying();
+                this.isLiked(callback, 0, user);
+                return;
+			}
+		})
+		.catch((error) => {
+			throw error;
+		});
+    }
+
+    public getDailySongs(callback: Callback, user: User | null = null): void {
+        Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/daily', {})
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.songs = responseBody.Tracks.slice(0);

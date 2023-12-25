@@ -23,10 +23,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --config webpack/webpack.dev.js",
+    "build": "webpack --config webpack/webpack.dev.js",
     "lint:fix": "eslint --fix .",
     "lint": "eslint .",
-    "build": "webpack --config webpack/webpack.prod.js"
+    "start": "webpack --config webpack/webpack.prod.js"
   },
   "keywords": [],
   "author": "wmai",
