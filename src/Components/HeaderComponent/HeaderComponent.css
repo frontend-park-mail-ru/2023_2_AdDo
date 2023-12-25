@@ -274,6 +274,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    margin-bottom: 30px;
     gap: 15px;
   }
   &__link:hover {
@@ -298,12 +299,14 @@
 
 .search-list {
   display: grid;
-  gap: 5px;
+  gap: 3px;
   &__item {
     padding: 20px;
     border-top: 1px solid rgb(255 255 255 / 10%);
   }
-
+  &__title {
+    margin-left: 20px;
+  }
   &__link {
 
   }

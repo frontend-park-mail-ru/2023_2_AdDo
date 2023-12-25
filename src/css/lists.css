@@ -2,10 +2,8 @@
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    padding: 0px;
     gap: 50px;
-    padding-bottom: 150px;
-    /*margin-bottom: 20vh;*/
+    padding-bottom: 60px;
     &__item {
         list-style-type: none;
         width: 200px;
