@@ -110,10 +110,6 @@
     .large-text {
         font-size: 52px;
     }
-
-    .info__photo {
-        size: 300px;
-    }
   }
 
 .info {
@@ -160,7 +156,11 @@
 @media screen and (max-width: 767px) {
     .info {
         display: grid;
-        justify-content: center;
+        justify-content: left;
+        margin-left: 20px;
+    }
+    .info__photo {
+        size: 300px;
     }
     .playlist-item__options__img {
         opacity: 1;
