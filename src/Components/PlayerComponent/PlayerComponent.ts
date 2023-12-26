@@ -319,7 +319,7 @@ export class PlayerComponent extends IComponent {
 	 */
 	private updateProgress(e: Event): void {
 		const { duration, currentTime } = e.target as HTMLAudioElement;
-		this.currentTime = Math.floor(currentTime);
+		this.currentTime = currentTime;
 		const progressPercent = (currentTime / duration) * 100;
 		const progress: HTMLElement = this.querySelector('.progress-bar__progress')!;
 		progress.style.width = `${progressPercent}%`;
@@ -338,7 +338,7 @@ export class PlayerComponent extends IComponent {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		const duration = audio.duration;
 		audio.currentTime = (x / width) * duration;
-		this.currentTime = Math.floor(audio.currentTime);
+		this.currentTime = audio.currentTime;
 	}
 
 	private setVolumeSlider(e: Event): void {
@@ -360,7 +360,7 @@ export class PlayerComponent extends IComponent {
 		const slider = this.querySelector('.mobile-player__progress') as HTMLInputElement;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.currentTime = parseInt(slider.value) / 100 * audio.duration as number;
-		this.currentTime = Math.floor(audio.currentTime);
+		this.currentTime = audio.currentTime;
 	}
 
 	private updateProgressSlider(e: Event): void {
