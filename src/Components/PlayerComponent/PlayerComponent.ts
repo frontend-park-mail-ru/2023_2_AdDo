@@ -517,11 +517,14 @@ export class PlayerComponent extends IComponent {
     }
 
 	public startKaraoke() {
+		let indexOfCurLine: number = 0;
 		this.intervalId = setInterval(() => {
-			let indexOfCurLine: number = this.findCurrentLine(this.currentTime);
-			this.printLines(indexOfCurLine);
-			this.currentTime++;
-		}, 1000);
+			let indexPrevLine = indexOfCurLine;
+			indexOfCurLine = this.findCurrentLine(this.currentTime);
+			if(indexOfCurLine !== indexPrevLine) {
+				this.printLines(indexOfCurLine);
+			}
+		}, 200);
 	}
 
 	public findCurrentLine(currentTime: number): number {
