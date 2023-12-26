@@ -1,6 +1,6 @@
 .albumlist {
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
