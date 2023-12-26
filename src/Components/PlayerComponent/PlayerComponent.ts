@@ -518,6 +518,7 @@ export class PlayerComponent extends IComponent {
 
 	public startKaraoke() {
 		let indexOfCurLine: number = 0;
+		this.printLines(indexOfCurLine);
 		this.intervalId = setInterval(() => {
 			let indexPrevLine = indexOfCurLine;
 			indexOfCurLine = this.findCurrentLine(this.currentTime);

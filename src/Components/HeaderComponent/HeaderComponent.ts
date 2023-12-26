@@ -126,7 +126,11 @@ export class HeaderComponent extends IComponent {
 	}
 
 	private handleInput(e: Event): void {
-		EventDispatcher.emit('search', (e.target as HTMLInputElement).value);
+		const target = e.target as HTMLElement
+		if(target.getAttribute('data-section') === 'inputSearch') {
+			EventDispatcher.emit('search', (e.target as HTMLInputElement).value);
+		}
+		
 	}
 
 	private bindInputEvent(listener: Callback): void {
