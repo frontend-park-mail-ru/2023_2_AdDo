@@ -1,15 +1,17 @@
 
 .feed {
     margin-top: 3vh;
+    margin-left: 2vw;
     display: grid;
     gap: 10px;
     position: relative;
     &__list {
         display: flex;
         gap: 40px;
+        margin-left: 20px;
     }
     &__title {
-        margin: 10px 0 10px 0; 
+        margin: 0 0 10px 20px;
     }
     &__my-wave {
         display: flex;
