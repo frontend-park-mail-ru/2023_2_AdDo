@@ -169,14 +169,7 @@
     .menu-icon {
       display: none;
     }
-    .menu__search-results {
-      padding: 25px;
-      min-width: 200px;
-      max-width: 650px;
-      height: fit-content;
-      left: 28%;
-      right: 20%;
-    }
+
     .mobile-menu__links {
       display: none;
     }
@@ -191,13 +184,33 @@
       left: 25%;
     }
   }
+
+  @media screen and (min-width: 1400px) {
+    .menu__search-results {
+      padding: 25px;
+      min-width: 200px;
+      max-width: 650px;
+      height: fit-content;
+      left: 28%;
+      right: 20%;
+    }
+  }
   
-  @media only screen and (min-width: 767px) and (max-width: 1200px) {
+  @media only screen and (min-width: 767px) and (max-width: 1400px) {
     .mobile-logo {
       left: 5%;
     }
     .arrow {
       left: 10%;
+    }
+    .menu__search-results {
+      padding: 25px;
+      min-width: 200px;
+      max-width: 450px;
+      height: -moz-fit-content;
+      height: fit-content;
+      left: 12%;
+      right: 20%;
     }
   }
 
