@@ -48,7 +48,7 @@
 .medium-text {
     color: #FFF;
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 400;
     text-align: left;
 }
@@ -62,7 +62,7 @@
 
 .large-text {
     color: #FFF;
-    font-size: 52px;
+    font-size: 42px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
 }
@@ -82,7 +82,7 @@
     }
     
     .large-text {
-        font-size: 52px;
+        font-size: 48px;
     }
   }
   
@@ -114,11 +114,11 @@
 
 .info {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     align-items: center;
     &__photo {
-        border-radius: 15px;
-        size: 190px;
+        border-radius: 10px;
+        size: 230px;
         object-fit: cover;
     }
 
@@ -156,7 +156,11 @@
 @media screen and (max-width: 767px) {
     .info {
         display: grid;
-        justify-content: center;
+        justify-content: left;
+        margin-left: 20px;
+    }
+    .info__photo {
+        size: 400px;
     }
     .playlist-item__options__img {
         opacity: 1;
@@ -165,5 +169,3 @@
         opacity: 0;
     }
 }
-
-

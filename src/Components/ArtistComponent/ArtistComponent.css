@@ -1,10 +1,13 @@
 .artist {
-    margin-top: 6vh;
+    margin-top: 2vh;
     display: grid;
     gap: 10px;
     position: relative;
+    &__info {
+        margin-bottom: 30px;
+    }
     &__title {
-        margin: 10px 0 10px 0; 
+        margin: 10px 0 10px 10px;
     }
     &__list {
         margin-bottom: 0px;

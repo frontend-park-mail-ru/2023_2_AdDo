@@ -1,6 +1,7 @@
 
 .feed {
     margin-top: 3vh;
+    margin-left: 2vw;
     display: grid;
     gap: 10px;
     position: relative;
@@ -18,8 +19,8 @@
         justify-content: center;
         cursor: pointer;
         transition: transform 0.1s ease-in-out;
-        margin-bottom: 10vh;
-        margin-top: 6vh;
+        margin-bottom: 4vh;
+        margin-top: 2vh;
         margin-left: auto;
         margin-right: auto;
     }

@@ -262,7 +262,11 @@
 }
 
 .menu__search-results {
-  background: #090909;
+  background: rgb(21 18 31 / 70%);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  margin-top: 10px;
   display: none;
   gap: 10px;
   z-index: 1;
@@ -270,6 +274,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    margin-bottom: 30px;
     gap: 15px;
   }
   &__link:hover {
@@ -280,6 +285,12 @@
     top: 10%;
     flex-direction: column;
   }
+  &__loupe {
+    size: 24px;
+  }
+  &__text {
+    margin-top: 3px;
+  }
 }
 
 .menu__search-results:hover {
@@ -288,12 +299,14 @@
 
 .search-list {
   display: grid;
-  gap: 5px;
+  gap: 3px;
   &__item {
     padding: 20px;
-    border-top: 2px solid white;
+    border-top: 1px solid rgb(255 255 255 / 10%);
   }
-
+  &__title {
+    margin-left: 20px;
+  }
   &__link {
 
   }

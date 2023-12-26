@@ -164,7 +164,7 @@
 .big-like-btn {
     border-radius: 35px;
     background: transparent;
-    border: 1px solid white;
+    border: 1px solid rgb(255 255 255 / 25%);
     display: flex;
     width: fit-content;
     height: 50px;
