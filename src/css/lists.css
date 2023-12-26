@@ -78,8 +78,9 @@
         align-items: center;
     }
     &__item:hover {
-        background: rgb(255 255 255 / 15%);
-        backdrop-filter: blur(30px);
+        background: rgb(255 255 255 / 13%);
+        backdrop-filter: blur(25px);
+        border-radius: 6px;
         & .playlist__playbutton {
             opacity: 1;
         }
@@ -147,7 +148,7 @@
     }
 
     &__photo {
-        size: 60px;
+        size: 70px;
         border-radius: 6px;
     }
 }
@@ -172,11 +173,12 @@
                 box-sizing: border-box;
                 padding: 10px;
                 border-radius: 100px;
-                border: 1px solid white;
+                border: 1px solid rgb(255 255 255 / 25%);
             }
             &__like {
                 box-sizing: border-box;
                 padding: 5px;
+                size: 36px;
             }
         }
         &__like {

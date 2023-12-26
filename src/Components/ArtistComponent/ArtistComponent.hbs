@@ -3,7 +3,7 @@
         {{#if Artist.Avatar}}
             <img class="info__photo" src="{{port}}{{Artist.Avatar}}" alt="">
         {{/if}}
-        <div style="display: grid; gap: 15px;">
+        <div style="display: grid; gap: 10px;">
             <div class="medium-text info__name">Исполнитель</div>
             <div class="large-text">{{Artist.Name}}</div>
             <div class="album__info__options">
@@ -37,7 +37,7 @@
                     <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton"
                         data-url="{{@index}}"></div>
                 </div>
-                <div style="display: flex; gap: 15px;">
+                <div style="display: flex; gap: 15px; align-items: center;">
                     <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
                     <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}"
                          style="display: inline-block;">
