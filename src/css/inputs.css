@@ -94,7 +94,7 @@
     }
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1400px) {
     .input-search {
         width: 30vw;
         left: 16%;

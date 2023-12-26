@@ -33,7 +33,8 @@ class Router {
 
     private route(): void {
         const rawPath = history.state?.path;
-
+        this.currentUrl = history.state?.path;
+        
         if (!rawPath) {
             return;
         }
