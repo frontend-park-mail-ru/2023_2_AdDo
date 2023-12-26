@@ -110,6 +110,10 @@
     .large-text {
         font-size: 52px;
     }
+
+    .info__photo {
+        size: 300px;
+    }
   }
 
 .info {
@@ -163,11 +167,5 @@
     }
     .playlist-item__options__duration {
         opacity: 0;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .info__photo {
-        size: 300px;
     }
 }

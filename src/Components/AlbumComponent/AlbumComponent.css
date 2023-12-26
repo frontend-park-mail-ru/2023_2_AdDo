@@ -6,7 +6,7 @@
     &__info {
         &__options {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
     }
     &__list {
@@ -14,21 +14,21 @@
     }
     &__share-btn {
         cursor: pointer;
-        size: 40px;
+        size: 28px;
     }
     &__share {
         display: flex;
         gap: 10px;
         align-items: center;
         &__copied {
-            background: white;
+            background: rgba(21, 18, 31, 0.7);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 15px;
-            color: black;
             width: fit-content;
             height: fit-content;
             display: none;
-            width: fit-content;
         }
     }
 }
