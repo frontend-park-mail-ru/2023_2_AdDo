@@ -14,7 +14,7 @@ export default class ContentModel extends IModel {
     private currentsongs: Array<Song> = [];
     private collectionSongs: Array<Song> = [];
     private artist: Artist = { Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false };
-    private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false, IsSingle: false };
+    private album: Album = { Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false, IsSingle: false, NotDaily: true };
     private playlist: Playlist = { Id: 0, Name: '', Preview: '', Tracks: [], isLiked: false };
     private socket: WebSocket | null = null;
     public isSocketConnected: boolean = false;
@@ -59,6 +59,7 @@ export default class ContentModel extends IModel {
 		.then(({ status, responseBody }) => {
 			if (status === 200) {
                 this.album = responseBody;
+                this.album.NotDaily = true;
                 this.songs = this.album.Tracks.slice(0);
                 Ajax.get(hosts.HOST + hosts.PORT + '/api/v1/album/' + responseBody.Id + '/is_like', {})
                 .then(({ status, responseBody }) => {
@@ -117,6 +118,7 @@ export default class ContentModel extends IModel {
                     ArtistName: undefined,
                     isLiked: false,
                     IsSingle: false,
+                    NotDaily: false,
                 }
                 callback(album); 
                 return;

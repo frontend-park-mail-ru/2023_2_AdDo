@@ -277,14 +277,20 @@
     gap: 35px;
     justify-content: center;
     flex-wrap: wrap;
+    box-sizing: border-box;
     position: relative;
     margin-left: 320px;
     &__item {
+        box-sizing: border-box;
         width: min-content;
         &__photo {
-            size: 160px;
+            size: 120px;
             cursor:pointer;
             border-radius: 50px;
+        }
+        &__name {
+            max-width: 120px;
+            text-align: center;
         }
     }
 }
@@ -297,7 +303,7 @@
         margin-left: 320px;
         &__item {
             &__photo {
-                size: 160px;
+                size: 130px;
                 border-radius: 100px;
             }
         }
@@ -312,7 +318,7 @@
         &__item {
             &__photo {
                 margin-top: 5px;
-                size: 160px;
+                size: 130px;
                 border-radius: 100px;
             }
         }

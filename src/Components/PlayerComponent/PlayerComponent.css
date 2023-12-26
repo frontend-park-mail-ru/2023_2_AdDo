@@ -279,7 +279,6 @@
 .footer {
     display: flex;
     position: fixed;
-    left: 0px px;
     bottom: 0px;
     width: 100%;
     align-items: center;

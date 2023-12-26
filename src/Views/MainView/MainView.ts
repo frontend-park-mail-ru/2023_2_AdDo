@@ -54,7 +54,7 @@ class MainView extends IView {
     private initComponents(): void {
         this.components.set('header', new HeaderComponent(this.element.querySelector('header')!));
         this.components.set('feed', new FeedComponent(this.element.querySelector('main')!));
-        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false, IsSingle: false}));
+        this.components.set('album', new AlbumComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Preview: '', ArtistId: 0, ArtistName: '', Tracks: [], isLiked: false, IsSingle: false, NotDaily : true}));
         this.components.set('artist', new ArtistComponent(this.element.querySelector('main')!, {Id: 0, Name: '', Avatar: '', Albums: [], Tracks: [], isLiked: false}));
         this.components.set('footer', new PlayerComponent(this.element.querySelector('footer')!, this.isMobile));
         this.components.set('favArtists', new favArtistsComponent(this.element.querySelector('main')!, []));

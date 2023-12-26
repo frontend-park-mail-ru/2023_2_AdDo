@@ -89,14 +89,17 @@
     .auth-wrong-input {
         width: 60vw;
     }
+    .onboard-input-search {
+        margin-left: 100px;
+    }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1500px) {
     .input-search {
         width: 20vw;
         left: 15%;
     }
     .onboard-input-search {
-        margin-left: 100px;
+        margin-left: 320px;
     }
 }

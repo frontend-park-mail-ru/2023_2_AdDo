@@ -1,7 +1,11 @@
 <div class="album">
     <div class="info album__info">
         {{#if album.Preview}}
-            <img class="info__photo" style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
+            {{#if notdaily}}
+                <img class="info__photo" style="display: inline-block;" src="{{album.Preview}}" alt="">
+            {{else}}
+                <img class="info__photo" style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
+            {{/if}}
         {{/if}}
         <div style="display: flex; flex-direction: column; gap: 15px;">
             <div class="large-text">{{album.Name}}</div>
@@ -9,20 +13,22 @@
                 data-url="/artist/{{album.ArtistId}}">{{album.ArtistName}}
             </a>
             <div class="album__info__options">
-                {{#if user}}
-                    <div class="big-like-btn" data-section="albumlike" data-url="{{album.Id}}">
-                        {{#if album.isLiked}}
-                        <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/LikePressed.svg"></div>
-                        {{else}}
-                        <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/Like.svg"></div>
-                        {{/if}}
-                        <div class="medium-text" data-section="albumlike">Нравится</div>
+                {{#if notdaily}}
+                    {{#if user}}
+                        <div class="big-like-btn" data-section="albumlike" data-url="{{album.Id}}">
+                            {{#if album.isLiked}}
+                            <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/LikePressed.svg"></div>
+                            {{else}}
+                            <div class=""><img class="big-like-btn__like" data-section="albumlike" src="/static/img/Like.svg"></div>
+                            {{/if}}
+                            <div class="medium-text" data-section="albumlike">Нравится</div>
+                        </div>
+                    {{/if}}
+                    <div class="medium-text album__share" data-section="albumShare" data-id="{{album.Id}}">
+                        <img class="album__share-btn" src="/static/img/Share.svg" alt="" data-section="albumShare" data-id="{{album.Id}}">
+                        <div class="medium-text album__share__copied" data-album-share="{{album.Id}}" style="color: black;">Ссылка скопирована</div>
                     </div>
                 {{/if}}
-                <div class="medium-text album__share" data-section="albumShare" data-id="{{album.Id}}">
-                    <img class="album__share-btn" src="/static/img/Share.svg" alt="" data-section="albumShare" data-id="{{album.Id}}">
-                    <div class="medium-text album__share__copied" data-album-share="{{album.Id}}" style="color: black;">Ссылка скопирована</div>
-                </div>
             </div>
             
         </div>

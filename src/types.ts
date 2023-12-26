@@ -17,6 +17,7 @@ export type Album = {
     Tracks: Array<Song>,
     isLiked: boolean,
     IsSingle: boolean,
+    NotDaily: boolean,
 }
 
 export type Playlist = {
