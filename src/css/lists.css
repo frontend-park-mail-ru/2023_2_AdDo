@@ -73,12 +73,13 @@
     position: relative;
     &__item {
         display: flex;
-        gap: 20px;
-        padding: 8px;
+        gap: 4px;
+        padding: 8px 0 8px 4px;
         align-items: center;
     }
     &__item:hover {
-        background: #484848;
+        background: rgb(255 255 255 / 15%);
+        backdrop-filter: blur(30px);
         & .playlist__playbutton {
             opacity: 1;
         }

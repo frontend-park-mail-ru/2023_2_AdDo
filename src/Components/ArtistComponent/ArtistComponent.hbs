@@ -37,12 +37,12 @@
                     <div class="playlist__playbutton playlist__playbutton__position" data-section="miniPlayButton"
                         data-url="{{@index}}"></div>
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div style="display: flex; gap: 15px;">
                     <img class="playlist__photo" src="{{../port}}{{this.Preview}}" alt="">
-                </div>
-                <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}"
-                    style="display: inline-block;">
-                    {{this.Name}}
+                    <div class="medium-text playlist-item__name" data-section="miniPlayButton" data-url="{{@index}}"
+                         style="display: inline-block;">
+                        {{this.Name}}
+                    </div>
                 </div>
                 <div class="playlist-item__options" style="display: inline-block;">
                     <div class="medium-text playlist-item__options__duration">
