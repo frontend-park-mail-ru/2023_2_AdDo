@@ -524,7 +524,7 @@ export class PlayerComponent extends IComponent {
 			if(indexOfCurLine !== indexPrevLine) {
 				this.printLines(indexOfCurLine);
 			}
-		}, 200);
+		}, 50);
 	}
 
 	public findCurrentLine(currentTime: number): number {
