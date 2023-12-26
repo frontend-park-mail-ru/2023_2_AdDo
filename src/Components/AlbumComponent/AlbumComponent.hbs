@@ -2,9 +2,9 @@
     <div class="info album__info">
         {{#if album.Preview}}
             {{#if notdaily}}
-                <img class="info__photo" style="display: inline-block;" src="{{album.Preview}}" alt="">
-            {{else}}
                 <img class="info__photo" style="display: inline-block;" src="{{port}}{{album.Preview}}" alt="">
+            {{else}}
+                <img class="info__photo" style="display: inline-block;" src="{{album.Preview}}" alt="">
             {{/if}}
         {{/if}}
         <div style="display: flex; flex-direction: column;">
