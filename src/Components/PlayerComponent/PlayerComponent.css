@@ -61,7 +61,7 @@
 }
 
 .title {
-  margin-bottom: 8px;
+  margin: 4px 0 4px 0;
   max-width: 250px;
   white-space: nowrap;
   overflow: hidden;
