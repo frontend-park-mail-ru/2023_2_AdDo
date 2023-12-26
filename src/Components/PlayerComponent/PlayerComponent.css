@@ -438,7 +438,7 @@
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 767px) {
   .karaoke {
-    bottom: 85px;
+    bottom: 110px;
     &__output {
       line-height: 65px;
     }
