@@ -263,6 +263,7 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="playertrackAdded"]')!.setAttribute('player-add-track-to-playlist', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayertrackAdded"]')!.setAttribute('mobile-player-add-track-to-playlist', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		this.parsedLyrics = [];
 		if(song.Lyrics) {
 			clearInterval(this.intervalId);
 			this.parseLyrics(song.Lyrics);
