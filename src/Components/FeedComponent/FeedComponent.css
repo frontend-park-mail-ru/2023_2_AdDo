@@ -8,10 +8,10 @@
     &__list {
         display: flex;
         gap: 40px;
-        margin-left: 80px;
+        margin-left: 20px;
     }
     &__title {
-        margin: 10px 0 10px 80px; 
+        margin: 10px 0 10px 20px; 
     }
     &__my-wave {
         display: flex;
