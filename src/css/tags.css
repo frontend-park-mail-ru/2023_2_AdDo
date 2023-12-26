@@ -21,7 +21,7 @@ main {
   /* Стили для планшетов (ширина экрана от 481 пикселей до 767 пикселей) */
   @media screen and (max-width: 767px) {
     main {
-        min-width: 500px;
+        min-width: 92%;
     }
   }
 h1 {

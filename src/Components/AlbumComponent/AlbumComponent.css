@@ -15,6 +15,7 @@
     &__share-btn {
         cursor: pointer;
         size: 28px;
+        padding: 10px;
     }
     &__share {
         display: flex;
