@@ -1,5 +1,6 @@
 .player {
-  background-color: #222129;
+  background-color: rgb(27 25 35 / 86%);
+  backdrop-filter: blur(20px);
   position: absolute;
   width: 75%;
   height: 110px;
@@ -13,7 +14,7 @@
 }
 
 .progress-bar {
-  background-color: #c0c0c0;
+  background-color: #3d3a4f;
   width: 100%;
   height: 8px;
   display: flex;
