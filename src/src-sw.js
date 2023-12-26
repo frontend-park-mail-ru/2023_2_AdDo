@@ -11,11 +11,6 @@ workbox.routing.registerRoute(
 	new NetworkFirst()
 );
 
-// workbox.routing.registerRoute(
-// 	/https:\/\/api\.s3\.musicon\.space/,
-// 	new NetworkFirst()
-// );
-
 workbox.routing.registerRoute(
 	new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
 	new CacheFirst({

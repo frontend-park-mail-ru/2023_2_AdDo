@@ -49,7 +49,6 @@
     &__name {
         margin: 10px 0 10px 0;
         cursor: pointer;
-        display: block;
     }
     &__name:hover {
         color:#C15DF3;

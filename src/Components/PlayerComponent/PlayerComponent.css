@@ -61,11 +61,16 @@
 
 .title {
   margin-bottom: 10px;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .track-info {
   display: flex;
   gap: 15px;
+  
 }
 
 .avatar {
@@ -78,8 +83,13 @@
 
 .disabled {
   display: none;
+}   
+.artistname {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
 .artistname:hover {
   color: #c15df3;
 }
