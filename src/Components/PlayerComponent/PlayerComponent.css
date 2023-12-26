@@ -2,14 +2,14 @@
   background-color: rgb(32 31 36 / 86%);
   backdrop-filter: blur(20px);
   position: absolute;
-  width: 75%;
+  width: 70%;
   height: 110px;
   min-width: 800px;
   &__container {
     display: inline-flex;
     gap: 30px;
-    padding: 10px;
-    padding-left: 30px;
+    padding: 10px 10px 10px 30px;
+    margin-top: 8px;
     align-items: center;
   }
 }
@@ -21,6 +21,8 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  position: absolute;
+  top: 0;
   &__progress {
     background: #c15df3;
     height: 8px;
@@ -53,14 +55,13 @@
   height: 20px;
   cursor: pointer;
   &__volume-img {
-    margin-top: 6px;
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
 }
 
 .title {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   max-width: 250px;
   white-space: nowrap;
   overflow: hidden;
@@ -96,9 +97,22 @@
 
 /* Стили для десктопных устройств (ширина экрана 768 пикселей и выше) */
 @media screen and (min-width: 1200px) {
+  .footer {
+    height: 70px;
+  }
   .player {
     min-width: 800px;
-    border-radius: 20px;
+    height: 70px;
+    border-radius: 10px;
+  }
+  .player__container {
+    padding: 6px 10px 6px 30px;
+  }
+  .progress-bar {
+    border-radius: 10px 10px 0 0;
+  }
+  .progress-bar__progress {
+    border-radius: 10px 0 0 0;
   }
   .like-btn {
     display: block;
@@ -115,14 +129,12 @@
   .prev-btn {
     display: block;
   }
-  .footer {
-    height: 50px;
-  }
   .volume-btn {
     display: block;
   }
   .volume-bar {
     display: block;
+    top: 32px;
   }
   .text-btn {
     display: block;
