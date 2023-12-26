@@ -14,7 +14,9 @@ export class PlayerComponent extends IComponent {
 	public outputElement: HTMLElement | null = null;
 	public nextLinesCount: number = 4;
 	public isRunning: boolean = false;
-	private timeoutIds: number[] = [];
+	private intervalId: number | undefined;
+	private currentTime: number = 0;
+	private parsedLyrics: {time: number, line: string}[] = [];
 	/**
 	 * Constructs a new instance of the class.
 	 *
@@ -210,6 +212,9 @@ export class PlayerComponent extends IComponent {
 		this.setSong(song, isLiked);
 		const audio = this.element.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
+		if(song.Lyrics) {
+			this.startKaraoke();
+		}
 		this.isRunning = true;
 		this.syncPlayerState(audio.currentTime, audio.volume);
 	}
@@ -258,9 +263,9 @@ export class PlayerComponent extends IComponent {
 		this.element.querySelector('[data-section="playertrackAdded"]')!.setAttribute('player-add-track-to-playlist', song.Id.toString());
 		this.element.querySelector('[data-section="mobilePlayertrackAdded"]')!.setAttribute('mobile-player-add-track-to-playlist', song.Id.toString());
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
-		this.clearTimeouts();
 		if(song.Lyrics) {
-			this.printDynamicText(song.Lyrics);
+			clearInterval(this.intervalId);
+			this.parseLyrics(song.Lyrics);
 		} else {
 			this.outputElement!.querySelector('.karaoke__output__item__main')!.textContent = '';
 			this.outputElement!.querySelectorAll('.karaoke__output__item')!.forEach((line: Element) => {
@@ -289,6 +294,7 @@ export class PlayerComponent extends IComponent {
 	public resumeSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.play();
+		this.startKaraoke();
 		this.syncPlayerState(audio.currentTime, audio.volume);
 		this.isRunning = true;
 	}
@@ -300,6 +306,7 @@ export class PlayerComponent extends IComponent {
 	public pauseSong(): void {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.pause();
+		clearInterval(this.intervalId);
 		this.isRunning = false;
 		this.syncPlayerState(audio.currentTime, audio.volume);
 	}
@@ -312,7 +319,7 @@ export class PlayerComponent extends IComponent {
 	 */
 	private updateProgress(e: Event): void {
 		const { duration, currentTime } = e.target as HTMLAudioElement;
-		const audio = this.querySelector('audio')! as HTMLAudioElement;
+		this.currentTime = Math.floor(currentTime);
 		const progressPercent = (currentTime / duration) * 100;
 		const progress: HTMLElement = this.querySelector('.progress-bar__progress')!;
 		progress.style.width = `${progressPercent}%`;
@@ -331,6 +338,7 @@ export class PlayerComponent extends IComponent {
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		const duration = audio.duration;
 		audio.currentTime = (x / width) * duration;
+		this.currentTime = Math.floor(audio.currentTime);
 	}
 
 	private setVolumeSlider(e: Event): void {
@@ -352,6 +360,7 @@ export class PlayerComponent extends IComponent {
 		const slider = this.querySelector('.mobile-player__progress') as HTMLInputElement;
 		const audio = this.querySelector('audio')! as HTMLAudioElement;
 		audio.currentTime = parseInt(slider.value) / 100 * audio.duration as number;
+		this.currentTime = Math.floor(audio.currentTime);
 	}
 
 	private updateProgressSlider(e: Event): void {
@@ -482,67 +491,71 @@ export class PlayerComponent extends IComponent {
 		}
 	}
 
-	public printDynamicText(text: string) {
-		if(!text) {
-			return;
-		}
-        const lines = text.split('\n');
-        this.printInitialText(lines);
-        lines.forEach((line: string, index: number) => {
-            const delay = this.getTimeInSeconds(line);
-			const mainIndex = index;
-            const timerid = setTimeout(() => {
-				if (!this.isRunning) {
-					return;
-				}
-				const firstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
-				this.changeTextSmoothly(firstLine, this.element.querySelector('.karaoke__output__item')!.textContent!, 150);
-				const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
-				initialLines.forEach((line: HTMLElement, index: number) => {
-					index === 2 
-					? mainIndex + this.nextLinesCount >= lines.length ? this.changeTextSmoothly(line, '', 50) : this.changeTextSmoothly(line, this.getText(lines[mainIndex + this.nextLinesCount - 1]), 50)
-					: this.changeTextSmoothly(line, initialLines[index + 1]!.textContent!, 50);
-				});
-            }, delay * 1000);
-			this.timeoutIds.push(timerid);
-        });
-    }
-
-    public printInitialText(lines: string[]) {
-		const initialFirstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
-		if(initialFirstLine) {
-			initialFirstLine.textContent = '...';
-		}
-
-
-		const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
-		if(initialLines) {
-			initialLines.forEach((line: HTMLElement, index: number) => {
-				line.textContent = this.getText(lines[index]);
-			});
-		}
+	public parseLyrics(text: string) {
+		const lines = text.split('\n');
 	
+		lines.forEach((line) => {
+			const timeInSeconds = this.getTimeInSeconds(line);
+			const text = this.getText(line);
+			this.parsedLyrics.push({time: timeInSeconds, line: text});
+		});
+	}
+
+	
+	public printLines(index: number) {
+		let lines: string[] = [];
+
+		this.parsedLyrics.slice(index, index + this.nextLinesCount).forEach((line, index) => {
+			lines.push(line.line);
+		});
+		const firstLine = this.element.querySelector('.karaoke__output__item__main')! as HTMLElement;
+		this.changeTextSmoothly(firstLine, lines[0], 150);
+		const initialLines = this.element.querySelectorAll('.karaoke__output__item')! as NodeListOf<HTMLElement>;
+			initialLines.forEach((line: HTMLElement, index: number) => {
+				this.changeTextSmoothly(line, lines[index + 1], 50)
+			});
     }
 
-    public getText(line: string) {
-        const regex = /\[(\d+:\d+\.\d+)\]\s(.+)/;
-        const match = line.match(regex);
-        if (match) {
-            return match[2];
-        }
-        return '';
-    }
+	public startKaraoke() {
+		this.intervalId = setInterval(() => {
+			let indexOfCurLine: number = this.findCurrentLine(this.currentTime);
+			this.printLines(indexOfCurLine);
+			this.currentTime++;
+		}, 1000);
+	}
 
-    public getTimeInSeconds(line: string) {
-        const regex = /(\d+):(\d+\.\d+)/;
-        const match = line.match(regex);
-        if (match) {
-            const minutes = parseInt(match[1]);
-            const seconds = parseFloat(match[2]);
-            return minutes * 60 + seconds;
-        }
-        return 0;
-    }
+	public findCurrentLine(currentTime: number): number {
+		let indexOfClosestLine = 0;
+	
+		this.parsedLyrics.forEach((line, index) => {
+			if (line.time > currentTime) {
+				return indexOfClosestLine;
+			}
+			indexOfClosestLine = index;
+		});
+		return indexOfClosestLine;
+	}
+
+	public getText(line: string) {
+		const regex = /\[\d+:\d+\.\d+]\s(.+)/;
+		const match = line.match(regex);
+		if (match) {
+			return match[1];
+		}
+		return '';
+	}
+	
+	public getTimeInSeconds(line: string) {
+		const regex = /(\d+):(\d+\.\d+)/;
+		const match = line.match(regex);
+		if (match) {
+			const minutes = parseInt(match[1]);
+			const seconds = parseFloat(match[2]);
+			return minutes * 60 + seconds;
+		}
+		return 0;
+	}
+	
 
 	public changeTextSmoothly(element: HTMLElement, newText: string, time: number) {
         element.style.opacity = '0'; // Устанавливаем нулевую непрозрачность
@@ -551,9 +564,4 @@ export class PlayerComponent extends IComponent {
             element.style.opacity = '1'; // Устанавливаем полную непрозрачность
         }, time); // Задержка в миллисекундах, соответствующая времени анимации (0.5 секунды в данном случае)
     }
-
-	clearTimeouts() {
-		this.timeoutIds.forEach(id => clearTimeout(id));
-		this.timeoutIds = [];
-	}
 }
