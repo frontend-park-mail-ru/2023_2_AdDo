@@ -170,8 +170,10 @@
             cursor: pointer;
             opacity: 0;
             &__photo {
+                width: 40px;
+                height: 30px;
                 box-sizing: border-box;
-                padding: 10px;
+                padding: 10px 0 10px 10px;
                 border-radius: 100px;
                 border: 1px solid rgb(255 255 255 / 25%);
             }
