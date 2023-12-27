@@ -4,7 +4,7 @@
     gap: 15px;
     right: 0;
     position: absolute;
-    border: 2px solid white;
+    border: 1px solid rgb(255 255 255 / 15%);
     width: fit-content;
     padding: 10px;
     top: 0;
@@ -15,7 +15,8 @@
         cursor: pointer;
     }
     &__img {
-        margin-top: 5px;
+        margin-top: 3px;
+        margin-left: 3px;
         cursor: pointer;
     }
 }

@@ -2,9 +2,9 @@
     <div class="info profile__info">
         <label class="upload-button">
              {{#if user.avatar}}
-                <img class="info__photo" src="{{port}}{{user.avatar}}" alt="">
+                <img class="profile__photo" src="{{port}}{{user.avatar}}" alt="">
             {{else}}
-                <img class="info__photo" src="/static/img/worm.webp" alt="">
+                <img class="profile__photo" src="/static/img/worm.webp" alt="">
             {{/if}}
             <input type="file" name="file" data-section="fileInput">
         </label>

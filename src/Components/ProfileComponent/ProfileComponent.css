@@ -16,4 +16,15 @@
         vertical-align: middle;
         align-items: center;
     }
+    &__photo {
+        size: 230px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile__list {
+        margin-left: 20px;
+    }
 }

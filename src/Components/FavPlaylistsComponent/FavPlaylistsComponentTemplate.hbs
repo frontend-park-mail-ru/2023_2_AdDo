@@ -30,7 +30,7 @@
         <div><img class="favPlaylists__create__img" src="/static/img/plus.svg" data-section="createPlaylist" data-url="/create_playlist"></div>
         <div class="favPlaylists__create__text medium-text" data-section="createPlaylist" data-url="/create_playlist">Создать</div>
     </div>
-    <h1>Любимые плейлисты</h1>
+    <h1 style="margin-left: 12px;">Любимые плейлисты</h1>
     <ul class="albumlist">
         {{#if LikedPlaylists}}
             {{#each LikedPlaylists}}
@@ -58,7 +58,7 @@
             <h1>Добавьте любимые плейлисты</h1>
         {{/if}}
     </ul>
-    <h1>Созданные плейлисты</h1>
+    <h1 style="margin-left: 12px;">Созданные плейлисты</h1>
     <ul class="albumlist" style="padding-bottom: 15vh;">
         {{#if UserPlaylists}}
             {{#each UserPlaylists}}

@@ -14,12 +14,14 @@
 }
 
 .active-genre {
-    border: 3px solid white;
+    filter: brightness(40%);
+    /*border: 3px solid white;*/
     border-radius: 100px;
 }
 
 .active-artist {
-    border: 3px solid white;
+    filter: brightness(40%);
+    /*border: 3px solid white;*/
     border-radius: 100px;
 }
 
