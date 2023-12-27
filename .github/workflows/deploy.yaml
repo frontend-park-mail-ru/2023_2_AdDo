@@ -2,7 +2,7 @@ name: continuos-deployment
 
 on:
   push:
-    branches: [main, test, deploy]
+    branches: [main, test, deploy, change_player]
   pull_request:
     types: [opened, reopened, closed]
 
