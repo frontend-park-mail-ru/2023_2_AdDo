@@ -278,7 +278,7 @@ export class HeaderComponent extends IComponent {
 			if(this.user.avatar !== null && this.user.avatar !== '') {
 				img.setAttribute('src', hosts.s3HOST + this.user.avatar);
 			} else {
-				img.setAttribute('src', '/static/img/worm.webp');
+				img.setAttribute('src', '/static/img/defaultAvatar.webp');
 			}
 			img.classList.add('mini-profile__avatar');
 			img.setAttribute('data-url', '/profile');
