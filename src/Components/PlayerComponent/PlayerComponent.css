@@ -8,7 +8,7 @@
   &__container {
     display: inline-flex;
     gap: 30px;
-    padding: 15px 10px 10px 30px;
+    padding: 15px 6px 10px 30px;
     align-items: center;
   }
 }

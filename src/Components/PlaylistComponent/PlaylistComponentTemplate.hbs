@@ -33,7 +33,7 @@
                 </label>
                 <div class="info album__info" style="display: grid; gap: 25px; width: min-content;">
                     <input class="auth-input" data-section="playlistName" type="text" value="{{Playlist.Name}}" data-id="{{Playlist.Id}}" required>
-                    <div class="album__info__buttons" style="display: flex; gap: 25px; justify-content: right;">
+                    <div class="album__info__buttons" style="display: flex; gap: 25px; justify-content: left;">
                         <button class="default-button" style="width: fit-content;" data-id="{{Playlist.Id}}" data-section="deletePlaylist">Удалить</button>
                         <button class="default-button" style="width: fit-content;" data-section="updatePlaylist" type="submit">Сохранить</button>
                     </div>
@@ -62,7 +62,7 @@
                         {{this.Duration}}
                     </div>
                     <div class="playlist-item__options__img">
-                        <img src="/static/img/Options.svg" class="" data-section="trackOptions" data-id="{{this.Id}}" alt="">
+                        <img src="/static/img/Options.svg" class="" data-section="trackOptions" data-id="{{this.Id}}" style="width: 40px; height: 30px" alt="">
                     </div>
                 </div>
                 <div class="options" style="display: none;" data-section="{{this.Id}}">

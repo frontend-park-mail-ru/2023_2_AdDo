@@ -10,7 +10,7 @@
         margin: 40px 0 10px 10px;
     }
     &__list {
-        margin-bottom: 0px;
+        padding-bottom: 30px;
     }
     &__tracks {
         display: flex;
