@@ -156,7 +156,7 @@
 .playlist-item {
     cursor: pointer;
     &__name {
-        margin: 10px 0 10px 10px;
+        margin: 20px 0 20px 10px;
         cursor: pointer;
     }
     &__options {
@@ -184,7 +184,7 @@
             position: absolute;
             top: -100%;
             cursor: pointer;
-            padding: 18px 5px 10px 10px;
+            padding: 17px 5px 10px 10px;
             right: 0;
             margin-right: 50px;
             opacity: 0;
