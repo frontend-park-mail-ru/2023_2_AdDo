@@ -19,6 +19,10 @@ export class ArtistsOnboardComponent extends IComponent {
 		this.artists = artists;
 		this.bindInputEvent(this.handleInput.bind(this));
 		this.bindClickEvent(this.handleClick.bind(this));
+		EventDispatcher.subscribe('user-changed', () => {
+			this.artists = [];
+			this.picked = [];
+		})
 	}
 
 	private handleInput(e: Event): void {
@@ -70,8 +74,7 @@ export class ArtistsOnboardComponent extends IComponent {
             	error.classList.remove('onboard__error__active');
 			}
             activeArtists.forEach((el) => {
-                el.getAttribute('data-id');
-                result.push(this.artists.find((artist) => artist.Id === parseInt(el.getAttribute('data-id')!))!);
+                result.push(this.picked.find((artist) => artist.Id === parseInt(el.getAttribute('data-id')!))!);
             });
         } else {
 			error.classList.add('onboard__error__active');
