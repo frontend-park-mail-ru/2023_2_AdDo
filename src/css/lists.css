@@ -68,8 +68,8 @@
     margin-top: 20px;
     display: grid;
     flex-wrap: wrap;
-    padding-bottom: 60px;
-    gap: 15px;
+    padding-bottom: 90px;
+    gap: 10px;
     position: relative;
     &__item {
         display: flex;
@@ -148,8 +148,8 @@
     }
 
     &__photo {
-        size: 62px;
-        border-radius: 5px;
+        size: 58px;
+        border-radius: 4px;
     }
 }
 
@@ -177,14 +177,14 @@
             }
             &__like {
                 box-sizing: border-box;
-                size: 26px;
+                size: 27px;
             }
         }
         &__like {
             position: absolute;
             top: -100%;
             cursor: pointer;
-            padding: 17px 5px 10px 10px;
+            padding: 18px 5px 10px 10px;
             right: 0;
             margin-right: 50px;
             opacity: 0;
