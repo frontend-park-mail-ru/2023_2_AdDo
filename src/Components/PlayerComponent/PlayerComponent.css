@@ -9,7 +9,6 @@
     display: inline-flex;
     gap: 30px;
     padding: 15px 10px 10px 30px;
-    margin-top: 8px;
     align-items: center;
   }
 }
@@ -262,6 +261,10 @@
   &__volume-img {
     margin-top: 5px;
     width: 25px;
+  }
+  &__options-img {
+    width: 36px;
+    height: 10px;
   }
   &__prev-img {
     margin-top: 5px;
