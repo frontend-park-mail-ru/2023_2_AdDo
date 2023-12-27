@@ -173,21 +173,18 @@
                 width: 40px;
                 height: 30px;
                 box-sizing: border-box;
-                padding: 10px 0 10px 10px;
-                /*border-radius: 100px;*/
-                /*border: 1px solid rgb(255 255 255 / 25%);*/
+                padding: 10px 0 12px 10px;
             }
             &__like {
                 box-sizing: border-box;
-                padding: 5px;
-                size: 36px;
+                size: 30px;
             }
         }
         &__like {
             position: absolute;
             top: -100%;
             cursor: pointer;
-            padding: 10px;
+            padding: 16px 5px 10px 10px;
             right: 0;
             margin-right: 50px;
             opacity: 0;

@@ -51,6 +51,10 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+  &__like-img {
+    width: 24px;
+    height: 24px;
+  }
   &__volume-img {
     width: 24px;
     height: 24px;
@@ -103,6 +107,7 @@
     border-radius: 10px;
   }
   .player__container {
+    margin-top: 8px;
     padding: 6px 10px 6px 30px;
   }
   .progress-bar {
