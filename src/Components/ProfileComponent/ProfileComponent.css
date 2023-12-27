@@ -16,4 +16,11 @@
         vertical-align: middle;
         align-items: center;
     }
+    &__photo {
+        size: 250px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    margin-left: 20px;
 }
